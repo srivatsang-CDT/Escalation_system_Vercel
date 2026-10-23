@@ -19,7 +19,7 @@
 <body class="min-h-screen flex flex-col">
 
   <!-- =========================================================================
-       SCREEN A: STAFF GOOGLE SIGN-IN GATE (Shown first for internal staff URL)
+       SCREEN A: STRICT GOOGLE OAUTH SIGN-IN GATE (Zero Manual Email Typing)
        ========================================================================= -->
   <div id="staffLoginGate" class="hidden min-h-screen bg-slate-900 flex items-center justify-center p-4">
     <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl border border-slate-200 p-8 text-center space-y-6">
@@ -29,39 +29,46 @@
       <div>
         <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700">Internal Workspace</span>
         <h1 class="text-2xl font-extrabold text-slate-900 mt-2">Florzy Escalation &amp; Order Intelligence</h1>
-        <p class="text-xs text-slate-500 mt-1">Sign in with your <code>@florzy.com</code> Google account. Your dashboard view (CDT, Sales, or Admin) loads automatically based on your role.</p>
+        <p class="text-xs text-slate-500 mt-1">Sign in using your official <code>@florzy.com</code> Google Workspace account. Manual email entry is disabled for security—your role view (CDT, Sales, or Admin) is verified automatically via Google OAuth.</p>
       </div>
 
-      <!-- Official Google Identity Services Button Container (If Client ID configured) -->
-      <div id="googleGsiButtonContainer" class="flex justify-center"></div>
-
-      <!-- Direct Google Workspace @florzy.com Sign-In Form -->
-      <form id="workspaceGoogleSignInForm" class="space-y-3 text-left">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Google Workspace Email (<code>@florzy.com</code>)</label>
-          <input
-            id="loginEmailInput"
-            type="email"
-            required
-            placeholder="name@florzy.com"
-            class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600"
-          />
-        </div>
-        <button
-          type="submit"
-          class="w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold rounded-xl shadow flex items-center justify-center gap-2.5 transition"
-        >
-          <svg class="w-4 h-4" viewBox="0 0 24 24">
-            <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
-            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
-            <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.9z"/>
-            <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.9C3.5 21.4 7.4 24 12 24z"/>
-          </svg>
-          <span>Sign in with Google (@florzy.com)</span>
-        </button>
-      </form>
+      <!-- Official Google Identity Services Button -->
+      <div class="py-2 flex flex-col items-center justify-center gap-3">
+        <div id="googleGsiButtonContainer" class="flex justify-center min-h-[44px]"></div>
+        <p id="oauthSetupNotice" class="hidden text-[11px] text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3 text-left">
+          <strong>⚙️ Google OAuth Client ID Required:</strong> Paste your Google Cloud Web Client ID into <code>GOOGLE_OAUTH_CLIENT_ID</code> inside <code>index.html</code> to render the Google Sign-In button.
+        </p>
+      </div>
 
       <p id="loginErrorMsg" class="hidden text-xs font-semibold text-rose-600 bg-rose-50 border border-rose-200 rounded-lg p-2.5"></p>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: VISUAL "WHERE TO FIND TILE BATCH / SHADE NO" HELPER
+       ========================================================================= -->
+  <div id="batchHelperModal" class="hidden fixed inset-0 z-50 bg-slate-900/70 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-sm font-extrabold text-slate-900">📦 Where to Find the Batch / Shade Number on a Tile Box</h3>
+        <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 text-sm font-bold">✕</button>
+      </div>
+      <div class="p-4 rounded-xl bg-slate-50 border-2 border-dashed border-slate-300 space-y-2 text-xs">
+        <div class="bg-white p-3 rounded-lg border border-slate-200 font-mono text-[11px] space-y-1">
+          <div class="text-slate-400 uppercase font-sans text-[10px] font-bold">Sample Tile Box Side Sticker:</div>
+          <div>ITEM: <strong>600x1200 GLOSSY TILE</strong></div>
+          <div class="p-1.5 bg-amber-100 border border-amber-400 rounded text-amber-950 font-bold">
+            👉 BATCH / SHADE NO: B-4092 (or S-12 / CAL-04)
+          </div>
+          <div>MFG DATE: 12/2025 | QTY: 2 PCS (1.44 SQM)</div>
+        </div>
+        <p class="text-slate-600 leading-relaxed">
+          Look at the <strong>printed white sticker or ink stamp on the narrow side edge of the cardboard tile box</strong>. Enter the code next to <strong>Batch No / Shade / Tonality</strong> and upload a clear photo of that sticker in Slot 1.
+        </p>
+      </div>
+      <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="w-full py-2.5 bg-indigo-600 text-white text-xs font-bold rounded-xl">
+        Got It
+      </button>
     </div>
   </div>
 
@@ -92,7 +99,7 @@
         <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold uppercase tracking-wider rounded-lg transition shrink-0">
           Search
         </button>
-        <button type="button" onclick="returnToRoleHome()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold rounded-lg shrink-0" title="Back to Queue Home">
+        <button type="button" onclick="returnToRoleHome()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold rounded-lg shrink-0">
           🏠 Queue Home
         </button>
       </form>
@@ -103,7 +110,6 @@
           type="button"
           onclick="copyCustomerPortalLink()"
           class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold"
-          title="Copy isolated Customer Self-Service Portal link to share with customers"
         >
           🔗 Copy Cx Portal Link
         </button>
@@ -125,7 +131,7 @@
       </div>
     </div>
 
-    <!-- CDT LIVE CAPACITY BAR & 7-BUCKET QUEUE STRIP (Only shown in CDT & Admin modes; hidden for Sales) -->
+    <!-- CDT LIVE CAPACITY BAR & 7-BUCKET QUEUE STRIP -->
     <div id="cdtTopBar" class="hidden bg-slate-800/90 border-t border-slate-700/80 px-4 py-2">
       <div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
         <div class="flex items-center gap-2 flex-wrap" id="rosterCapacityBar">
@@ -170,7 +176,7 @@
          ===================================================================== -->
     <div id="internalWorkspaceView" class="space-y-6">
 
-      <!-- 1. CDT DEFAULT LANDING DASHBOARD (Shown immediately when CDT/Admin logs in) -->
+      <!-- 1. CDT DEFAULT LANDING DASHBOARD -->
       <section id="cdtLandingDashboard" class="hidden space-y-4">
         <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
           <div>
@@ -211,7 +217,7 @@
         </div>
       </section>
 
-      <!-- 2. SALES DEFAULT LANDING DASHBOARD (Shown immediately when Sales logs in) -->
+      <!-- 2. SALES DEFAULT LANDING DASHBOARD -->
       <section id="salesLandingDashboard" class="hidden space-y-5">
         <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-6 shadow-md">
           <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-indigo-500/30 text-indigo-200">Sales Team Live Escalation Tracker (View-Only)</span>
@@ -226,12 +232,8 @@
         </div>
 
         <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-sm font-bold text-slate-900">Recent Active Escalations Across Orders</h3>
-              <p class="text-xs text-slate-500">Click any ticket to view its live progress bar and customer update script</p>
-            </div>
-          </div>
+          <h3 class="text-sm font-bold text-slate-900">Recent Active Escalations Across Orders</h3>
+          <p class="text-xs text-slate-500">Click any ticket to view its live progress bar and customer update script</p>
           <div id="salesRecentTicketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
         </div>
       </section>
@@ -322,7 +324,7 @@
           <iframe id="quotePreviewIframe" class="w-full h-[500px] border-0"></iframe>
         </div>
 
-        <!-- LIVE ESCALATION PIZZA-TRACKER (Always shown when a ticket exists, and primary view for Sales) -->
+        <!-- LIVE ESCALATION PIZZA-TRACKER -->
         <div id="liveTrackerBanner" class="hidden bg-white border-2 border-indigo-200 rounded-xl p-5 shadow-sm space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
@@ -347,7 +349,7 @@
             </button>
           </div>
 
-          <!-- Read-Only Audit Trail for Sales View (Visible when in Sales Mode) -->
+          <!-- Read-Only Audit Trail for Sales View -->
           <div id="salesReadOnlyTimelineBox" class="hidden pt-3 border-t border-slate-100">
             <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Live Email, Call &amp; WhatsApp Activity Timeline</h4>
             <div id="salesAuditTimelineList" class="space-y-2 max-h-60 overflow-y-auto scroll-thin"></div>
@@ -394,7 +396,7 @@
           </div>
         </div>
 
-        <!-- CDT ESCALATION LOGGING, MEDIA PROOFS & AI EMAIL WORKBENCH (Strictly Hidden for Sales) -->
+        <!-- CDT ESCALATION LOGGING, MEDIA PROOFS & AI EMAIL WORKBENCH -->
         <div id="cdtEditorPanels" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
           <!-- LEFT 7 COLS -->
@@ -484,12 +486,12 @@
               </div>
             </div>
 
-            <!-- Panel B: Customer Media Proofs -->
+            <!-- Panel B: Customer Media Proofs & Voice Note Player (Zero-Token Playback + On-Demand Transcribe) -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
               <div class="flex items-center justify-between">
                 <div>
-                  <h3 class="text-sm font-bold text-slate-900">2. Customer Proof Images &amp; Videos (Google Drive)</h3>
-                  <p class="text-[11px] text-slate-500">Auto-saves to Drive Vault</p>
+                  <h3 class="text-sm font-bold text-slate-900">2. Customer Proof Images, Videos &amp; Voice Notes (Google Drive)</h3>
+                  <p class="text-[11px] text-slate-500">Play customer voice recordings directly below; click "Transcribe" only if you cannot understand the audio.</p>
                 </div>
                 <a id="openTicketDriveFolderLink" href="#" target="_blank" class="hidden text-xs font-bold text-indigo-600 hover:underline">📁 Open Drive Folder ↗</a>
               </div>
@@ -504,11 +506,11 @@
                   <input type="file" accept="image/*" class="hidden" onchange="uploadProofFromInput(this, 'Damaged_Tiles')" />
                 </label>
                 <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
-                  <span class="block text-xs font-bold text-slate-700">🎥 3. Site / Unloading Video</span>
-                  <input type="file" accept="video/*,image/*" class="hidden" onchange="uploadProofFromInput(this, 'Site_Video')" />
+                  <span class="block text-xs font-bold text-slate-700">🎥 3. Site Video / Audio</span>
+                  <input type="file" accept="video/*,audio/*,image/*" class="hidden" onchange="uploadProofFromInput(this, 'Site_Video')" />
                 </label>
               </div>
-              <div id="uploadedProofsGallery" class="flex items-center gap-2 flex-wrap pt-1"></div>
+              <div id="uploadedProofsGallery" class="space-y-2 pt-1"></div>
             </div>
 
             <!-- Panel C: WhatsApp Milestones -->
@@ -653,7 +655,7 @@
          ISOLATED CUSTOMER SELF-SERVICE PORTAL (?portal=customer)
          ===================================================================== -->
     <section id="customerSelfServiceView" class="hidden max-w-3xl mx-auto py-6 space-y-6">
-      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
         <div class="flex items-center justify-between border-b border-slate-100 pb-4">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-lg">F</div>
@@ -664,10 +666,10 @@
           </div>
         </div>
 
-        <p class="text-xs text-slate-600">Enter your 10-digit registered Phone Number or Order ID to report damaged/incorrect items, upload site photos/videos, or check live resolution status.</p>
+        <p class="text-xs text-slate-600">Enter your 10-digit registered Phone Number or Order ID to report damaged/incorrect items, record a voice note, upload site photos/videos, or check live resolution status.</p>
 
         <form id="cxPortalLookupForm" class="flex gap-2">
-          <input id="cxLookupInput" type="text" required placeholder="Enter 10-Digit Phone Number or Order ID (e.g. ORD-OR5ZPX)..." class="flex-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
+          <input id="cxLookupInput" type="text" required placeholder="Enter 10-Digit Phone Number or Order ID (e.g. ORD-K4NJDW)..." class="flex-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
           <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl">
             Continue
           </button>
@@ -675,6 +677,7 @@
 
         <div id="cxOrderChoiceList" class="hidden space-y-2 pt-2"></div>
 
+        <!-- SANITIZED CUSTOMER LIVE STATUS TRACKER (With 4-Step Progress Bar) -->
         <div id="cxSanitizedTrackerCard" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
           <div class="flex items-center justify-between">
             <div>
@@ -683,58 +686,121 @@
             </div>
             <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Live Status</span>
           </div>
-          <p class="text-xs text-slate-700 bg-white p-3.5 rounded-lg border border-slate-200 font-medium" id="cxTrkPublicNote"></p>
-          <div class="flex flex-wrap gap-2 pt-2">
-            <button type="button" onclick="startCustomerFollowUpSubTicket()" class="px-3.5 py-2 rounded-lg bg-indigo-600 text-white text-xs font-bold">
+
+          <!-- 4-Step Sanitized Progress Bar -->
+          <div id="cxSanitizedStepsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]"></div>
+
+          <div class="bg-white p-3.5 rounded-lg border border-slate-200">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Latest Update on Your Claim:</span>
+            <p class="text-xs text-slate-800 font-semibold mt-0.5" id="cxTrkPublicNote"></p>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
+            <button type="button" onclick="startCustomerFollowUpSubTicket()" class="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold">
               ➕ Report Issue with More Boxes / Another Item
             </button>
+            <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-white border border-slate-300 hover:border-indigo-500 text-slate-700 text-xs font-bold">
+              📸 Upload Additional Photo / Video Proof
+              <input type="file" accept="image/*,video/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Additional_Proof')" />
+            </label>
           </div>
         </div>
 
-        <div id="cxGuidedClaimForm" class="hidden space-y-5 pt-3 border-t border-slate-200">
+        <!-- GUIDED 4-STEP CUSTOMER INTAKE FORM -->
+        <div id="cxGuidedClaimForm" class="hidden space-y-6 pt-3 border-t border-slate-200">
           <div id="cxResumeBanner" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-900">
-            🔄 Welcome back! We restored your unfinished submission so you can continue where you left off.
+            🔄 Welcome back! We automatically restored your unfinished submission so you can continue right where you left off.
           </div>
 
+          <!-- STEP 1: SKUs + Batch Helper -->
           <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Step 1: Select Item(s) &amp; Enter Affected Boxes</h4>
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Step 1: Select Item(s) &amp; Enter Affected Boxes / Batch No</h4>
+              <button type="button" onclick="document.getElementById('batchHelperModal').classList.remove('hidden')" class="text-xs font-bold text-indigo-600 hover:underline">
+                ℹ️ Where is the Batch No on the box?
+              </button>
+            </div>
             <div id="cxSkuListContainer" class="space-y-2"></div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Step 2: What Happened?</label>
-              <select id="cxIssueCategorySelect" onchange="autoSaveCustomerDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
-                <option value="Broken / Cracked Tiles on Arrival">Broken / Cracked Tiles on Arrival</option>
-                <option value="Chipped Corners / Factory Defect inside Box">Chipped Corners / Factory Defect inside Box</option>
-                <option value="Batch / Shade / Color Variation">Batch / Shade / Color Variation</option>
-                <option value="Wrong Item or Short Quantity Delivered">Wrong Item or Short Quantity Delivered</option>
-                <option value="Other Order Issue">Other Order Issue</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Step 3: Describe the Issue</label>
-              <textarea id="cxStorylineTextarea" rows="2" oninput="autoSaveCustomerDraft()" placeholder="Tell us briefly what happened..." class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg"></textarea>
+          <!-- STEP 2: Interactive Visual Issue Cards -->
+          <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Step 2: What Happened? (Tap One)</h4>
+            <input type="hidden" id="cxIssueCategorySelect" value="Broken / Cracked Tiles on Arrival" />
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" id="cxVisualIssueCards">
+              <button type="button" onclick="selectCxIssueCard(this, 'Broken / Cracked Tiles on Arrival')" class="cx-issue-card text-left p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 transition">
+                <span class="text-base">📦</span>
+                <span class="block text-xs font-extrabold text-slate-900 mt-1">Broken / Cracked on Arrival</span>
+                <span class="block text-[10px] text-slate-500">Damaged during transit/unloading</span>
+              </button>
+              <button type="button" onclick="selectCxIssueCard(this, 'Chipped Corners / Factory Defect inside Box')" class="cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition">
+                <span class="text-base">🔍</span>
+                <span class="block text-xs font-extrabold text-slate-900 mt-1">Chipped / Surface Defect</span>
+                <span class="block text-[10px] text-slate-500">Bend, pinhole, or print defect</span>
+              </button>
+              <button type="button" onclick="selectCxIssueCard(this, 'Batch / Shade / Color Variation')" class="cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition">
+                <span class="text-base">🎨</span>
+                <span class="block text-xs font-extrabold text-slate-900 mt-1">Batch / Shade Mismatch</span>
+                <span class="block text-[10px] text-slate-500">Different color/shade across boxes</span>
+              </button>
+              <button type="button" onclick="selectCxIssueCard(this, 'Wrong Item or Short Quantity Delivered')" class="cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition">
+                <span class="text-base">🚚</span>
+                <span class="block text-xs font-extrabold text-slate-900 mt-1">Wrong Item / Short Qty</span>
+                <span class="block text-[10px] text-slate-500">Missing boxes or wrong SKU</span>
+              </button>
+              <button type="button" onclick="selectCxIssueCard(this, 'Return Unused Boxes / Other Order Issue')" class="cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition">
+                <span class="text-base">↩️</span>
+                <span class="block text-xs font-extrabold text-slate-900 mt-1">Return / Other Issue</span>
+                <span class="block text-[10px] text-slate-500">Leftover boxes or general support</span>
+              </button>
             </div>
           </div>
 
+          <!-- STEP 3: Text Description OR Live Voice Note Recorder (Zero-Token Upload) -->
+          <div class="space-y-2.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Step 3: Describe the Issue (Type OR Record Voice Note in Any Language)</label>
+              <div class="flex items-center gap-2">
+                <button type="button" id="cxVoiceRecordBtn" onclick="toggleCustomerVoiceRecorder()" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                  <span>🎤 Record Voice Note</span>
+                </button>
+                <span id="cxVoiceTimerBadge" class="hidden text-xs font-mono font-bold text-rose-600 animate-pulse">● 00:00</span>
+              </div>
+            </div>
+
+            <textarea id="cxStorylineTextarea" rows="3" oninput="autoSaveCustomerDraft()" placeholder="Tell us briefly what happened (or tap 'Record Voice Note' above if you or your site supervisor prefer speaking in English, Hindi, Kannada, etc.)..." class="w-full p-3 text-xs bg-slate-50 border border-slate-300 rounded-xl"></textarea>
+
+            <!-- Playback Preview of Recorded Voice Note -->
+            <div id="cxRecordedAudioPreviewBox" class="hidden p-3 rounded-xl bg-indigo-50 border border-indigo-200 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-indigo-900">🔊 Recorded Voice Note Attached:</span>
+                <audio id="cxRecordedAudioPlayer" controls class="h-8"></audio>
+              </div>
+              <span class="text-[11px] font-semibold text-emerald-700">✅ Saved to Claim Folder</span>
+            </div>
+          </div>
+
+          <!-- STEP 4: 3 Guided Proof Upload Slots -->
           <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Step 4: Upload Guided Proofs (Photos &amp; Site Video)</h4>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Step 4: Upload Guided Proofs (Camera or Gallery)</h4>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
-                <span class="block text-xs font-bold text-slate-800">📸 1. Box Batch Sticker</span>
-                <input type="file" accept="image/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Batch_Sticker')" />
+              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-slate-50 transition">
+                <span class="block text-xs font-extrabold text-slate-800">📸 1. Box Batch Sticker</span>
+                <span class="block text-[10px] text-slate-500 mt-0.5">Side label showing Batch/Shade</span>
+                <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Batch_Sticker')" />
               </label>
-              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
-                <span class="block text-xs font-bold text-slate-800">📸 2. Damaged Tiles</span>
-                <input type="file" accept="image/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Damaged_Tiles')" />
+              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-slate-50 transition">
+                <span class="block text-xs font-extrabold text-slate-800">📸 2. Damaged Tiles</span>
+                <span class="block text-[10px] text-slate-500 mt-0.5">Full count clearly visible</span>
+                <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Damaged_Tiles')" />
               </label>
-              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
-                <span class="block text-xs font-bold text-slate-800">🎥 3. Site / Unloading Video</span>
+              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-slate-50 transition">
+                <span class="block text-xs font-extrabold text-slate-800">🎥 3. Site / Unloading Video</span>
+                <span class="block text-[10px] text-slate-500 mt-0.5">Upload site video proof</span>
                 <input type="file" accept="video/*,image/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Site_Video')" />
               </label>
             </div>
-            <div id="cxUploadedFilesList" class="flex flex-wrap gap-2 mt-2"></div>
+            <div id="cxUploadedFilesList" class="flex flex-wrap gap-2 mt-3"></div>
           </div>
 
           <div class="flex items-center justify-between pt-3 border-t border-slate-100">
@@ -824,8 +890,10 @@
     // =========================================================================
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmX_KeXly4K_KVeXw4JWJetNLnL94rgFZ6VsQHavaH_wB2MnUJO5fYDC0X_UFdpQmOzw/exec";
 
-    // Optional: If you create a Google Cloud OAuth Client ID for 1-Tap Google Popup, paste it here:
-    const GOOGLE_OAUTH_CLIENT_ID = "";
+    // =========================================================================
+    // 2. PASTE YOUR GOOGLE CLOUD OAUTH WEB CLIENT ID BELOW:
+    // =========================================================================
+    const GOOGLE_OAUTH_CLIENT_ID = "1067858090113-au55s5rehqkeho5maicj7h8os99fs0ks.apps.googleusercontent.com";
 
     const ALL_BUCKETS = [
       "Incoming Cx Claims",
@@ -841,7 +909,7 @@
     let sysConfig = { currentUser: {}, roster: [], taxonomy: {}, teamEmails: {} };
     let allTicketsCache = [];
     let selectedBucketFilter = '';
-    let currentViewMode = 'sales'; // Determined strictly by backend role on login
+    let currentViewMode = 'sales';
     let activeDossier = null;
     let activeTicket = null;
     let uploadedProofFiles = [];
@@ -849,6 +917,13 @@
     let cxDraftEscId = '';
     let cxParentSubTicketId = '';
     let lastPollTimestamp = Date.now();
+
+    // Customer Voice Recorder State
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let isRecordingVoice = false;
+    let voiceTimerInterval = null;
+    let voiceSeconds = 0;
 
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -871,9 +946,7 @@
         return;
       }
 
-      // ROUTE 2: Internal Staff Portal -> Require @florzy.com Sign-In First
-      setupGoogleSignInGate();
-
+      // ROUTE 2: Internal Staff Portal -> Require Cryptographic Google OAuth Sign-In
       document.getElementById('mainSearchForm').addEventListener('submit', e => {
         e.preventDefault();
         const q = document.getElementById('mainSearchInput').value.trim();
@@ -888,52 +961,61 @@
         });
       });
 
-      const savedStaffEmail = sessionStorage.getItem('florzy_staff_email');
+      const savedStaffEmail = sessionStorage.getItem('florzy_oauth_email');
       if (savedStaffEmail && savedStaffEmail.endsWith('@florzy.com')) {
         completeStaffSignIn(savedStaffEmail);
       } else {
         document.getElementById('staffLoginGate').classList.remove('hidden');
+        initGoogleOAuthButton();
       }
 
       setInterval(pollForLiveAlerts, 25000);
     });
 
-    function setupGoogleSignInGate() {
-      const form = document.getElementById('workspaceGoogleSignInForm');
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        const email = document.getElementById('loginEmailInput').value.trim().toLowerCase();
+    function initGoogleOAuthButton() {
+      if (!GOOGLE_OAUTH_CLIENT_ID || GOOGLE_OAUTH_CLIENT_ID.includes("PASTE_YOUR_")) {
+        document.getElementById('oauthSetupNotice').classList.remove('hidden');
+        return;
+      }
+      const tryRender = () => {
+        if (window.google && google.accounts && google.accounts.id) {
+          google.accounts.id.initialize({
+            client_id: GOOGLE_OAUTH_CLIENT_ID,
+            hd: 'florzy.com',
+            callback: handleGoogleOAuthResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById('googleGsiButtonContainer'),
+            { theme: 'filled_blue', size: 'large', width: 320, text: 'signin_with' }
+          );
+        } else {
+          setTimeout(tryRender, 300);
+        }
+      };
+      tryRender();
+    }
+
+    function handleGoogleOAuthResponse(response) {
+      try {
+        const payload = JSON.parse(atob(response.credential.split('.')[1]));
+        const email = (payload.email || '').toLowerCase();
         if (!email.endsWith('@florzy.com')) {
           const errEl = document.getElementById('loginErrorMsg');
-          errEl.textContent = 'Access restricted: Please sign in with your official @florzy.com Google Workspace email.';
+          errEl.textContent = 'Access denied: Only @florzy.com Google Workspace accounts are permitted.';
           errEl.classList.remove('hidden');
           return;
         }
         completeStaffSignIn(email);
-      });
-
-      if (GOOGLE_OAUTH_CLIENT_ID && window.google && google.accounts) {
-        google.accounts.id.initialize({
-          client_id: GOOGLE_OAUTH_CLIENT_ID,
-          callback: response => {
-            try {
-              const payload = JSON.parse(atob(response.credential.split('.')[1]));
-              if (payload.email && payload.email.toLowerCase().endsWith('@florzy.com')) {
-                completeStaffSignIn(payload.email.toLowerCase());
-              }
-            } catch (e) {}
-          }
-        });
-        google.accounts.id.renderButton(
-          document.getElementById('googleGsiButtonContainer'),
-          { theme: 'outline', size: 'large', width: 320 }
-        );
+      } catch (e) {
+        const errEl = document.getElementById('loginErrorMsg');
+        errEl.textContent = 'Google OAuth verification failed. Please try again.';
+        errEl.classList.remove('hidden');
       }
     }
 
     async function completeStaffSignIn(email) {
       authenticatedEmail = email;
-      sessionStorage.setItem('florzy_staff_email', email);
+      sessionStorage.setItem('florzy_oauth_email', email);
       document.getElementById('staffLoginGate').classList.add('hidden');
       document.getElementById('internalAppHeader').classList.remove('hidden');
       document.getElementById('mainAppContainer').classList.remove('hidden');
@@ -941,8 +1023,11 @@
     }
 
     function signOutStaff() {
-      sessionStorage.removeItem('florzy_staff_email');
+      sessionStorage.removeItem('florzy_oauth_email');
       authenticatedEmail = '';
+      if (window.google && google.accounts && google.accounts.id) {
+        google.accounts.id.disableAutoSelect();
+      }
       window.location.reload();
     }
 
@@ -953,20 +1038,12 @@
     }
 
     async function apiGet(params) {
-      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR_")) {
-        showBannerError("Apps Script URL Required", "Replace PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE in index.html with your deployed Web App URL.");
-        throw new Error("Missing APPS_SCRIPT_URL");
-      }
       const qs = new URLSearchParams(params).toString();
       const res = await fetch(`${APPS_SCRIPT_URL}?${qs}`, { method: 'GET', redirect: 'follow' });
       return await res.json();
     }
 
     async function apiPost(payload) {
-      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR_")) {
-        showBannerError("Apps Script URL Required", "Replace PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE in index.html with your deployed Web App URL.");
-        throw new Error("Missing APPS_SCRIPT_URL");
-      }
       const res = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         redirect: 'follow',
@@ -977,7 +1054,7 @@
     }
 
     async function initWorkspace() {
-      setLoading(true, 'Loading your role permissions & live escalation queues...');
+      setLoading(true, 'Verifying your @florzy.com role & loading queues...');
       try {
         const data = await apiGet({ action: 'init', userEmail: authenticatedEmail });
         setLoading(false);
@@ -1007,7 +1084,6 @@
         adminSwitcher.classList.add('hidden');
         applyStrictViewMode('cdt');
       } else {
-        // Strictly lock all other @florzy.com users to Read-Only Sales Tracker
         adminSwitcher.classList.add('hidden');
         applyStrictViewMode('sales');
       }
@@ -1023,11 +1099,11 @@
         }
       });
 
-      const isCdtOrAdmin = (mode === 'cdt');
+      const isCdt = (mode === 'cdt');
       const isSales = (mode === 'sales');
       const isAdminPanel = (mode === 'admin');
 
-      document.getElementById('cdtTopBar').classList.toggle('hidden', !isCdtOrAdmin);
+      document.getElementById('cdtTopBar').classList.toggle('hidden', !isCdt);
       document.getElementById('internalWorkspaceView').classList.toggle('hidden', isAdminPanel);
       document.getElementById('adminConfigView').classList.toggle('hidden', !isAdminPanel);
       document.getElementById('cdtEditorPanels').classList.toggle('hidden', isSales);
@@ -1055,7 +1131,6 @@
       const rosterEl = document.getElementById('rosterCapacityBar');
       rosterEl.innerHTML = '<span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Executive Load:</span>';
 
-      // Filter out ADMIN & SALES so only actual CDT Executives / Leads / Site Verifiers show in load pills
       (sysConfig.roster || [])
         .filter(r => ['CDT_EXEC', 'CDT_LEAD', 'SITE_VERIFIER'].includes(r.role))
         .forEach(r => {
@@ -1072,7 +1147,6 @@
       const bucketsEl = document.getElementById('bucketTabsBar');
       bucketsEl.innerHTML = '';
 
-      // "All Active" pill
       const allBtn = document.createElement('button');
       allBtn.type = 'button';
       allBtn.className = `text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap transition ${selectedBucketFilter === '' ? 'bg-indigo-600 text-white' : 'bg-slate-700 text-slate-200 hover:bg-slate-600'}`;
@@ -1120,7 +1194,7 @@
         tbody.innerHTML = `
           <tr>
             <td colspan="9" class="px-4 py-10 text-center text-slate-400 text-xs">
-              No escalation tickets currently in this view. Use the top search bar to look up any Order ID or Customer Phone Number and log an escalation.
+              No escalation tickets currently in this view. Use the top search bar to look up any Order ID or Customer Phone Number.
             </td>
           </tr>
         `;
@@ -1156,7 +1230,7 @@
       const grid = document.getElementById('salesRecentTicketsGrid');
       const visible = (allTicketsCache || []).filter(t => t.bucket !== 'Cx_Draft_In_Progress').slice(0, 12);
       if (!visible.length) {
-        grid.innerHTML = '<p class="text-xs text-slate-400 col-span-3 py-6 text-center">No active escalations logged yet. Search any Order ID or Phone Number above to inspect an order.</p>';
+        grid.innerHTML = '<p class="text-xs text-slate-400 col-span-3 py-6 text-center">No active escalations logged yet.</p>';
         return;
       }
       grid.innerHTML = visible.map(t => `
@@ -1617,17 +1691,60 @@
       reader.readAsDataURL(file);
     }
 
+    /**
+     * Renders proofs in CDT Workbench.
+     * If a file is a Voice Note / Audio file, renders an inline Audio Player + On-Demand "Transcribe & Translate" button!
+     */
     function renderProofGallery() {
       const gal = document.getElementById('uploadedProofsGallery');
       gal.innerHTML = '';
       uploadedProofFiles.forEach(f => {
-        const a = document.createElement('a');
-        a.href = f.url;
-        a.target = '_blank';
-        a.className = 'text-xs px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold hover:bg-indigo-100';
-        a.textContent = `📎 ${f.slotLabel || 'Proof'}: ${f.name}`;
-        gal.appendChild(a);
+        const isAudio = (f.mimeType && f.mimeType.startsWith('audio/')) || (f.slotLabel && f.slotLabel.includes('Voice'));
+        if (isAudio) {
+          const audioStreamUrl = f.fileId
+            ? `https://drive.google.com/uc?export=download&id=${encodeURIComponent(f.fileId)}`
+            : f.url;
+          const wrap = document.createElement('div');
+          wrap.className = 'p-3 rounded-xl bg-purple-50 border border-purple-200 flex flex-wrap items-center justify-between gap-2 text-xs';
+          wrap.innerHTML = `
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-bold text-purple-900">🎤 Customer Voice Note (${escapeHtml(f.name)}):</span>
+              <audio controls src="${audioStreamUrl}" class="h-8"></audio>
+              <a href="${escapeHtml(f.url)}" target="_blank" class="text-indigo-600 underline font-semibold">Open in Drive ↗</a>
+            </div>
+            <button type="button" onclick="transcribeVoiceNoteOnDemand('${escapeHtml(f.fileId)}')" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-[11px]">
+              ✨ Transcribe &amp; Translate (Only if needed)
+            </button>
+          `;
+          gal.appendChild(wrap);
+        } else {
+          const a = document.createElement('a');
+          a.href = f.url;
+          a.target = '_blank';
+          a.className = 'inline-block mr-2 mb-1 text-xs px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold hover:bg-indigo-100';
+          a.textContent = `📎 ${f.slotLabel || 'Proof'}: ${f.name}`;
+          gal.appendChild(a);
+        }
       });
+    }
+
+    async function transcribeVoiceNoteOnDemand(fileId) {
+      if (!fileId) return;
+      setLoading(true, 'Transcribing & translating customer voice note via Gemini...');
+      try {
+        const res = await apiPost({ action: 'transcribeVoiceNote', fileId });
+        setLoading(false);
+        if (res.status === 'success' && res.transcript) {
+          const box = document.getElementById('escStorylineInput');
+          box.value = (box.value ? box.value + '\n\n' : '') + `[Voice Note Transcript]: ${res.transcript}`;
+          buildLiveEmailPreview();
+          showToastAlert('Voice Note Transcribed', 'Transcript added to the Storyline box!');
+        } else {
+          showBannerError('Transcription Notice', res.message || 'Could not transcribe audio.');
+        }
+      } catch (e) {
+        setLoading(false);
+      }
     }
 
     async function saveOrSendTicket(sendEmailNow) {
@@ -1900,7 +2017,91 @@
       container.innerHTML = html;
     }
 
-    /* ISOLATED CUSTOMER PORTAL FUNCTIONS */
+    /* =========================================================================
+     * ISOLATED CUSTOMER PORTAL FUNCTIONS + ZERO-TOKEN VOICE RECORDER
+     * ========================================================================= */
+    function selectCxIssueCard(btnEl, issueValue) {
+      document.getElementById('cxIssueCategorySelect').value = issueValue;
+      document.querySelectorAll('.cx-issue-card').forEach(card => {
+        card.className = 'cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition';
+      });
+      btnEl.className = 'cx-issue-card text-left p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 transition';
+      autoSaveCustomerDraft();
+    }
+
+    async function toggleCustomerVoiceRecorder() {
+      const btn = document.getElementById('cxVoiceRecordBtn');
+      const timerBadge = document.getElementById('cxVoiceTimerBadge');
+
+      if (!isRecordingVoice) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          audioChunks = [];
+          mediaRecorder = new MediaRecorder(stream);
+
+          mediaRecorder.ondataavailable = e => {
+            if (e.data && e.data.size > 0) audioChunks.push(e.data);
+          };
+
+          mediaRecorder.onstop = async () => {
+            stream.getTracks().forEach(t => t.stop());
+            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            document.getElementById('cxRecordedAudioPlayer').src = audioUrl;
+            document.getElementById('cxRecordedAudioPreviewBox').classList.remove('hidden');
+
+            // Upload raw voice note directly to Google Drive Vault (Zero AI Tokens Used!)
+            setLoading(true, 'Saving your voice recording to your claim...');
+            const reader = new FileReader();
+            reader.onload = async () => {
+              const base64Data = reader.result.split(',')[1];
+              const res = await apiPost({
+                action: 'uploadProofFile',
+                escId: cxDraftEscId,
+                orderId: activeDossier ? activeDossier.orderId : 'ORDER',
+                slotLabel: 'Cx_Voice_Note',
+                fileName: `voice_note_${Date.now()}.webm`,
+                mimeType: 'audio/webm',
+                base64Data
+              });
+              setLoading(false);
+              if (res.status === 'success') {
+                cxDraftEscId = res.escId;
+                cxUploadedFiles.push(res.fileRecord);
+                renderCustomerUploadedFiles();
+                submitCustomerPortalClaim(false);
+              }
+            };
+            reader.readAsDataURL(audioBlob);
+          };
+
+          mediaRecorder.start();
+          isRecordingVoice = true;
+          voiceSeconds = 0;
+          btn.innerHTML = '<span>⏹️ Stop &amp; Attach Voice Note</span>';
+          btn.className = 'px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm';
+          timerBadge.classList.remove('hidden');
+          voiceTimerInterval = setInterval(() => {
+            voiceSeconds++;
+            const m = String(Math.floor(voiceSeconds / 60)).padStart(2, '0');
+            const s = String(voiceSeconds % 60).padStart(2, '0');
+            timerBadge.textContent = `● ${m}:${s}`;
+          }, 1000);
+        } catch (err) {
+          showBannerError('Microphone Permission Required', 'Please allow microphone access in your browser to record a voice note.');
+        }
+      } else {
+        clearInterval(voiceTimerInterval);
+        isRecordingVoice = false;
+        timerBadge.classList.add('hidden');
+        btn.innerHTML = '<span>🎤 Record Voice Note</span>';
+        btn.className = 'px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm';
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+          mediaRecorder.stop();
+        }
+      }
+    }
+
     async function runCustomerPortalLookup(query) {
       setLoading(true, 'Looking up your order...');
       try {
@@ -1954,9 +2155,21 @@
         trk.classList.remove('hidden');
         document.getElementById('cxTrkTicketId').textContent = `Claim #${latest.escId} • Order ${d.orderId}`;
         document.getElementById('cxTrkStageTitle').textContent =
-          latest.bucket === 'Completed' ? 'Resolution Completed' : 'Active — Under Verification';
+          latest.bucket === 'Completed' ? 'Resolution Completed' : 'Active — Under Verification & Processing';
         document.getElementById('cxTrkPublicNote').textContent =
-          latest.whatToTellCx || 'Your claim and media proofs are being processed.';
+          latest.whatToTellCx || 'Your claim and media proofs have been received and are being verified by our team.';
+
+        const cxSteps = [
+          { label: '1. Claim Logged', done: true },
+          { label: '2. Under Verification', done: true },
+          { label: '3. Resolution Approved', done: ['Raised to Team', 'Completed'].includes(latest.bucket) },
+          { label: '4. Completed', done: latest.bucket === 'Completed' }
+        ];
+        document.getElementById('cxSanitizedStepsGrid').innerHTML = cxSteps.map(s => `
+          <div class="p-2 rounded-lg border text-center font-bold ${s.done ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-white border-slate-200 text-slate-400'}">
+            ${s.done ? '✔ ' : '○ '}${s.label}
+          </div>
+        `).join('');
         return;
       }
 
@@ -1996,8 +2209,8 @@
       container.innerHTML = allSkus.map(item => {
         const sv = savedMap[item.rowKey];
         return `
-          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-            <label class="flex items-center gap-2 font-bold text-slate-800 cursor-pointer">
+          <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+            <label class="flex items-center gap-2.5 font-bold text-slate-800 cursor-pointer">
               <input type="checkbox" class="cx-sku-check w-4 h-4 text-indigo-600 rounded"
                 data-rowkey="${escapeHtml(item.rowKey)}"
                 data-skuname="${escapeHtml(item.skuName)}"
@@ -2007,9 +2220,9 @@
             </label>
             <div class="flex items-center gap-2">
               <input type="number" placeholder="Boxes/Pcs" id="cxqty_${item.rowKey}" value="${sv ? escapeHtml(sv.affectedQty) : '1'}"
-                oninput="autoSaveCustomerDraft()" class="w-24 px-2 py-1 bg-white border border-slate-300 rounded" />
+                oninput="autoSaveCustomerDraft()" class="w-24 px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-bold" />
               <input type="text" placeholder="Batch No (on box)" id="cxbatch_${item.rowKey}" value="${sv ? escapeHtml(sv.batchNo) : ''}"
-                oninput="autoSaveCustomerDraft()" class="w-28 px-2 py-1 bg-white border border-slate-300 rounded" />
+                oninput="autoSaveCustomerDraft()" class="w-32 px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-mono" />
             </div>
           </div>
         `;
@@ -2051,7 +2264,7 @@
 
     function renderCustomerUploadedFiles() {
       document.getElementById('cxUploadedFilesList').innerHTML = cxUploadedFiles.map(f =>
-        `<span class="text-xs px-2.5 py-1 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">✅ ${escapeHtml(f.slotLabel)}: ${escapeHtml(f.name)}</span>`
+        `<span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">✅ ${escapeHtml(f.slotLabel)}: ${escapeHtml(f.name)}</span>`
       ).join('');
     }
 
@@ -2068,7 +2281,7 @@
         });
       });
 
-      if (isFinalSubmit) setLoading(true, 'Submitting claim...');
+      if (isFinalSubmit) setLoading(true, 'Submitting your claim...');
       const res = await apiPost({
         action: 'customerPortalSaveOrSubmit',
         isFinalSubmit,
