@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Florzy Order Investigation, Escalation & Customer Portal</title>
+  <title>Florzy Escalation & Order Intelligence</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     body {
       background-color: #f8fafc;
@@ -17,18 +18,70 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- TOP NAVIGATION & ROLE / WORKSPACE SWITCHER -->
-  <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-md">
+  <!-- =========================================================================
+       SCREEN A: STAFF GOOGLE SIGN-IN GATE (Shown first for internal staff URL)
+       ========================================================================= -->
+  <div id="staffLoginGate" class="hidden min-h-screen bg-slate-900 flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl border border-slate-200 p-8 text-center space-y-6">
+      <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white font-black text-2xl flex items-center justify-center mx-auto shadow-lg">
+        F
+      </div>
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700">Internal Workspace</span>
+        <h1 class="text-2xl font-extrabold text-slate-900 mt-2">Florzy Escalation &amp; Order Intelligence</h1>
+        <p class="text-xs text-slate-500 mt-1">Sign in with your <code>@florzy.com</code> Google account. Your dashboard view (CDT, Sales, or Admin) loads automatically based on your role.</p>
+      </div>
+
+      <!-- Official Google Identity Services Button Container (If Client ID configured) -->
+      <div id="googleGsiButtonContainer" class="flex justify-center"></div>
+
+      <!-- Direct Google Workspace @florzy.com Sign-In Form -->
+      <form id="workspaceGoogleSignInForm" class="space-y-3 text-left">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Google Workspace Email (<code>@florzy.com</code>)</label>
+          <input
+            id="loginEmailInput"
+            type="email"
+            required
+            placeholder="name@florzy.com"
+            class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-600"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold rounded-xl shadow flex items-center justify-center gap-2.5 transition"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24">
+            <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
+            <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.9z"/>
+            <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.9C3.5 21.4 7.4 24 12 24z"/>
+          </svg>
+          <span>Sign in with Google (@florzy.com)</span>
+        </button>
+      </form>
+
+      <p id="loginErrorMsg" class="hidden text-xs font-semibold text-rose-600 bg-rose-50 border border-rose-200 rounded-lg p-2.5"></p>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SCREEN B: INTERNAL STAFF HEADER (Hidden for Customers & Unauthenticated)
+       ========================================================================= -->
+  <header id="internalAppHeader" class="hidden bg-slate-900 text-white sticky top-0 z-40 shadow-md">
     <div class="max-w-[1440px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="returnToRoleHome()">
         <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center font-black text-lg">F</div>
         <div>
-          <h1 class="text-base font-bold tracking-tight">Florzy Escalation &amp; Order Intelligence</h1>
-          <p class="text-[11px] text-slate-400" id="activeRoleSubtitle">Loading workspace profile...</p>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-bold tracking-tight">Florzy Escalation &amp; Order Intelligence</h1>
+            <span id="headerRoleBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-indigo-500/30 text-indigo-200 border border-indigo-400/40"></span>
+          </div>
+          <p class="text-[11px] text-slate-400" id="activeRoleSubtitle"></p>
         </div>
       </div>
 
-      <!-- Search Bar -->
+      <!-- Global Order / Phone Search Bar -->
       <form id="mainSearchForm" class="flex-1 max-w-xl flex items-center gap-2">
         <input
           id="mainSearchInput"
@@ -39,31 +92,44 @@
         <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold uppercase tracking-wider rounded-lg transition shrink-0">
           Search
         </button>
+        <button type="button" onclick="returnToRoleHome()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold rounded-lg shrink-0" title="Back to Queue Home">
+          🏠 Queue Home
+        </button>
       </form>
 
-      <!-- Workspace Mode & User Identity Selector -->
+      <!-- Right Side: Admin-Only View Switcher + Copy Cx Portal Link + Sign Out -->
       <div class="flex items-center gap-2 flex-wrap">
-        <input
-          id="currentUserEmailInput"
-          type="email"
-          placeholder="Your @florzy.com email"
-          class="px-2.5 py-1.5 text-xs bg-slate-800 border border-slate-700 rounded text-slate-200 w-48"
-          title="Enter your @florzy.com email to load your Role (Admin / CDT / Sales)"
-        />
-        <div class="inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700 text-xs">
-          <button type="button" data-view="cdt" class="view-tab-btn px-3 py-1.5 rounded-md font-semibold bg-indigo-600 text-white">CDT Workbench</button>
-          <button type="button" data-view="sales" class="view-tab-btn px-3 py-1.5 rounded-md font-semibold text-slate-300 hover:text-white">Sales Tracker</button>
-          <button type="button" data-view="customer" class="view-tab-btn px-3 py-1.5 rounded-md font-semibold text-slate-300 hover:text-white">Cx Self-Service Portal</button>
-          <button type="button" data-view="admin" id="adminTabBtn" class="view-tab-btn px-3 py-1.5 rounded-md font-semibold text-amber-300 hover:text-white">Admin &amp; Roster</button>
+        <button
+          type="button"
+          onclick="copyCustomerPortalLink()"
+          class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold"
+          title="Copy isolated Customer Self-Service Portal link to share with customers"
+        >
+          🔗 Copy Cx Portal Link
+        </button>
+
+        <!-- ONLY VISIBLE IF LOGGED-IN USER IS ADMIN (srivatsa.ng@florzy.com) -->
+        <div id="adminViewSwitcherGroup" class="hidden inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700 text-xs">
+          <button type="button" data-view="cdt" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white">CDT View</button>
+          <button type="button" data-view="sales" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold text-slate-300 hover:text-white">Sales View</button>
+          <button type="button" data-view="admin" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold text-amber-300 hover:text-white">⚙️ Admin &amp; Roster</button>
         </div>
+
+        <button
+          type="button"
+          onclick="signOutStaff()"
+          class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-rose-900/60 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold"
+        >
+          Sign Out
+        </button>
       </div>
     </div>
 
-    <!-- CDT LIVE CAPACITY BAR & 7-BUCKET QUEUE STRIP -->
-    <div id="cdtTopBar" class="bg-slate-800/90 border-t border-slate-700/80 px-4 py-2">
+    <!-- CDT LIVE CAPACITY BAR & 7-BUCKET QUEUE STRIP (Only shown in CDT & Admin modes; hidden for Sales) -->
+    <div id="cdtTopBar" class="hidden bg-slate-800/90 border-t border-slate-700/80 px-4 py-2">
       <div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
         <div class="flex items-center gap-2 flex-wrap" id="rosterCapacityBar">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Live Load:</span>
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Executive Load:</span>
         </div>
         <div class="flex items-center gap-1.5 overflow-x-auto scroll-thin py-0.5" id="bucketTabsBar"></div>
       </div>
@@ -74,21 +140,21 @@
   <div id="toastBanner" class="hidden fixed bottom-5 right-5 z-50 max-w-md bg-slate-900 text-white border border-indigo-500 rounded-xl shadow-2xl p-4">
     <div class="flex items-start justify-between gap-3">
       <div>
-        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-600 text-white">Live Escalation Alert</span>
-        <h4 class="text-sm font-bold mt-1" id="toastTitle">New Customer Claim</h4>
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-600 text-white">System Notification</span>
+        <h4 class="text-sm font-bold mt-1" id="toastTitle">Alert</h4>
         <p class="text-xs text-slate-300 mt-0.5" id="toastBody"></p>
       </div>
       <button type="button" onclick="document.getElementById('toastBanner').classList.add('hidden')" class="text-slate-400 hover:text-white text-xs">✕</button>
     </div>
   </div>
 
-  <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-[1440px] w-full mx-auto px-4 py-5 space-y-6">
+  <!-- MAIN WORKSPACE CONTAINER -->
+  <main id="mainAppContainer" class="hidden flex-1 max-w-[1440px] w-full mx-auto px-4 py-5 space-y-6">
 
     <!-- LOADING & ERROR BANNERS -->
     <div id="loadingIndicator" class="hidden bg-white border border-slate-200 rounded-xl p-8 text-center shadow-sm">
       <div class="inline-block w-7 h-7 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-2"></div>
-      <p class="text-xs font-semibold text-slate-600" id="loadingMessage">Processing request...</p>
+      <p class="text-xs font-semibold text-slate-600" id="loadingMessage">Loading...</p>
     </div>
 
     <div id="errorBanner" class="hidden bg-rose-50 border border-rose-200 text-rose-900 rounded-xl p-4 shadow-sm flex items-center justify-between">
@@ -99,24 +165,75 @@
       <button type="button" onclick="document.getElementById('errorBanner').classList.add('hidden')" class="text-xs font-semibold px-2.5 py-1 rounded bg-rose-100 hover:bg-rose-200">Dismiss</button>
     </div>
 
-    <!-- VIEW 1 & 2: INTERNAL ORDER DOSSIER + CDT WORKBENCH / SALES TRACKER -->
+    <!-- =====================================================================
+         INTERNAL WORKSPACE (CDT WORKBENCH & SALES LIVE TRACKER)
+         ===================================================================== -->
     <div id="internalWorkspaceView" class="space-y-6">
 
-      <!-- BUCKET TICKET DRAWER -->
-      <section id="bucketListSection" class="hidden bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-        <div class="flex items-center justify-between mb-3">
+      <!-- 1. CDT DEFAULT LANDING DASHBOARD (Shown immediately when CDT/Admin logs in) -->
+      <section id="cdtLandingDashboard" class="hidden space-y-4">
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 class="text-sm font-bold text-slate-900" id="bucketListTitle">Tickets in Bucket</h2>
-            <p class="text-xs text-slate-500">Click any ticket to restore its full 360° Order Dossier</p>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">CDT Operations Control Center</span>
+            <h2 class="text-lg font-extrabold text-slate-900 mt-0.5" id="cdtQueueHeading">All Active Escalation Tickets</h2>
+            <p class="text-xs text-slate-500">Click any ticket below to open its 360° Order Dossier, or search an Order ID / Phone Number above to log a new escalation.</p>
           </div>
           <div class="flex items-center gap-2">
-            <button type="button" onclick="triggerManualGmailSync()" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100">
-              🔄 Sync Latest Gmail Replies Now
+            <select id="cdtAgentFilterSelect" onchange="renderCdtHomeQueueTable()" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+              <option value="ALL">Show: All Team Tickets</option>
+              <option value="MINE">Show: Only My Assigned Tickets</option>
+            </select>
+            <button type="button" onclick="triggerManualGmailSync()" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100">
+              🔄 Sync Gmail Thread Replies
             </button>
-            <button type="button" onclick="document.getElementById('bucketListSection').classList.add('hidden')" class="text-xs text-slate-500 hover:text-slate-800 px-2 py-1">Close</button>
           </div>
         </div>
-        <div id="bucketTicketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200 text-xs text-left">
+              <thead class="bg-slate-50 font-bold text-slate-600 uppercase">
+                <tr>
+                  <th class="px-4 py-3">Ticket ID</th>
+                  <th class="px-4 py-3">Order ID</th>
+                  <th class="px-4 py-3">Customer</th>
+                  <th class="px-4 py-3">Bucket</th>
+                  <th class="px-4 py-3">Live Stage / Status</th>
+                  <th class="px-4 py-3">Team &amp; Sub-Issue</th>
+                  <th class="px-4 py-3">Assigned Executive</th>
+                  <th class="px-4 py-3">Updated</th>
+                  <th class="px-4 py-3 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="cdtHomeQueueTableBody" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. SALES DEFAULT LANDING DASHBOARD (Shown immediately when Sales logs in) -->
+      <section id="salesLandingDashboard" class="hidden space-y-5">
+        <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-6 shadow-md">
+          <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-indigo-500/30 text-indigo-200">Sales Team Live Escalation Tracker (View-Only)</span>
+          <h2 class="text-xl font-extrabold mt-2">Track Any Customer Order or Live Escalation in Seconds</h2>
+          <p class="text-xs text-slate-300 mt-1 max-w-2xl">Search by Order ID, Order Number, or Customer's 10-Digit Phone Number to view the real-time Pizza Tracker, see which department owns the next action, and read the exact script to share with the customer.</p>
+          <form onsubmit="event.preventDefault(); runOrderOrPhoneSearch(document.getElementById('salesHeroSearchInput').value.trim(), 'auto');" class="mt-4 flex max-w-xl gap-2">
+            <input id="salesHeroSearchInput" type="text" placeholder="Enter Order ID (e.g. ORD-OR5ZPX) or 10-Digit Customer Phone..." class="flex-1 px-4 py-2.5 text-sm bg-white text-slate-900 rounded-xl focus:outline-none" />
+            <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl">
+              Track Order
+            </button>
+          </form>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Recent Active Escalations Across Orders</h3>
+              <p class="text-xs text-slate-500">Click any ticket to view its live progress bar and customer update script</p>
+            </div>
+          </div>
+          <div id="salesRecentTicketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+        </div>
       </section>
 
       <!-- PHONE NUMBER MULTI-ORDER RESULTS -->
@@ -205,7 +322,7 @@
           <iframe id="quotePreviewIframe" class="w-full h-[500px] border-0"></iframe>
         </div>
 
-        <!-- SALES TEAM READ-ONLY LIVE TRACKER -->
+        <!-- LIVE ESCALATION PIZZA-TRACKER (Always shown when a ticket exists, and primary view for Sales) -->
         <div id="liveTrackerBanner" class="hidden bg-white border-2 border-indigo-200 rounded-xl p-5 shadow-sm space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
@@ -229,13 +346,19 @@
               📲 Copy WhatsApp Update for Cx
             </button>
           </div>
+
+          <!-- Read-Only Audit Trail for Sales View (Visible when in Sales Mode) -->
+          <div id="salesReadOnlyTimelineBox" class="hidden pt-3 border-t border-slate-100">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Live Email, Call &amp; WhatsApp Activity Timeline</h4>
+            <div id="salesAuditTimelineList" class="space-y-2 max-h-60 overflow-y-auto scroll-thin"></div>
+          </div>
         </div>
 
         <!-- UNIFIED SKU SELECTION & LINE ITEM TABLES -->
-        <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div id="skuSelectorCard" class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
           <div class="px-5 py-3.5 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-2">
             <div>
-              <h3 class="text-sm font-bold">Select SKU(s) with Issue — Interactive Boxes/Pcs, Batch No &amp; Cost Calculator</h3>
+              <h3 class="text-sm font-bold">Order SKU Breakdown — Affected Boxes/Pcs, Batch No &amp; Cost Calculator</h3>
               <p class="text-[11px] text-slate-300">Extracted from <code>po_line_items</code> &amp; <code>metaescline</code> (metaescline includes +18% GST)</p>
             </div>
             <div class="text-right">
@@ -271,12 +394,11 @@
           </div>
         </div>
 
-        <!-- CDT ESCALATION LOGGING, MEDIA PROOFS & AI EMAIL WORKBENCH -->
+        <!-- CDT ESCALATION LOGGING, MEDIA PROOFS & AI EMAIL WORKBENCH (Strictly Hidden for Sales) -->
         <div id="cdtEditorPanels" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
           <!-- LEFT 7 COLS -->
           <div class="lg:col-span-7 space-y-5">
-            <!-- Panel A: Classification & Resolution -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
               <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 class="text-sm font-bold text-slate-900">1. Escalation Classification, Resolution &amp; Bucket</h3>
@@ -470,7 +592,6 @@
 
           <!-- RIGHT 5 COLS: LIVE AI EMAIL COMPOSER + AUDIT TIMELINE -->
           <div class="lg:col-span-5 space-y-5">
-            <!-- AI Email Composer -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
                 <h3 class="text-sm font-bold text-slate-900">AI Escalation Email Composer</h3>
@@ -501,7 +622,6 @@
                 </div>
               </div>
 
-              <!-- Email Action Buttons -->
               <div class="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <button type="button" onclick="saveOrSendTicket(false)" class="py-2 px-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold text-center">
                   💾 Save in Bucket
@@ -515,7 +635,6 @@
               </div>
             </div>
 
-            <!-- Chronological Audit Timeline -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
               <div class="flex items-center justify-between">
                 <h3 class="text-sm font-bold text-slate-900">Chronological Audit Trail</h3>
@@ -530,19 +649,25 @@
       </section>
     </div>
 
-    <!-- VIEW 3: CUSTOMER SELF-SERVICE CLAIM & LIVE STATUS PORTAL -->
-    <section id="customerSelfServiceView" class="hidden max-w-3xl mx-auto space-y-6">
+    <!-- =====================================================================
+         ISOLATED CUSTOMER SELF-SERVICE PORTAL (?portal=customer)
+         ===================================================================== -->
+    <section id="customerSelfServiceView" class="hidden max-w-3xl mx-auto py-6 space-y-6">
       <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
         <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-          <div>
-            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-indigo-50 text-indigo-700">Florzy Customer Support Portal</span>
-            <h2 class="text-xl font-extrabold text-slate-900 mt-1">Report an Order Issue or Track Claim</h2>
-            <p class="text-xs text-slate-500">Enter your 10-digit Phone Number or Order ID to begin or resume.</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-lg">F</div>
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-indigo-50 text-indigo-700">Florzy Customer Support Portal</span>
+              <h2 class="text-xl font-extrabold text-slate-900 mt-0.5">Report an Order Issue or Track Claim</h2>
+            </div>
           </div>
         </div>
 
+        <p class="text-xs text-slate-600">Enter your 10-digit registered Phone Number or Order ID to report damaged/incorrect items, upload site photos/videos, or check live resolution status.</p>
+
         <form id="cxPortalLookupForm" class="flex gap-2">
-          <input id="cxLookupInput" type="text" required placeholder="Phone Number or Order ID (e.g. ORD-OR5ZPX)..." class="flex-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
+          <input id="cxLookupInput" type="text" required placeholder="Enter 10-Digit Phone Number or Order ID (e.g. ORD-OR5ZPX)..." class="flex-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
           <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl">
             Continue
           </button>
@@ -622,13 +747,15 @@
       </div>
     </section>
 
-    <!-- VIEW 4: ADMIN ROSTER, ROLES & WEBHOOK CONFIGURATION PANEL -->
+    <!-- =====================================================================
+         ADMIN ROSTER, ROLES & WEBHOOK CONFIGURATION PANEL (Admin Only)
+         ===================================================================== -->
     <section id="adminConfigView" class="hidden space-y-6">
       <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div>
             <h2 class="text-base font-extrabold text-slate-900">Admin Roster, Roles &amp; Capacity Manager</h2>
-            <p class="text-xs text-slate-500">Manage CDT Executives and API Keys.</p>
+            <p class="text-xs text-slate-500">Add or edit CDT Executives, Leads, Site Verifiers, or Admins. All other <code>@florzy.com</code> accounts automatically open the Read-Only Sales Tracker.</p>
           </div>
         </div>
 
@@ -687,36 +814,18 @@
           </button>
         </div>
       </div>
-
-      <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-3">
-        <h3 class="text-sm font-bold text-slate-900">Notification Webhooks &amp; AI Keys</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
-            <label class="block text-xs font-bold text-slate-700">Google Chat Webhook</label>
-            <input id="admGchatInput" type="text" class="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
-            <button type="button" onclick="adminSaveSetting('GCHAT_WEBHOOK_URL', document.getElementById('admGchatInput').value)" class="px-3 py-1 bg-slate-800 text-white text-xs font-semibold rounded">Save Webhook</button>
-          </div>
-          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
-            <label class="block text-xs font-bold text-slate-700">Interakt Base64 API Key</label>
-            <input id="admWaInput" type="text" class="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
-            <button type="button" onclick="adminSaveSetting('INTERAKT_API_KEY', document.getElementById('admWaInput').value)" class="px-3 py-1 bg-slate-800 text-white text-xs font-semibold rounded">Save API Key</button>
-          </div>
-          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
-            <label class="block text-xs font-bold text-slate-700">Gemini API Key</label>
-            <input id="admGeminiInput" type="password" class="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
-            <button type="button" onclick="adminSaveSetting('GEMINI_API_KEY', document.getElementById('admGeminiInput').value)" class="px-3 py-1 bg-slate-800 text-white text-xs font-semibold rounded">Save Gemini Key</button>
-          </div>
-        </div>
-      </div>
     </section>
 
   </main>
 
   <script>
     // =========================================================================
-    // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL BELOW:
+    // 1. PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL BELOW:
     // =========================================================================
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmX_KeXly4K_KVeXw4JWJetNLnL94rgFZ6VsQHavaH_wB2MnUJO5fYDC0X_UFdpQmOzw/exec";
+
+    // Optional: If you create a Google Cloud OAuth Client ID for 1-Tap Google Popup, paste it here:
+    const GOOGLE_OAUTH_CLIENT_ID = "";
 
     const ALL_BUCKETS = [
       "Incoming Cx Claims",
@@ -728,8 +837,11 @@
       "Completed"
     ];
 
+    let authenticatedEmail = '';
     let sysConfig = { currentUser: {}, roster: [], taxonomy: {}, teamEmails: {} };
-    let currentViewMode = 'cdt';
+    let allTicketsCache = [];
+    let selectedBucketFilter = '';
+    let currentViewMode = 'sales'; // Determined strictly by backend role on login
     let activeDossier = null;
     let activeTicket = null;
     let uploadedProofFiles = [];
@@ -739,17 +851,28 @@
     let lastPollTimestamp = Date.now();
 
     window.addEventListener('DOMContentLoaded', () => {
-      const savedEmail = localStorage.getItem('florzy_user_email') || 'srivatsa.ng@florzy.com';
-      const emailInput = document.getElementById('currentUserEmailInput');
-      emailInput.value = savedEmail;
-      emailInput.addEventListener('change', () => {
-        localStorage.setItem('florzy_user_email', emailInput.value.trim().toLowerCase());
-        initWorkspace();
-      });
+      const urlParams = new URLSearchParams(window.location.search);
+      const isCustomerPortal = urlParams.get('portal') === 'customer';
 
-      document.querySelectorAll('.view-tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => switchViewMode(btn.dataset.view));
-      });
+      // ROUTE 1: Isolated Customer Self-Service Portal (?portal=customer)
+      if (isCustomerPortal) {
+        document.getElementById('staffLoginGate').classList.add('hidden');
+        document.getElementById('internalAppHeader').classList.add('hidden');
+        document.getElementById('mainAppContainer').classList.remove('hidden');
+        document.getElementById('internalWorkspaceView').classList.add('hidden');
+        document.getElementById('adminConfigView').classList.add('hidden');
+        document.getElementById('customerSelfServiceView').classList.remove('hidden');
+
+        document.getElementById('cxPortalLookupForm').addEventListener('submit', e => {
+          e.preventDefault();
+          const q = document.getElementById('cxLookupInput').value.trim();
+          if (q) runCustomerPortalLookup(q);
+        });
+        return;
+      }
+
+      // ROUTE 2: Internal Staff Portal -> Require @florzy.com Sign-In First
+      setupGoogleSignInGate();
 
       document.getElementById('mainSearchForm').addEventListener('submit', e => {
         e.preventDefault();
@@ -757,24 +880,81 @@
         if (q) runOrderOrPhoneSearch(q, 'auto');
       });
 
-      document.getElementById('cxPortalLookupForm').addEventListener('submit', e => {
-        e.preventDefault();
-        const q = document.getElementById('cxLookupInput').value.trim();
-        if (q) runCustomerPortalLookup(q);
+      document.querySelectorAll('.admin-switch-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (sysConfig.currentUser && sysConfig.currentUser.role === 'ADMIN') {
+            applyStrictViewMode(btn.dataset.view);
+          }
+        });
       });
 
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('portal') === 'customer') {
-        switchViewMode('customer');
+      const savedStaffEmail = sessionStorage.getItem('florzy_staff_email');
+      if (savedStaffEmail && savedStaffEmail.endsWith('@florzy.com')) {
+        completeStaffSignIn(savedStaffEmail);
+      } else {
+        document.getElementById('staffLoginGate').classList.remove('hidden');
       }
 
-      initWorkspace();
       setInterval(pollForLiveAlerts, 25000);
     });
 
+    function setupGoogleSignInGate() {
+      const form = document.getElementById('workspaceGoogleSignInForm');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmailInput').value.trim().toLowerCase();
+        if (!email.endsWith('@florzy.com')) {
+          const errEl = document.getElementById('loginErrorMsg');
+          errEl.textContent = 'Access restricted: Please sign in with your official @florzy.com Google Workspace email.';
+          errEl.classList.remove('hidden');
+          return;
+        }
+        completeStaffSignIn(email);
+      });
+
+      if (GOOGLE_OAUTH_CLIENT_ID && window.google && google.accounts) {
+        google.accounts.id.initialize({
+          client_id: GOOGLE_OAUTH_CLIENT_ID,
+          callback: response => {
+            try {
+              const payload = JSON.parse(atob(response.credential.split('.')[1]));
+              if (payload.email && payload.email.toLowerCase().endsWith('@florzy.com')) {
+                completeStaffSignIn(payload.email.toLowerCase());
+              }
+            } catch (e) {}
+          }
+        });
+        google.accounts.id.renderButton(
+          document.getElementById('googleGsiButtonContainer'),
+          { theme: 'outline', size: 'large', width: 320 }
+        );
+      }
+    }
+
+    async function completeStaffSignIn(email) {
+      authenticatedEmail = email;
+      sessionStorage.setItem('florzy_staff_email', email);
+      document.getElementById('staffLoginGate').classList.add('hidden');
+      document.getElementById('internalAppHeader').classList.remove('hidden');
+      document.getElementById('mainAppContainer').classList.remove('hidden');
+      await initWorkspace();
+    }
+
+    function signOutStaff() {
+      sessionStorage.removeItem('florzy_staff_email');
+      authenticatedEmail = '';
+      window.location.reload();
+    }
+
+    function copyCustomerPortalLink() {
+      const cxUrl = `${window.location.origin}${window.location.pathname}?portal=customer`;
+      navigator.clipboard.writeText(cxUrl);
+      showToastAlert('Customer Portal Link Copied', `Share this isolated link with customers: ${cxUrl}`);
+    }
+
     async function apiGet(params) {
       if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR_")) {
-        showBannerError("Apps Script URL Required", "Replace PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE in index.html with your deployed Google Apps Script Web App URL.");
+        showBannerError("Apps Script URL Required", "Replace PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE in index.html with your deployed Web App URL.");
         throw new Error("Missing APPS_SCRIPT_URL");
       }
       const qs = new URLSearchParams(params).toString();
@@ -784,7 +964,7 @@
 
     async function apiPost(payload) {
       if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR_")) {
-        showBannerError("Apps Script URL Required", "Replace PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE in index.html with your deployed Google Apps Script Web App URL.");
+        showBannerError("Apps Script URL Required", "Replace PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE in index.html with your deployed Web App URL.");
         throw new Error("Missing APPS_SCRIPT_URL");
       }
       const res = await fetch(APPS_SCRIPT_URL, {
@@ -797,131 +977,211 @@
     }
 
     async function initWorkspace() {
-      const userEmail = document.getElementById('currentUserEmailInput').value.trim().toLowerCase();
+      setLoading(true, 'Loading your role permissions & live escalation queues...');
       try {
-        const data = await apiGet({ action: 'init', userEmail });
+        const data = await apiGet({ action: 'init', userEmail: authenticatedEmail });
+        setLoading(false);
         if (data.status === 'success') {
           sysConfig = data.config;
-          applyRolePermissions();
-          renderRosterAndBucketsBar(data.bucketsSummary || {});
+          allTicketsCache = data.tickets || [];
           populateTaxonomyDropdowns();
+          renderRosterAndBucketsBar(data.bucketsSummary || {});
           renderAdminRosterTable();
+          lockUserToAssignedRoleView();
         }
-      } catch (e) {}
-    }
-
-    function applyRolePermissions() {
-      const u = sysConfig.currentUser || { role: 'SALES', name: 'Team Member', email: '' };
-      document.getElementById('activeRoleSubtitle').textContent = `Logged in as: ${u.name} (${u.email}) — Role: ${u.role}`;
-
-      const adminBtn = document.getElementById('adminTabBtn');
-      if (u.role === 'ADMIN') {
-        adminBtn.classList.remove('hidden');
-      } else {
-        adminBtn.classList.add('hidden');
-      }
-
-      if (u.role === 'SALES' && currentViewMode === 'cdt') {
-        switchViewMode('sales');
-      }
-    }
-
-    function switchViewMode(mode) {
-      currentViewMode = mode;
-      document.querySelectorAll('.view-tab-btn').forEach(btn => {
-        if (btn.dataset.view === mode) {
-          btn.className = 'view-tab-btn px-3 py-1.5 rounded-md font-semibold bg-indigo-600 text-white';
-        } else {
-          btn.className = 'view-tab-btn px-3 py-1.5 rounded-md font-semibold text-slate-300 hover:text-white';
-        }
-      });
-
-      document.getElementById('internalWorkspaceView').classList.toggle('hidden', mode === 'customer' || mode === 'admin');
-      document.getElementById('customerSelfServiceView').classList.toggle('hidden', mode !== 'customer');
-      document.getElementById('adminConfigView').classList.toggle('hidden', mode !== 'admin');
-      document.getElementById('cdtTopBar').classList.toggle('hidden', mode === 'customer');
-      document.getElementById('cdtEditorPanels').classList.toggle('hidden', mode === 'sales');
-    }
-
-    function renderRosterAndBucketsBar(bucketsSummary) {
-      const rosterEl = document.getElementById('rosterCapacityBar');
-      rosterEl.innerHTML = '<span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Live Load:</span>';
-      (sysConfig.roster || []).filter(r => r.role !== 'SALES').forEach(r => {
-        const isFull = r.activeCount >= r.capacityCap;
-        const badgeColor = r.availability !== 'AVAILABLE'
-          ? 'bg-slate-700 text-slate-400'
-          : (isFull ? 'bg-rose-900/80 text-rose-200 border border-rose-600' : 'bg-emerald-900/70 text-emerald-200 border border-emerald-600');
-        const pill = document.createElement('span');
-        pill.className = `text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${badgeColor}`;
-        pill.textContent = `${r.name} (${r.role.replace('CDT_', '')}): ${r.activeCount}/${r.capacityCap} ${r.availability === 'AVAILABLE' ? '' : '[OFFLINE]'}`;
-        rosterEl.appendChild(pill);
-      });
-
-      const bucketsEl = document.getElementById('bucketTabsBar');
-      bucketsEl.innerHTML = '';
-      ALL_BUCKETS.forEach(bName => {
-        const count = bucketsSummary[bName] || 0;
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'text-xs px-3 py-1 rounded-full bg-slate-700 hover:bg-indigo-600 text-slate-100 font-semibold whitespace-nowrap transition flex items-center gap-1.5';
-        btn.innerHTML = `<span>${bName}</span><span class="px-1.5 py-0.2 rounded-full bg-slate-900 text-indigo-300 text-[10px]">${count}</span>`;
-        btn.onclick = () => openBucketDrawer(bName);
-        bucketsEl.appendChild(btn);
-      });
-    }
-
-    async function openBucketDrawer(bucketName) {
-      setLoading(true, `Loading tickets in "${bucketName}"...`);
-      try {
-        const userEmail = document.getElementById('currentUserEmailInput').value.trim();
-        const data = await apiGet({ action: 'init', userEmail, bucket: bucketName });
-        setLoading(false);
-        const sec = document.getElementById('bucketListSection');
-        const grid = document.getElementById('bucketTicketsGrid');
-        document.getElementById('bucketListTitle').textContent = `Bucket: ${bucketName} (${(data.tickets || []).length})`;
-        sec.classList.remove('hidden');
-        grid.innerHTML = '';
-
-        if (!(data.tickets || []).length) {
-          grid.innerHTML = `<p class="text-xs text-slate-400 col-span-3 py-4 text-center">No tickets currently in ${bucketName}.</p>`;
-          return;
-        }
-
-        data.tickets.forEach(t => {
-          const ageHours = Math.max(0, Math.round((Date.now() - Date.parse(t.updatedAt || t.createdAt)) / 3600000));
-          const slaBreach = ageHours >= 24 && t.bucket !== 'Completed';
-          const card = document.createElement('div');
-          card.className = `p-3.5 rounded-xl border ${slaBreach ? 'border-rose-400 bg-rose-50/40' : 'border-slate-200 bg-slate-50'} hover:border-indigo-500 cursor-pointer transition space-y-1.5`;
-          card.innerHTML = `
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-extrabold text-indigo-700">${escapeHtml(t.escId)} — Order ${escapeHtml(t.orderId)}</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded ${slaBreach ? 'bg-rose-600 text-white' : 'bg-slate-200 text-slate-700'}">${ageHours}h in stage</span>
-            </div>
-            <p class="text-xs font-bold text-slate-800">${escapeHtml(t.cxName)} (${escapeHtml(t.cxPhone)})</p>
-            <p class="text-[11px] text-slate-600">${escapeHtml(t.teamResponsible)} ➔ ${escapeHtml(t.subIssue)}</p>
-            <div class="flex items-center justify-between pt-1 text-[11px] text-slate-500 border-t border-slate-200/70">
-              <span>Owner: <strong>${escapeHtml(t.assignedAgentName || 'Unassigned')}</strong></span>
-              <span class="font-semibold text-indigo-600">Open Workspace →</span>
-            </div>
-          `;
-          card.onclick = () => loadTicketIntoWorkspace(t.escId);
-          grid.appendChild(card);
-        });
       } catch (e) {
         setLoading(false);
       }
     }
 
+    function lockUserToAssignedRoleView() {
+      const u = sysConfig.currentUser || { role: 'SALES', name: 'Team Member', email: authenticatedEmail };
+      document.getElementById('activeRoleSubtitle').textContent = `${u.name} (${u.email})`;
+      document.getElementById('headerRoleBadge').textContent = u.role.replace('_', ' ');
+
+      const adminSwitcher = document.getElementById('adminViewSwitcherGroup');
+      if (u.role === 'ADMIN') {
+        adminSwitcher.classList.remove('hidden');
+        applyStrictViewMode('cdt');
+      } else if (u.role === 'CDT_EXEC' || u.role === 'CDT_LEAD' || u.role === 'SITE_VERIFIER') {
+        adminSwitcher.classList.add('hidden');
+        applyStrictViewMode('cdt');
+      } else {
+        // Strictly lock all other @florzy.com users to Read-Only Sales Tracker
+        adminSwitcher.classList.add('hidden');
+        applyStrictViewMode('sales');
+      }
+    }
+
+    function applyStrictViewMode(mode) {
+      currentViewMode = mode;
+      document.querySelectorAll('.admin-switch-btn').forEach(btn => {
+        if (btn.dataset.view === mode) {
+          btn.className = 'admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white';
+        } else {
+          btn.className = 'admin-switch-btn px-2.5 py-1 rounded-md font-semibold text-slate-300 hover:text-white';
+        }
+      });
+
+      const isCdtOrAdmin = (mode === 'cdt');
+      const isSales = (mode === 'sales');
+      const isAdminPanel = (mode === 'admin');
+
+      document.getElementById('cdtTopBar').classList.toggle('hidden', !isCdtOrAdmin);
+      document.getElementById('internalWorkspaceView').classList.toggle('hidden', isAdminPanel);
+      document.getElementById('adminConfigView').classList.toggle('hidden', !isAdminPanel);
+      document.getElementById('cdtEditorPanels').classList.toggle('hidden', isSales);
+      document.getElementById('salesReadOnlyTimelineBox').classList.toggle('hidden', !isSales);
+
+      returnToRoleHome();
+    }
+
+    function returnToRoleHome() {
+      document.getElementById('phoneResultsSection').classList.add('hidden');
+      document.getElementById('orderDossierSection').classList.add('hidden');
+
+      if (currentViewMode === 'cdt') {
+        document.getElementById('salesLandingDashboard').classList.add('hidden');
+        document.getElementById('cdtLandingDashboard').classList.remove('hidden');
+        renderCdtHomeQueueTable();
+      } else if (currentViewMode === 'sales') {
+        document.getElementById('cdtLandingDashboard').classList.add('hidden');
+        document.getElementById('salesLandingDashboard').classList.remove('hidden');
+        renderSalesRecentTickets();
+      }
+    }
+
+    function renderRosterAndBucketsBar(bucketsSummary) {
+      const rosterEl = document.getElementById('rosterCapacityBar');
+      rosterEl.innerHTML = '<span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Executive Load:</span>';
+
+      // Filter out ADMIN & SALES so only actual CDT Executives / Leads / Site Verifiers show in load pills
+      (sysConfig.roster || [])
+        .filter(r => ['CDT_EXEC', 'CDT_LEAD', 'SITE_VERIFIER'].includes(r.role))
+        .forEach(r => {
+          const isFull = r.activeCount >= r.capacityCap;
+          const badgeColor = r.availability !== 'AVAILABLE'
+            ? 'bg-slate-700 text-slate-400'
+            : (isFull ? 'bg-rose-900/80 text-rose-200 border border-rose-600' : 'bg-emerald-900/70 text-emerald-200 border border-emerald-600');
+          const pill = document.createElement('span');
+          pill.className = `text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${badgeColor}`;
+          pill.textContent = `${r.name}: ${r.activeCount}/${r.capacityCap} ${r.availability === 'AVAILABLE' ? '' : '[OFFLINE]'}`;
+          rosterEl.appendChild(pill);
+        });
+
+      const bucketsEl = document.getElementById('bucketTabsBar');
+      bucketsEl.innerHTML = '';
+
+      // "All Active" pill
+      const allBtn = document.createElement('button');
+      allBtn.type = 'button';
+      allBtn.className = `text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap transition ${selectedBucketFilter === '' ? 'bg-indigo-600 text-white' : 'bg-slate-700 text-slate-200 hover:bg-slate-600'}`;
+      allBtn.textContent = 'All Buckets';
+      allBtn.onclick = () => {
+        selectedBucketFilter = '';
+        returnToRoleHome();
+        renderRosterAndBucketsBar(bucketsSummary);
+      };
+      bucketsEl.appendChild(allBtn);
+
+      ALL_BUCKETS.forEach(bName => {
+        const count = bucketsSummary[bName] || 0;
+        const active = selectedBucketFilter === bName;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap transition flex items-center gap-1.5 ${active ? 'bg-indigo-600 text-white' : 'bg-slate-700 hover:bg-slate-600 text-slate-100'}`;
+        btn.innerHTML = `<span>${bName}</span><span class="px-1.5 py-0.2 rounded-full bg-slate-900 text-indigo-300 text-[10px]">${count}</span>`;
+        btn.onclick = () => {
+          selectedBucketFilter = bName;
+          returnToRoleHome();
+          renderRosterAndBucketsBar(bucketsSummary);
+        };
+        bucketsEl.appendChild(btn);
+      });
+    }
+
+    function renderCdtHomeQueueTable() {
+      const tbody = document.getElementById('cdtHomeQueueTableBody');
+      const heading = document.getElementById('cdtQueueHeading');
+      const agentFilter = document.getElementById('cdtAgentFilterSelect').value;
+
+      heading.textContent = selectedBucketFilter
+        ? `Tickets in Bucket: ${selectedBucketFilter}`
+        : 'All Active & Logged Escalation Tickets';
+
+      const filtered = (allTicketsCache || []).filter(t => {
+        if (t.bucket === 'Cx_Draft_In_Progress') return false;
+        if (selectedBucketFilter && t.bucket !== selectedBucketFilter) return false;
+        if (agentFilter === 'MINE' && (t.assignedAgentEmail || '').toLowerCase() !== authenticatedEmail) return false;
+        return true;
+      });
+
+      if (!filtered.length) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="px-4 py-10 text-center text-slate-400 text-xs">
+              No escalation tickets currently in this view. Use the top search bar to look up any Order ID or Customer Phone Number and log an escalation.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(t => {
+        const dt = t.updatedAt ? new Date(t.updatedAt).toLocaleString('en-IN') : '';
+        return `
+          <tr class="hover:bg-indigo-50/50 cursor-pointer transition" onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')">
+            <td class="px-4 py-3 font-extrabold text-indigo-700">${escapeHtml(t.escId)}</td>
+            <td class="px-4 py-3 font-bold text-slate-900">${escapeHtml(t.orderId)}</td>
+            <td class="px-4 py-3">
+              <div class="font-bold text-slate-800">${escapeHtml(t.cxName)}</div>
+              <div class="text-[11px] text-slate-500">${escapeHtml(t.cxPhone)}</div>
+            </td>
+            <td class="px-4 py-3">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-800 border border-slate-300">${escapeHtml(t.bucket)}</span>
+            </td>
+            <td class="px-4 py-3 font-semibold text-slate-700">${escapeHtml(t.customStatusText || t.liveStage)}</td>
+            <td class="px-4 py-3 text-[11px] text-slate-600">${escapeHtml(t.teamResponsible)} ➔ ${escapeHtml(t.subIssue)}</td>
+            <td class="px-4 py-3 font-semibold text-slate-800">${escapeHtml(t.assignedAgentName || 'Auto')}</td>
+            <td class="px-4 py-3 text-[11px] text-slate-500">${escapeHtml(dt)}</td>
+            <td class="px-4 py-3 text-right">
+              <span class="px-3 py-1 rounded-lg bg-indigo-600 text-white text-[11px] font-bold">Open →</span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderSalesRecentTickets() {
+      const grid = document.getElementById('salesRecentTicketsGrid');
+      const visible = (allTicketsCache || []).filter(t => t.bucket !== 'Cx_Draft_In_Progress').slice(0, 12);
+      if (!visible.length) {
+        grid.innerHTML = '<p class="text-xs text-slate-400 col-span-3 py-6 text-center">No active escalations logged yet. Search any Order ID or Phone Number above to inspect an order.</p>';
+        return;
+      }
+      grid.innerHTML = visible.map(t => `
+        <div onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')" class="p-4 rounded-xl border border-slate-200 hover:border-indigo-500 bg-slate-50 cursor-pointer transition space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-extrabold text-indigo-700">${escapeHtml(t.escId)} • Order ${escapeHtml(t.orderId)}</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">With: ${escapeHtml(t.pendingWithDept || 'CDT')}</span>
+          </div>
+          <p class="text-xs font-bold text-slate-900">${escapeHtml(t.cxName)} (${escapeHtml(t.cxPhone)})</p>
+          <p class="text-[11px] text-emerald-800 font-medium bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">${escapeHtml(t.whatToTellCx || t.liveStage)}</p>
+        </div>
+      `).join('');
+    }
+
     async function loadTicketIntoWorkspace(escId) {
-      setLoading(true, `Restoring workspace for ${escId}...`);
+      setLoading(true, `Opening ticket ${escId}...`);
       try {
         const data = await apiGet({ action: 'getTicket', escId });
         setLoading(false);
         if (data.status === 'success' && data.dossier) {
           activeDossier = data.dossier;
           activeTicket = data.ticket;
+          document.getElementById('cdtLandingDashboard').classList.add('hidden');
+          document.getElementById('salesLandingDashboard').classList.add('hidden');
           renderOrderDossier(data.dossier, data.ticket, data.timeline || []);
-          document.getElementById('bucketListSection').classList.add('hidden');
         }
       } catch (e) {
         setLoading(false);
@@ -929,7 +1189,10 @@
     }
 
     async function runOrderOrPhoneSearch(query, mode = 'auto') {
-      setLoading(true, `Scanning orders & subsheets for "${query}"...`);
+      if (!query) return;
+      setLoading(true, `Searching Master Sheet for "${query}"...`);
+      document.getElementById('cdtLandingDashboard').classList.add('hidden');
+      document.getElementById('salesLandingDashboard').classList.add('hidden');
       document.getElementById('phoneResultsSection').classList.add('hidden');
       document.getElementById('orderDossierSection').classList.add('hidden');
 
@@ -939,6 +1202,7 @@
 
         if (data.status === 'not_found' || data.status === 'error') {
           showBannerError("No Matching Record", data.message || "Could not find matching order.");
+          returnToRoleHome();
           return;
         }
 
@@ -1045,6 +1309,8 @@
         ticket.affectedSkus.forEach(s => { savedSkusMap[s.rowKey] = s; });
       }
 
+      const isReadOnlySales = (currentViewMode === 'sales');
+
       allSkus.forEach(item => {
         const saved = savedSkusMap[item.rowKey];
         const isChecked = Boolean(saved);
@@ -1065,6 +1331,7 @@
               data-finish="${escapeHtml(item.finish)}"
               data-ponumber="${escapeHtml(item.poNumber || 'NA')}"
               ${isChecked ? 'checked' : ''}
+              ${isReadOnlySales ? 'disabled' : ''}
               onchange="recalculateSelectedSkusAndPreview()"
             />
             <div>
@@ -1085,6 +1352,7 @@
               <span class="block text-[10px] font-semibold text-slate-500">Affected Boxes/Pcs</span>
               <input type="number" min="0" step="any" value="${saved ? escapeHtml(saved.affectedQty) : '1'}"
                 id="qty_${item.rowKey}"
+                ${isReadOnlySales ? 'disabled' : ''}
                 oninput="recalculateSelectedSkusAndPreview()"
                 class="w-24 px-2.5 py-1 text-xs bg-white border border-slate-300 rounded font-bold" />
             </div>
@@ -1092,6 +1360,7 @@
               <span class="block text-[10px] font-semibold text-slate-500">Tile Batch No</span>
               <input type="text" placeholder="e.g. B-4092" value="${saved ? escapeHtml(saved.batchNo || '') : ''}"
                 id="batch_${item.rowKey}"
+                ${isReadOnlySales ? 'disabled' : ''}
                 oninput="recalculateSelectedSkusAndPreview()"
                 class="w-32 px-2.5 py-1 text-xs bg-white border border-slate-300 rounded font-mono" />
             </div>
@@ -1243,7 +1512,17 @@
     function populateWorkbenchFromTicket(ticket, timeline) {
       const banner = document.getElementById('liveTrackerBanner');
       if (!ticket) {
-        banner.classList.add('hidden');
+        if (currentViewMode === 'sales') {
+          banner.classList.remove('hidden');
+          document.getElementById('trkTicketBadge').textContent = 'No Active Escalation';
+          document.getElementById('trkHeadlineStage').textContent = 'No Escalation Logged for This Order Yet';
+          document.getElementById('trkPendingDept').textContent = 'Status: Normal Order';
+          document.getElementById('trkAssignedOwner').textContent = 'Owner: —';
+          document.getElementById('trkWhatToTellCx').textContent = 'There is no active escalation ticket on this order.';
+          document.getElementById('pizzaProgressGrid').innerHTML = '';
+        } else {
+          banner.classList.add('hidden');
+        }
         document.getElementById('editingEscIdLabel').textContent = 'New Escalation Ticket';
         uploadedProofFiles = [];
         renderProofGallery();
@@ -1392,7 +1671,7 @@
         if (res.status === 'success') {
           activeTicket = res.ticket;
           populateWorkbenchFromTicket(res.ticket, res.timeline || []);
-          initWorkspace();
+          showToastAlert('Ticket Updated', `${res.escId} saved in "${res.bucket}"`);
         }
       } catch (e) {
         setLoading(false);
@@ -1412,7 +1691,7 @@
       });
       setLoading(false);
       if (res.status === 'draft_created') {
-        showToastAlert('Saved to Gmail Drafts', 'Email has been placed in your Gmail Drafts folder and ticket state saved.');
+        showToastAlert('Saved to Gmail Drafts', 'Email has been placed in your Gmail Drafts folder.');
         saveOrSendTicket(false);
       }
     }
@@ -1567,23 +1846,25 @@
 
     function renderAuditTimeline(events) {
       const container = document.getElementById('auditTimelineList');
-      if (!events || !events.length) {
-        container.innerHTML = '<p class="text-xs text-slate-400 text-center py-6">No calls, WhatsApp updates, or email replies logged yet.</p>';
-        return;
-      }
-      container.innerHTML = events.map(ev => {
-        const dt = ev.timestamp ? new Date(ev.timestamp).toLocaleString('en-IN') : '';
-        return `
-          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs space-y-1">
-            <div class="flex items-center justify-between text-[11px] text-slate-500">
-              <span class="font-bold text-indigo-700">${escapeHtml(ev.eventType)} • ${escapeHtml(ev.actorName)}</span>
-              <span>${escapeHtml(dt)}</span>
-            </div>
-            <p class="font-bold text-slate-900">${escapeHtml(ev.headline)}</p>
-            <p class="text-slate-600 whitespace-pre-line">${escapeHtml(ev.details)}</p>
-          </div>
-        `;
-      }).join('');
+      const salesContainer = document.getElementById('salesAuditTimelineList');
+      const html = (!events || !events.length)
+        ? '<p class="text-xs text-slate-400 text-center py-6">No calls, WhatsApp updates, or email replies logged yet.</p>'
+        : events.map(ev => {
+            const dt = ev.timestamp ? new Date(ev.timestamp).toLocaleString('en-IN') : '';
+            return `
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs space-y-1">
+                <div class="flex items-center justify-between text-[11px] text-slate-500">
+                  <span class="font-bold text-indigo-700">${escapeHtml(ev.eventType)} • ${escapeHtml(ev.actorName)}</span>
+                  <span>${escapeHtml(dt)}</span>
+                </div>
+                <p class="font-bold text-slate-900">${escapeHtml(ev.headline)}</p>
+                <p class="text-slate-600 whitespace-pre-line">${escapeHtml(ev.details)}</p>
+              </div>
+            `;
+          }).join('');
+
+      if (container) container.innerHTML = html;
+      if (salesContainer) salesContainer.innerHTML = html;
     }
 
     function renderRawSubTable(tableData, containerId, badgeId) {
@@ -1619,7 +1900,7 @@
       container.innerHTML = html;
     }
 
-    /* CUSTOMER PORTAL */
+    /* ISOLATED CUSTOMER PORTAL FUNCTIONS */
     async function runCustomerPortalLookup(query) {
       setLoading(true, 'Looking up your order...');
       try {
@@ -1855,7 +2136,7 @@
         whatsapp: document.getElementById('admPhoneInput').value.trim(),
         capacityCap: document.getElementById('admCapInput').value,
         availability: document.getElementById('admAvailSelect').value,
-        adminEmail: document.getElementById('currentUserEmailInput').value.trim()
+        adminEmail: authenticatedEmail
       });
       setLoading(false);
       if (res.status === 'success') {
@@ -1871,7 +2152,7 @@
         action: 'adminUpdateConfig',
         subAction: 'deleteRosterMember',
         email,
-        adminEmail: document.getElementById('currentUserEmailInput').value.trim()
+        adminEmail: authenticatedEmail
       });
       setLoading(false);
       if (res.status === 'success') {
@@ -1880,25 +2161,11 @@
       }
     }
 
-    async function adminSaveSetting(key, value) {
-      setLoading(true, `Saving ${key}...`);
-      await apiPost({
-        action: 'adminUpdateConfig',
-        subAction: 'saveTeamEmailOrSetting',
-        recordType: 'SETTING',
-        key,
-        value
-      });
-      setLoading(false);
-    }
-
     async function triggerManualGmailSync() {
       setLoading(true, 'Scanning Gmail threads...');
       await apiGet({ action: 'syncEmails' });
+      await initWorkspace();
       setLoading(false);
-      if (activeTicket && activeTicket.escId) {
-        loadTicketIntoWorkspace(activeTicket.escId);
-      }
     }
 
     async function promptAndSendChaser() {
@@ -1926,10 +2193,9 @@
     }
 
     async function pollForLiveAlerts() {
-      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR_")) return;
+      if (!authenticatedEmail || !APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR_")) return;
       try {
-        const userEmail = document.getElementById('currentUserEmailInput').value.trim();
-        const data = await apiGet({ action: 'pollNotifications', since: lastPollTimestamp, userEmail });
+        const data = await apiGet({ action: 'pollNotifications', since: lastPollTimestamp, userEmail: authenticatedEmail });
         if (data.status === 'success') {
           lastPollTimestamp = Date.now();
           if (data.bucketsSummary) renderRosterAndBucketsBar(data.bucketsSummary);
