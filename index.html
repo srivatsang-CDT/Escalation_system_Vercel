@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Florzy Order Investigation, Escalation & Customer Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .scroll-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+    .scroll-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP NAVIGATION & ROLE / WORKSPACE SWITCHER -->
+  <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-md">
+    <div class="max-w-[1440px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center font-black text-lg">F</div>
+        <div>
+          <h1 class="text-base font-bold tracking-tight">Florzy Escalation &amp; Order Intelligence</h1>
+          <p class="text-[11px] text-slate-400" id="activeRoleSubtitle">Loading workspace profile...</p>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <form id="mainSearchForm" class="flex-1 max-w-xl flex items-center gap-2">
+        <input
+          id="mainSearchInput"
+          type="text"
+          placeholder="Search Order ID (e.g. ORD-OR5ZPX), Order No, or 10-Digit Phone..."
+          class="w-full px-3.5 py-2 text-sm bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold uppercase tracking-wider rounded-lg transition shrink-0">
+          Search
+        </button>
+      </form>
+
+      <!-- Workspace Mode & User Identity Selector -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <input
+          id="currentUserEmailInput"
+          type="email"
+          placeholder="Your @florzy.com email"
+          class="px-2.5 py-1.5 text-xs bg-slate-800 border border-slate-700 rounded text-slate-200 w-48"
+          title="Enter your @florzy.com email to load your Role (Admin / CDT / Sales)"
+        />
+        <div class="inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700 text-xs">
+          <button type="button" data-view="cdt" class="view-tab-btn px-3 py-1.5 rounded-md font-semibold bg-indigo-600 text-white">CDT Workbench</button>
+          <button type="button" data-view="sales" class="view-tab-btn px-3 py-1.5 rounded-md font-semibold text-slate-300 hover:text-white">Sales Tracker</button>
+          <button type="button" data-view="customer" class="view-tab-btn px-3 py-1.5 rounded-md font-semibold text-slate-300 hover:text-white">Cx Self-Service Portal</button>
+          <button type="button" data-view="admin" id="adminTabBtn" class="view-tab-btn px-3 py-1.5 rounded-md font-semibold text-amber-300 hover:text-white">Admin &amp; Roster</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CDT LIVE CAPACITY BAR & 7-BUCKET QUEUE STRIP -->
+    <div id="cdtTopBar" class="bg-slate-800/90 border-t border-slate-700/80 px-4 py-2">
+      <div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
+        <div class="flex items-center gap-2 flex-wrap" id="rosterCapacityBar">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Live Load:</span>
+        </div>
+        <div class="flex items-center gap-1.5 overflow-x-auto scroll-thin py-0.5" id="bucketTabsBar"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NOTIFICATION TOAST BANNER -->
+  <div id="toastBanner" class="hidden fixed bottom-5 right-5 z-50 max-w-md bg-slate-900 text-white border border-indigo-500 rounded-xl shadow-2xl p-4">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-600 text-white">Live Escalation Alert</span>
+        <h4 class="text-sm font-bold mt-1" id="toastTitle">New Customer Claim</h4>
+        <p class="text-xs text-slate-300 mt-0.5" id="toastBody"></p>
+      </div>
+      <button type="button" onclick="document.getElementById('toastBanner').classList.add('hidden')" class="text-slate-400 hover:text-white text-xs">✕</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-[1440px] w-full mx-auto px-4 py-5 space-y-6">
+
+    <!-- LOADING & ERROR BANNERS -->
+    <div id="loadingIndicator" class="hidden bg-white border border-slate-200 rounded-xl p-8 text-center shadow-sm">
+      <div class="inline-block w-7 h-7 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-2"></div>
+      <p class="text-xs font-semibold text-slate-600" id="loadingMessage">Processing request...</p>
+    </div>
+
+    <div id="errorBanner" class="hidden bg-rose-50 border border-rose-200 text-rose-900 rounded-xl p-4 shadow-sm flex items-center justify-between">
+      <div>
+        <h3 class="text-sm font-bold" id="errorTitle">Notice</h3>
+        <p class="text-xs text-rose-700 mt-0.5" id="errorText"></p>
+      </div>
+      <button type="button" onclick="document.getElementById('errorBanner').classList.add('hidden')" class="text-xs font-semibold px-2.5 py-1 rounded bg-rose-100 hover:bg-rose-200">Dismiss</button>
+    </div>
+
+    <!-- VIEW 1 & 2: INTERNAL ORDER DOSSIER + CDT WORKBENCH / SALES TRACKER -->
+    <div id="internalWorkspaceView" class="space-y-6">
+
+      <!-- BUCKET TICKET DRAWER -->
+      <section id="bucketListSection" class="hidden bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h2 class="text-sm font-bold text-slate-900" id="bucketListTitle">Tickets in Bucket</h2>
+            <p class="text-xs text-slate-500">Click any ticket to restore its full 360° Order Dossier</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="triggerManualGmailSync()" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100">
+              🔄 Sync Latest Gmail Replies Now
+            </button>
+            <button type="button" onclick="document.getElementById('bucketListSection').classList.add('hidden')" class="text-xs text-slate-500 hover:text-slate-800 px-2 py-1">Close</button>
+          </div>
+        </div>
+        <div id="bucketTicketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+      </section>
+
+      <!-- PHONE NUMBER MULTI-ORDER RESULTS -->
+      <section id="phoneResultsSection" class="hidden bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+        <h2 class="text-sm font-bold text-slate-900 mb-1">Orders Linked to Phone Number</h2>
+        <p class="text-xs text-slate-500 mb-3" id="phoneResultsSub"></p>
+        <div id="phoneCardsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+      </section>
+
+      <!-- 360° ORDER DOSSIER -->
+      <section id="orderDossierSection" class="hidden space-y-6">
+
+        <!-- Order Header -->
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-4 border-b border-slate-100">
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span id="dosSourceBadge" class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200"></span>
+                <h2 id="dosOrderId" class="text-2xl font-extrabold text-slate-900"></h2>
+                <span class="text-sm font-semibold text-slate-600" id="dosCxName"></span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">
+                Order Number: <strong id="dosOrderNumber" class="text-slate-800"></strong> |
+                Raw Sheet ID: <code id="dosRawId" class="text-slate-600"></code>
+              </p>
+            </div>
+
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right">
+                <span class="block text-[10px] uppercase font-bold text-slate-400">Booking Date</span>
+                <span id="dosBookingDate" class="text-xs font-bold text-slate-800"></span>
+              </div>
+              <div class="bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 text-right">
+                <span class="block text-[10px] uppercase font-bold text-amber-700">Delivery Date</span>
+                <span id="dosDeliveryDate" class="text-xs font-bold text-amber-900"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span class="text-[11px] text-slate-500 font-medium">Order Value</span>
+              <p id="dosOrderValue" class="text-base font-bold text-slate-900 mt-0.5"></p>
+            </div>
+            <div class="p-3 rounded-lg bg-emerald-50/60 border border-emerald-200/80">
+              <span class="text-[11px] text-emerald-700 font-medium">Total Amount Paid</span>
+              <p id="dosAmountPaid" class="text-base font-bold text-emerald-900 mt-0.5"></p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span class="text-[11px] text-slate-500 font-medium">Discount Provided</span>
+              <p id="dosDiscount" class="text-base font-bold text-slate-900 mt-0.5"></p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span class="text-[11px] text-slate-500 font-medium">Customer Phone</span>
+              <p id="dosPhone" class="text-base font-bold text-indigo-600 mt-0.5 cursor-pointer hover:underline"></p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span class="text-[11px] text-slate-500 font-medium">Sales Representative</span>
+              <p id="dosSalesRep" class="text-xs font-bold text-slate-900 mt-1"></p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span class="text-[11px] text-slate-500 font-medium">Delivery Type</span>
+              <p id="dosDeliveryType" class="text-xs font-bold text-slate-900 mt-1"></p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span class="text-[11px] text-slate-500 font-medium">Quote Number</span>
+              <p id="dosQuoteNo" class="text-xs font-bold text-slate-900 mt-1"></p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span class="text-[11px] text-slate-500 font-medium">Quote Drive Preview</span>
+              <div id="dosQuoteBtns" class="mt-1 flex items-center gap-1.5"></div>
+            </div>
+            <div class="col-span-2 sm:col-span-4 p-3 rounded-lg bg-slate-50 border border-slate-200/80">
+              <span class="text-[11px] text-slate-500 font-medium">Delivery Location</span>
+              <p id="dosLocation" class="text-xs font-semibold text-slate-800 mt-0.5"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Embedded Quote PDF Drawer -->
+        <div id="quotePreviewBox" class="hidden bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+          <div class="px-4 py-2.5 bg-slate-800 text-white flex items-center justify-between text-xs font-semibold">
+            <span>Quote Drive Document Preview</span>
+            <button type="button" onclick="document.getElementById('quotePreviewBox').classList.add('hidden')" class="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600">Close</button>
+          </div>
+          <iframe id="quotePreviewIframe" class="w-full h-[500px] border-0"></iframe>
+        </div>
+
+        <!-- SALES TEAM READ-ONLY LIVE TRACKER -->
+        <div id="liveTrackerBanner" class="hidden bg-white border-2 border-indigo-200 rounded-xl p-5 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-indigo-100 text-indigo-800" id="trkTicketBadge">Ticket #ESC-XXXX</span>
+              <h3 class="text-base font-extrabold text-slate-900 mt-1" id="trkHeadlineStage">Live Escalation Status</h3>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-900" id="trkPendingDept">Pending With: CDT</span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-700" id="trkAssignedOwner">Owner: —</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs" id="pizzaProgressGrid"></div>
+
+          <div class="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200 flex items-start justify-between gap-4">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-800">💬 What Sales / CDT Should Tell Customer Right Now:</span>
+              <p class="text-xs font-semibold text-emerald-950 mt-1" id="trkWhatToTellCx">Investigation in progress.</p>
+            </div>
+            <button type="button" onclick="copyCustomerWhatsappUpdate()" class="shrink-0 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold">
+              📲 Copy WhatsApp Update for Cx
+            </button>
+          </div>
+        </div>
+
+        <!-- UNIFIED SKU SELECTION & LINE ITEM TABLES -->
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+          <div class="px-5 py-3.5 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="text-sm font-bold">Select SKU(s) with Issue — Interactive Boxes/Pcs, Batch No &amp; Cost Calculator</h3>
+              <p class="text-[11px] text-slate-300">Extracted from <code>po_line_items</code> &amp; <code>metaescline</code> (metaescline includes +18% GST)</p>
+            </div>
+            <div class="text-right">
+              <span class="text-[11px] text-slate-300 block">Calculated Financial Error Impact:</span>
+              <span id="liveErrorCostBadge" class="text-sm font-extrabold text-amber-400">₹ 0</span>
+            </div>
+          </div>
+          <div id="interactiveSkuSelectionList" class="divide-y divide-slate-200"></div>
+        </div>
+
+        <!-- Raw Sub-Tables -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+            <div class="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">Purchase Order Line Items (po_line_items)</h4>
+                <p class="text-[11px] text-slate-500">Itemized breakdown extracted by matching Order ID</p>
+              </div>
+              <span id="poRawCountBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100">0 rows</span>
+            </div>
+            <div id="poRawTableContainer" class="overflow-x-auto scroll-thin max-h-64"></div>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+            <div class="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">Purchase Order Line Items (metaescline)</h4>
+                <p class="text-[11px] text-slate-500">Itemized breakdown extracted by matching Order ID</p>
+              </div>
+              <span id="metaRawCountBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100">0 rows</span>
+            </div>
+            <div id="metaRawTableContainer" class="overflow-x-auto scroll-thin max-h-64"></div>
+          </div>
+        </div>
+
+        <!-- CDT ESCALATION LOGGING, MEDIA PROOFS & AI EMAIL WORKBENCH -->
+        <div id="cdtEditorPanels" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          <!-- LEFT 7 COLS -->
+          <div class="lg:col-span-7 space-y-5">
+            <!-- Panel A: Classification & Resolution -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="text-sm font-bold text-slate-900">1. Escalation Classification, Resolution &amp; Bucket</h3>
+                <span id="editingEscIdLabel" class="text-xs font-mono font-bold text-indigo-600">New Ticket</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Current Case Bucket</label>
+                  <select id="escBucketSelect" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                    <option value="Incoming Cx Claims">Incoming Cx Claims</option>
+                    <option value="Open (Mid-Stage Draft)" selected>Open (Mid-Stage Draft)</option>
+                    <option value="Awaiting Cx Update/Response">Awaiting Cx Update/Response</option>
+                    <option value="Site Verification">Site Verification (Field Agent Visit)</option>
+                    <option value="Raised to Team">Raised to Team</option>
+                    <option value="On-Hold">On-Hold</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Site Verification Agent</label>
+                  <input id="escSiteVerifierInput" type="text" placeholder="e.g. Agent Name & Visit Date" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Team Responsible</label>
+                  <select id="escTeamSelect" onchange="onTeamResponsibleChange()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold"></select>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Specific Sub-Issue</label>
+                  <select id="escSubIssueSelect" onchange="buildLiveEmailPreview()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold"></select>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Resolution Provided</label>
+                  <select id="escResolutionSelect" onchange="onResolutionTypeChange()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                    <option value="Replacement">Replacement</option>
+                    <option value="Return and Replacement">Return and Replacement</option>
+                    <option value="Return">Return</option>
+                    <option value="Refund - Order Cancellation">Refund - Order Cancellation</option>
+                    <option value="Partial Refund (Partial Order Cancellation)">Partial Refund (Partial Order Cancellation)</option>
+                    <option value="Refund - Others">Refund - Others (Specify Edge Case Below)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Error Cost Liability</label>
+                  <select id="escCostLiabilitySelect" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg">
+                    <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
+                    <option value="Absorbed by Florzy">Absorbed by Florzy</option>
+                    <option value="Customer Paid / Commercial Split">Customer Paid / Commercial Split</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Refund Options -->
+              <div id="refundOptionsRow" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-amber-900 mb-1">Refund Destination Mode</label>
+                  <select id="escRefundModeSelect" onchange="buildLiveEmailPreview()" class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded font-semibold">
+                    <option value="Refund to Bank Account">Refund to Customer Bank Account</option>
+                    <option value="Refund to Customer Wallet (Future Purchase)">Refund to Customer Wallet (For Future Purchase)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-amber-900 mb-1">Refund Edge-Case / Details</label>
+                  <input id="escRefundEdgeNote" type="text" oninput="buildLiveEmailPreview()" placeholder="Describe custom refund reason..." class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded" />
+                </div>
+              </div>
+
+              <!-- Storyline & Resolution Notes -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Storyline of the Case (What Happened)</label>
+                  <textarea id="escStorylineInput" rows="3" oninput="buildLiveEmailPreview()" placeholder="Enter case storyline..." class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Resolution Action Details</label>
+                  <textarea id="escResolutionNotesInput" rows="3" oninput="buildLiveEmailPreview()" placeholder="What exact resolution are we providing..." class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel B: Customer Media Proofs -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-sm font-bold text-slate-900">2. Customer Proof Images &amp; Videos (Google Drive)</h3>
+                  <p class="text-[11px] text-slate-500">Auto-saves to Drive Vault</p>
+                </div>
+                <a id="openTicketDriveFolderLink" href="#" target="_blank" class="hidden text-xs font-bold text-indigo-600 hover:underline">📁 Open Drive Folder ↗</a>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
+                  <span class="block text-xs font-bold text-slate-700">📸 1. Box Batch Sticker</span>
+                  <input type="file" accept="image/*" class="hidden" onchange="uploadProofFromInput(this, 'Batch_Sticker')" />
+                </label>
+                <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
+                  <span class="block text-xs font-bold text-slate-700">📸 2. Damaged Tiles</span>
+                  <input type="file" accept="image/*" class="hidden" onchange="uploadProofFromInput(this, 'Damaged_Tiles')" />
+                </label>
+                <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
+                  <span class="block text-xs font-bold text-slate-700">🎥 3. Site / Unloading Video</span>
+                  <input type="file" accept="video/*,image/*" class="hidden" onchange="uploadProofFromInput(this, 'Site_Video')" />
+                </label>
+              </div>
+              <div id="uploadedProofsGallery" class="flex items-center gap-2 flex-wrap pt-1"></div>
+            </div>
+
+            <!-- Panel C: WhatsApp Milestones -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
+              <h3 class="text-sm font-bold text-slate-900">3. Pre-Email WhatsApp Milestones &amp; Live Status</h3>
+              <div class="flex flex-wrap gap-1.5">
+                <button type="button" onclick="quickToggleMilestone('Checking Same-Batch Availability on WhatsApp', 'Procurement', 'We are verifying with our warehouse if the exact same tile batch is available.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
+                  💬 Checking Batch on WhatsApp
+                </button>
+                <button type="button" onclick="quickToggleMilestone('Same Batch Confirmed by Procurement on WhatsApp', 'CDT', 'The exact same tile batch has been confirmed in stock.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
+                  ✅ Batch Confirmed
+                </button>
+                <button type="button" onclick="quickToggleMilestone('Defect Proofs Sent to Vendor on WhatsApp', 'Vendor', 'Your defect proofs have been escalated to the manufacturer.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
+                  🏭 Sent to Vendor
+                </button>
+                <button type="button" onclick="quickToggleMilestone('Site Verification Scheduled', 'Site Verifier', 'Our verification specialist is scheduled to visit your site.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-800 border border-indigo-200 font-semibold hover:bg-indigo-100">
+                  📍 Site Verification Scheduled
+                </button>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-100">
+                <input id="customStageHeadlineInput" type="text" placeholder="Custom Status..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+                <input id="customPendingDeptInput" type="text" placeholder="Pending Dept" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+                <input id="customWhatToTellCxInput" type="text" placeholder="What Sales should tell Customer..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+                <button type="button" onclick="saveCustomStatusOverride()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg">
+                  Update Live Status
+                </button>
+              </div>
+            </div>
+
+            <!-- Panel D: Return Tracker -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+              <h3 class="text-sm font-bold text-slate-900">4. Return Material Logger (CDT Discretion)</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <select id="retDecisionSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                  <option value="Pickup Required from Cx Site">Pickup Required from Cx Site</option>
+                  <option value="Waived / Scrapped at Site (Fully Broken)">Waived / Scrapped at Site</option>
+                  <option value="No Return Applicable">No Return Applicable</option>
+                </select>
+                <select id="retStatusSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                  <option value="Decision Logged">Decision Logged</option>
+                  <option value="Pickup Scheduled">Pickup Scheduled</option>
+                  <option value="Picked Up from Cx Site">Picked Up from Cx Site</option>
+                  <option value="Received at Warehouse">Received at Warehouse</option>
+                </select>
+                <input id="retNotesInput" type="text" placeholder="Return note..." class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+              </div>
+              <button type="button" onclick="logReturnMaterialStatus()" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg">
+                📦 Log Return Timestamp
+              </button>
+            </div>
+
+            <!-- Panel E: Call Logger -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+              <h3 class="text-sm font-bold text-slate-900">5. Log Follow-Up Touchpoint</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <select id="callPartySelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                  <option value="Customer">Spoke to: Customer</option>
+                  <option value="Procurement">Spoke to: Procurement</option>
+                  <option value="Logistics">Spoke to: Logistics</option>
+                  <option value="Vendor">Spoke to: Vendor</option>
+                  <option value="Sales">Spoke to: Sales Rep</option>
+                  <option value="Accounts">Spoke to: Accounts</option>
+                  <option value="Site Verifier">Spoke to: Site Verifier</option>
+                </select>
+                <input id="callPersonInput" type="text" placeholder="Person Name" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+                <select id="callOutcomeSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                  <option value="Connected - Update Shared">Connected - Update Shared</option>
+                  <option value="Connected - Follow-up Needed">Connected - Follow-up Needed</option>
+                  <option value="Did Not Pick Up (DNP)">Did Not Pick Up (DNP)</option>
+                  <option value="Busy / Switched Off">Busy / Switched Off</option>
+                </select>
+              </div>
+              <div class="flex gap-2">
+                <input id="callSummaryInput" type="text" placeholder="Enter call summary..." class="flex-1 px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+                <button type="button" onclick="submitCallLog()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg shrink-0">
+                  📞 Log Call
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT 5 COLS: LIVE AI EMAIL COMPOSER + AUDIT TIMELINE -->
+          <div class="lg:col-span-5 space-y-5">
+            <!-- AI Email Composer -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+                <h3 class="text-sm font-bold text-slate-900">AI Escalation Email Composer</h3>
+                <div class="flex items-center gap-1.5">
+                  <input id="aiCustomTweakInput" type="text" placeholder="Optional AI tweak..." class="px-2 py-1 text-[11px] bg-slate-50 border border-slate-300 rounded w-40" />
+                  <button type="button" onclick="polishEmailWithAi()" class="text-[11px] font-bold px-2.5 py-1 rounded bg-purple-600 text-white hover:bg-purple-700">
+                    ✨ Generate / Regenerate AI
+                  </button>
+                </div>
+              </div>
+
+              <div class="space-y-2 text-xs">
+                <div>
+                  <label class="font-semibold text-slate-600">To:</label>
+                  <input id="emailToInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded font-mono text-xs" />
+                </div>
+                <div>
+                  <label class="font-semibold text-slate-600">CC:</label>
+                  <input id="emailCcInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded font-mono text-xs" />
+                </div>
+                <div>
+                  <label class="font-semibold text-slate-600">Subject:</label>
+                  <input id="emailSubjectInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded font-semibold text-xs" />
+                </div>
+                <div>
+                  <label class="font-semibold text-slate-600">Formatted Email Preview (Editable):</label>
+                  <div id="emailBodyPreview" contenteditable="true" class="mt-1 p-3 bg-slate-50 border border-slate-300 rounded-lg max-h-80 overflow-y-auto text-xs leading-relaxed"></div>
+                </div>
+              </div>
+
+              <!-- Email Action Buttons -->
+              <div class="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <button type="button" onclick="saveOrSendTicket(false)" class="py-2 px-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold text-center">
+                  💾 Save in Bucket
+                </button>
+                <button type="button" onclick="throwToGmailDrafts()" class="py-2 px-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold text-center">
+                  📥 Throw to Drafts
+                </button>
+                <button type="button" onclick="saveOrSendTicket(true)" class="py-2 px-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow text-center">
+                  🚀 Log &amp; Send
+                </button>
+              </div>
+            </div>
+
+            <!-- Chronological Audit Timeline -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-slate-900">Chronological Audit Trail</h3>
+                <button type="button" onclick="promptAndSendChaser()" class="text-[11px] font-bold px-2.5 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100">
+                  ⏰ Send SLA Chaser Email
+                </button>
+              </div>
+              <div id="auditTimelineList" class="space-y-2.5 max-h-[420px] overflow-y-auto scroll-thin pr-1"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- VIEW 3: CUSTOMER SELF-SERVICE CLAIM & LIVE STATUS PORTAL -->
+    <section id="customerSelfServiceView" class="hidden max-w-3xl mx-auto space-y-6">
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-indigo-50 text-indigo-700">Florzy Customer Support Portal</span>
+            <h2 class="text-xl font-extrabold text-slate-900 mt-1">Report an Order Issue or Track Claim</h2>
+            <p class="text-xs text-slate-500">Enter your 10-digit Phone Number or Order ID to begin or resume.</p>
+          </div>
+        </div>
+
+        <form id="cxPortalLookupForm" class="flex gap-2">
+          <input id="cxLookupInput" type="text" required placeholder="Phone Number or Order ID (e.g. ORD-OR5ZPX)..." class="flex-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
+          <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl">
+            Continue
+          </button>
+        </form>
+
+        <div id="cxOrderChoiceList" class="hidden space-y-2 pt-2"></div>
+
+        <div id="cxSanitizedTrackerCard" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold text-indigo-700" id="cxTrkTicketId">Claim #ESC-XXXX</span>
+              <h3 class="text-base font-extrabold text-slate-900" id="cxTrkStageTitle">Under Verification</h3>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Live Status</span>
+          </div>
+          <p class="text-xs text-slate-700 bg-white p-3.5 rounded-lg border border-slate-200 font-medium" id="cxTrkPublicNote"></p>
+          <div class="flex flex-wrap gap-2 pt-2">
+            <button type="button" onclick="startCustomerFollowUpSubTicket()" class="px-3.5 py-2 rounded-lg bg-indigo-600 text-white text-xs font-bold">
+              ➕ Report Issue with More Boxes / Another Item
+            </button>
+          </div>
+        </div>
+
+        <div id="cxGuidedClaimForm" class="hidden space-y-5 pt-3 border-t border-slate-200">
+          <div id="cxResumeBanner" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-900">
+            🔄 Welcome back! We restored your unfinished submission so you can continue where you left off.
+          </div>
+
+          <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Step 1: Select Item(s) &amp; Enter Affected Boxes</h4>
+            <div id="cxSkuListContainer" class="space-y-2"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Step 2: What Happened?</label>
+              <select id="cxIssueCategorySelect" onchange="autoSaveCustomerDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                <option value="Broken / Cracked Tiles on Arrival">Broken / Cracked Tiles on Arrival</option>
+                <option value="Chipped Corners / Factory Defect inside Box">Chipped Corners / Factory Defect inside Box</option>
+                <option value="Batch / Shade / Color Variation">Batch / Shade / Color Variation</option>
+                <option value="Wrong Item or Short Quantity Delivered">Wrong Item or Short Quantity Delivered</option>
+                <option value="Other Order Issue">Other Order Issue</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Step 3: Describe the Issue</label>
+              <textarea id="cxStorylineTextarea" rows="2" oninput="autoSaveCustomerDraft()" placeholder="Tell us briefly what happened..." class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg"></textarea>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Step 4: Upload Guided Proofs (Photos &amp; Site Video)</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
+                <span class="block text-xs font-bold text-slate-800">📸 1. Box Batch Sticker</span>
+                <input type="file" accept="image/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Batch_Sticker')" />
+              </label>
+              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
+                <span class="block text-xs font-bold text-slate-800">📸 2. Damaged Tiles</span>
+                <input type="file" accept="image/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Damaged_Tiles')" />
+              </label>
+              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
+                <span class="block text-xs font-bold text-slate-800">🎥 3. Site / Unloading Video</span>
+                <input type="file" accept="video/*,image/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Site_Video')" />
+              </label>
+            </div>
+            <div id="cxUploadedFilesList" class="flex flex-wrap gap-2 mt-2"></div>
+          </div>
+
+          <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+            <span id="cxDraftSavedIndicator" class="text-[11px] text-slate-400">Progress auto-saved</span>
+            <button type="button" onclick="submitCustomerPortalClaim(true)" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl shadow">
+              🚀 Submit Claim &amp; Get Ticket ID
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: ADMIN ROSTER, ROLES & WEBHOOK CONFIGURATION PANEL -->
+    <section id="adminConfigView" class="hidden space-y-6">
+      <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div>
+            <h2 class="text-base font-extrabold text-slate-900">Admin Roster, Roles &amp; Capacity Manager</h2>
+            <p class="text-xs text-slate-500">Manage CDT Executives and API Keys.</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-xs text-left divide-y divide-slate-200">
+            <thead class="bg-slate-50 font-bold text-slate-600 uppercase">
+              <tr>
+                <th class="px-3 py-2">Name</th>
+                <th class="px-3 py-2">Email</th>
+                <th class="px-3 py-2">Role</th>
+                <th class="px-3 py-2">WhatsApp</th>
+                <th class="px-3 py-2">Cap</th>
+                <th class="px-3 py-2">Active</th>
+                <th class="px-3 py-2">Availability</th>
+                <th class="px-3 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminRosterTableBody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-1 sm:grid-cols-6 gap-2.5 items-end">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-600">Full Name</label>
+            <input id="admNameInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-600">@florzy.com Email</label>
+            <input id="admEmailInput" type="email" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-600">Role</label>
+            <select id="admRoleSelect" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded font-semibold">
+              <option value="CDT_EXEC">CDT Executive</option>
+              <option value="CDT_LEAD">CDT Lead</option>
+              <option value="SITE_VERIFIER">Site Verifier</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-600">WhatsApp No</label>
+            <input id="admPhoneInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-600">Max Cap &amp; Status</label>
+            <div class="flex gap-1 mt-0.5">
+              <input id="admCapInput" type="number" value="10" class="w-16 px-2 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+              <select id="admAvailSelect" class="flex-1 px-2 py-1.5 text-xs bg-white border border-slate-300 rounded">
+                <option value="AVAILABLE">AVAILABLE</option>
+                <option value="OFFLINE">OFFLINE / LEAVE</option>
+              </select>
+            </div>
+          </div>
+          <button type="button" onclick="adminSaveRosterMember()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg">
+            + Save
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-3">
+        <h3 class="text-sm font-bold text-slate-900">Notification Webhooks &amp; AI Keys</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+            <label class="block text-xs font-bold text-slate-700">Google Chat Webhook</label>
+            <input id="admGchatInput" type="text" class="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+            <button type="button" onclick="adminSaveSetting('GCHAT_WEBHOOK_URL', document.getElementById('admGchatInput').value)" class="px-3 py-1 bg-slate-800 text-white text-xs font-semibold rounded">Save Webhook</button>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+            <label class="block text-xs font-bold text-slate-700">Interakt Base64 API Key</label>
+            <input id="admWaInput" type="text" class="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+            <button type="button" onclick="adminSaveSetting('INTERAKT_API_KEY', document.getElementById('admWaInput').value)" class="px-3 py-1 bg-slate-800 text-white text-xs font-semibold rounded">Save API Key</button>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5">
+            <label class="block text-xs font-bold text-slate-700">Gemini API Key</label>
+            <input id="admGeminiInput" type="password" class="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+            <button type="button" onclick="adminSaveSetting('GEMINI_API_KEY', document.getElementById('admGeminiInput').value)" class="px-3 py-1 bg-slate-800 text-white text-xs font-semibold rounded">Save Gemini Key</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL BELOW:
+    // =========================================================================
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmX_KeXly4K_KVeXw4JWJetNLnL94rgFZ6VsQHavaH_wB2MnUJO5fYDC0X_UFdpQmOzw/exec";
+
+    const ALL_BUCKETS = [
+      "Incoming Cx Claims",
+      "Open (Mid-Stage Draft)",
+      "Awaiting Cx Update/Response",
+      "Site Verification",
+      "Raised to Team",
+      "On-Hold",
+      "Completed"
+    ];
+
+    let sysConfig = { currentUser: {}, roster: [], taxonomy: {}, teamEmails: {} };
+    let currentViewMode = 'cdt';
+    let activeDossier = null;
+    let activeTicket = null;
+    let uploadedProofFiles = [];
+    let cxUploadedFiles = [];
+    let cxDraftEscId = '';
+    let cxParentSubTicketId = '';
+    let lastPollTimestamp = Date.now();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedEmail = localStorage.getItem('florzy_user_email') || 'srivatsa.ng@florzy.com';
+      const emailInput = document.getElementById('currentUserEmailInput');
+      emailInput.value = savedEmail;
+      emailInput.addEventListener('change', () => {
+        localStorage.setItem('florzy_user_email', emailInput.value.trim().toLowerCase());
+        initWorkspace();
+      });
+
+      document.querySelectorAll('.view-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchViewMode(btn.dataset.view));
+      });
+
+      document.getElementById('mainSearchForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const q = document.getElementById('mainSearchInput').value.trim();
+        if (q) runOrderOrPhoneSearch(q, 'auto');
+      });
+
+      document.getElementById('cxPortalLookupForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const q = document.getElementById('cxLookupInput').value.trim();
+        if (q) runCustomerPortalLookup(q);
+      });
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('portal') === 'customer') {
+        switchViewMode('customer');
+      }
+
+      initWorkspace();
+      setInterval(pollForLiveAlerts, 25000);
+    });
+
+    async function apiGet(params) {
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR_")) {
+        showBannerError("Apps Script URL Required", "Replace PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE in index.html with your deployed Google Apps Script Web App URL.");
+        throw new Error("Missing APPS_SCRIPT_URL");
+      }
+      const qs = new URLSearchParams(params).toString();
+      const res = await fetch(`${APPS_SCRIPT_URL}?${qs}`, { method: 'GET', redirect: 'follow' });
+      return await res.json();
+    }
+
+    async function apiPost(payload) {
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR_")) {
+        showBannerError("Apps Script URL Required", "Replace PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE in index.html with your deployed Google Apps Script Web App URL.");
+        throw new Error("Missing APPS_SCRIPT_URL");
+      }
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        redirect: 'follow',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      return await res.json();
+    }
+
+    async function initWorkspace() {
+      const userEmail = document.getElementById('currentUserEmailInput').value.trim().toLowerCase();
+      try {
+        const data = await apiGet({ action: 'init', userEmail });
+        if (data.status === 'success') {
+          sysConfig = data.config;
+          applyRolePermissions();
+          renderRosterAndBucketsBar(data.bucketsSummary || {});
+          populateTaxonomyDropdowns();
+          renderAdminRosterTable();
+        }
+      } catch (e) {}
+    }
+
+    function applyRolePermissions() {
+      const u = sysConfig.currentUser || { role: 'SALES', name: 'Team Member', email: '' };
+      document.getElementById('activeRoleSubtitle').textContent = `Logged in as: ${u.name} (${u.email}) — Role: ${u.role}`;
+
+      const adminBtn = document.getElementById('adminTabBtn');
+      if (u.role === 'ADMIN') {
+        adminBtn.classList.remove('hidden');
+      } else {
+        adminBtn.classList.add('hidden');
+      }
+
+      if (u.role === 'SALES' && currentViewMode === 'cdt') {
+        switchViewMode('sales');
+      }
+    }
+
+    function switchViewMode(mode) {
+      currentViewMode = mode;
+      document.querySelectorAll('.view-tab-btn').forEach(btn => {
+        if (btn.dataset.view === mode) {
+          btn.className = 'view-tab-btn px-3 py-1.5 rounded-md font-semibold bg-indigo-600 text-white';
+        } else {
+          btn.className = 'view-tab-btn px-3 py-1.5 rounded-md font-semibold text-slate-300 hover:text-white';
+        }
+      });
+
+      document.getElementById('internalWorkspaceView').classList.toggle('hidden', mode === 'customer' || mode === 'admin');
+      document.getElementById('customerSelfServiceView').classList.toggle('hidden', mode !== 'customer');
+      document.getElementById('adminConfigView').classList.toggle('hidden', mode !== 'admin');
+      document.getElementById('cdtTopBar').classList.toggle('hidden', mode === 'customer');
+      document.getElementById('cdtEditorPanels').classList.toggle('hidden', mode === 'sales');
+    }
+
+    function renderRosterAndBucketsBar(bucketsSummary) {
+      const rosterEl = document.getElementById('rosterCapacityBar');
+      rosterEl.innerHTML = '<span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Live Load:</span>';
+      (sysConfig.roster || []).filter(r => r.role !== 'SALES').forEach(r => {
+        const isFull = r.activeCount >= r.capacityCap;
+        const badgeColor = r.availability !== 'AVAILABLE'
+          ? 'bg-slate-700 text-slate-400'
+          : (isFull ? 'bg-rose-900/80 text-rose-200 border border-rose-600' : 'bg-emerald-900/70 text-emerald-200 border border-emerald-600');
+        const pill = document.createElement('span');
+        pill.className = `text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${badgeColor}`;
+        pill.textContent = `${r.name} (${r.role.replace('CDT_', '')}): ${r.activeCount}/${r.capacityCap} ${r.availability === 'AVAILABLE' ? '' : '[OFFLINE]'}`;
+        rosterEl.appendChild(pill);
+      });
+
+      const bucketsEl = document.getElementById('bucketTabsBar');
+      bucketsEl.innerHTML = '';
+      ALL_BUCKETS.forEach(bName => {
+        const count = bucketsSummary[bName] || 0;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'text-xs px-3 py-1 rounded-full bg-slate-700 hover:bg-indigo-600 text-slate-100 font-semibold whitespace-nowrap transition flex items-center gap-1.5';
+        btn.innerHTML = `<span>${bName}</span><span class="px-1.5 py-0.2 rounded-full bg-slate-900 text-indigo-300 text-[10px]">${count}</span>`;
+        btn.onclick = () => openBucketDrawer(bName);
+        bucketsEl.appendChild(btn);
+      });
+    }
+
+    async function openBucketDrawer(bucketName) {
+      setLoading(true, `Loading tickets in "${bucketName}"...`);
+      try {
+        const userEmail = document.getElementById('currentUserEmailInput').value.trim();
+        const data = await apiGet({ action: 'init', userEmail, bucket: bucketName });
+        setLoading(false);
+        const sec = document.getElementById('bucketListSection');
+        const grid = document.getElementById('bucketTicketsGrid');
+        document.getElementById('bucketListTitle').textContent = `Bucket: ${bucketName} (${(data.tickets || []).length})`;
+        sec.classList.remove('hidden');
+        grid.innerHTML = '';
+
+        if (!(data.tickets || []).length) {
+          grid.innerHTML = `<p class="text-xs text-slate-400 col-span-3 py-4 text-center">No tickets currently in ${bucketName}.</p>`;
+          return;
+        }
+
+        data.tickets.forEach(t => {
+          const ageHours = Math.max(0, Math.round((Date.now() - Date.parse(t.updatedAt || t.createdAt)) / 3600000));
+          const slaBreach = ageHours >= 24 && t.bucket !== 'Completed';
+          const card = document.createElement('div');
+          card.className = `p-3.5 rounded-xl border ${slaBreach ? 'border-rose-400 bg-rose-50/40' : 'border-slate-200 bg-slate-50'} hover:border-indigo-500 cursor-pointer transition space-y-1.5`;
+          card.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold text-indigo-700">${escapeHtml(t.escId)} — Order ${escapeHtml(t.orderId)}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded ${slaBreach ? 'bg-rose-600 text-white' : 'bg-slate-200 text-slate-700'}">${ageHours}h in stage</span>
+            </div>
+            <p class="text-xs font-bold text-slate-800">${escapeHtml(t.cxName)} (${escapeHtml(t.cxPhone)})</p>
+            <p class="text-[11px] text-slate-600">${escapeHtml(t.teamResponsible)} ➔ ${escapeHtml(t.subIssue)}</p>
+            <div class="flex items-center justify-between pt-1 text-[11px] text-slate-500 border-t border-slate-200/70">
+              <span>Owner: <strong>${escapeHtml(t.assignedAgentName || 'Unassigned')}</strong></span>
+              <span class="font-semibold text-indigo-600">Open Workspace →</span>
+            </div>
+          `;
+          card.onclick = () => loadTicketIntoWorkspace(t.escId);
+          grid.appendChild(card);
+        });
+      } catch (e) {
+        setLoading(false);
+      }
+    }
+
+    async function loadTicketIntoWorkspace(escId) {
+      setLoading(true, `Restoring workspace for ${escId}...`);
+      try {
+        const data = await apiGet({ action: 'getTicket', escId });
+        setLoading(false);
+        if (data.status === 'success' && data.dossier) {
+          activeDossier = data.dossier;
+          activeTicket = data.ticket;
+          renderOrderDossier(data.dossier, data.ticket, data.timeline || []);
+          document.getElementById('bucketListSection').classList.add('hidden');
+        }
+      } catch (e) {
+        setLoading(false);
+      }
+    }
+
+    async function runOrderOrPhoneSearch(query, mode = 'auto') {
+      setLoading(true, `Scanning orders & subsheets for "${query}"...`);
+      document.getElementById('phoneResultsSection').classList.add('hidden');
+      document.getElementById('orderDossierSection').classList.add('hidden');
+
+      try {
+        const data = await apiGet({ action: 'search', q: query, mode });
+        setLoading(false);
+
+        if (data.status === 'not_found' || data.status === 'error') {
+          showBannerError("No Matching Record", data.message || "Could not find matching order.");
+          return;
+        }
+
+        if (data.searchType === 'phone') {
+          const sec = document.getElementById('phoneResultsSection');
+          const grid = document.getElementById('phoneCardsGrid');
+          document.getElementById('phoneResultsSub').textContent = `Found ${(data.results || []).length} order(s) under ${query}.`;
+          sec.classList.remove('hidden');
+          grid.innerHTML = '';
+          (data.results || []).forEach(r => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 bg-slate-50 transition space-y-1';
+            btn.innerHTML = `
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-extrabold text-indigo-700">${escapeHtml(r.orderId)}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 font-semibold">${escapeHtml(r.sourceSheet)}</span>
+              </div>
+              <p class="text-xs font-bold text-slate-800">${escapeHtml(r.cxName)}</p>
+              <p class="text-[11px] text-slate-500">Booking: ${escapeHtml(r.bookingDate)} | Value: ${escapeHtml(r.orderValue)}</p>
+            `;
+            btn.onclick = () => runOrderOrPhoneSearch(r.rawOrderId || r.orderId, 'order');
+            grid.appendChild(btn);
+          });
+        } else if (data.dossier) {
+          activeDossier = data.dossier;
+          const latestTicket = (data.dossier.existingTickets && data.dossier.existingTickets.length)
+            ? data.dossier.existingTickets[data.dossier.existingTickets.length - 1]
+            : null;
+          activeTicket = latestTicket;
+          renderOrderDossier(data.dossier, latestTicket, latestTicket ? (latestTicket.timeline || []) : []);
+        }
+      } catch (e) {
+        setLoading(false);
+      }
+    }
+
+    function renderOrderDossier(d, ticket, timeline) {
+      document.getElementById('orderDossierSection').classList.remove('hidden');
+      document.getElementById('dosSourceBadge').textContent = `Source: ${d.sourceSheet}`;
+      document.getElementById('dosOrderId').textContent = d.orderId;
+      document.getElementById('dosCxName').textContent = `• Customer: ${d.cxName || 'NA'}`;
+      document.getElementById('dosOrderNumber').textContent = d.orderNumber || 'NA';
+      document.getElementById('dosRawId').textContent = d.rawOrderId || d.orderId;
+      document.getElementById('dosBookingDate').textContent = d.bookingDate || 'NA';
+      document.getElementById('dosDeliveryDate').textContent = d.deliveryDate || 'NA';
+      document.getElementById('dosOrderValue').textContent = d.orderValue || '0';
+      document.getElementById('dosAmountPaid').textContent = d.totalAmountPaid || '0';
+      document.getElementById('dosDiscount').textContent = d.discountProvided || '0';
+
+      const phoneEl = document.getElementById('dosPhone');
+      phoneEl.textContent = d.phoneNo || 'NA';
+      phoneEl.onclick = () => {
+        if (d.phoneNo && d.phoneNo !== 'NA') runOrderOrPhoneSearch(d.phoneNo, 'phone');
+      };
+
+      document.getElementById('dosSalesRep').textContent = d.salesRep || 'NA';
+      document.getElementById('dosDeliveryType').textContent = d.deliveryType || 'NA';
+      document.getElementById('dosQuoteNo').textContent = d.quoteNo || 'NA';
+      document.getElementById('dosLocation').textContent = d.deliveryLocation || 'NA';
+
+      const qBtns = document.getElementById('dosQuoteBtns');
+      qBtns.innerHTML = '';
+      if (d.quoteDriveUrl) {
+        const prevBtn = document.createElement('button');
+        prevBtn.type = 'button';
+        prevBtn.className = 'text-[11px] font-bold px-2.5 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700';
+        prevBtn.textContent = 'Preview PDF';
+        prevBtn.onclick = () => {
+          document.getElementById('quotePreviewIframe').src = d.quotePreviewUrl || d.quoteDriveUrl;
+          document.getElementById('quotePreviewBox').classList.remove('hidden');
+        };
+        const extLink = document.createElement('a');
+        extLink.href = d.quoteDriveUrl;
+        extLink.target = '_blank';
+        extLink.className = 'text-[11px] font-bold px-2.5 py-1 rounded bg-slate-200 text-slate-800 hover:bg-slate-300';
+        extLink.textContent = 'Open Drive';
+        qBtns.appendChild(prevBtn);
+        qBtns.appendChild(extLink);
+      } else {
+        qBtns.innerHTML = '<span class="text-xs text-slate-400">NA</span>';
+      }
+
+      renderInteractiveSkuList(d, ticket);
+      renderRawSubTable(d.poLineItems, 'poRawTableContainer', 'poRawCountBadge');
+      renderRawSubTable(d.metaEscLineItems, 'metaRawTableContainer', 'metaRawCountBadge');
+      populateWorkbenchFromTicket(ticket, timeline);
+    }
+
+    function renderInteractiveSkuList(d, ticket) {
+      const container = document.getElementById('interactiveSkuSelectionList');
+      container.innerHTML = '';
+      const allSkus = []
+        .concat((d.poLineItems && d.poLineItems.structuredItems) || [])
+        .concat((d.metaEscLineItems && d.metaEscLineItems.structuredItems) || []);
+
+      if (!allSkus.length) {
+        container.innerHTML = '<p class="p-6 text-xs text-slate-400 text-center">No line items found in po_line_items or metaescline.</p>';
+        return;
+      }
+
+      const savedSkusMap = {};
+      if (ticket && Array.isArray(ticket.affectedSkus)) {
+        ticket.affectedSkus.forEach(s => { savedSkusMap[s.rowKey] = s; });
+      }
+
+      allSkus.forEach(item => {
+        const saved = savedSkusMap[item.rowKey];
+        const isChecked = Boolean(saved);
+        const repeatCount = (d.skuWarnings && d.skuWarnings[(item.skuName || '').trim().toUpperCase()]) || 0;
+
+        const row = document.createElement('div');
+        row.className = 'p-3.5 hover:bg-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs';
+        row.innerHTML = `
+          <label class="flex items-start gap-2.5 cursor-pointer flex-1">
+            <input type="checkbox" class="sku-check mt-1 w-4 h-4 text-indigo-600 rounded"
+              data-rowkey="${escapeHtml(item.rowKey)}"
+              data-skuname="${escapeHtml(item.skuName)}"
+              data-source="${escapeHtml(item.sourceTab)}"
+              data-unitprice="${item.unitPriceInclGst || 0}"
+              data-orderedqty="${escapeHtml(item.orderedQty)}"
+              data-unit="${escapeHtml(item.orderedUnit)}"
+              data-size="${escapeHtml(item.size)}"
+              data-finish="${escapeHtml(item.finish)}"
+              data-ponumber="${escapeHtml(item.poNumber || 'NA')}"
+              ${isChecked ? 'checked' : ''}
+              onchange="recalculateSelectedSkusAndPreview()"
+            />
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-bold text-slate-900">${escapeHtml(item.skuName)}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-semibold">${escapeHtml(item.sourceTab)}</span>
+                ${repeatCount > 1 ? `<span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold">⚠️ ${repeatCount} Past Defect Logs on this SKU</span>` : ''}
+              </div>
+              <p class="text-[11px] text-slate-500 mt-0.5">
+                Ordered: <strong>${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}</strong> |
+                Size: ${escapeHtml(item.size)} | Finish: ${escapeHtml(item.finish)} |
+                PO: ${escapeHtml(item.poNumber || 'NA')} | Unit Price (incl. GST): ₹${item.unitPriceInclGst || 0}
+              </p>
+            </div>
+          </label>
+          <div class="flex items-center gap-2 shrink-0">
+            <div>
+              <span class="block text-[10px] font-semibold text-slate-500">Affected Boxes/Pcs</span>
+              <input type="number" min="0" step="any" value="${saved ? escapeHtml(saved.affectedQty) : '1'}"
+                id="qty_${item.rowKey}"
+                oninput="recalculateSelectedSkusAndPreview()"
+                class="w-24 px-2.5 py-1 text-xs bg-white border border-slate-300 rounded font-bold" />
+            </div>
+            <div>
+              <span class="block text-[10px] font-semibold text-slate-500">Tile Batch No</span>
+              <input type="text" placeholder="e.g. B-4092" value="${saved ? escapeHtml(saved.batchNo || '') : ''}"
+                id="batch_${item.rowKey}"
+                oninput="recalculateSelectedSkusAndPreview()"
+                class="w-32 px-2.5 py-1 text-xs bg-white border border-slate-300 rounded font-mono" />
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      recalculateSelectedSkusAndPreview();
+    }
+
+    function getSelectedSkusArray() {
+      const list = [];
+      let totalCost = 0;
+      document.querySelectorAll('.sku-check:checked').forEach(chk => {
+        const rk = chk.dataset.rowkey;
+        const qtyVal = parseFloat(document.getElementById(`qty_${rk}`).value) || 0;
+        const batchVal = (document.getElementById(`batch_${rk}`).value || '').trim();
+        const unitPrice = parseFloat(chk.dataset.unitprice) || 0;
+        const lineImpact = Math.round(qtyVal * unitPrice);
+        totalCost += lineImpact;
+
+        list.push({
+          rowKey: rk,
+          skuName: chk.dataset.skuname,
+          sourceTab: chk.dataset.source,
+          orderedQty: chk.dataset.orderedqty,
+          orderedUnit: chk.dataset.unit,
+          size: chk.dataset.size,
+          finish: chk.dataset.finish,
+          poNumber: chk.dataset.ponumber,
+          affectedQty: qtyVal,
+          batchNo: batchVal || 'NA',
+          unitPriceInclGst: unitPrice,
+          lineImpactInr: lineImpact
+        });
+      });
+      return { list, totalCost };
+    }
+
+    function recalculateSelectedSkusAndPreview() {
+      const { totalCost } = getSelectedSkusArray();
+      document.getElementById('liveErrorCostBadge').textContent = `₹ ${totalCost.toLocaleString('en-IN')}`;
+      buildLiveEmailPreview();
+    }
+
+    function populateTaxonomyDropdowns() {
+      const teamSel = document.getElementById('escTeamSelect');
+      teamSel.innerHTML = '';
+      Object.keys(sysConfig.taxonomy || {}).forEach(team => {
+        const opt = document.createElement('option');
+        opt.value = team;
+        opt.textContent = team;
+        teamSel.appendChild(opt);
+      });
+      onTeamResponsibleChange();
+    }
+
+    function onTeamResponsibleChange() {
+      const team = document.getElementById('escTeamSelect').value;
+      const subSel = document.getElementById('escSubIssueSelect');
+      subSel.innerHTML = '';
+      const info = (sysConfig.taxonomy && sysConfig.taxonomy[team]) || { defaultEmail: 'NA', subIssues: [] };
+      info.subIssues.forEach(sub => {
+        const opt = document.createElement('option');
+        opt.value = sub;
+        opt.textContent = sub;
+        subSel.appendChild(opt);
+      });
+
+      const configuredEmail = (sysConfig.teamEmails && sysConfig.teamEmails[team]) || info.defaultEmail || 'NA';
+      document.getElementById('emailToInput').value = configuredEmail;
+      document.getElementById('emailCcInput').value = sysConfig.defaultCc || '';
+      buildLiveEmailPreview();
+    }
+
+    function onResolutionTypeChange() {
+      const resType = document.getElementById('escResolutionSelect').value;
+      const isRefund = resType.toLowerCase().includes('refund');
+      document.getElementById('refundOptionsRow').classList.toggle('hidden', !isRefund);
+      buildLiveEmailPreview();
+    }
+
+    function buildLiveEmailPreview() {
+      if (!activeDossier) return;
+      const escId = (activeTicket && activeTicket.escId) ? activeTicket.escId : 'ESC-NEW';
+      const team = document.getElementById('escTeamSelect').value || 'Logistics Errors';
+      const subIssue = document.getElementById('escSubIssueSelect').value || '';
+      const resType = document.getElementById('escResolutionSelect').value || 'Replacement';
+      const refundMode = document.getElementById('escRefundModeSelect').value || '';
+      const refundEdge = document.getElementById('escRefundEdgeNote').value || '';
+      const storyline = document.getElementById('escStorylineInput').value || '';
+      const resNotes = document.getElementById('escResolutionNotesInput').value || '';
+      const { list, totalCost } = getSelectedSkusArray();
+
+      const subject = `[${escId}] ${team} - ${subIssue} | ${activeDossier.cxName} | ${activeDossier.phoneNo} | Order ${activeDossier.orderId}`;
+      document.getElementById('emailSubjectInput').value = subject;
+
+      let skuRowsHtml = '';
+      if (list.length) {
+        skuRowsHtml = `
+          <table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:12px;">
+            <thead>
+              <tr style="background:#f1f5f9;text-align:left;">
+                <th style="padding:6px;border:1px solid #cbd5e1;">SKU / Product Name</th>
+                <th style="padding:6px;border:1px solid #cbd5e1;">Affected Boxes/Pcs</th>
+                <th style="padding:6px;border:1px solid #cbd5e1;">Batch / Shade No</th>
+                <th style="padding:6px;border:1px solid #cbd5e1;">PO Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${list.map(s => `
+                <tr>
+                  <td style="padding:6px;border:1px solid #cbd5e1;font-weight:bold;">${escapeHtml(s.skuName)} (${escapeHtml(s.size)})</td>
+                  <td style="padding:6px;border:1px solid #cbd5e1;color:#dc2626;font-weight:bold;">${escapeHtml(s.affectedQty)} ${escapeHtml(s.orderedUnit)}</td>
+                  <td style="padding:6px;border:1px solid #cbd5e1;font-family:monospace;">${escapeHtml(s.batchNo)}</td>
+                  <td style="padding:6px;border:1px solid #cbd5e1;">${escapeHtml(s.poNumber)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      }
+
+      const refundBlock = resType.toLowerCase().includes('refund')
+        ? `<p><strong>Refund Mode:</strong> ${escapeHtml(refundMode)} ${refundEdge ? `<br/><strong>Refund Specifics:</strong> ${escapeHtml(refundEdge)}` : ''}</p>`
+        : '';
+
+      const html = `
+        <p>Hi Team,</p>
+        <p>An escalation <strong>${escapeHtml(escId)}</strong> has been logged against Order <strong>${escapeHtml(activeDossier.orderId)}</strong>.</p>
+        <ul>
+          <li><strong>Customer Name &amp; Phone:</strong> ${escapeHtml(activeDossier.cxName)} (${escapeHtml(activeDossier.phoneNo)})</li>
+          <li><strong>Team Responsible &amp; Issue:</strong> ${escapeHtml(team)} — ${escapeHtml(subIssue)}</li>
+          <li><strong>Resolution Required:</strong> <span style="background:#fef3c7;padding:2px 6px;border-radius:4px;font-weight:bold;">${escapeHtml(resType)}</span></li>
+          <li><strong>Estimated Cost of Error (incl. GST):</strong> ₹${totalCost.toLocaleString('en-IN')}</li>
+          <li><strong>Delivery Location:</strong> ${escapeHtml(activeDossier.deliveryLocation)}</li>
+        </ul>
+        ${refundBlock}
+        <p><strong>Affected SKU Breakdown:</strong></p>
+        ${skuRowsHtml || '<p><em>Whole Order / General Escalation</em></p>'}
+        <p><strong>Case Storyline:</strong><br/>${escapeHtml(storyline || 'See details above.')}</p>
+        <p><strong>Resolution Action Plan:</strong><br/>${escapeHtml(resNotes || resType)}</p>
+        <p>Please reply directly on this email thread when PO is raised, dispatched, or refunded so the live tracker updates automatically.</p>
+      `;
+      document.getElementById('emailBodyPreview').innerHTML = html;
+    }
+
+    function populateWorkbenchFromTicket(ticket, timeline) {
+      const banner = document.getElementById('liveTrackerBanner');
+      if (!ticket) {
+        banner.classList.add('hidden');
+        document.getElementById('editingEscIdLabel').textContent = 'New Escalation Ticket';
+        uploadedProofFiles = [];
+        renderProofGallery();
+        renderAuditTimeline([]);
+        return;
+      }
+
+      banner.classList.remove('hidden');
+      document.getElementById('editingEscIdLabel').textContent = `Editing ${ticket.escId} (${ticket.bucket})`;
+      document.getElementById('trkTicketBadge').textContent = `${ticket.escId} • Bucket: ${ticket.bucket}`;
+      document.getElementById('trkHeadlineStage').textContent = ticket.customStatusText
+        ? `⚠️ Custom Status: ${ticket.customStatusText}`
+        : (ticket.liveStage || 'Under Investigation');
+      document.getElementById('trkPendingDept').textContent = `Currently With: ${ticket.pendingWithDept || 'CDT'}`;
+      document.getElementById('trkAssignedOwner').textContent = `Owner: ${ticket.assignedAgentName || 'Auto'}`;
+      document.getElementById('trkWhatToTellCx').textContent = ticket.whatToTellCx || 'Our team is actively working on your resolution.';
+
+      const steps = [
+        { label: '1. Logged / Proofs In', done: true },
+        { label: '2. WhatsApp / Site Check', done: ticket.bucket !== 'Incoming Cx Claims' },
+        { label: '3. Raised to Team', done: ['Raised to Team', 'Completed'].includes(ticket.bucket) || (ticket.liveStage || '').includes('PO') },
+        { label: '4. PO / Action Approved', done: (ticket.liveStage || '').includes('PO Raised') || (ticket.liveStage || '').includes('Dispatched') || ticket.bucket === 'Completed' },
+        { label: '5. Completed', done: ticket.bucket === 'Completed' }
+      ];
+      document.getElementById('pizzaProgressGrid').innerHTML = steps.map(s => `
+        <div class="p-2.5 rounded-lg border text-center font-bold ${s.done ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-slate-50 border-slate-200 text-slate-400'}">
+          ${s.done ? '✔ ' : '○ '}${s.label}
+        </div>
+      `).join('');
+
+      document.getElementById('escBucketSelect').value = ticket.bucket || 'Open (Mid-Stage Draft)';
+      document.getElementById('escSiteVerifierInput').value = ticket.siteVerifierAgent || '';
+      if (ticket.teamResponsible && sysConfig.taxonomy[ticket.teamResponsible]) {
+        document.getElementById('escTeamSelect').value = ticket.teamResponsible;
+        onTeamResponsibleChange();
+      }
+      if (ticket.subIssue) document.getElementById('escSubIssueSelect').value = ticket.subIssue;
+      if (ticket.resolutionType) {
+        document.getElementById('escResolutionSelect').value = ticket.resolutionType;
+        onResolutionTypeChange();
+      }
+      document.getElementById('escRefundModeSelect').value = ticket.refundMode || 'Refund to Bank Account';
+      document.getElementById('escRefundEdgeNote').value = ticket.refundEdgeCaseNote || '';
+      document.getElementById('escCostLiabilitySelect').value = ticket.costLiability || 'Recoverable from Vendor / Transporter';
+      document.getElementById('escStorylineInput').value = ticket.storylineNotes || '';
+      document.getElementById('escResolutionNotesInput').value = ticket.resolutionNotes || '';
+
+      uploadedProofFiles = ticket.proofFiles || [];
+      renderProofGallery();
+
+      if (ticket.driveFolderUrl) {
+        const folderLink = document.getElementById('openTicketDriveFolderLink');
+        folderLink.href = ticket.driveFolderUrl;
+        folderLink.classList.remove('hidden');
+      }
+
+      buildLiveEmailPreview();
+      renderAuditTimeline(timeline || []);
+    }
+
+    async function uploadProofFromInput(inputEl, slotLabel) {
+      const file = inputEl.files && inputEl.files[0];
+      if (!file || !activeDossier) return;
+      setLoading(true, `Uploading ${file.name} to Drive Vault...`);
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const base64Data = reader.result.split(',')[1];
+          const res = await apiPost({
+            action: 'uploadProofFile',
+            escId: activeTicket ? activeTicket.escId : '',
+            orderId: activeDossier.orderId,
+            slotLabel,
+            fileName: file.name,
+            mimeType: file.type,
+            base64Data
+          });
+          setLoading(false);
+          if (res.status === 'success') {
+            if (!activeTicket) activeTicket = { escId: res.escId };
+            uploadedProofFiles.push(res.fileRecord);
+            renderProofGallery();
+            const folderLink = document.getElementById('openTicketDriveFolderLink');
+            folderLink.href = res.driveFolderUrl;
+            folderLink.classList.remove('hidden');
+          }
+        } catch (e) {
+          setLoading(false);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function renderProofGallery() {
+      const gal = document.getElementById('uploadedProofsGallery');
+      gal.innerHTML = '';
+      uploadedProofFiles.forEach(f => {
+        const a = document.createElement('a');
+        a.href = f.url;
+        a.target = '_blank';
+        a.className = 'text-xs px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold hover:bg-indigo-100';
+        a.textContent = `📎 ${f.slotLabel || 'Proof'}: ${f.name}`;
+        gal.appendChild(a);
+      });
+    }
+
+    async function saveOrSendTicket(sendEmailNow) {
+      if (!activeDossier) return;
+      const { list, totalCost } = getSelectedSkusArray();
+      const u = sysConfig.currentUser || {};
+
+      setLoading(true, sendEmailNow ? 'Logging ticket & sending email...' : 'Saving ticket state...');
+      try {
+        const res = await apiPost({
+          action: 'saveOrSendEscalation',
+          escId: activeTicket ? activeTicket.escId : '',
+          orderId: activeDossier.orderId,
+          orderNumber: activeDossier.orderNumber,
+          cxName: activeDossier.cxName,
+          cxPhone: activeDossier.phoneNo,
+          salesRep: activeDossier.salesRep,
+          sourceSheet: activeDossier.sourceSheet,
+          bucket: document.getElementById('escBucketSelect').value,
+          siteVerifierAgent: document.getElementById('escSiteVerifierInput').value.trim(),
+          teamResponsible: document.getElementById('escTeamSelect').value,
+          subIssue: document.getElementById('escSubIssueSelect').value,
+          resolutionType: document.getElementById('escResolutionSelect').value,
+          refundMode: document.getElementById('escRefundModeSelect').value,
+          refundEdgeCaseNote: document.getElementById('escRefundEdgeNote').value.trim(),
+          costLiability: document.getElementById('escCostLiabilitySelect').value,
+          affectedSkus: list,
+          costImpactInr: totalCost,
+          storylineNotes: document.getElementById('escStorylineInput').value.trim(),
+          resolutionNotes: document.getElementById('escResolutionNotesInput').value.trim(),
+          proofFiles: uploadedProofFiles,
+          emailTo: document.getElementById('emailToInput').value.trim(),
+          emailCc: document.getElementById('emailCcInput').value.trim(),
+          emailSubject: document.getElementById('emailSubjectInput').value.trim(),
+          emailBodyHtml: document.getElementById('emailBodyPreview').innerHTML,
+          actorName: u.name,
+          actorEmail: u.email,
+          sendEmailNow
+        });
+        setLoading(false);
+        if (res.status === 'success') {
+          activeTicket = res.ticket;
+          populateWorkbenchFromTicket(res.ticket, res.timeline || []);
+          initWorkspace();
+        }
+      } catch (e) {
+        setLoading(false);
+      }
+    }
+
+    async function throwToGmailDrafts() {
+      if (!activeDossier) return;
+      setLoading(true, 'Creating draft in Gmail Drafts folder...');
+      const res = await apiPost({
+        action: 'generateAiEmailDraft',
+        createGmailDraftOnly: true,
+        emailTo: document.getElementById('emailToInput').value.trim(),
+        emailCc: document.getElementById('emailCcInput').value.trim(),
+        emailSubject: document.getElementById('emailSubjectInput').value.trim(),
+        emailBodyHtml: document.getElementById('emailBodyPreview').innerHTML
+      });
+      setLoading(false);
+      if (res.status === 'draft_created') {
+        showToastAlert('Saved to Gmail Drafts', 'Email has been placed in your Gmail Drafts folder and ticket state saved.');
+        saveOrSendTicket(false);
+      }
+    }
+
+    async function polishEmailWithAi() {
+      const storylineNotes = document.getElementById('escStorylineInput').value.trim();
+      const resolutionNotes = document.getElementById('escResolutionNotesInput').value.trim();
+      const customPrompt = (document.getElementById('aiCustomTweakInput')?.value || '').trim();
+      if (!storylineNotes) {
+        showBannerError("Enter Storyline First", "Write a quick rough note in the Storyline box before clicking Generate AI.");
+        return;
+      }
+      setLoading(true, 'Generating AI-polished email preview...');
+      const res = await apiPost({
+        action: 'generateAiEmailDraft',
+        storylineNotes,
+        resolutionNotes,
+        customPrompt
+      });
+      setLoading(false);
+      if (res.status === 'success' && res.polishedText) {
+        document.getElementById('escStorylineInput').value = res.polishedText;
+        buildLiveEmailPreview();
+        showToastAlert('AI Draft Ready', 'Review or edit the email preview before sending.');
+      } else {
+        buildLiveEmailPreview();
+        showToastAlert('Structured Template Ready', res.message || 'Built using zero-token template.');
+      }
+    }
+
+    async function quickToggleMilestone(stageLabel, pendingDept, publicScript) {
+      if (!activeTicket || !activeTicket.escId) {
+        await saveOrSendTicket(false);
+      }
+      if (!activeTicket) return;
+      const u = sysConfig.currentUser || {};
+      const bucket = stageLabel.includes('Site Verification') ? 'Site Verification' : activeTicket.bucket;
+
+      setLoading(true, `Updating milestone: ${stageLabel}...`);
+      const res = await apiPost({
+        action: 'logCallOrStage',
+        escId: activeTicket.escId,
+        orderId: activeDossier.orderId,
+        bucket,
+        liveStage: stageLabel,
+        pendingWithDept: pendingDept,
+        whatToTellCx: publicScript,
+        actorName: u.name,
+        actorEmail: u.email,
+        eventType: 'WHATSAPP_STAGE',
+        partySpokenTo: pendingDept,
+        callOutcome: 'Milestone Updated',
+        headline: `💬 Milestone: ${stageLabel}`,
+        details: publicScript
+      });
+      setLoading(false);
+      if (res.status === 'success') {
+        activeTicket = res.ticket;
+        populateWorkbenchFromTicket(res.ticket, res.timeline || []);
+      }
+    }
+
+    async function saveCustomStatusOverride() {
+      if (!activeTicket || !activeTicket.escId) {
+        await saveOrSendTicket(false);
+      }
+      if (!activeTicket) return;
+      const u = sysConfig.currentUser || {};
+      const customText = document.getElementById('customStageHeadlineInput').value.trim();
+      const pendingDept = document.getElementById('customPendingDeptInput').value.trim() || 'CDT';
+      const tellCx = document.getElementById('customWhatToTellCxInput').value.trim();
+
+      setLoading(true, 'Updating custom live status...');
+      const res = await apiPost({
+        action: 'logCallOrStage',
+        escId: activeTicket.escId,
+        orderId: activeDossier.orderId,
+        customStatusText: customText,
+        pendingWithDept: pendingDept,
+        whatToTellCx: tellCx,
+        actorName: u.name,
+        actorEmail: u.email,
+        eventType: 'CUSTOM_STATUS',
+        partySpokenTo: pendingDept,
+        callOutcome: 'Custom Override',
+        headline: `⚙️ Custom Status Set: ${customText}`,
+        details: `What to tell Cx: ${tellCx}`
+      });
+      setLoading(false);
+      if (res.status === 'success') {
+        activeTicket = res.ticket;
+        populateWorkbenchFromTicket(res.ticket, res.timeline || []);
+      }
+    }
+
+    async function logReturnMaterialStatus() {
+      if (!activeTicket || !activeTicket.escId) {
+        await saveOrSendTicket(false);
+      }
+      if (!activeTicket) return;
+      const u = sysConfig.currentUser || {};
+      setLoading(true, 'Logging return timestamp...');
+      const res = await apiPost({
+        action: 'updateReturnMaterial',
+        escId: activeTicket.escId,
+        orderId: activeDossier.orderId,
+        returnDecision: document.getElementById('retDecisionSelect').value,
+        returnStatus: document.getElementById('retStatusSelect').value,
+        returnNotes: document.getElementById('retNotesInput').value.trim(),
+        actorName: u.name,
+        actorEmail: u.email
+      });
+      setLoading(false);
+      if (res.status === 'success') {
+        activeTicket = res.ticket;
+        populateWorkbenchFromTicket(res.ticket, res.timeline || []);
+      }
+    }
+
+    async function submitCallLog() {
+      if (!activeTicket || !activeTicket.escId) {
+        await saveOrSendTicket(false);
+      }
+      if (!activeTicket) return;
+      const u = sysConfig.currentUser || {};
+      const party = document.getElementById('callPartySelect').value;
+      const person = document.getElementById('callPersonInput').value.trim();
+      const outcome = document.getElementById('callOutcomeSelect').value;
+      const summary = document.getElementById('callSummaryInput').value.trim();
+      if (!summary) return;
+
+      setLoading(true, 'Logging call...');
+      const res = await apiPost({
+        action: 'logCallOrStage',
+        escId: activeTicket.escId,
+        orderId: activeDossier.orderId,
+        actorName: u.name,
+        actorEmail: u.email,
+        eventType: 'CALL_LOG',
+        partySpokenTo: party,
+        contactPerson: person,
+        callOutcome: outcome,
+        headline: `📞 Call Logged with ${party} (${person || 'Contact'}) — ${outcome}`,
+        details: summary
+      });
+      setLoading(false);
+      document.getElementById('callSummaryInput').value = '';
+      if (res.status === 'success') {
+        populateWorkbenchFromTicket(res.ticket, res.timeline || []);
+      }
+    }
+
+    function renderAuditTimeline(events) {
+      const container = document.getElementById('auditTimelineList');
+      if (!events || !events.length) {
+        container.innerHTML = '<p class="text-xs text-slate-400 text-center py-6">No calls, WhatsApp updates, or email replies logged yet.</p>';
+        return;
+      }
+      container.innerHTML = events.map(ev => {
+        const dt = ev.timestamp ? new Date(ev.timestamp).toLocaleString('en-IN') : '';
+        return `
+          <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs space-y-1">
+            <div class="flex items-center justify-between text-[11px] text-slate-500">
+              <span class="font-bold text-indigo-700">${escapeHtml(ev.eventType)} • ${escapeHtml(ev.actorName)}</span>
+              <span>${escapeHtml(dt)}</span>
+            </div>
+            <p class="font-bold text-slate-900">${escapeHtml(ev.headline)}</p>
+            <p class="text-slate-600 whitespace-pre-line">${escapeHtml(ev.details)}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderRawSubTable(tableData, containerId, badgeId) {
+      const container = document.getElementById(containerId);
+      const badge = document.getElementById(badgeId);
+      const headers = (tableData && tableData.headers) || [];
+      const rows = (tableData && tableData.rows) || [];
+      badge.textContent = `${rows.length} rows`;
+
+      if (!rows.length) {
+        container.innerHTML = '<p class="p-4 text-xs text-slate-400 text-center">No matching rows.</p>';
+        return;
+      }
+
+      const activeCols = [];
+      for (let c = 0; c < headers.length; c++) {
+        if (rows.some(r => r[c] && String(r[c]).trim() !== '')) activeCols.push(c);
+      }
+
+      let html = '<table class="min-w-full divide-y divide-slate-200 text-[11px] text-left"><thead class="bg-slate-50"><tr>';
+      activeCols.forEach(c => {
+        html += `<th class="px-3 py-2 font-bold text-slate-600 uppercase whitespace-nowrap">${escapeHtml(headers[c])}</th>`;
+      });
+      html += '</tr></thead><tbody class="divide-y divide-slate-100">';
+      rows.forEach(r => {
+        html += '<tr>';
+        activeCols.forEach(c => {
+          html += `<td class="px-3 py-2 text-slate-800 whitespace-nowrap">${escapeHtml(r[c] || '—')}</td>`;
+        });
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    /* CUSTOMER PORTAL */
+    async function runCustomerPortalLookup(query) {
+      setLoading(true, 'Looking up your order...');
+      try {
+        const data = await apiGet({ action: 'search', q: query, mode: 'auto', portal: 'customer' });
+        setLoading(false);
+        if (data.status !== 'success') {
+          showBannerError("Order Not Found", "Please check your 10-digit Phone Number or Order ID.");
+          return;
+        }
+
+        if (data.searchType === 'phone') {
+          const listEl = document.getElementById('cxOrderChoiceList');
+          listEl.classList.remove('hidden');
+          listEl.innerHTML = '<p class="text-xs font-bold text-slate-700">Select your Order:</p>' +
+            (data.results || []).map(r => `
+              <button type="button" onclick="runCustomerPortalLookup('${escapeHtml(r.rawOrderId || r.orderId)}')"
+                class="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-indigo-600 bg-slate-50 flex items-center justify-between text-xs">
+                <span><strong>Order ${escapeHtml(r.orderId)}</strong> • Booked: ${escapeHtml(r.bookingDate)}</span>
+                <span class="text-indigo-600 font-bold">Select →</span>
+              </button>
+            `).join('');
+        } else if (data.dossier) {
+          document.getElementById('cxOrderChoiceList').classList.add('hidden');
+          loadOrderIntoCustomerPortal(data.dossier);
+        }
+      } catch (e) {
+        setLoading(false);
+      }
+    }
+
+    function loadOrderIntoCustomerPortal(d) {
+      activeDossier = d;
+      const tickets = d.existingTickets || [];
+      const latest = tickets.length ? tickets[tickets.length - 1] : null;
+
+      if (latest && latest.bucket === 'Cx_Draft_In_Progress') {
+        cxDraftEscId = latest.escId;
+        cxUploadedFiles = latest.proofFiles || [];
+        document.getElementById('cxSanitizedTrackerCard').classList.add('hidden');
+        document.getElementById('cxGuidedClaimForm').classList.remove('hidden');
+        document.getElementById('cxResumeBanner').classList.remove('hidden');
+        document.getElementById('cxStorylineTextarea').value = latest.storylineNotes || '';
+        renderCustomerPortalSkus(d, latest.affectedSkus || []);
+        renderCustomerUploadedFiles();
+        return;
+      }
+
+      if (latest && latest.bucket !== 'Cx_Draft_In_Progress') {
+        document.getElementById('cxGuidedClaimForm').classList.add('hidden');
+        const trk = document.getElementById('cxSanitizedTrackerCard');
+        trk.classList.remove('hidden');
+        document.getElementById('cxTrkTicketId').textContent = `Claim #${latest.escId} • Order ${d.orderId}`;
+        document.getElementById('cxTrkStageTitle').textContent =
+          latest.bucket === 'Completed' ? 'Resolution Completed' : 'Active — Under Verification';
+        document.getElementById('cxTrkPublicNote').textContent =
+          latest.whatToTellCx || 'Your claim and media proofs are being processed.';
+        return;
+      }
+
+      cxDraftEscId = '';
+      cxParentSubTicketId = '';
+      cxUploadedFiles = [];
+      document.getElementById('cxSanitizedTrackerCard').classList.add('hidden');
+      document.getElementById('cxResumeBanner').classList.add('hidden');
+      document.getElementById('cxGuidedClaimForm').classList.remove('hidden');
+      renderCustomerPortalSkus(d, []);
+      renderCustomerUploadedFiles();
+    }
+
+    function startCustomerFollowUpSubTicket() {
+      const tickets = (activeDossier && activeDossier.existingTickets) || [];
+      const latest = tickets[tickets.length - 1];
+      if (latest && latest.bucket === 'Incoming Cx Claims') {
+        cxDraftEscId = latest.escId;
+        cxParentSubTicketId = '';
+      } else if (latest) {
+        cxDraftEscId = '';
+        cxParentSubTicketId = latest.escId;
+      }
+      document.getElementById('cxGuidedClaimForm').classList.remove('hidden');
+      renderCustomerPortalSkus(activeDossier, []);
+    }
+
+    function renderCustomerPortalSkus(d, savedSkus) {
+      const container = document.getElementById('cxSkuListContainer');
+      const allSkus = []
+        .concat((d.poLineItems && d.poLineItems.structuredItems) || [])
+        .concat((d.metaEscLineItems && d.metaEscLineItems.structuredItems) || []);
+
+      const savedMap = {};
+      (savedSkus || []).forEach(s => { savedMap[s.rowKey] = s; });
+
+      container.innerHTML = allSkus.map(item => {
+        const sv = savedMap[item.rowKey];
+        return `
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+            <label class="flex items-center gap-2 font-bold text-slate-800 cursor-pointer">
+              <input type="checkbox" class="cx-sku-check w-4 h-4 text-indigo-600 rounded"
+                data-rowkey="${escapeHtml(item.rowKey)}"
+                data-skuname="${escapeHtml(item.skuName)}"
+                ${sv ? 'checked' : ''}
+                onchange="autoSaveCustomerDraft()" />
+              <span>${escapeHtml(item.skuName)} (Ordered: ${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)})</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <input type="number" placeholder="Boxes/Pcs" id="cxqty_${item.rowKey}" value="${sv ? escapeHtml(sv.affectedQty) : '1'}"
+                oninput="autoSaveCustomerDraft()" class="w-24 px-2 py-1 bg-white border border-slate-300 rounded" />
+              <input type="text" placeholder="Batch No (on box)" id="cxbatch_${item.rowKey}" value="${sv ? escapeHtml(sv.batchNo) : ''}"
+                oninput="autoSaveCustomerDraft()" class="w-28 px-2 py-1 bg-white border border-slate-300 rounded" />
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    let cxDraftTimeout = null;
+    function autoSaveCustomerDraft() {
+      clearTimeout(cxDraftTimeout);
+      cxDraftTimeout = setTimeout(() => submitCustomerPortalClaim(false), 1200);
+    }
+
+    async function uploadCustomerPortalProof(inputEl, slotLabel) {
+      const file = inputEl.files && inputEl.files[0];
+      if (!file || !activeDossier) return;
+      setLoading(true, `Uploading ${file.name}...`);
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64Data = reader.result.split(',')[1];
+        const res = await apiPost({
+          action: 'uploadProofFile',
+          escId: cxDraftEscId,
+          orderId: activeDossier.orderId,
+          slotLabel,
+          fileName: file.name,
+          mimeType: file.type,
+          base64Data
+        });
+        setLoading(false);
+        if (res.status === 'success') {
+          cxDraftEscId = res.escId;
+          cxUploadedFiles.push(res.fileRecord);
+          renderCustomerUploadedFiles();
+          submitCustomerPortalClaim(false);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function renderCustomerUploadedFiles() {
+      document.getElementById('cxUploadedFilesList').innerHTML = cxUploadedFiles.map(f =>
+        `<span class="text-xs px-2.5 py-1 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">✅ ${escapeHtml(f.slotLabel)}: ${escapeHtml(f.name)}</span>`
+      ).join('');
+    }
+
+    async function submitCustomerPortalClaim(isFinalSubmit) {
+      if (!activeDossier) return;
+      const skus = [];
+      document.querySelectorAll('.cx-sku-check:checked').forEach(chk => {
+        const rk = chk.dataset.rowkey;
+        skus.push({
+          rowKey: rk,
+          skuName: chk.dataset.skuname,
+          affectedQty: document.getElementById(`cxqty_${rk}`).value || '1',
+          batchNo: document.getElementById(`cxbatch_${rk}`).value || 'NA'
+        });
+      });
+
+      if (isFinalSubmit) setLoading(true, 'Submitting claim...');
+      const res = await apiPost({
+        action: 'customerPortalSaveOrSubmit',
+        isFinalSubmit,
+        escId: cxDraftEscId,
+        createSubTicketFrom: cxParentSubTicketId,
+        orderId: activeDossier.orderId,
+        orderNumber: activeDossier.orderNumber,
+        cxName: activeDossier.cxName,
+        cxPhone: activeDossier.phoneNo,
+        sourceSheet: activeDossier.sourceSheet,
+        cxIssueCategory: document.getElementById('cxIssueCategorySelect').value,
+        storylineNotes: document.getElementById('cxStorylineTextarea').value.trim(),
+        affectedSkus: skus,
+        proofFiles: cxUploadedFiles
+      });
+      if (isFinalSubmit) setLoading(false);
+
+      if (res.status === 'success') {
+        cxDraftEscId = res.escId;
+        document.getElementById('cxDraftSavedIndicator').textContent = `Saved (${res.escId}) at ${new Date().toLocaleTimeString()}`;
+        if (isFinalSubmit) {
+          runCustomerPortalLookup(activeDossier.orderId);
+        }
+      }
+    }
+
+    /* ADMIN & SYSTEM */
+    function renderAdminRosterTable() {
+      const tbody = document.getElementById('adminRosterTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = (sysConfig.roster || []).map(r => `
+        <tr>
+          <td class="px-3 py-2 font-bold">${escapeHtml(r.name)}</td>
+          <td class="px-3 py-2 font-mono">${escapeHtml(r.email)}</td>
+          <td class="px-3 py-2"><span class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 font-semibold">${escapeHtml(r.role)}</span></td>
+          <td class="px-3 py-2">${escapeHtml(r.whatsapp || '—')}</td>
+          <td class="px-3 py-2 font-bold">${r.capacityCap}</td>
+          <td class="px-3 py-2">${r.activeCount} active</td>
+          <td class="px-3 py-2 font-bold ${r.availability === 'AVAILABLE' ? 'text-emerald-700' : 'text-rose-600'}">${escapeHtml(r.availability)}</td>
+          <td class="px-3 py-2 flex gap-1.5">
+            <button type="button" onclick="adminQuickFill('${escapeHtml(r.name)}','${escapeHtml(r.email)}','${escapeHtml(r.role)}','${escapeHtml(r.whatsapp)}',${r.capacityCap},'${escapeHtml(r.availability)}')" class="text-indigo-600 hover:underline font-semibold">Edit</button>
+            <button type="button" onclick="adminDeleteMember('${escapeHtml(r.email)}')" class="text-rose-600 hover:underline font-semibold">Remove</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function adminQuickFill(name, email, role, phone, cap, avail) {
+      document.getElementById('admNameInput').value = name;
+      document.getElementById('admEmailInput').value = email;
+      document.getElementById('admRoleSelect').value = role;
+      document.getElementById('admPhoneInput').value = phone;
+      document.getElementById('admCapInput').value = cap;
+      document.getElementById('admAvailSelect').value = avail;
+    }
+
+    async function adminSaveRosterMember() {
+      setLoading(true, 'Updating roster...');
+      const res = await apiPost({
+        action: 'adminUpdateConfig',
+        subAction: 'saveRosterMember',
+        name: document.getElementById('admNameInput').value.trim(),
+        email: document.getElementById('admEmailInput').value.trim(),
+        role: document.getElementById('admRoleSelect').value,
+        whatsapp: document.getElementById('admPhoneInput').value.trim(),
+        capacityCap: document.getElementById('admCapInput').value,
+        availability: document.getElementById('admAvailSelect').value,
+        adminEmail: document.getElementById('currentUserEmailInput').value.trim()
+      });
+      setLoading(false);
+      if (res.status === 'success') {
+        sysConfig = res.config;
+        renderRosterAndBucketsBar({});
+        renderAdminRosterTable();
+      }
+    }
+
+    async function adminDeleteMember(email) {
+      setLoading(true, `Removing ${email}...`);
+      const res = await apiPost({
+        action: 'adminUpdateConfig',
+        subAction: 'deleteRosterMember',
+        email,
+        adminEmail: document.getElementById('currentUserEmailInput').value.trim()
+      });
+      setLoading(false);
+      if (res.status === 'success') {
+        sysConfig = res.config;
+        renderAdminRosterTable();
+      }
+    }
+
+    async function adminSaveSetting(key, value) {
+      setLoading(true, `Saving ${key}...`);
+      await apiPost({
+        action: 'adminUpdateConfig',
+        subAction: 'saveTeamEmailOrSetting',
+        recordType: 'SETTING',
+        key,
+        value
+      });
+      setLoading(false);
+    }
+
+    async function triggerManualGmailSync() {
+      setLoading(true, 'Scanning Gmail threads...');
+      await apiGet({ action: 'syncEmails' });
+      setLoading(false);
+      if (activeTicket && activeTicket.escId) {
+        loadTicketIntoWorkspace(activeTicket.escId);
+      }
+    }
+
+    async function promptAndSendChaser() {
+      if (!activeTicket || !activeTicket.escId) return;
+      const note = prompt('Enter SLA Chaser Note:', 'Please share urgent update.');
+      if (!note) return;
+      const u = sysConfig.currentUser || {};
+      setLoading(true, 'Sending SLA Chaser...');
+      const res = await apiPost({
+        action: 'sendChaserEmail',
+        escId: activeTicket.escId,
+        chaserNote: note,
+        actorName: u.name,
+        actorEmail: u.email
+      });
+      setLoading(false);
+      if (res.status === 'success') renderAuditTimeline(res.timeline || []);
+    }
+
+    function copyCustomerWhatsappUpdate() {
+      if (!activeTicket || !activeDossier) return;
+      const msg = `Hi ${activeDossier.cxName}, update on your Florzy Order #${activeDossier.orderId} (Claim #${activeTicket.escId}): ${activeTicket.whatToTellCx || activeTicket.liveStage}`;
+      navigator.clipboard.writeText(msg);
+      showToastAlert('Copied to Clipboard', 'WhatsApp message copied!');
+    }
+
+    async function pollForLiveAlerts() {
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR_")) return;
+      try {
+        const userEmail = document.getElementById('currentUserEmailInput').value.trim();
+        const data = await apiGet({ action: 'pollNotifications', since: lastPollTimestamp, userEmail });
+        if (data.status === 'success') {
+          lastPollTimestamp = Date.now();
+          if (data.bucketsSummary) renderRosterAndBucketsBar(data.bucketsSummary);
+          const newEvents = (data.events || []).filter(ev => ev.eventType === 'CX_PORTAL' || ev.eventType === 'EMAIL_SYNC');
+          if (newEvents.length > 0) {
+            playAlertChime();
+            showToastAlert(newEvents[0].headline, newEvents[0].details);
+          }
+        }
+      } catch (e) {}
+    }
+
+    function playAlertChime() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, ctx.currentTime);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.35);
+      } catch (e) {}
+    }
+
+    function showToastAlert(title, body) {
+      document.getElementById('toastTitle').textContent = title;
+      document.getElementById('toastBody').textContent = body;
+      document.getElementById('toastBanner').classList.remove('hidden');
+    }
+
+    function setLoading(show, msg) {
+      const el = document.getElementById('loadingIndicator');
+      document.getElementById('loadingMessage').textContent = msg || 'Loading...';
+      el.classList.toggle('hidden', !show);
+    }
+
+    function showBannerError(title, msg) {
+      document.getElementById('errorTitle').textContent = title;
+      document.getElementById('errorText').textContent = msg;
+      document.getElementById('errorBanner').classList.remove('hidden');
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+  </script>
+</body>
+</html>
