@@ -3,12 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Florzy Escalation & Order Intelligence</title>
+  <title>Adorzy Escalation & Order Intelligence</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: 'var(--color-surface)',
+            bg: 'var(--color-bg)',
+            border: 'var(--color-border)',
+            primary: 'var(--color-primary)',
+            warning: 'var(--color-warning)',
+            muted: 'var(--color-muted)'
+          }
+        }
+      }
+    };
+  </script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
+    :root {
+      --color-surface: #ffffff;
+      --color-bg: #f8fafc;
+      --color-border: #e2e8f0;
+      --color-primary: #FF4500;
+      --color-warning: #FF4500;
+      --color-muted: #64748b;
+    }
     body {
-      background-color: #f8fafc;
+      background-color: var(--color-bg);
       color: #0f172a;
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
@@ -19,17 +43,25 @@
 <body class="min-h-screen flex flex-col">
 
   <!-- =========================================================================
-       SCREEN A: STRICT GOOGLE OAUTH SIGN-IN GATE (Zero Manual Email Typing)
+       SCREEN A: STRICT GOOGLE OAUTH SIGN-IN GATE (Adorzy Branded)
        ========================================================================= -->
-  <div id="staffLoginGate" class="hidden min-h-screen bg-slate-900 flex items-center justify-center p-4">
-    <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl border border-slate-200 p-8 text-center space-y-6">
-      <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white font-black text-2xl flex items-center justify-center mx-auto shadow-lg">
-        F
+  <div id="staffLoginGate" class="hidden min-h-screen bg-slate-950 flex items-center justify-center p-4">
+    <div class="bg-surface rounded-2xl shadow-2xl border border-border max-w-md w-full p-8 text-center space-y-6">
+      <!-- Adorzy Brand Logo -->
+      <div class="flex items-center justify-center gap-2.5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"></path>
+          <path d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"></path>
+          <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 -7.62939e-06 10.868 -7.62939e-06H5.10773C4.90554 -7.62939e-06 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378C0 6.96371 0 9.41089 0 10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"></path>
+          <path d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781C23.9997 6.96372 23.9997 9.4109 23.9997 10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"></path>
+        </svg>
+        <span class="text-2xl font-black tracking-wider text-[#FF4500]">ADORZY</span>
       </div>
+
       <div>
-        <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700">Internal Workspace</span>
-        <h1 class="text-2xl font-extrabold text-slate-900 mt-2">Florzy Escalation &amp; Order Intelligence</h1>
-        <p class="text-xs text-slate-500 mt-1">Sign in using your official <code>@florzy.com</code> Google Workspace account. Your role view (CDT, Sales, or Admin) loads automatically via Google OAuth.</p>
+        <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-orange-50 text-[#FF4500] border border-orange-200">Internal Workspace</span>
+        <h1 class="text-xl font-extrabold text-slate-900 mt-2">Adorzy Escalation &amp; Order Intelligence</h1>
+        <p class="text-xs text-muted mt-1">Sign in using your official Workspace account. Your role view (CDT, Sales, or Admin) loads automatically via Google OAuth.</p>
       </div>
 
       <div class="py-2 flex flex-col items-center justify-center gap-3">
@@ -47,25 +79,25 @@
        MODAL 1: VISUAL "WHERE TO FIND TILE BATCH / SHADE NO" HELPER
        ========================================================================= -->
   <div id="batchHelperModal" class="hidden fixed inset-0 z-50 bg-slate-900/70 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="text-sm font-extrabold text-slate-900">📦 Where to Find the Batch / Shade Number on a Tile Box</h3>
-        <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 text-sm font-bold">✕</button>
+    <div class="bg-surface rounded-xl max-w-md w-full p-5 shadow-xl space-y-4 border border-border">
+      <div class="flex items-center justify-between border-b border-border pb-3">
+        <h3 class="text-sm font-semibold text-slate-900">📦 Where to Find the Batch / Shade Number</h3>
+        <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="text-muted hover:text-primary text-lg font-bold">✕</button>
       </div>
-      <div class="p-4 rounded-xl bg-slate-50 border-2 border-dashed border-slate-300 space-y-2 text-xs">
-        <div class="bg-white p-3 rounded-lg border border-slate-200 font-mono text-[11px] space-y-1">
-          <div class="text-slate-400 uppercase font-sans text-[10px] font-bold">Sample Tile Box Side Sticker:</div>
+      <div class="p-4 rounded-lg bg-bg border border-dashed border-border space-y-2 text-xs">
+        <div class="bg-surface p-3 rounded-lg border border-border font-mono text-[11px] space-y-1">
+          <div class="text-muted uppercase font-sans text-[10px] font-bold">Sample Tile Box Side Sticker:</div>
           <div>ITEM: <strong>600x1200 GLOSSY TILE</strong></div>
-          <div class="p-1.5 bg-amber-100 border border-amber-400 rounded text-amber-950 font-bold">
+          <div class="p-1.5 bg-orange-50 border border-[#FF4500] rounded text-slate-900 font-bold">
             👉 BATCH / SHADE NO: B-4092 (or S-12 / CAL-04)
           </div>
           <div>MFG DATE: 12/2025 | QTY: 2 PCS (1.44 SQM)</div>
         </div>
-        <p class="text-slate-600 leading-relaxed">
+        <p class="text-muted leading-relaxed">
           Look at the <strong>printed white sticker or ink stamp on the narrow side edge of the cardboard tile box</strong>. Enter the code next to <strong>Batch No / Shade</strong> and upload a clear photo of that sticker in Slot 1.
         </p>
       </div>
-      <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="w-full py-2.5 bg-indigo-600 text-white text-xs font-bold rounded-xl">
+      <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="w-full py-2.5 bg-warning text-white text-xs font-semibold rounded-lg hover:bg-warning/90">
         Got It
       </button>
     </div>
@@ -75,24 +107,24 @@
        MODAL 2: CDT READY-TO-SEND WHATSAPP MESSAGE COPY & LAUNCH POPUP
        ========================================================================= -->
   <div id="whatsappCopyModal" class="hidden fixed inset-0 z-50 bg-slate-900/75 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+    <div class="bg-surface rounded-xl max-w-lg w-full p-5 shadow-xl space-y-4 border border-border">
+      <div class="flex items-center justify-between border-b border-border pb-3">
         <div>
           <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Customer Portal Updated + WhatsApp Ready</span>
-          <h3 class="text-base font-extrabold text-slate-900 mt-1" id="waModalTitle">Send WhatsApp Message to Customer</h3>
+          <h3 class="text-base font-semibold text-slate-900 mt-1" id="waModalTitle">Send WhatsApp Message to Customer</h3>
         </div>
-        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 text-sm font-bold">✕</button>
+        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="text-muted hover:text-primary text-lg font-bold">✕</button>
       </div>
-      <p class="text-xs text-slate-600">This message has been <strong>automatically copied to your clipboard</strong> and the Customer Portal tracker has been updated:</p>
-      <textarea id="waModalTextarea" rows="5" class="w-full p-3 text-xs bg-emerald-50/60 border border-emerald-300 rounded-xl font-medium text-slate-800"></textarea>
+      <p class="text-xs text-muted">This message has been <strong>automatically copied to your clipboard</strong> and the Customer Portal tracker has been updated:</p>
+      <textarea id="waModalTextarea" rows="5" class="w-full p-3 text-xs bg-bg border border-border rounded-lg font-medium text-slate-800 focus:outline-none focus:border-primary"></textarea>
       <div class="flex flex-wrap items-center justify-end gap-2 pt-2">
-        <button type="button" onclick="copyWaModalText()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold">
+        <button type="button" onclick="copyWaModalText()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold">
           📋 Copy Text Again
         </button>
-        <a id="waModalDirectLink" href="#" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">
+        <a id="waModalDirectLink" href="#" target="_blank" class="px-4 py-2 rounded-lg bg-warning hover:bg-warning/90 text-white text-xs font-semibold">
           📲 Open WhatsApp Chat with Cx ↗
         </a>
-        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">
+        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="px-3 py-2 rounded-lg bg-bg hover:bg-slate-200 text-slate-700 text-xs font-semibold">
           Done
         </button>
       </div>
@@ -100,16 +132,25 @@
   </div>
 
   <!-- =========================================================================
-       SCREEN B: INTERNAL STAFF HEADER (Hidden for Customers & Unauthenticated)
+       SCREEN B: INTERNAL STAFF HEADER (Adorzy Branded)
        ========================================================================= -->
-  <header id="internalAppHeader" class="hidden bg-slate-900 text-white sticky top-0 z-40 shadow-md">
+  <header id="internalAppHeader" class="hidden bg-slate-950 text-white sticky top-0 z-40 shadow-md">
     <div class="max-w-[1440px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3 cursor-pointer" onclick="returnToRoleHome()">
-        <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center font-black text-lg">F</div>
-        <div>
+        <!-- Adorzy Logomark SVG -->
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"></path>
+            <path d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"></path>
+            <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 -7.62939e-06 10.868 -7.62939e-06H5.10773C4.90554 -7.62939e-06 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378C0 6.96371 0 9.41089 0 10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"></path>
+            <path d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781C23.9997 6.96372 23.9997 9.4109 23.9997 10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"></path>
+          </svg>
+          <span class="text-lg font-black tracking-wider text-[#FF4500]">ADORZY</span>
+        </div>
+        <div class="border-l border-slate-800 pl-3">
           <div class="flex items-center gap-2">
-            <h1 class="text-base font-bold tracking-tight">Florzy Escalation &amp; Order Intelligence</h1>
-            <span id="headerRoleBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-indigo-500/30 text-indigo-200 border border-indigo-400/40"></span>
+            <h1 class="text-sm font-bold tracking-tight text-white">Escalation &amp; Order Intelligence</h1>
+            <span id="headerRoleBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-[#FF4500]/20 text-[#FF4500] border border-[#FF4500]/40"></span>
           </div>
           <p class="text-[11px] text-slate-400" id="activeRoleSubtitle"></p>
         </div>
@@ -121,12 +162,12 @@
           id="mainSearchInput"
           type="text"
           placeholder="Search Order ID (e.g. ORD-OR5ZPX), Order No, or 10-Digit Phone..."
-          class="w-full px-3.5 py-2 text-sm bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          class="w-full px-3.5 py-2 text-sm bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-primary"
         />
-        <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-xs font-bold uppercase tracking-wider rounded-lg transition shrink-0">
+        <button type="submit" class="px-4 py-2 bg-warning hover:bg-warning/90 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition shrink-0">
           Search
         </button>
-        <button type="button" onclick="returnToRoleHome()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold rounded-lg shrink-0">
+        <button type="button" onclick="returnToRoleHome()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold rounded-lg shrink-0">
           🏠 Queue Home
         </button>
       </form>
@@ -141,9 +182,8 @@
           🔗 Copy Cx Portal Link
         </button>
 
-        <!-- ONLY VISIBLE IF LOGGED-IN USER IS ADMIN (srivatsa.ng@florzy.com) -->
-        <div id="adminViewSwitcherGroup" class="hidden inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700 text-xs">
-          <button type="button" data-view="cdt" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white">CDT View</button>
+        <div id="adminViewSwitcherGroup" class="hidden inline-flex rounded-lg bg-slate-900 p-0.5 border border-slate-700 text-xs">
+          <button type="button" data-view="cdt" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-warning text-white">CDT View</button>
           <button type="button" data-view="sales" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold text-slate-300 hover:text-white">Sales View</button>
           <button type="button" data-view="admin" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold text-amber-300 hover:text-white">⚙️ Admin &amp; Roster</button>
         </div>
@@ -151,7 +191,7 @@
         <button
           type="button"
           onclick="signOutStaff()"
-          class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-rose-900/60 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold"
+          class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-rose-900/60 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold"
         >
           Sign Out
         </button>
@@ -159,7 +199,7 @@
     </div>
 
     <!-- CDT LIVE CAPACITY BAR & 7-BUCKET QUEUE STRIP -->
-    <div id="cdtTopBar" class="hidden bg-slate-800/90 border-t border-slate-700/80 px-4 py-2">
+    <div id="cdtTopBar" class="hidden bg-slate-900 border-t border-slate-800 px-4 py-2">
       <div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
         <div class="flex items-center gap-2 flex-wrap" id="rosterCapacityBar">
           <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Executive Load:</span>
@@ -170,10 +210,10 @@
   </header>
 
   <!-- NOTIFICATION TOAST BANNER -->
-  <div id="toastBanner" class="hidden fixed bottom-5 right-5 z-50 max-w-md bg-slate-900 text-white border border-indigo-500 rounded-xl shadow-2xl p-4">
+  <div id="toastBanner" class="hidden fixed bottom-5 right-5 z-50 max-w-md bg-slate-950 text-white border border-primary rounded-xl shadow-2xl p-4">
     <div class="flex items-start justify-between gap-3">
       <div>
-        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-600 text-white">System Notification</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-warning text-white">Adorzy Notification</span>
         <h4 class="text-sm font-bold mt-1" id="toastTitle">Alert</h4>
         <p class="text-xs text-slate-300 mt-0.5" id="toastBody"></p>
       </div>
@@ -185,9 +225,9 @@
   <main id="mainAppContainer" class="hidden flex-1 max-w-[1440px] w-full mx-auto px-4 py-5 space-y-6">
 
     <!-- LOADING & ERROR BANNERS -->
-    <div id="loadingIndicator" class="hidden bg-white border border-slate-200 rounded-xl p-8 text-center shadow-sm">
-      <div class="inline-block w-7 h-7 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mb-2"></div>
-      <p class="text-xs font-semibold text-slate-600" id="loadingMessage">Loading...</p>
+    <div id="loadingIndicator" class="hidden bg-surface border border-border rounded-xl p-6 text-center shadow-sm">
+      <div class="inline-block w-6 h-6 border-4 border-[#FF4500] border-t-transparent rounded-full animate-spin mb-2"></div>
+      <p class="text-xs font-semibold text-muted" id="loadingMessage">Loading...</p>
     </div>
 
     <div id="errorBanner" class="hidden bg-rose-50 border border-rose-200 text-rose-900 rounded-xl p-4 shadow-sm flex items-center justify-between">
@@ -205,27 +245,28 @@
 
       <!-- 1. CDT DEFAULT LANDING DASHBOARD -->
       <section id="cdtLandingDashboard" class="hidden space-y-4">
-        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+        <div class="bg-surface border border-border rounded-xl p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
           <div>
-            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">CDT Operations Control Center</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-primary">Adorzy CDT Operations Control Center</span>
             <h2 class="text-lg font-extrabold text-slate-900 mt-0.5" id="cdtQueueHeading">All Active Escalation Tickets</h2>
-            <p class="text-xs text-slate-500">Click any ticket below to open its 360° Order Dossier, or search an Order ID / Phone Number above to log a new escalation.</p>
+            <p class="text-xs text-muted">Click any ticket below to open its 360° Order Dossier, or search an Order ID / Phone Number above to log a new escalation.</p>
           </div>
           <div class="flex items-center gap-2">
-            <select id="cdtAgentFilterSelect" onchange="renderCdtHomeQueueTable()" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+            <select id="cdtAgentFilterSelect" onchange="renderCdtHomeQueueTable()" class="px-3 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
               <option value="ALL">Show: All Team Tickets</option>
               <option value="MINE">Show: Only My Assigned Tickets</option>
+              <option value="DRAFTS">Show: Unfinished Cx Portal Drop-Offs (Drafts)</option>
             </select>
-            <button type="button" onclick="triggerManualGmailSync()" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100">
+            <button type="button" onclick="triggerManualGmailSync()" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-orange-50 text-primary border border-orange-200 hover:bg-orange-100">
               🔄 Sync Gmail Thread Replies
             </button>
           </div>
         </div>
 
-        <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
           <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-slate-200 text-xs text-left">
-              <thead class="bg-slate-50 font-bold text-slate-600 uppercase">
+              <thead class="bg-bg font-bold text-slate-600 uppercase">
                 <tr>
                   <th class="px-4 py-3">Ticket ID</th>
                   <th class="px-4 py-3">Order ID</th>
@@ -246,29 +287,29 @@
 
       <!-- 2. SALES DEFAULT LANDING DASHBOARD -->
       <section id="salesLandingDashboard" class="hidden space-y-5">
-        <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-6 shadow-md">
-          <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-indigo-500/30 text-indigo-200">Sales Team Live Escalation Tracker (View-Only)</span>
+        <div class="bg-slate-950 text-white rounded-2xl p-6 shadow-md border border-slate-800">
+          <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#FF4500]/20 text-[#FF4500]">Sales Team Live Escalation Tracker (View-Only)</span>
           <h2 class="text-xl font-extrabold mt-2">Track Any Customer Order or Live Escalation in Seconds</h2>
           <p class="text-xs text-slate-300 mt-1 max-w-2xl">Search by Order ID, Order Number, or Customer's 10-Digit Phone Number to view the real-time Pizza Tracker, see which department owns the next action, and read the exact script to share with the customer.</p>
           <form onsubmit="event.preventDefault(); runOrderOrPhoneSearch(document.getElementById('salesHeroSearchInput').value.trim(), 'auto');" class="mt-4 flex max-w-xl gap-2">
-            <input id="salesHeroSearchInput" type="text" placeholder="Enter Order ID (e.g. ORD-OR5ZPX) or 10-Digit Customer Phone..." class="flex-1 px-4 py-2.5 text-sm bg-white text-slate-900 rounded-xl focus:outline-none" />
-            <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl">
+            <input id="salesHeroSearchInput" type="text" placeholder="Enter Order ID (e.g. ORD-OR5ZPX) or 10-Digit Customer Phone..." class="flex-1 px-4 py-2.5 text-sm bg-white text-slate-900 rounded-lg focus:outline-none" />
+            <button type="submit" class="px-5 py-2.5 bg-warning hover:bg-warning/90 text-white text-xs font-bold uppercase tracking-wider rounded-lg">
               Track Order
             </button>
           </form>
         </div>
 
-        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+        <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
           <h3 class="text-sm font-bold text-slate-900">Recent Active Escalations Across Orders</h3>
-          <p class="text-xs text-slate-500">Click any ticket to view its live progress bar and customer update script</p>
+          <p class="text-xs text-muted">Click any ticket to view its live progress bar and customer update script</p>
           <div id="salesRecentTicketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
         </div>
       </section>
 
       <!-- PHONE NUMBER MULTI-ORDER RESULTS -->
-      <section id="phoneResultsSection" class="hidden bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+      <section id="phoneResultsSection" class="hidden bg-surface border border-border rounded-xl p-5 shadow-sm">
         <h2 class="text-sm font-bold text-slate-900 mb-1">Orders Linked to Phone Number</h2>
-        <p class="text-xs text-slate-500 mb-3" id="phoneResultsSub"></p>
+        <p class="text-xs text-muted mb-3" id="phoneResultsSub"></p>
         <div id="phoneCardsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
       </section>
 
@@ -276,23 +317,23 @@
       <section id="orderDossierSection" class="hidden space-y-6">
 
         <!-- Order Header -->
-        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-4 border-b border-slate-100">
+        <div class="bg-surface border border-border rounded-xl p-5 shadow-sm">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-4 border-b border-border">
             <div>
               <div class="flex items-center gap-2 flex-wrap">
-                <span id="dosSourceBadge" class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200"></span>
+                <span id="dosSourceBadge" class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-orange-50 text-primary border border-orange-200"></span>
                 <h2 id="dosOrderId" class="text-2xl font-extrabold text-slate-900"></h2>
                 <span class="text-sm font-semibold text-slate-600" id="dosCxName"></span>
               </div>
-              <p class="text-xs text-slate-500 mt-1">
+              <p class="text-xs text-muted mt-1">
                 Order Number: <strong id="dosOrderNumber" class="text-slate-800"></strong> |
                 Raw Sheet ID: <code id="dosRawId" class="text-slate-600"></code>
               </p>
             </div>
 
             <div class="flex items-center gap-2.5 flex-wrap">
-              <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right">
-                <span class="block text-[10px] uppercase font-bold text-slate-400">Booking Date</span>
+              <div class="bg-bg border border-border rounded-lg px-3 py-1.5 text-right">
+                <span class="block text-[10px] uppercase font-bold text-muted">Booking Date</span>
                 <span id="dosBookingDate" class="text-xs font-bold text-slate-800"></span>
               </div>
               <div class="bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 text-right">
@@ -303,48 +344,48 @@
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
-            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
-              <span class="text-[11px] text-slate-500 font-medium">Order Value</span>
+            <div class="p-3 rounded-lg bg-bg border border-border">
+              <span class="text-[11px] text-muted font-medium">Order Value</span>
               <p id="dosOrderValue" class="text-base font-bold text-slate-900 mt-0.5"></p>
             </div>
             <div class="p-3 rounded-lg bg-emerald-50/60 border border-emerald-200/80">
               <span class="text-[11px] text-emerald-700 font-medium">Total Amount Paid</span>
               <p id="dosAmountPaid" class="text-base font-bold text-emerald-900 mt-0.5"></p>
             </div>
-            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
-              <span class="text-[11px] text-slate-500 font-medium">Discount Provided</span>
+            <div class="p-3 rounded-lg bg-bg border border-border">
+              <span class="text-[11px] text-muted font-medium">Discount Provided</span>
               <p id="dosDiscount" class="text-base font-bold text-slate-900 mt-0.5"></p>
             </div>
-            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
-              <span class="text-[11px] text-slate-500 font-medium">Customer Phone</span>
-              <p id="dosPhone" class="text-base font-bold text-indigo-600 mt-0.5 cursor-pointer hover:underline"></p>
+            <div class="p-3 rounded-lg bg-bg border border-border">
+              <span class="text-[11px] text-muted font-medium">Customer Phone</span>
+              <p id="dosPhone" class="text-base font-bold text-primary mt-0.5 cursor-pointer hover:underline"></p>
             </div>
-            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
-              <span class="text-[11px] text-slate-500 font-medium">Sales Representative</span>
+            <div class="p-3 rounded-lg bg-bg border border-border">
+              <span class="text-[11px] text-muted font-medium">Sales Representative</span>
               <p id="dosSalesRep" class="text-xs font-bold text-slate-900 mt-1"></p>
             </div>
-            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
-              <span class="text-[11px] text-slate-500 font-medium">Delivery Type</span>
+            <div class="p-3 rounded-lg bg-bg border border-border">
+              <span class="text-[11px] text-muted font-medium">Delivery Type</span>
               <p id="dosDeliveryType" class="text-xs font-bold text-slate-900 mt-1"></p>
             </div>
-            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
-              <span class="text-[11px] text-slate-500 font-medium">Quote Number</span>
+            <div class="p-3 rounded-lg bg-bg border border-border">
+              <span class="text-[11px] text-muted font-medium">Quote Number</span>
               <p id="dosQuoteNo" class="text-xs font-bold text-slate-900 mt-1"></p>
             </div>
-            <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80">
-              <span class="text-[11px] text-slate-500 font-medium">Quote Drive Preview</span>
+            <div class="p-3 rounded-lg bg-bg border border-border">
+              <span class="text-[11px] text-muted font-medium">Quote Drive Preview</span>
               <div id="dosQuoteBtns" class="mt-1 flex items-center gap-1.5"></div>
             </div>
-            <div class="col-span-2 sm:col-span-4 p-3 rounded-lg bg-slate-50 border border-slate-200/80">
-              <span class="text-[11px] text-slate-500 font-medium">Delivery Location</span>
+            <div class="col-span-2 sm:col-span-4 p-3 rounded-lg bg-bg border border-border">
+              <span class="text-[11px] text-muted font-medium">Delivery Location</span>
               <p id="dosLocation" class="text-xs font-semibold text-slate-800 mt-0.5"></p>
             </div>
           </div>
         </div>
 
         <!-- Embedded Quote PDF Drawer -->
-        <div id="quotePreviewBox" class="hidden bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-          <div class="px-4 py-2.5 bg-slate-800 text-white flex items-center justify-between text-xs font-semibold">
+        <div id="quotePreviewBox" class="hidden bg-surface border border-border rounded-xl overflow-hidden shadow-sm">
+          <div class="px-4 py-2.5 bg-slate-900 text-white flex items-center justify-between text-xs font-semibold">
             <span>Quote Drive Document Preview</span>
             <button type="button" onclick="document.getElementById('quotePreviewBox').classList.add('hidden')" class="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600">Close</button>
           </div>
@@ -352,10 +393,10 @@
         </div>
 
         <!-- LIVE ESCALATION PIZZA-TRACKER -->
-        <div id="liveTrackerBanner" class="hidden bg-white border-2 border-indigo-200 rounded-xl p-5 shadow-sm space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+        <div id="liveTrackerBanner" class="hidden bg-surface border-2 border-orange-200 rounded-xl p-5 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
             <div>
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-indigo-100 text-indigo-800" id="trkTicketBadge">Ticket #ESC-XXXX</span>
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-orange-50 text-primary border border-orange-200" id="trkTicketBadge">Ticket #ESC-XXXX</span>
               <h3 class="text-base font-extrabold text-slate-900 mt-1" id="trkHeadlineStage">Live Escalation Status</h3>
             </div>
             <div class="flex items-center gap-2">
@@ -376,23 +417,22 @@
             </button>
           </div>
 
-          <!-- Read-Only Audit Trail for Sales View -->
-          <div id="salesReadOnlyTimelineBox" class="hidden pt-3 border-t border-slate-100">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Live Email, Call &amp; WhatsApp Activity Timeline</h4>
+          <div id="salesReadOnlyTimelineBox" class="hidden pt-3 border-t border-border">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-muted mb-2">Live Email, Call &amp; WhatsApp Activity Timeline</h4>
             <div id="salesAuditTimelineList" class="space-y-2 max-h-60 overflow-y-auto scroll-thin"></div>
           </div>
         </div>
 
-        <!-- UNIFIED SKU SELECTION & LINE ITEM TABLES (With Unit & Per-SKU Issue Selector) -->
-        <div id="skuSelectorCard" class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-          <div class="px-5 py-3.5 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-2">
+        <!-- UNIFIED SKU SELECTION & LINE ITEM TABLES -->
+        <div id="skuSelectorCard" class="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
+          <div class="px-5 py-3.5 bg-slate-950 text-white flex flex-wrap items-center justify-between gap-2">
             <div>
               <h3 class="text-sm font-bold">Order SKU Breakdown — Affected Qty, Unit (Boxes/Pcs), Batch No, Per-SKU Issue &amp; Cost Calculator</h3>
               <p class="text-[11px] text-slate-300">Extracted from <code>po_line_items</code> &amp; <code>metaescline</code> (metaescline includes +18% GST)</p>
             </div>
             <div class="text-right">
               <span class="text-[11px] text-slate-300 block">Calculated Financial Error Impact:</span>
-              <span id="liveErrorCostBadge" class="text-sm font-extrabold text-amber-400">₹ 0</span>
+              <span id="liveErrorCostBadge" class="text-sm font-extrabold text-[#FF4500]">₹ 0</span>
             </div>
           </div>
           <div id="interactiveSkuSelectionList" class="divide-y divide-slate-200"></div>
@@ -400,22 +440,22 @@
 
         <!-- Raw Sub-Tables -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-            <div class="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+          <div class="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
+            <div class="px-4 py-3 border-b border-border flex items-center justify-between">
               <div>
                 <h4 class="text-xs font-bold text-slate-900">Purchase Order Line Items (po_line_items)</h4>
-                <p class="text-[11px] text-slate-500">Itemized breakdown extracted by matching Order ID</p>
+                <p class="text-[11px] text-muted">Itemized breakdown extracted by matching Order ID</p>
               </div>
               <span id="poRawCountBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100">0 rows</span>
             </div>
             <div id="poRawTableContainer" class="overflow-x-auto scroll-thin max-h-64"></div>
           </div>
 
-          <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-            <div class="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+          <div class="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
+            <div class="px-4 py-3 border-b border-border flex items-center justify-between">
               <div>
                 <h4 class="text-xs font-bold text-slate-900">Purchase Order Line Items (metaescline)</h4>
-                <p class="text-[11px] text-slate-500">Itemized breakdown extracted by matching Order ID</p>
+                <p class="text-[11px] text-muted">Itemized breakdown extracted by matching Order ID</p>
               </div>
               <span id="metaRawCountBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100">0 rows</span>
             </div>
@@ -430,16 +470,16 @@
           <div class="lg:col-span-7 space-y-5">
 
             <!-- Panel A: Classification & Resolution -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
-              <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-4">
+              <div class="flex items-center justify-between border-b border-border pb-3">
                 <h3 class="text-sm font-bold text-slate-900">1. Escalation Classification, Resolution &amp; Bucket</h3>
-                <span id="editingEscIdLabel" class="text-xs font-mono font-bold text-indigo-600">New Ticket</span>
+                <span id="editingEscIdLabel" class="text-xs font-mono font-bold text-primary">New Ticket</span>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Current Case Bucket</label>
-                  <select id="escBucketSelect" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                  <select id="escBucketSelect" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold">
                     <option value="Incoming Cx Claims">Incoming Cx Claims</option>
                     <option value="Open (Mid-Stage Draft)" selected>Open (Mid-Stage Draft)</option>
                     <option value="Awaiting Cx Update/Response">Awaiting Cx Update/Response</option>
@@ -452,22 +492,22 @@
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Site Verification Agent</label>
-                  <input id="escSiteVerifierInput" type="text" placeholder="e.g. Agent Name & Visit Date" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+                  <input id="escSiteVerifierInput" type="text" placeholder="e.g. Agent Name & Visit Date" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg" />
                 </div>
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Team Responsible</label>
-                  <select id="escTeamSelect" onchange="onTeamResponsibleChange()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold"></select>
+                  <select id="escTeamSelect" onchange="onTeamResponsibleChange()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold"></select>
                 </div>
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Specific Sub-Issue</label>
-                  <select id="escSubIssueSelect" onchange="buildLiveEmailPreview()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold"></select>
+                  <select id="escSubIssueSelect" onchange="buildLiveEmailPreview()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold"></select>
                 </div>
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Resolution Provided</label>
-                  <select id="escResolutionSelect" onchange="onResolutionTypeChange()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                  <select id="escResolutionSelect" onchange="onResolutionTypeChange()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold">
                     <option value="Replacement">Replacement</option>
                     <option value="Return and Replacement">Return and Replacement</option>
                     <option value="Return">Return</option>
@@ -480,9 +520,9 @@
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Error Cost Liability</label>
-                  <select id="escCostLiabilitySelect" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg">
+                  <select id="escCostLiabilitySelect" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg">
                     <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
-                    <option value="Absorbed by Florzy">Absorbed by Florzy</option>
+                    <option value="Absorbed by Adorzy">Absorbed by Adorzy</option>
                     <option value="Customer Paid / Commercial Split">Customer Paid / Commercial Split</option>
                     <option value="Zero Cost Impact (Mutual Closure)">Zero Cost Impact (Mutual Closure)</option>
                   </select>
@@ -508,17 +548,17 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Storyline of the Case (What Happened)</label>
-                  <textarea id="escStorylineInput" rows="3" oninput="buildLiveEmailPreview()" placeholder="Enter case storyline..." class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg"></textarea>
+                  <textarea id="escStorylineInput" rows="3" oninput="buildLiveEmailPreview()" placeholder="Enter case storyline..." class="w-full p-2.5 text-xs bg-bg border border-border rounded-lg"></textarea>
                 </div>
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Resolution Action Details</label>
-                  <textarea id="escResolutionNotesInput" rows="3" oninput="buildLiveEmailPreview()" placeholder="What exact resolution are we providing..." class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg"></textarea>
+                  <textarea id="escResolutionNotesInput" rows="3" oninput="buildLiveEmailPreview()" placeholder="What exact resolution are we providing..." class="w-full p-2.5 text-xs bg-bg border border-border rounded-lg"></textarea>
                 </div>
               </div>
             </div>
 
-            <!-- NEW PANEL A2: CDT CUSTOMER OUTREACH (RNR / BUSY / NC) & OPEN-ENDED MUTUAL FAST-CLOSE -->
-            <div class="bg-white border-2 border-indigo-100 rounded-xl p-5 shadow-sm space-y-4">
+            <!-- PANEL A2: CDT CUSTOMER OUTREACH (RNR / BUSY / NC) & OPEN-ENDED MUTUAL FAST-CLOSE -->
+            <div class="bg-surface border-2 border-orange-200 rounded-xl p-5 shadow-sm space-y-4">
               <h3 class="text-sm font-extrabold text-slate-900">⚡ CDT Customer Outreach &amp; Mutual Fast-Close Actions</h3>
 
               <!-- Block 1: Mark Tried Reaching Cx (RNR / Busy / NC / Did Not Answer) -->
@@ -535,13 +575,13 @@
                     <option value="Did Not Answer Call">Did Not Answer Call</option>
                   </select>
                   <input id="cxUnreachableExtraNote" type="text" placeholder="Optional note (e.g. Called twice)..." class="px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded-lg" />
-                  <button type="button" onclick="markCustomerUnreachableAndCopyWa()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg shadow-sm">
+                  <button type="button" onclick="markCustomerUnreachableAndCopyWa()" class="px-3 py-1.5 bg-warning hover:bg-warning/90 text-white text-xs font-bold rounded-lg shadow-sm">
                     📵 Mark Unreachable &amp; Get WhatsApp
                   </button>
                 </div>
               </div>
 
-              <!-- Block 2: Open-Ended Mutual / No-Action Closure (Customer Convinced / Agreed) -->
+              <!-- Block 2: Open-Ended Mutual / No-Action Closure -->
               <div class="p-3.5 rounded-xl bg-emerald-50/80 border border-emerald-200 space-y-2.5">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-extrabold text-emerald-950">🤝 2. Customer Convinced / Mutual Closure (Close Without Replacement/Refund)</span>
@@ -563,25 +603,25 @@
             </div>
 
             <!-- Panel B: Customer Media Proofs & Voice Note Player -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
               <div class="flex items-center justify-between">
                 <div>
                   <h3 class="text-sm font-bold text-slate-900">2. Customer Proof Images, Videos &amp; Voice Notes (Google Drive)</h3>
-                  <p class="text-[11px] text-slate-500">Play customer voice recordings directly below; click "Transcribe" only if you cannot understand the audio.</p>
+                  <p class="text-[11px] text-muted">Play customer voice recordings directly below; click "Transcribe" only if you cannot understand the audio.</p>
                 </div>
-                <a id="openTicketDriveFolderLink" href="#" target="_blank" class="hidden text-xs font-bold text-indigo-600 hover:underline">📁 Open Drive Folder ↗</a>
+                <a id="openTicketDriveFolderLink" href="#" target="_blank" class="hidden text-xs font-bold text-primary hover:underline">📁 Open Drive Folder ↗</a>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
+                <label class="cursor-pointer border-2 border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg">
                   <span class="block text-xs font-bold text-slate-700">📸 1. Box Batch Sticker</span>
                   <input type="file" accept="image/*" class="hidden" onchange="uploadProofFromInput(this, 'Batch_Sticker')" />
                 </label>
-                <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
+                <label class="cursor-pointer border-2 border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg">
                   <span class="block text-xs font-bold text-slate-700">📸 2. Damaged Tiles</span>
                   <input type="file" accept="image/*" class="hidden" onchange="uploadProofFromInput(this, 'Damaged_Tiles')" />
                 </label>
-                <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-lg p-3 text-center bg-slate-50">
+                <label class="cursor-pointer border-2 border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg">
                   <span class="block text-xs font-bold text-slate-700">🎥 3. Site Video / Audio</span>
                   <input type="file" accept="video/*,audio/*,image/*" class="hidden" onchange="uploadProofFromInput(this, 'Site_Video')" />
                 </label>
@@ -590,7 +630,7 @@
             </div>
 
             <!-- Panel C: WhatsApp Milestones -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
+            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-4">
               <h3 class="text-sm font-bold text-slate-900">3. Pre-Email WhatsApp Milestones &amp; Live Status</h3>
               <div class="flex flex-wrap gap-1.5">
                 <button type="button" onclick="quickToggleMilestone('Checking Same-Batch Availability on WhatsApp', 'Procurement', 'We are verifying with our warehouse if the exact same tile batch is available.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
@@ -602,14 +642,14 @@
                 <button type="button" onclick="quickToggleMilestone('Defect Proofs Sent to Vendor on WhatsApp', 'Vendor', 'Your defect proofs have been escalated to the manufacturer.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
                   🏭 Sent to Vendor
                 </button>
-                <button type="button" onclick="quickToggleMilestone('Site Verification Scheduled', 'Site Verifier', 'Our verification specialist is scheduled to visit your site.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-800 border border-indigo-200 font-semibold hover:bg-indigo-100">
+                <button type="button" onclick="quickToggleMilestone('Site Verification Scheduled', 'Site Verifier', 'Our verification specialist is scheduled to visit your site.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-orange-50 text-primary border border-orange-200 font-semibold hover:bg-orange-100">
                   📍 Site Verification Scheduled
                 </button>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-100">
-                <input id="customStageHeadlineInput" type="text" placeholder="Custom Status..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
-                <input id="customPendingDeptInput" type="text" placeholder="Pending Dept" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
-                <input id="customWhatToTellCxInput" type="text" placeholder="What Sales/Portal should tell Customer..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-border">
+                <input id="customStageHeadlineInput" type="text" placeholder="Custom Status..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
+                <input id="customPendingDeptInput" type="text" placeholder="Pending Dept" class="px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
+                <input id="customWhatToTellCxInput" type="text" placeholder="What Sales/Portal should tell Customer..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
                 <button type="button" onclick="saveCustomStatusOverride()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg">
                   Update Live Status
                 </button>
@@ -617,21 +657,21 @@
             </div>
 
             <!-- Panel D: Return Tracker -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
               <h3 class="text-sm font-bold text-slate-900">4. Return Material Logger (CDT Discretion)</h3>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <select id="retDecisionSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                <select id="retDecisionSelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
                   <option value="Pickup Required from Cx Site">Pickup Required from Cx Site</option>
                   <option value="Waived / Scrapped at Site (Fully Broken)">Waived / Scrapped at Site</option>
                   <option value="No Return Applicable">No Return Applicable</option>
                 </select>
-                <select id="retStatusSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                <select id="retStatusSelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
                   <option value="Decision Logged">Decision Logged</option>
                   <option value="Pickup Scheduled">Pickup Scheduled</option>
                   <option value="Picked Up from Cx Site">Picked Up from Cx Site</option>
                   <option value="Received at Warehouse">Received at Warehouse</option>
                 </select>
-                <input id="retNotesInput" type="text" placeholder="Return note..." class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+                <input id="retNotesInput" type="text" placeholder="Return note..." class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg" />
               </div>
               <button type="button" onclick="logReturnMaterialStatus()" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg">
                 📦 Log Return Timestamp
@@ -639,10 +679,10 @@
             </div>
 
             <!-- Panel E: Call Logger -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
               <h3 class="text-sm font-bold text-slate-900">5. Log Follow-Up Touchpoint</h3>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <select id="callPartySelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                <select id="callPartySelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
                   <option value="Customer">Spoke to: Customer</option>
                   <option value="Procurement">Spoke to: Procurement</option>
                   <option value="Logistics">Spoke to: Logistics</option>
@@ -651,8 +691,8 @@
                   <option value="Accounts">Spoke to: Accounts</option>
                   <option value="Site Verifier">Spoke to: Site Verifier</option>
                 </select>
-                <input id="callPersonInput" type="text" placeholder="Person Name" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
-                <select id="callOutcomeSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg font-semibold">
+                <input id="callPersonInput" type="text" placeholder="Person Name" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg" />
+                <select id="callOutcomeSelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
                   <option value="Connected - Update Shared">Connected - Update Shared</option>
                   <option value="Connected - Follow-up Needed">Connected - Follow-up Needed</option>
                   <option value="Did Not Pick Up (DNP)">Did Not Pick Up (DNP)</option>
@@ -660,8 +700,8 @@
                 </select>
               </div>
               <div class="flex gap-2">
-                <input id="callSummaryInput" type="text" placeholder="Enter call summary..." class="flex-1 px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
-                <button type="button" onclick="submitCallLog()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-lg shrink-0">
+                <input id="callSummaryInput" type="text" placeholder="Enter call summary..." class="flex-1 px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
+                <button type="button" onclick="submitCallLog()" class="px-4 py-1.5 bg-warning hover:bg-warning/90 text-white text-xs font-semibold rounded-lg shrink-0">
                   📞 Log Call
                 </button>
               </div>
@@ -670,11 +710,11 @@
 
           <!-- RIGHT 5 COLS: LIVE AI EMAIL COMPOSER + AUDIT TIMELINE -->
           <div class="lg:col-span-5 space-y-5">
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
-              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-2">
                 <h3 class="text-sm font-bold text-slate-900">AI Escalation Email Composer</h3>
                 <div class="flex items-center gap-1.5">
-                  <input id="aiCustomTweakInput" type="text" placeholder="Optional AI tweak..." class="px-2 py-1 text-[11px] bg-slate-50 border border-slate-300 rounded w-40" />
+                  <input id="aiCustomTweakInput" type="text" placeholder="Optional AI tweak..." class="px-2 py-1 text-[11px] bg-bg border border-border rounded w-40" />
                   <button type="button" onclick="polishEmailWithAi()" class="text-[11px] font-bold px-2.5 py-1 rounded bg-purple-600 text-white hover:bg-purple-700">
                     ✨ Generate / Regenerate AI
                   </button>
@@ -684,19 +724,19 @@
               <div class="space-y-2 text-xs">
                 <div>
                   <label class="font-semibold text-slate-600">To:</label>
-                  <input id="emailToInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded font-mono text-xs" />
+                  <input id="emailToInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-bg border border-border rounded font-mono text-xs" />
                 </div>
                 <div>
                   <label class="font-semibold text-slate-600">CC:</label>
-                  <input id="emailCcInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded font-mono text-xs" />
+                  <input id="emailCcInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-bg border border-border rounded font-mono text-xs" />
                 </div>
                 <div>
                   <label class="font-semibold text-slate-600">Subject:</label>
-                  <input id="emailSubjectInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded font-semibold text-xs" />
+                  <input id="emailSubjectInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-bg border border-border rounded font-semibold text-xs" />
                 </div>
                 <div>
                   <label class="font-semibold text-slate-600">Formatted Email Preview (Editable):</label>
-                  <div id="emailBodyPreview" contenteditable="true" class="mt-1 p-3 bg-slate-50 border border-slate-300 rounded-lg max-h-80 overflow-y-auto text-xs leading-relaxed"></div>
+                  <div id="emailBodyPreview" contenteditable="true" class="mt-1 p-3 bg-bg border border-border rounded-lg max-h-80 overflow-y-auto text-xs leading-relaxed"></div>
                 </div>
               </div>
 
@@ -704,16 +744,16 @@
                 <button type="button" onclick="saveOrSendTicket(false)" class="py-2 px-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold text-center">
                   💾 Save in Bucket
                 </button>
-                <button type="button" onclick="throwToGmailDrafts()" class="py-2 px-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold text-center">
+                <button type="button" onclick="throwToGmailDrafts()" class="py-2 px-2 rounded-lg bg-slate-600 hover:bg-slate-700 text-white text-xs font-bold text-center">
                   📥 Throw to Drafts
                 </button>
-                <button type="button" onclick="saveOrSendTicket(true)" class="py-2 px-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow text-center">
+                <button type="button" onclick="saveOrSendTicket(true)" class="py-2 px-2 rounded-lg bg-warning hover:bg-warning/90 text-white text-xs font-bold shadow text-center">
                   🚀 Log &amp; Send
                 </button>
               </div>
             </div>
 
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
               <div class="flex items-center justify-between">
                 <h3 class="text-sm font-bold text-slate-900">Chronological Audit Trail</h3>
                 <button type="button" onclick="promptAndSendChaser()" class="text-[11px] font-bold px-2.5 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100">
@@ -728,184 +768,209 @@
     </div>
 
     <!-- =====================================================================
-         ISOLATED CUSTOMER SELF-SERVICE PORTAL (?portal=customer)
+         ISOLATED ADORZY CUSTOMER SELF-SERVICE PORTAL (?portal=customer)
+         (Matches your exact "Apply for Escalation" surface design & hides phone numbers until submitted!)
          ===================================================================== -->
-    <section id="customerSelfServiceView" class="hidden max-w-3xl mx-auto py-6 space-y-6">
-      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
+    <section id="customerSelfServiceView" class="hidden max-w-2xl mx-auto py-4 sm:py-8">
+      <div class="bg-surface rounded-xl shadow-xl border border-border w-full overflow-hidden">
 
-        <!-- Header + Direct CDT Verification Helpline Numbers -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-4 gap-3">
+        <!-- Sticky Top Bar with Adorzy Logo (Zero Pre-Submission Phone Numbers!) -->
+        <div class="flex items-center justify-between p-4 sm:p-5 sticky top-0 bg-surface z-10 border-b border-border">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-lg">F</div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"></path>
+              <path d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"></path>
+              <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 -7.62939e-06 10.868 -7.62939e-06H5.10773C4.90554 -7.62939e-06 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378C0 6.96371 0 9.41089 0 10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"></path>
+              <path d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781C23.9997 6.96372 23.9997 9.4109 23.9997 10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"></path>
+            </svg>
             <div>
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-indigo-50 text-indigo-700">Florzy Customer Support Portal</span>
-              <h2 class="text-xl font-extrabold text-slate-900 mt-0.5">Report an Order Issue or Track Claim</h2>
+              <span class="text-[11px] font-black uppercase tracking-widest text-[#FF4500] block">ADORZY SUPPORT</span>
+              <h3 class="text-base sm:text-lg font-semibold text-slate-900">Apply for Escalation / Track Claim</h3>
             </div>
-          </div>
-          <div class="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">📞 CDT Central Verification Line:</span>
-            <a href="tel:+919187011149" class="font-extrabold text-indigo-700 hover:underline">+91 9187011149</a>
           </div>
         </div>
 
-        <!-- Direct Escalation Specialists Contact Strip -->
-        <div class="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-100 flex flex-wrap items-center justify-between gap-2 text-xs">
-          <span class="font-bold text-indigo-950">Need to speak with our Escalation Team directly?</span>
-          <div class="flex flex-wrap items-center gap-2">
-            <a href="tel:+919187011149" class="px-2.5 py-1 rounded-lg bg-white border border-indigo-200 font-bold text-indigo-700 hover:bg-indigo-100">📞 Central: 9187011149</a>
-            <a href="tel:+919187238959" class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 font-semibold text-slate-700 hover:bg-slate-100">👤 Jai: 9187238959</a>
-            <a href="tel:+918904967956" class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 font-semibold text-slate-700 hover:bg-slate-100">👤 Satyam: 8904967956</a>
-          </div>
-        </div>
-
-        <form id="cxPortalLookupForm" class="flex gap-2">
-          <input id="cxLookupInput" type="text" required placeholder="Enter 10-Digit Phone Number or Order ID (e.g. ORD-K4NJDW)..." class="flex-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
-          <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl">
-            Continue
-          </button>
-        </form>
-
-        <div id="cxOrderChoiceList" class="hidden space-y-2 pt-2"></div>
-
-        <!-- SANITIZED CUSTOMER LIVE STATUS TRACKER -->
-        <div id="cxSanitizedTrackerCard" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <span class="text-xs font-bold text-indigo-700" id="cxTrkTicketId">Claim #ESC-XXXX</span>
-              <h3 class="text-base font-extrabold text-slate-900" id="cxTrkStageTitle">Under Verification</h3>
-            </div>
-            <div class="text-right">
-              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Live Status</span>
-              <p class="text-[11px] font-bold text-slate-600 mt-1" id="cxTrkAssignedSpecialist">Assigned Specialist: CDT Team</p>
-            </div>
-          </div>
-
-          <!-- Highlighted Banner When CDT Tried Calling Cx (RNR / Busy / NC) -->
-          <div id="cxUnreachableAlertBanner" class="hidden p-3.5 rounded-xl bg-amber-100 border-2 border-amber-400 text-amber-950 text-xs space-y-1">
-            <div class="font-extrabold">📵 We Tried Reaching You on Phone!</div>
-            <p id="cxUnreachableAlertText" class="font-medium"></p>
-            <div class="pt-1 flex flex-wrap gap-2">
-              <a id="cxCallAssignedBtn" href="tel:+919187011149" class="px-3 py-1 rounded-lg bg-amber-900 text-white font-bold">📞 Call Assigned Specialist</a>
-              <a href="tel:+919187011149" class="px-3 py-1 rounded-lg bg-white border border-amber-400 text-amber-950 font-bold">📞 Call Central Line: 9187011149</a>
-            </div>
-          </div>
-
-          <!-- 4-Step Sanitized Progress Bar -->
-          <div id="cxSanitizedStepsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]"></div>
-
-          <div class="bg-white p-3.5 rounded-lg border border-slate-200">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Latest Update on Your Claim:</span>
-            <p class="text-xs text-slate-800 font-semibold mt-0.5" id="cxTrkPublicNote"></p>
-          </div>
-
-          <!-- POST-COMPLETION CUSTOMER RATING & FEEDBACK CARD (Visible when Completed) -->
-          <div id="cxFeedbackRatingCard" class="hidden p-4 rounded-xl bg-indigo-50 border border-indigo-200 space-y-3">
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="text-xs font-extrabold text-indigo-950">⭐ Rate Your Resolution Experience</h4>
-                <p class="text-[11px] text-indigo-700">Your escalation is marked resolved. Please rate our support &amp; share your feedback:</p>
-              </div>
-              <span id="cxFeedbackSavedBadge" class="hidden text-xs font-bold px-2.5 py-1 rounded bg-emerald-600 text-white">✅ Thank You!</span>
-            </div>
-            <div class="flex items-center gap-2" id="cxStarButtonsRow">
-              <button type="button" onclick="selectCxRatingStars(1)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold">1 ⭐</button>
-              <button type="button" onclick="selectCxRatingStars(2)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold">2 ⭐</button>
-              <button type="button" onclick="selectCxRatingStars(3)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold">3 ⭐</button>
-              <button type="button" onclick="selectCxRatingStars(4)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold">4 ⭐</button>
-              <button type="button" onclick="selectCxRatingStars(5)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white border border-indigo-600 text-xs font-bold">5 ⭐</button>
-            </div>
-            <div class="flex gap-2">
-              <input id="cxFeedbackCommentInput" type="text" placeholder="Share any feedback about your resolution experience..." class="flex-1 px-3 py-2 text-xs bg-white border border-indigo-200 rounded-lg" />
-              <button type="button" onclick="submitCustomerCsatFeedback()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg shrink-0">
-                Submit Review
-              </button>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
-            <button type="button" onclick="startCustomerFollowUpSubTicket()" class="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold">
-              ➕ Report Issue with More Boxes / Another Item
+        <div class="p-4 sm:p-5 space-y-5">
+          <!-- Order / Phone Lookup Bar -->
+          <form id="cxPortalLookupForm" class="flex gap-2">
+            <input id="cxLookupInput" type="text" required placeholder="Enter 10-Digit Phone Number or Order ID (e.g. ORD-K4NJDW)..." class="flex-1 px-3.5 py-2.5 text-sm bg-bg border border-border rounded-lg focus:outline-none focus:border-primary" />
+            <button type="submit" class="px-5 py-2.5 bg-warning hover:bg-warning/90 text-white text-sm font-semibold rounded-lg cursor-pointer transition">
+              Continue
             </button>
-            <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-white border border-slate-300 hover:border-indigo-500 text-slate-700 text-xs font-bold">
-              📸 Upload Additional Photo / Video Proof
-              <input type="file" accept="image/*,video/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Additional_Proof')" />
-            </label>
-          </div>
-        </div>
+          </form>
 
-        <!-- GUIDED CUSTOMER INTAKE FORM -->
-        <div id="cxGuidedClaimForm" class="hidden space-y-6 pt-3 border-t border-slate-200">
-          <div id="cxResumeBanner" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-900">
-            🔄 Welcome back! We automatically restored your unfinished submission so you can continue right where you left off.
-          </div>
+          <div id="cxOrderChoiceList" class="hidden space-y-2"></div>
 
-          <!-- STEP 1: Tick SKU -> Expand Per-SKU Damaged Qty, Unit (Box/Pcs), Batch No, and Specific Issue -->
-          <div>
-            <div class="flex items-center justify-between mb-2">
+          <!-- ===============================================================
+               POST-SUBMISSION SANITIZED CUSTOMER LIVE STATUS TRACKER
+               (Shows ONLY Assigned Specialist Phone + Central Number!)
+               =============================================================== -->
+          <div id="cxSanitizedTrackerCard" class="hidden bg-bg border border-border rounded-xl p-5 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
               <div>
-                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Step 1: Select Affected Item(s), Damaged Qty, Unit (Boxes/Pcs) &amp; Issue Type</h4>
-                <p class="text-[11px] text-slate-500">Tick each item that has an issue—you can select a different issue and unit (Boxes or Pcs) for each item.</p>
+                <span class="text-xs font-bold text-primary" id="cxTrkTicketId">Claim #ESC-XXXX</span>
+                <h3 class="text-base font-extrabold text-slate-900" id="cxTrkStageTitle">Under Verification</h3>
               </div>
-              <button type="button" onclick="document.getElementById('batchHelperModal').classList.remove('hidden')" class="text-xs font-bold text-indigo-600 hover:underline shrink-0">
-                ℹ️ Where is Batch No?
-              </button>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Live Status</span>
             </div>
-            <div id="cxSkuListContainer" class="space-y-2.5"></div>
-          </div>
 
-          <!-- STEP 2: Text Description OR Live Voice Note Recorder (Zero-Token Upload) -->
-          <div class="space-y-2.5">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Step 2: Describe the Issue (Type OR Record Voice Note in Any Language)</label>
-              <div class="flex items-center gap-2">
-                <button type="button" id="cxVoiceRecordBtn" onclick="toggleCustomerVoiceRecorder()" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
-                  <span>🎤 Record Voice Note</span>
+            <!-- Highlighted Banner When CDT Tried Calling Cx (RNR / Busy / NC) -->
+            <div id="cxUnreachableAlertBanner" class="hidden p-3.5 rounded-xl bg-amber-100 border-2 border-amber-400 text-amber-950 text-xs space-y-1">
+              <div class="font-extrabold">📵 We Tried Reaching You on Phone!</div>
+              <p id="cxUnreachableAlertText" class="font-medium"></p>
+            </div>
+
+            <!-- 4-Step Sanitized Progress Bar -->
+            <div id="cxSanitizedStepsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]"></div>
+
+            <div class="bg-surface p-3.5 rounded-lg border border-border">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-muted block">Latest Update on Your Claim:</span>
+              <p class="text-xs text-slate-800 font-semibold mt-0.5" id="cxTrkPublicNote"></p>
+            </div>
+
+            <!-- ONLY SHOWN POST-SUBMISSION: Assigned Specialist + Central Helpline -->
+            <div class="p-3.5 rounded-lg bg-surface border border-border flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-muted block">Your Assigned Resolution Specialist:</span>
+                <span class="font-bold text-slate-900" id="cxTrkAssignedSpecialist">CDT Specialist</span>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <a id="cxCallAssignedBtn" href="tel:+919187011149" class="px-3 py-1.5 rounded-lg bg-warning text-white font-semibold hover:bg-warning/90">
+                  📞 Call Assigned Specialist
+                </a>
+                <a href="tel:+919187011149" class="px-3 py-1.5 rounded-lg bg-bg border border-border text-slate-800 font-semibold hover:bg-slate-200">
+                  📞 Central Line: 9187011149
+                </a>
+              </div>
+            </div>
+
+            <!-- POST-COMPLETION CUSTOMER RATING & FEEDBACK CARD -->
+            <div id="cxFeedbackRatingCard" class="hidden p-4 rounded-xl bg-orange-50/70 border border-orange-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-extrabold text-slate-900">⭐ Rate Your Resolution Experience</h4>
+                  <p class="text-[11px] text-muted">Your escalation is marked resolved. Please rate our support &amp; share your feedback:</p>
+                </div>
+                <span id="cxFeedbackSavedBadge" class="hidden text-xs font-bold px-2.5 py-1 rounded bg-emerald-600 text-white">✅ Thank You!</span>
+              </div>
+              <div class="flex items-center gap-2" id="cxStarButtonsRow">
+                <button type="button" onclick="selectCxRatingStars(1)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">1 ⭐</button>
+                <button type="button" onclick="selectCxRatingStars(2)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">2 ⭐</button>
+                <button type="button" onclick="selectCxRatingStars(3)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">3 ⭐</button>
+                <button type="button" onclick="selectCxRatingStars(4)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">4 ⭐</button>
+                <button type="button" onclick="selectCxRatingStars(5)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-warning text-white border border-warning text-xs font-bold">5 ⭐</button>
+              </div>
+              <div class="flex gap-2">
+                <input id="cxFeedbackCommentInput" type="text" placeholder="Share any feedback about your resolution experience..." class="flex-1 px-3 py-2 text-xs bg-surface border border-border rounded-lg" />
+                <button type="button" onclick="submitCustomerCsatFeedback()" class="px-4 py-2 bg-warning hover:bg-warning/90 text-white text-xs font-semibold rounded-lg shrink-0">
+                  Submit Review
                 </button>
-                <span id="cxVoiceTimerBadge" class="hidden text-xs font-mono font-bold text-rose-600 animate-pulse">● 00:00</span>
               </div>
             </div>
 
-            <textarea id="cxStorylineTextarea" rows="3" oninput="autoSaveCustomerDraft()" placeholder="Tell us briefly what happened (or tap 'Record Voice Note' above to speak in English, Hindi, Kannada, etc.)..." class="w-full p-3 text-xs bg-slate-50 border border-slate-300 rounded-xl"></textarea>
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border">
+              <button type="button" onclick="startCustomerFollowUpSubTicket()" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold">
+                ➕ Report Issue with More Boxes / Another Item
+              </button>
+              <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-surface border border-border hover:border-primary text-slate-700 text-xs font-semibold">
+                📸 Upload Additional Photo / Video Proof
+                <input type="file" accept="image/*,video/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Additional_Proof')" />
+              </label>
+            </div>
+          </div>
 
-            <div id="cxRecordedAudioPreviewBox" class="hidden p-3 rounded-xl bg-indigo-50 border border-indigo-200 flex flex-wrap items-center justify-between gap-3">
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-indigo-900">🔊 Recorded Voice Note Attached:</span>
-                <audio id="cxRecordedAudioPlayer" controls class="h-8"></audio>
+          <!-- ===============================================================
+               GUIDED "APPLY FOR ESCALATION" INTAKE FORM
+               (Matches your exact HTML snippet layout!)
+               =============================================================== -->
+          <div id="cxGuidedClaimForm" class="hidden space-y-4 pt-2 border-t border-border">
+            <div id="cxResumeBanner" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-900">
+              🔄 Welcome back! We automatically restored your unfinished submission so you can continue right where you left off.
+            </div>
+
+            <!-- Customer & Order Identity Pill (Matching your exact snippet: p-3 bg-bg rounded-lg) -->
+            <div class="p-3 bg-bg rounded-lg border border-border flex items-center justify-between">
+              <div>
+                <div class="font-semibold text-sm text-slate-900" id="cxHeaderSummaryName">Customer</div>
+                <div class="text-xs text-muted" id="cxHeaderSummaryOrder">ORD-XXXX · Phone</div>
               </div>
-              <span class="text-[11px] font-semibold text-emerald-700">✅ Saved to Claim Folder</span>
+              <span class="text-[11px] font-medium text-muted" id="cxDraftSavedIndicator">Auto-save active</span>
             </div>
-          </div>
 
-          <!-- STEP 3: Mandatory Proof Upload Slots (Minimum 1 Photo AND 1 Video Required) -->
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Step 3: Upload Guided Proofs <span class="text-rose-600">(Mandatory: At Least 1 Photo AND 1 Video)</span></h4>
-              <span id="cxProofValidationBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">0 Photo, 0 Video Uploaded</span>
+            <!-- Step 1: Affected Items (Per-SKU Issue, Damaged Qty, Unit Box/Pcs, Batch No) -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-xs font-medium text-muted">Affected Items — Select SKU(s), Damaged Qty, Unit (Boxes/Pcs) &amp; Issue *</label>
+                <button type="button" onclick="document.getElementById('batchHelperModal').classList.remove('hidden')" class="text-xs font-semibold text-primary hover:underline">
+                  ℹ️ Where is Batch No?
+                </button>
+              </div>
+              <div id="cxSkuListContainer" class="space-y-2 max-h-[320px] overflow-y-auto scroll-thin pr-1"></div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-slate-50 transition">
-                <span class="block text-xs font-extrabold text-slate-800">📸 1. Box Batch Sticker (Photo)</span>
-                <span class="block text-[10px] text-slate-500 mt-0.5">Side label showing Batch/Shade</span>
-                <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Batch_Sticker')" />
-              </label>
-              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-slate-50 transition">
-                <span class="block text-xs font-extrabold text-slate-800">📸 2. Damaged Tiles (Photo)</span>
-                <span class="block text-[10px] text-slate-500 mt-0.5">Full count clearly visible</span>
-                <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Damaged_Tiles')" />
-              </label>
-              <label class="cursor-pointer border-2 border-dashed border-rose-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-rose-50/40 transition">
-                <span class="block text-xs font-extrabold text-slate-800">🎥 3. Site / Unloading Video <span class="text-rose-600">*</span></span>
-                <span class="block text-[10px] text-slate-500 mt-0.5">Mandatory video showing site/boxes</span>
-                <input type="file" accept="video/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Site_Video')" />
-              </label>
-            </div>
-            <div id="cxUploadedFilesList" class="flex flex-wrap gap-2 mt-3"></div>
-          </div>
 
-          <div class="flex items-center justify-between pt-3 border-t border-slate-100">
-            <span id="cxDraftSavedIndicator" class="text-[11px] text-slate-400">Progress auto-saved</span>
-            <button type="button" id="cxFinalSubmitBtn" onclick="submitCustomerPortalClaim(true)" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-400 text-white text-sm font-bold rounded-xl shadow transition">
-              🚀 Submit Claim &amp; Get Ticket ID
+            <!-- Step 2: What happened? + Voice Note Recorder -->
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <label class="block text-xs font-medium text-muted">What happened? * (Type below OR record a voice note)</label>
+                <div class="flex items-center gap-2">
+                  <button type="button" id="cxVoiceRecordBtn" onclick="toggleCustomerVoiceRecorder()" class="px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5">
+                    <span>🎤 Record Voice Note</span>
+                  </button>
+                  <span id="cxVoiceTimerBadge" class="hidden text-xs font-mono font-bold text-rose-600 animate-pulse">● 00:00</span>
+                </div>
+              </div>
+
+              <textarea
+                id="cxStorylineTextarea"
+                rows="4"
+                oninput="autoSaveCustomerDraft()"
+                placeholder="Describe the issue in detail (or tap 'Record Voice Note' above to speak in any language)..."
+                class="w-full px-3 py-2 border border-border rounded-lg text-sm resize-none focus:outline-none focus:border-primary bg-bg"
+              ></textarea>
+
+              <div id="cxRecordedAudioPreviewBox" class="hidden p-3 rounded-lg bg-orange-50 border border-orange-200 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-slate-900">🔊 Voice Note Attached:</span>
+                  <audio id="cxRecordedAudioPlayer" controls class="h-8"></audio>
+                </div>
+                <span class="text-[11px] font-semibold text-emerald-700">✅ Saved</span>
+              </div>
+            </div>
+
+            <!-- Step 3: Mandatory Proof Upload Slots (1 Photo + 1 Video Required) -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-xs font-medium text-muted">Upload Guided Proofs * <span class="text-rose-600 font-semibold">(Min. 1 Photo &amp; 1 Video Required)</span></label>
+                <span id="cxProofValidationBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">0 Photo, 0 Video</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <label class="cursor-pointer border border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg transition">
+                  <span class="block text-xs font-semibold text-slate-800">📸 1. Box Batch Sticker</span>
+                  <span class="block text-[10px] text-muted mt-0.5">Side label photo</span>
+                  <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Batch_Sticker')" />
+                </label>
+                <label class="cursor-pointer border border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg transition">
+                  <span class="block text-xs font-semibold text-slate-800">📸 2. Damaged Tiles</span>
+                  <span class="block text-[10px] text-muted mt-0.5">Full count photo</span>
+                  <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Damaged_Tiles')" />
+                </label>
+                <label class="cursor-pointer border border-dashed border-rose-300 hover:border-primary rounded-lg p-3 text-center bg-rose-50/30 transition">
+                  <span class="block text-xs font-semibold text-slate-800">🎥 3. Site Video *</span>
+                  <span class="block text-[10px] text-muted mt-0.5">Mandatory site video</span>
+                  <input type="file" accept="video/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Site_Video')" />
+                </label>
+              </div>
+              <div id="cxUploadedFilesList" class="flex flex-wrap gap-2 mt-2.5"></div>
+            </div>
+
+            <!-- Submit Button (Matching your exact snippet: w-full py-2.5 bg-warning text-white rounded-lg text-sm font-semibold) -->
+            <button
+              type="button"
+              id="cxFinalSubmitBtn"
+              onclick="submitCustomerPortalClaim(true)"
+              class="w-full py-2.5 bg-warning text-white rounded-lg text-sm font-semibold cursor-pointer hover:bg-warning/90 disabled:opacity-50 transition shadow-sm"
+            >
+              Submit Application to CDT
             </button>
           </div>
         </div>
@@ -916,17 +981,17 @@
          ADMIN ROSTER, ROLES & WEBHOOK CONFIGURATION PANEL (Admin Only)
          ===================================================================== -->
     <section id="adminConfigView" class="hidden space-y-6">
-      <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <div class="bg-surface border border-border rounded-xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-border pb-3">
           <div>
             <h2 class="text-base font-extrabold text-slate-900">Admin Roster, Roles &amp; Capacity Manager</h2>
-            <p class="text-xs text-slate-500">Add or edit CDT Executives, Leads, Site Verifiers, or Admins. All other <code>@florzy.com</code> accounts automatically open the Read-Only Sales Tracker.</p>
+            <p class="text-xs text-muted">Add or edit CDT Executives, Leads, Site Verifiers, or Admins. All other accounts automatically open the Read-Only Sales Tracker.</p>
           </div>
         </div>
 
         <div class="overflow-x-auto">
           <table class="min-w-full text-xs text-left divide-y divide-slate-200">
-            <thead class="bg-slate-50 font-bold text-slate-600 uppercase">
+            <thead class="bg-bg font-bold text-slate-600 uppercase">
               <tr>
                 <th class="px-3 py-2">Name</th>
                 <th class="px-3 py-2">Email</th>
@@ -942,18 +1007,18 @@
           </table>
         </div>
 
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-1 sm:grid-cols-6 gap-2.5 items-end">
+        <div class="p-4 rounded-xl bg-bg border border-border grid grid-cols-1 sm:grid-cols-6 gap-2.5 items-end">
           <div>
             <label class="block text-[11px] font-bold text-slate-600">Full Name</label>
-            <input id="admNameInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+            <input id="admNameInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-border rounded" />
           </div>
           <div>
-            <label class="block text-[11px] font-bold text-slate-600">@florzy.com Email</label>
-            <input id="admEmailInput" type="email" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+            <label class="block text-[11px] font-bold text-slate-600">Workspace Email</label>
+            <input id="admEmailInput" type="email" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-border rounded" />
           </div>
           <div>
             <label class="block text-[11px] font-bold text-slate-600">Role</label>
-            <select id="admRoleSelect" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded font-semibold">
+            <select id="admRoleSelect" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-border rounded font-semibold">
               <option value="CDT_EXEC">CDT Executive</option>
               <option value="CDT_LEAD">CDT Lead</option>
               <option value="SITE_VERIFIER">Site Verifier</option>
@@ -962,19 +1027,19 @@
           </div>
           <div>
             <label class="block text-[11px] font-bold text-slate-600">WhatsApp No</label>
-            <input id="admPhoneInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded" />
+            <input id="admPhoneInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-border rounded" />
           </div>
           <div>
             <label class="block text-[11px] font-bold text-slate-600">Max Cap &amp; Status</label>
             <div class="flex gap-1 mt-0.5">
-              <input id="admCapInput" type="number" value="10" class="w-16 px-2 py-1.5 text-xs bg-white border border-slate-300 rounded" />
-              <select id="admAvailSelect" class="flex-1 px-2 py-1.5 text-xs bg-white border border-slate-300 rounded">
+              <input id="admCapInput" type="number" value="10" class="w-16 px-2 py-1.5 text-xs bg-white border border-border rounded" />
+              <select id="admAvailSelect" class="flex-1 px-2 py-1.5 text-xs bg-white border border-border rounded">
                 <option value="AVAILABLE">AVAILABLE</option>
                 <option value="OFFLINE">OFFLINE / LEAVE</option>
               </select>
             </div>
           </div>
-          <button type="button" onclick="adminSaveRosterMember()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg">
+          <button type="button" onclick="adminSaveRosterMember()" class="px-4 py-2 bg-warning hover:bg-warning/90 text-white text-xs font-bold rounded-lg">
             + Save
           </button>
         </div>
@@ -1042,6 +1107,11 @@
     let voiceTimerInterval = null;
     let voiceSeconds = 0;
 
+    function isAllowedStaffDomain(email) {
+      const e = (email || '').toLowerCase();
+      return e.endsWith('@florzy.com') || e.endsWith('@adorzy.com');
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const isCustomerPortal = urlParams.get('portal') === 'customer';
@@ -1059,6 +1129,14 @@
           e.preventDefault();
           const q = document.getElementById('cxLookupInput').value.trim();
           if (q) runCustomerPortalLookup(q);
+        });
+
+        // If customer switches tab or closes mobile browser, flush any unsaved draft once
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'hidden' && activeDossier && !isSubmittingClaim) {
+            const checked = document.querySelectorAll('.cx-sku-check:checked');
+            if (checked.length > 0) submitCustomerPortalClaim(false);
+          }
         });
         return;
       }
@@ -1079,7 +1157,7 @@
       });
 
       const savedStaffEmail = sessionStorage.getItem('florzy_oauth_email');
-      if (savedStaffEmail && savedStaffEmail.endsWith('@florzy.com')) {
+      if (savedStaffEmail && isAllowedStaffDomain(savedStaffEmail)) {
         completeStaffSignIn(savedStaffEmail);
       } else {
         document.getElementById('staffLoginGate').classList.remove('hidden');
@@ -1098,7 +1176,6 @@
         if (window.google && google.accounts && google.accounts.id) {
           google.accounts.id.initialize({
             client_id: GOOGLE_OAUTH_CLIENT_ID,
-            hd: 'florzy.com',
             callback: handleGoogleOAuthResponse
           });
           google.accounts.id.renderButton(
@@ -1116,9 +1193,9 @@
       try {
         const payload = JSON.parse(atob(response.credential.split('.')[1]));
         const email = (payload.email || '').toLowerCase();
-        if (!email.endsWith('@florzy.com')) {
+        if (!isAllowedStaffDomain(email)) {
           const errEl = document.getElementById('loginErrorMsg');
-          errEl.textContent = 'Access denied: Only @florzy.com Google Workspace accounts are permitted.';
+          errEl.textContent = 'Access denied: Only official @adorzy.com / @florzy.com Workspace accounts are permitted.';
           errEl.classList.remove('hidden');
           return;
         }
@@ -1171,7 +1248,7 @@
     }
 
     async function initWorkspace() {
-      setLoading(true, 'Verifying your @florzy.com role & loading queues...');
+      setLoading(true, 'Loading Adorzy escalation workspace...');
       try {
         const data = await apiGet({ action: 'init', userEmail: authenticatedEmail });
         setLoading(false);
@@ -1210,7 +1287,7 @@
       currentViewMode = mode;
       document.querySelectorAll('.admin-switch-btn').forEach(btn => {
         if (btn.dataset.view === mode) {
-          btn.className = 'admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-indigo-600 text-white';
+          btn.className = 'admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-warning text-white';
         } else {
           btn.className = 'admin-switch-btn px-2.5 py-1 rounded-md font-semibold text-slate-300 hover:text-white';
         }
@@ -1253,7 +1330,7 @@
         .forEach(r => {
           const isFull = r.activeCount >= r.capacityCap;
           const badgeColor = r.availability !== 'AVAILABLE'
-            ? 'bg-slate-700 text-slate-400'
+            ? 'bg-slate-800 text-slate-400'
             : (isFull ? 'bg-rose-900/80 text-rose-200 border border-rose-600' : 'bg-emerald-900/70 text-emerald-200 border border-emerald-600');
           const pill = document.createElement('span');
           pill.className = `text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${badgeColor}`;
@@ -1266,7 +1343,7 @@
 
       const allBtn = document.createElement('button');
       allBtn.type = 'button';
-      allBtn.className = `text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap transition ${selectedBucketFilter === '' ? 'bg-indigo-600 text-white' : 'bg-slate-700 text-slate-200 hover:bg-slate-600'}`;
+      allBtn.className = `text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap transition ${selectedBucketFilter === '' ? 'bg-warning text-white' : 'bg-slate-800 text-slate-200 hover:bg-slate-700'}`;
       allBtn.textContent = 'All Buckets';
       allBtn.onclick = () => {
         selectedBucketFilter = '';
@@ -1280,8 +1357,8 @@
         const active = selectedBucketFilter === bName;
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = `text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap transition flex items-center gap-1.5 ${active ? 'bg-indigo-600 text-white' : 'bg-slate-700 hover:bg-slate-600 text-slate-100'}`;
-        btn.innerHTML = `<span>${bName}</span><span class="px-1.5 py-0.2 rounded-full bg-slate-900 text-indigo-300 text-[10px]">${count}</span>`;
+        btn.className = `text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap transition flex items-center gap-1.5 ${active ? 'bg-warning text-white' : 'bg-slate-800 hover:bg-slate-700 text-slate-100'}`;
+        btn.innerHTML = `<span>${bName}</span><span class="px-1.5 py-0.2 rounded-full bg-slate-950 text-[#FF4500] text-[10px]">${count}</span>`;
         btn.onclick = () => {
           selectedBucketFilter = bName;
           returnToRoleHome();
@@ -1298,9 +1375,10 @@
 
       heading.textContent = selectedBucketFilter
         ? `Tickets in Bucket: ${selectedBucketFilter}`
-        : 'All Active & Logged Escalation Tickets';
+        : (agentFilter === 'DRAFTS' ? 'Unfinished Customer Portal Drafts (Drop-Offs)' : 'All Active & Logged Escalation Tickets');
 
       const filtered = (allTicketsCache || []).filter(t => {
+        if (agentFilter === 'DRAFTS') return t.bucket === 'Cx_Draft_In_Progress';
         if (t.bucket === 'Cx_Draft_In_Progress') return false;
         if (selectedBucketFilter && t.bucket !== selectedBucketFilter) return false;
         if (agentFilter === 'MINE' && (t.assignedAgentEmail || '').toLowerCase() !== authenticatedEmail) return false;
@@ -1310,7 +1388,7 @@
       if (!filtered.length) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="9" class="px-4 py-10 text-center text-slate-400 text-xs">
+            <td colspan="9" class="px-4 py-10 text-center text-muted text-xs">
               No escalation tickets currently in this view. Use the top search bar to look up any Order ID or Customer Phone Number.
             </td>
           </tr>
@@ -1321,22 +1399,22 @@
       tbody.innerHTML = filtered.map(t => {
         const dt = t.updatedAt ? new Date(t.updatedAt).toLocaleString('en-IN') : '';
         return `
-          <tr class="hover:bg-indigo-50/50 cursor-pointer transition" onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')">
-            <td class="px-4 py-3 font-extrabold text-indigo-700">${escapeHtml(t.escId)}</td>
+          <tr class="hover:bg-orange-50/40 cursor-pointer transition" onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')">
+            <td class="px-4 py-3 font-extrabold text-primary">${escapeHtml(t.escId)}</td>
             <td class="px-4 py-3 font-bold text-slate-900">${escapeHtml(t.orderId)}</td>
             <td class="px-4 py-3">
               <div class="font-bold text-slate-800">${escapeHtml(t.cxName)}</div>
-              <div class="text-[11px] text-slate-500">${escapeHtml(t.cxPhone)}</div>
+              <div class="text-[11px] text-muted">${escapeHtml(t.cxPhone)}</div>
             </td>
             <td class="px-4 py-3">
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-800 border border-slate-300">${escapeHtml(t.bucket)}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-bg text-slate-800 border border-border">${escapeHtml(t.bucket)}</span>
             </td>
             <td class="px-4 py-3 font-semibold text-slate-700">${escapeHtml(t.customStatusText || t.liveStage)}</td>
             <td class="px-4 py-3 text-[11px] text-slate-600">${escapeHtml(t.teamResponsible)} ➔ ${escapeHtml(t.subIssue)}</td>
             <td class="px-4 py-3 font-semibold text-slate-800">${escapeHtml(t.assignedAgentName || 'Auto')}</td>
-            <td class="px-4 py-3 text-[11px] text-slate-500">${escapeHtml(dt)}</td>
+            <td class="px-4 py-3 text-[11px] text-muted">${escapeHtml(dt)}</td>
             <td class="px-4 py-3 text-right">
-              <span class="px-3 py-1 rounded-lg bg-indigo-600 text-white text-[11px] font-bold">Open →</span>
+              <span class="px-3 py-1 rounded-lg bg-warning text-white text-[11px] font-bold">Open →</span>
             </td>
           </tr>
         `;
@@ -1347,13 +1425,13 @@
       const grid = document.getElementById('salesRecentTicketsGrid');
       const visible = (allTicketsCache || []).filter(t => t.bucket !== 'Cx_Draft_In_Progress').slice(0, 12);
       if (!visible.length) {
-        grid.innerHTML = '<p class="text-xs text-slate-400 col-span-3 py-6 text-center">No active escalations logged yet.</p>';
+        grid.innerHTML = '<p class="text-xs text-muted col-span-3 py-6 text-center">No active escalations logged yet.</p>';
         return;
       }
       grid.innerHTML = visible.map(t => `
-        <div onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')" class="p-4 rounded-xl border border-slate-200 hover:border-indigo-500 bg-slate-50 cursor-pointer transition space-y-1.5">
+        <div onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')" class="p-4 rounded-xl border border-border hover:border-primary bg-bg cursor-pointer transition space-y-1.5">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-extrabold text-indigo-700">${escapeHtml(t.escId)} • Order ${escapeHtml(t.orderId)}</span>
+            <span class="text-xs font-extrabold text-primary">${escapeHtml(t.escId)} • Order ${escapeHtml(t.orderId)}</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">With: ${escapeHtml(t.pendingWithDept || 'CDT')}</span>
           </div>
           <p class="text-xs font-bold text-slate-900">${escapeHtml(t.cxName)} (${escapeHtml(t.cxPhone)})</p>
@@ -1381,7 +1459,7 @@
 
     async function runOrderOrPhoneSearch(query, mode = 'auto') {
       if (!query) return;
-      setLoading(true, `Searching Master Sheet for "${query}"...`);
+      setLoading(true, `Searching order records for "${query}"...`);
       document.getElementById('cdtLandingDashboard').classList.add('hidden');
       document.getElementById('salesLandingDashboard').classList.add('hidden');
       document.getElementById('phoneResultsSection').classList.add('hidden');
@@ -1406,14 +1484,14 @@
           (data.results || []).forEach(r => {
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 bg-slate-50 transition space-y-1';
+            btn.className = 'text-left p-4 rounded-xl border border-border hover:border-primary bg-bg transition space-y-1';
             btn.innerHTML = `
               <div class="flex items-center justify-between">
-                <span class="text-sm font-extrabold text-indigo-700">${escapeHtml(r.orderId)}</span>
+                <span class="text-sm font-extrabold text-primary">${escapeHtml(r.orderId)}</span>
                 <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 font-semibold">${escapeHtml(r.sourceSheet)}</span>
               </div>
               <p class="text-xs font-bold text-slate-800">${escapeHtml(r.cxName)}</p>
-              <p class="text-[11px] text-slate-500">Booking: ${escapeHtml(r.bookingDate)} | Value: ${escapeHtml(r.orderValue)}</p>
+              <p class="text-[11px] text-muted">Booking: ${escapeHtml(r.bookingDate)} | Value: ${escapeHtml(r.orderValue)}</p>
             `;
             btn.onclick = () => runOrderOrPhoneSearch(r.rawOrderId || r.orderId, 'order');
             grid.appendChild(btn);
@@ -1460,7 +1538,7 @@
       if (d.quoteDriveUrl) {
         const prevBtn = document.createElement('button');
         prevBtn.type = 'button';
-        prevBtn.className = 'text-[11px] font-bold px-2.5 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700';
+        prevBtn.className = 'text-[11px] font-bold px-2.5 py-1 rounded bg-warning text-white hover:bg-warning/90';
         prevBtn.textContent = 'Preview PDF';
         prevBtn.onclick = () => {
           document.getElementById('quotePreviewIframe').src = d.quotePreviewUrl || d.quoteDriveUrl;
@@ -1474,7 +1552,7 @@
         qBtns.appendChild(prevBtn);
         qBtns.appendChild(extLink);
       } else {
-        qBtns.innerHTML = '<span class="text-xs text-slate-400">NA</span>';
+        qBtns.innerHTML = '<span class="text-xs text-muted">NA</span>';
       }
 
       renderInteractiveSkuList(d, ticket);
@@ -1491,7 +1569,7 @@
         .concat((d.metaEscLineItems && d.metaEscLineItems.structuredItems) || []);
 
       if (!allSkus.length) {
-        container.innerHTML = '<p class="p-6 text-xs text-slate-400 text-center">No line items found in po_line_items or metaescline.</p>';
+        container.innerHTML = '<p class="p-6 text-xs text-muted text-center">No line items found in po_line_items or metaescline.</p>';
         return;
       }
 
@@ -1510,10 +1588,10 @@
         const defaultIssue = saved ? (saved.skuIssue || 'Broken / Cracked Tiles on Arrival') : 'Broken / Cracked Tiles on Arrival';
 
         const row = document.createElement('div');
-        row.className = 'p-3.5 hover:bg-slate-50 flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs';
+        row.className = 'p-3.5 hover:bg-bg flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs';
         row.innerHTML = `
           <label class="flex items-start gap-2.5 cursor-pointer flex-1">
-            <input type="checkbox" class="sku-check mt-1 w-4 h-4 text-indigo-600 rounded"
+            <input type="checkbox" class="sku-check mt-1 w-4 h-4 accent-[#FF4500] rounded"
               data-rowkey="${escapeHtml(item.rowKey)}"
               data-skuname="${escapeHtml(item.skuName)}"
               data-source="${escapeHtml(item.sourceTab)}"
@@ -1534,7 +1612,7 @@
                 <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-semibold">${escapeHtml(item.sourceTab)}</span>
                 ${repeatCount > 1 ? `<span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold">⚠️ ${repeatCount} Past Defect Logs on this SKU</span>` : ''}
               </div>
-              <p class="text-[11px] text-slate-500 mt-0.5">
+              <p class="text-[11px] text-muted mt-0.5">
                 Ordered: <strong>${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}</strong> (Pcs/Box: ${escapeHtml(item.pcsPerBox)}) |
                 Size: ${escapeHtml(item.size)} | Finish: ${escapeHtml(item.finish)} |
                 PO: ${escapeHtml(item.poNumber || 'NA')} | Price (incl. GST): ₹${item.unitPriceInclGst || 0}/${escapeHtml(item.orderedUnit)}
@@ -1543,32 +1621,32 @@
           </label>
           <div class="flex flex-wrap items-center gap-2 shrink-0">
             <div>
-              <span class="block text-[10px] font-semibold text-slate-500">Damaged Qty</span>
+              <span class="block text-[10px] font-semibold text-muted">Damaged Qty</span>
               <input type="number" min="0" step="any" value="${saved ? escapeHtml(saved.affectedQty) : '1'}"
                 id="qty_${item.rowKey}"
                 ${isReadOnlySales ? 'disabled' : ''}
                 oninput="recalculateSelectedSkusAndPreview()"
-                class="w-20 px-2 py-1 text-xs bg-white border border-slate-300 rounded font-bold" />
+                class="w-20 px-2 py-1 text-xs bg-white border border-border rounded font-bold" />
             </div>
             <div>
-              <span class="block text-[10px] font-semibold text-slate-500">Unit</span>
-              <select id="unit_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview()" class="px-2 py-1 text-xs bg-white border border-slate-300 rounded font-semibold">
+              <span class="block text-[10px] font-semibold text-muted">Unit</span>
+              <select id="unit_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview()" class="px-2 py-1 text-xs bg-white border border-border rounded font-semibold">
                 <option value="Boxes" ${defaultUnit.toLowerCase().includes('box') ? 'selected' : ''}>Boxes</option>
                 <option value="Pcs" ${defaultUnit.toLowerCase().includes('pc') ? 'selected' : ''}>Pcs</option>
                 <option value="Bags/Units" ${defaultUnit.toLowerCase().includes('bag') ? 'selected' : ''}>Bags/Units</option>
               </select>
             </div>
             <div>
-              <span class="block text-[10px] font-semibold text-slate-500">Batch No</span>
+              <span class="block text-[10px] font-semibold text-muted">Batch No</span>
               <input type="text" placeholder="e.g. B-4092" value="${saved ? escapeHtml(saved.batchNo || '') : ''}"
                 id="batch_${item.rowKey}"
                 ${isReadOnlySales ? 'disabled' : ''}
                 oninput="recalculateSelectedSkusAndPreview()"
-                class="w-24 px-2 py-1 text-xs bg-white border border-slate-300 rounded font-mono" />
+                class="w-24 px-2 py-1 text-xs bg-white border border-border rounded font-mono" />
             </div>
             <div>
-              <span class="block text-[10px] font-semibold text-slate-500">SKU Specific Issue</span>
-              <select id="skuissue_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview()" class="px-2 py-1 text-xs bg-white border border-slate-300 rounded font-semibold max-w-[190px]">
+              <span class="block text-[10px] font-semibold text-muted">SKU Specific Issue</span>
+              <select id="skuissue_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview()" class="px-2 py-1 text-xs bg-white border border-border rounded font-semibold max-w-[190px]">
                 ${PER_SKU_ISSUE_OPTIONS.map(opt => `<option value="${escapeHtml(opt)}" ${defaultIssue === opt ? 'selected' : ''}>${escapeHtml(opt)}</option>`).join('')}
               </select>
             </div>
@@ -1592,7 +1670,6 @@
         const unitPricePerOrderedUnit = parseFloat(chk.dataset.unitprice) || 0;
         const pcsPerBox = parseFloat(chk.dataset.pcsperbox) || 1;
 
-        // If ordered in Boxes but customer/agent selected Pcs, pro-rate unit price by pcsPerBox
         let effectiveUnitPrice = unitPricePerOrderedUnit;
         if (selectedUnit === 'Pcs' && (chk.dataset.unit || '').toLowerCase().includes('box') && pcsPerBox > 1) {
           effectiveUnitPrice = unitPricePerOrderedUnit / pcsPerBox;
@@ -1712,7 +1789,7 @@
 
       const html = `
         <p>Hi Team,</p>
-        <p>An escalation <strong>${escapeHtml(escId)}</strong> has been logged against Order <strong>${escapeHtml(activeDossier.orderId)}</strong>.</p>
+        <p>An escalation <strong>${escapeHtml(escId)}</strong> has been logged against Adorzy Order <strong>${escapeHtml(activeDossier.orderId)}</strong>.</p>
         <ul>
           <li><strong>Customer Name &amp; Phone:</strong> ${escapeHtml(activeDossier.cxName)} (${escapeHtml(activeDossier.phoneNo)})</li>
           <li><strong>Team Responsible &amp; Issue:</strong> ${escapeHtml(team)} — ${escapeHtml(subIssue)}</li>
@@ -1769,7 +1846,7 @@
         { label: '5. Completed', done: ticket.bucket === 'Completed' }
       ];
       document.getElementById('pizzaProgressGrid').innerHTML = steps.map(s => `
-        <div class="p-2.5 rounded-lg border text-center font-bold ${s.done ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-slate-50 border-slate-200 text-slate-400'}">
+        <div class="p-2.5 rounded-lg border text-center font-bold ${s.done ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-bg border-border text-muted'}">
           ${s.done ? '✔ ' : '○ '}${s.label}
         </div>
       `).join('');
@@ -1848,7 +1925,7 @@
 
       const portalAlertScript = `[UNREACHABLE_ALERT] We tried calling you at ${timeNow} regarding Claim #${activeTicket.escId}, but could not connect (${reason}). ${extraNote ? extraNote + '. ' : ''}Please call your assigned specialist ${agentInfo.name} at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}.`;
 
-      const waMessage = `Hi ${activeDossier.cxName}, this is ${agentInfo.name} from the Florzy Customer Resolution Team. We tried calling you regarding your Order #${activeDossier.orderId} (Claim #${activeTicket.escId}), but could not connect as your number was ${reason}${extraNote ? ' (' + extraNote + ')' : ''}.\n\nPlease call me back at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}, or reply to this message so we can proceed with your resolution.`;
+      const waMessage = `Hi ${activeDossier.cxName}, this is ${agentInfo.name} from the Adorzy Customer Resolution Team. We tried calling you regarding your Order #${activeDossier.orderId} (Claim #${activeTicket.escId}), but could not connect as your number was ${reason}${extraNote ? ' (' + extraNote + ')' : ''}.\n\nPlease call me back at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}, or reply to this message so we can proceed with your resolution.`;
 
       setLoading(true, 'Marking customer unreachable & updating Customer Portal...');
       const res = await apiPost({
@@ -1903,9 +1980,8 @@
 
       const portalCloseScript = `Resolved by Mutual Agreement: ${finalAgreementText}. Your ticket #${activeTicket.escId} is now closed. Please rate your support experience below!`;
 
-      const waCloseMessage = `Hi ${activeDossier.cxName}, thank you for speaking with us regarding your Florzy Order #${activeDossier.orderId} (Claim #${activeTicket.escId}).\n\nAs mutually discussed and agreed on call (${finalAgreementText}), we are marking this ticket as resolved. If you need any further assistance, please reach out to me (${agentInfo.name}) at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}.\n\nWe would love your feedback! Please rate your experience here: ${cxPortalLink}`;
+      const waCloseMessage = `Hi ${activeDossier.cxName}, thank you for speaking with us regarding your Adorzy Order #${activeDossier.orderId} (Claim #${activeTicket.escId}).\n\nAs mutually discussed and agreed on call (${finalAgreementText}), we are marking this ticket as resolved. If you need any further assistance, please reach out to me (${agentInfo.name}) at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}.\n\nWe would love your feedback! Please rate your experience here: ${cxPortalLink}`;
 
-      // Update UI selectors to reflect mutual closure
       document.getElementById('escBucketSelect').value = 'Completed';
       document.getElementById('escResolutionSelect').value = 'Mutual / No-Action Closure (Customer Agreed)';
       document.getElementById('escCostLiabilitySelect').value = 'Zero Cost Impact (Mutual Closure)';
@@ -1988,7 +2064,7 @@
             <div class="flex items-center gap-2 flex-wrap">
               <span class="font-bold text-purple-900">🎤 Customer Voice Note (${escapeHtml(f.name)}):</span>
               <audio controls src="${audioStreamUrl}" class="h-8"></audio>
-              <a href="${escapeHtml(f.url)}" target="_blank" class="text-indigo-600 underline font-semibold">Open in Drive ↗</a>
+              <a href="${escapeHtml(f.url)}" target="_blank" class="text-primary underline font-semibold">Open in Drive ↗</a>
             </div>
             <button type="button" onclick="transcribeVoiceNoteOnDemand('${escapeHtml(f.fileId)}')" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-[11px]">
               ✨ Transcribe &amp; Translate (Only if needed)
@@ -1999,7 +2075,7 @@
           const a = document.createElement('a');
           a.href = f.url;
           a.target = '_blank';
-          a.className = 'inline-block mr-2 mb-1 text-xs px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold hover:bg-indigo-100';
+          a.className = 'inline-block mr-2 mb-1 text-xs px-2.5 py-1 rounded-lg bg-orange-50 text-primary border border-orange-200 font-semibold hover:bg-orange-100';
           a.textContent = `📎 ${f.slotLabel || 'Proof'}: ${f.name}`;
           gal.appendChild(a);
         }
@@ -2243,13 +2319,13 @@
       const container = document.getElementById('auditTimelineList');
       const salesContainer = document.getElementById('salesAuditTimelineList');
       const html = (!events || !events.length)
-        ? '<p class="text-xs text-slate-400 text-center py-6">No calls, WhatsApp updates, or email replies logged yet.</p>'
+        ? '<p class="text-xs text-muted text-center py-6">No calls, WhatsApp updates, or email replies logged yet.</p>'
         : events.map(ev => {
             const dt = ev.timestamp ? new Date(ev.timestamp).toLocaleString('en-IN') : '';
             return `
-              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs space-y-1">
-                <div class="flex items-center justify-between text-[11px] text-slate-500">
-                  <span class="font-bold text-indigo-700">${escapeHtml(ev.eventType)} • ${escapeHtml(ev.actorName)}</span>
+              <div class="p-3 rounded-lg bg-bg border border-border text-xs space-y-1">
+                <div class="flex items-center justify-between text-[11px] text-muted">
+                  <span class="font-bold text-primary">${escapeHtml(ev.eventType)} • ${escapeHtml(ev.actorName)}</span>
                   <span>${escapeHtml(dt)}</span>
                 </div>
                 <p class="font-bold text-slate-900">${escapeHtml(ev.headline)}</p>
@@ -2270,7 +2346,7 @@
       badge.textContent = `${rows.length} rows`;
 
       if (!rows.length) {
-        container.innerHTML = '<p class="p-4 text-xs text-slate-400 text-center">No matching rows.</p>';
+        container.innerHTML = '<p class="p-4 text-xs text-muted text-center">No matching rows.</p>';
         return;
       }
 
@@ -2279,7 +2355,7 @@
         if (rows.some(r => r[c] && String(r[c]).trim() !== '')) activeCols.push(c);
       }
 
-      let html = '<table class="min-w-full divide-y divide-slate-200 text-[11px] text-left"><thead class="bg-slate-50"><tr>';
+      let html = '<table class="min-w-full divide-y divide-slate-200 text-[11px] text-left"><thead class="bg-bg"><tr>';
       activeCols.forEach(c => {
         html += `<th class="px-3 py-2 font-bold text-slate-600 uppercase whitespace-nowrap">${escapeHtml(headers[c])}</th>`;
       });
@@ -2296,8 +2372,45 @@
     }
 
     /* =========================================================================
-     * ISOLATED CUSTOMER PORTAL FUNCTIONS (PER-SKU ISSUE, MANDATORY PROOFS, CSAT)
+     * ISOLATED CUSTOMER PORTAL FUNCTIONS + DUAL-LAYER DRAFT SYNC
      * ========================================================================= */
+    function saveLocalCustomerDraft() {
+      if (!activeDossier || !activeDossier.orderId) return;
+      const skus = [];
+      document.querySelectorAll('.cx-sku-check:checked').forEach(chk => {
+        const rk = chk.dataset.rowkey;
+        skus.push({
+          rowKey: rk,
+          skuName: chk.dataset.skuname,
+          orderedUnit: chk.dataset.orderedunit || 'Boxes',
+          selectedUnit: document.getElementById(`cxunit_${rk}`)?.value || 'Boxes',
+          affectedQty: document.getElementById(`cxqty_${rk}`)?.value || '1',
+          batchNo: document.getElementById(`cxbatch_${rk}`)?.value || 'NA',
+          skuIssue: document.getElementById(`cxskuissue_${rk}`)?.value || 'Broken / Cracked Tiles on Arrival'
+        });
+      });
+      const localPayload = {
+        escId: cxDraftEscId,
+        storylineNotes: document.getElementById('cxStorylineTextarea')?.value || '',
+        affectedSkus: skus,
+        proofFiles: cxUploadedFiles,
+        savedAt: Date.now()
+      };
+      try {
+        localStorage.setItem(`adorzy_cx_draft_${activeDossier.orderId}`, JSON.stringify(localPayload));
+        document.getElementById('cxDraftSavedIndicator').textContent = 'Draft saved locally';
+      } catch (e) {}
+    }
+
+    function getLocalCustomerDraft(orderId) {
+      try {
+        const raw = localStorage.getItem(`adorzy_cx_draft_${orderId}`);
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
     async function toggleCustomerVoiceRecorder() {
       const btn = document.getElementById('cxVoiceRecordBtn');
       const timerBadge = document.getElementById('cxVoiceTimerBadge');
@@ -2337,6 +2450,7 @@
                 cxDraftEscId = res.escId;
                 cxUploadedFiles.push(res.fileRecord);
                 renderCustomerUploadedFiles();
+                saveLocalCustomerDraft();
                 submitCustomerPortalClaim(false);
               }
             };
@@ -2347,7 +2461,7 @@
           isRecordingVoice = true;
           voiceSeconds = 0;
           btn.innerHTML = '<span>⏹️ Stop &amp; Attach Voice Note</span>';
-          btn.className = 'px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm';
+          btn.className = 'px-3 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold flex items-center gap-1.5';
           timerBadge.classList.remove('hidden');
           voiceTimerInterval = setInterval(() => {
             voiceSeconds++;
@@ -2363,7 +2477,7 @@
         isRecordingVoice = false;
         timerBadge.classList.add('hidden');
         btn.innerHTML = '<span>🎤 Record Voice Note</span>';
-        btn.className = 'px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm';
+        btn.className = 'px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5';
         if (mediaRecorder && mediaRecorder.state !== 'inactive') {
           mediaRecorder.stop();
         }
@@ -2383,12 +2497,12 @@
         if (data.searchType === 'phone') {
           const listEl = document.getElementById('cxOrderChoiceList');
           listEl.classList.remove('hidden');
-          listEl.innerHTML = '<p class="text-xs font-bold text-slate-700">Select your Order:</p>' +
+          listEl.innerHTML = '<p class="text-xs font-semibold text-muted">Select your Order:</p>' +
             (data.results || []).map(r => `
               <button type="button" onclick="runCustomerPortalLookup('${escapeHtml(r.rawOrderId || r.orderId)}')"
-                class="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-indigo-600 bg-slate-50 flex items-center justify-between text-xs">
+                class="w-full text-left p-3 rounded-lg border border-border hover:border-primary bg-bg flex items-center justify-between text-xs">
                 <span><strong>Order ${escapeHtml(r.orderId)}</strong> • Booked: ${escapeHtml(r.bookingDate)}</span>
-                <span class="text-indigo-600 font-bold">Select →</span>
+                <span class="text-primary font-bold">Select →</span>
               </button>
             `).join('');
         } else if (data.dossier) {
@@ -2402,21 +2516,14 @@
 
     function loadOrderIntoCustomerPortal(d) {
       activeDossier = d;
+      document.getElementById('cxHeaderSummaryName').textContent = d.cxName || 'Customer';
+      document.getElementById('cxHeaderSummaryOrder').textContent = `${d.orderId} · ${d.phoneNo || ''}`;
+
       const tickets = d.existingTickets || [];
       const latest = tickets.length ? tickets[tickets.length - 1] : null;
+      const localDraft = getLocalCustomerDraft(d.orderId);
 
-      if (latest && latest.bucket === 'Cx_Draft_In_Progress') {
-        cxDraftEscId = latest.escId;
-        cxUploadedFiles = latest.proofFiles || [];
-        document.getElementById('cxSanitizedTrackerCard').classList.add('hidden');
-        document.getElementById('cxGuidedClaimForm').classList.remove('hidden');
-        document.getElementById('cxResumeBanner').classList.remove('hidden');
-        document.getElementById('cxStorylineTextarea').value = latest.storylineNotes || '';
-        renderCustomerPortalSkus(d, latest.affectedSkus || []);
-        renderCustomerUploadedFiles();
-        return;
-      }
-
+      // Case 1: Submitted claim exists -> Show Sanitized Live Tracker (with Assigned Specialist + Central Phone)
       if (latest && latest.bucket !== 'Cx_Draft_In_Progress') {
         cxDraftEscId = latest.escId;
         document.getElementById('cxGuidedClaimForm').classList.add('hidden');
@@ -2427,16 +2534,18 @@
         document.getElementById('cxTrkTicketId').textContent = `Claim #${latest.escId} • Order ${d.orderId}`;
         document.getElementById('cxTrkStageTitle').textContent =
           latest.bucket === 'Completed' ? '✅ Resolution Completed' : 'Active — Under Verification & Processing';
-        document.getElementById('cxTrkAssignedSpecialist').innerHTML =
-          `Assigned Specialist: <strong>${escapeHtml(agentInfo.name)} (+91 ${escapeHtml(agentInfo.phone)})</strong> | Central: <strong>+91 ${CDT_CENTRAL_PHONE}</strong>`;
+        document.getElementById('cxTrkAssignedSpecialist').textContent =
+          `${agentInfo.name} (+91 ${agentInfo.phone})`;
+
+        const callBtn = document.getElementById('cxCallAssignedBtn');
+        callBtn.href = `tel:+91${agentInfo.phone}`;
+        callBtn.textContent = `📞 Call ${agentInfo.name}: ${agentInfo.phone}`;
 
         const rawTellCx = latest.whatToTellCx || 'Your claim and media proofs have been received and are being verified by our team.';
         const unreachableBanner = document.getElementById('cxUnreachableAlertBanner');
         if (rawTellCx.includes('[UNREACHABLE_ALERT]') || latest.bucket === 'Awaiting Cx Update/Response') {
           unreachableBanner.classList.remove('hidden');
           document.getElementById('cxUnreachableAlertText').textContent = rawTellCx.replace('[UNREACHABLE_ALERT]', '').trim();
-          document.getElementById('cxCallAssignedBtn').href = `tel:+91${agentInfo.phone}`;
-          document.getElementById('cxCallAssignedBtn').textContent = `📞 Call ${agentInfo.name}: ${agentInfo.phone}`;
         } else {
           unreachableBanner.classList.add('hidden');
         }
@@ -2450,12 +2559,11 @@
           { label: '4. Completed', done: latest.bucket === 'Completed' }
         ];
         document.getElementById('cxSanitizedStepsGrid').innerHTML = cxSteps.map(s => `
-          <div class="p-2 rounded-lg border text-center font-bold ${s.done ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-white border-slate-200 text-slate-400'}">
+          <div class="p-2 rounded-lg border text-center font-bold ${s.done ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-surface border-border text-muted'}">
             ${s.done ? '✔ ' : '○ '}${s.label}
           </div>
         `).join('');
 
-        // Show Post-Completion CSAT Rating & Feedback Card if Completed
         const feedbackCard = document.getElementById('cxFeedbackRatingCard');
         if (latest.bucket === 'Completed') {
           feedbackCard.classList.remove('hidden');
@@ -2468,6 +2576,21 @@
         return;
       }
 
+      // Case 2: Resume Unfinished Cloud Draft OR Local Browser Draft
+      if ((latest && latest.bucket === 'Cx_Draft_In_Progress') || localDraft) {
+        const sourceDraft = latest || localDraft;
+        cxDraftEscId = (latest && latest.escId) || (localDraft && localDraft.escId) || '';
+        cxUploadedFiles = (sourceDraft && sourceDraft.proofFiles) || [];
+        document.getElementById('cxSanitizedTrackerCard').classList.add('hidden');
+        document.getElementById('cxGuidedClaimForm').classList.remove('hidden');
+        document.getElementById('cxResumeBanner').classList.remove('hidden');
+        document.getElementById('cxStorylineTextarea').value = (sourceDraft && sourceDraft.storylineNotes) || '';
+        renderCustomerPortalSkus(d, (sourceDraft && sourceDraft.affectedSkus) || []);
+        renderCustomerUploadedFiles();
+        return;
+      }
+
+      // Case 3: Fresh Claim Form
       cxDraftEscId = '';
       cxParentSubTicketId = '';
       cxUploadedFiles = [];
@@ -2482,9 +2605,9 @@
       cxSelectedRatingStars = stars;
       document.querySelectorAll('.cx-star-btn').forEach((btn, idx) => {
         if (idx + 1 <= stars) {
-          btn.className = 'cx-star-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white border border-indigo-600 text-xs font-bold';
+          btn.className = 'cx-star-btn px-3 py-1.5 rounded-lg bg-warning text-white border border-warning text-xs font-bold';
         } else {
-          btn.className = 'cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold';
+          btn.className = 'cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold';
         }
       });
     }
@@ -2538,10 +2661,10 @@
         const selIssue = sv ? (sv.skuIssue || 'Broken / Cracked Tiles on Arrival') : 'Broken / Cracked Tiles on Arrival';
 
         return `
-          <div class="p-4 rounded-xl border-2 ${isChecked ? 'border-indigo-600 bg-indigo-50/30' : 'border-slate-200 bg-slate-50'} transition space-y-3 text-xs" id="cxcard_${item.rowKey}">
-            <label class="flex items-center justify-between gap-2 font-extrabold text-slate-900 cursor-pointer">
+          <div class="p-3.5 rounded-lg border ${isChecked ? 'border-[#FF4500] bg-orange-50/20' : 'border-border bg-bg'} transition space-y-3 text-xs" id="cxcard_${item.rowKey}">
+            <label class="flex items-center justify-between gap-2 font-semibold text-slate-900 cursor-pointer">
               <div class="flex items-center gap-2.5">
-                <input type="checkbox" class="cx-sku-check w-4 h-4 text-indigo-600 rounded"
+                <input type="checkbox" class="cx-sku-check w-4 h-4 accent-[#FF4500] rounded"
                   data-rowkey="${escapeHtml(item.rowKey)}"
                   data-skuname="${escapeHtml(item.skuName)}"
                   data-orderedunit="${escapeHtml(item.orderedUnit)}"
@@ -2549,38 +2672,38 @@
                   onchange="onCxSkuCheckboxToggle('${escapeHtml(item.rowKey)}')" />
                 <span>${escapeHtml(item.skuName)}</span>
               </div>
-              <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded bg-white border border-slate-200 text-slate-600">
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted">
                 Ordered: ${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}
               </span>
             </label>
 
             <!-- Per-SKU Issue, Damaged Qty, Unit (Boxes/Pcs), and Batch No Sub-Panel -->
-            <div id="cxsub_${item.rowKey}" class="${isChecked ? '' : 'hidden'} pt-2 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-4 gap-2.5">
+            <div id="cxsub_${item.rowKey}" class="${isChecked ? '' : 'hidden'} pt-2.5 border-t border-border grid grid-cols-1 sm:grid-cols-4 gap-2">
               <div>
-                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Damaged Qty *</label>
+                <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Damaged Qty *</label>
                 <input type="number" min="1" step="any" value="${sv ? escapeHtml(sv.affectedQty) : '1'}"
                   id="cxqty_${item.rowKey}"
                   oninput="autoSaveCustomerDraft()"
-                  class="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-bold" />
+                  class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-bold focus:outline-none focus:border-primary" />
               </div>
               <div>
-                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Select Unit *</label>
-                <select id="cxunit_${item.rowKey}" onchange="autoSaveCustomerDraft()" class="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-bold">
+                <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Select Unit *</label>
+                <select id="cxunit_${item.rowKey}" onchange="autoSaveCustomerDraft()" class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-semibold focus:outline-none focus:border-primary">
                   <option value="Boxes" ${selUnit.toLowerCase().includes('box') ? 'selected' : ''}>Boxes</option>
                   <option value="Pcs" ${selUnit.toLowerCase().includes('pc') ? 'selected' : ''}>Pieces (Pcs)</option>
                   <option value="Bags/Units" ${selUnit.toLowerCase().includes('bag') ? 'selected' : ''}>Bags / Units</option>
                 </select>
               </div>
               <div>
-                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Batch No (on Box)</label>
+                <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Batch No (on Box)</label>
                 <input type="text" placeholder="e.g. B-4092" value="${sv ? escapeHtml(sv.batchNo) : ''}"
                   id="cxbatch_${item.rowKey}"
                   oninput="autoSaveCustomerDraft()"
-                  class="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-mono" />
+                  class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-mono focus:outline-none focus:border-primary" />
               </div>
               <div>
-                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Issue with this SKU *</label>
-                <select id="cxskuissue_${item.rowKey}" onchange="autoSaveCustomerDraft()" class="w-full px-2.5 py-1.5 bg-white border border-indigo-300 rounded-lg font-bold text-indigo-950">
+                <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Issue with this SKU *</label>
+                <select id="cxskuissue_${item.rowKey}" onchange="autoSaveCustomerDraft()" class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-semibold text-slate-900 focus:outline-none focus:border-primary">
                   ${PER_SKU_ISSUE_OPTIONS.map(opt => `<option value="${escapeHtml(opt)}" ${selIssue === opt ? 'selected' : ''}>${escapeHtml(opt)}</option>`).join('')}
                 </select>
               </div>
@@ -2596,21 +2719,25 @@
       const sub = document.getElementById(`cxsub_${rowKey}`);
       if (chk && chk.checked) {
         sub.classList.remove('hidden');
-        card.className = 'p-4 rounded-xl border-2 border-indigo-600 bg-indigo-50/30 transition space-y-3 text-xs';
+        card.className = 'p-3.5 rounded-lg border border-[#FF4500] bg-orange-50/20 transition space-y-3 text-xs';
       } else if (sub && card) {
         sub.classList.add('hidden');
-        card.className = 'p-4 rounded-xl border-2 border-slate-200 bg-slate-50 transition space-y-3 text-xs';
+        card.className = 'p-3.5 rounded-lg border border-border bg-bg transition space-y-3 text-xs';
       }
       autoSaveCustomerDraft();
     }
 
+    // DUAL-LAYER AUTO-SAVE: 0ms localStorage + 6-second idle cloud sync for drop-off tracking
     let cxDraftTimeout = null;
     function autoSaveCustomerDraft() {
       if (isSubmittingClaim) return;
+      saveLocalCustomerDraft();
       clearTimeout(cxDraftTimeout);
       cxDraftTimeout = setTimeout(() => {
-        activeDraftSavePromise = submitCustomerPortalClaim(false);
-      }, 1200);
+        if (!isSubmittingClaim) {
+          activeDraftSavePromise = submitCustomerPortalClaim(false);
+        }
+      }, 6000);
     }
 
     async function uploadCustomerPortalProof(inputEl, slotLabel) {
@@ -2634,6 +2761,7 @@
           cxDraftEscId = res.escId;
           cxUploadedFiles.push(res.fileRecord);
           renderCustomerUploadedFiles();
+          saveLocalCustomerDraft();
           activeDraftSavePromise = submitCustomerPortalClaim(false);
         }
       };
@@ -2662,7 +2790,7 @@
       if (badge) {
         const bothMet = photoCount >= 1 && videoCount >= 1;
         badge.className = `text-[11px] font-bold px-2.5 py-0.5 rounded ${bothMet ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
-        badge.textContent = `${bothMet ? '✅ ' : '⚠️ '}${photoCount} Photo(s), ${videoCount} Video(s) Uploaded`;
+        badge.textContent = `${bothMet ? '✅ ' : '⚠️ '}${photoCount} Photo(s), ${videoCount} Video(s)`;
       }
 
       document.getElementById('cxUploadedFilesList').innerHTML = cxUploadedFiles.map(f =>
@@ -2673,38 +2801,33 @@
     async function submitCustomerPortalClaim(isFinalSubmit) {
       if (!activeDossier) return;
 
-      // ANTI-DOUBLE-CLICK GUARD: Block concurrent final submissions immediately
       if (isFinalSubmit) {
         if (isSubmittingClaim) return;
 
-        // 1. Validate at least 1 SKU is checked
         const checkedBoxes = document.querySelectorAll('.cx-sku-check:checked');
         if (checkedBoxes.length === 0) {
-          showBannerError('Select Affected Item(s)', 'Please tick at least 1 affected SKU in Step 1 before submitting.');
+          showBannerError('Select Affected Item(s)', 'Please tick at least 1 affected SKU before submitting.');
           return;
         }
 
-        // 2. MANDATORY PROOF GATE: Require at least 1 Photo AND 1 Video on Customer Portal
         const { photoCount, videoCount } = countCustomerPhotoAndVideoProofs();
         if (photoCount < 1 || videoCount < 1) {
           showBannerError(
             'Mandatory Proofs Required (1 Photo + 1 Video)',
-            `You have uploaded ${photoCount} photo(s) and ${videoCount} video(s). Please upload at least 1 Photo (Box Sticker / Damaged Tiles) AND 1 Site/Unloading Video in Step 3 before submitting.`
+            `You have uploaded ${photoCount} photo(s) and ${videoCount} video(s). Please upload at least 1 Photo AND 1 Site Video before submitting.`
           );
           return;
         }
 
-        // 3. Lock the Submit button immediately so customer cannot click twice
         isSubmittingClaim = true;
         clearTimeout(cxDraftTimeout);
         const submitBtn = document.getElementById('cxFinalSubmitBtn');
         if (submitBtn) {
           submitBtn.disabled = true;
-          submitBtn.innerHTML = '🔒 Submitting Claim — Please Wait (Do Not Tap Again)...';
+          submitBtn.innerHTML = '🔒 Submitting Application — Please Wait...';
         }
-        setLoading(true, 'Logging your escalation & assigning specialist (Please wait)...');
+        setLoading(true, 'Logging your escalation & assigning specialist...');
 
-        // If a background auto-save was in flight, wait for it so we reuse its exact cxDraftEscId
         if (activeDraftSavePromise) {
           try { await activeDraftSavePromise; } catch (e) {}
         }
@@ -2745,14 +2868,16 @@
 
         if (res.status === 'success') {
           cxDraftEscId = res.escId;
-          document.getElementById('cxDraftSavedIndicator').textContent = `Saved (${res.escId}) at ${new Date().toLocaleTimeString()}`;
+          saveLocalCustomerDraft();
+          document.getElementById('cxDraftSavedIndicator').textContent = `Saved (${res.escId})`;
           if (isFinalSubmit) {
+            try { localStorage.removeItem(`adorzy_cx_draft_${activeDossier.orderId}`); } catch (e) {}
             setLoading(false);
             isSubmittingClaim = false;
             const submitBtn = document.getElementById('cxFinalSubmitBtn');
             if (submitBtn) {
               submitBtn.disabled = false;
-              submitBtn.innerHTML = '🚀 Submit Claim & Get Ticket ID';
+              submitBtn.innerHTML = 'Submit Application to CDT';
             }
             showToastAlert(`Claim Logged: ${res.escId}`, `Assigned to ${res.assignedTo}. Loading your live status tracker...`);
             runCustomerPortalLookup(activeDossier.orderId);
@@ -2763,7 +2888,7 @@
           const submitBtn = document.getElementById('cxFinalSubmitBtn');
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '🚀 Submit Claim & Get Ticket ID';
+            submitBtn.innerHTML = 'Submit Application to CDT';
           }
         }
       } catch (err) {
@@ -2773,7 +2898,7 @@
           const submitBtn = document.getElementById('cxFinalSubmitBtn');
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '🚀 Submit Claim & Get Ticket ID';
+            submitBtn.innerHTML = 'Submit Application to CDT';
           }
         }
       }
@@ -2787,13 +2912,13 @@
         <tr>
           <td class="px-3 py-2 font-bold">${escapeHtml(r.name)}</td>
           <td class="px-3 py-2 font-mono">${escapeHtml(r.email)}</td>
-          <td class="px-3 py-2"><span class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 font-semibold">${escapeHtml(r.role)}</span></td>
+          <td class="px-3 py-2"><span class="px-2 py-0.5 rounded bg-orange-50 text-primary font-semibold">${escapeHtml(r.role)}</span></td>
           <td class="px-3 py-2">${escapeHtml(r.whatsapp || '—')}</td>
           <td class="px-3 py-2 font-bold">${r.capacityCap}</td>
           <td class="px-3 py-2">${r.activeCount} active</td>
           <td class="px-3 py-2 font-bold ${r.availability === 'AVAILABLE' ? 'text-emerald-700' : 'text-rose-600'}">${escapeHtml(r.availability)}</td>
           <td class="px-3 py-2 flex gap-1.5">
-            <button type="button" onclick="adminQuickFill('${escapeHtml(r.name)}','${escapeHtml(r.email)}','${escapeHtml(r.role)}','${escapeHtml(r.whatsapp)}',${r.capacityCap},'${escapeHtml(r.availability)}')" class="text-indigo-600 hover:underline font-semibold">Edit</button>
+            <button type="button" onclick="adminQuickFill('${escapeHtml(r.name)}','${escapeHtml(r.email)}','${escapeHtml(r.role)}','${escapeHtml(r.whatsapp)}',${r.capacityCap},'${escapeHtml(r.availability)}')" class="text-primary hover:underline font-semibold">Edit</button>
             <button type="button" onclick="adminDeleteMember('${escapeHtml(r.email)}')" class="text-rose-600 hover:underline font-semibold">Remove</button>
           </td>
         </tr>
@@ -2871,7 +2996,7 @@
 
     function copyCustomerWhatsappUpdate() {
       if (!activeTicket || !activeDossier) return;
-      const msg = `Hi ${activeDossier.cxName}, update on your Florzy Order #${activeDossier.orderId} (Claim #${activeTicket.escId}): ${activeTicket.whatToTellCx || activeTicket.liveStage}`;
+      const msg = `Hi ${activeDossier.cxName}, update on your Adorzy Order #${activeDossier.orderId} (Claim #${activeTicket.escId}): ${activeTicket.whatToTellCx || activeTicket.liveStage}`;
       navigator.clipboard.writeText(msg);
       showToastAlert('Copied to Clipboard', 'WhatsApp message copied!');
     }
