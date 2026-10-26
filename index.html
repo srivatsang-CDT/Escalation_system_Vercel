@@ -29,14 +29,13 @@
       <div>
         <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700">Internal Workspace</span>
         <h1 class="text-2xl font-extrabold text-slate-900 mt-2">Florzy Escalation &amp; Order Intelligence</h1>
-        <p class="text-xs text-slate-500 mt-1">Sign in using your official <code>@florzy.com</code> Google Workspace account. Manual email entry is disabled for security—your role view (CDT, Sales, or Admin) is verified automatically via Google OAuth.</p>
+        <p class="text-xs text-slate-500 mt-1">Sign in using your official <code>@florzy.com</code> Google Workspace account. Your role view (CDT, Sales, or Admin) loads automatically via Google OAuth.</p>
       </div>
 
-      <!-- Official Google Identity Services Button -->
       <div class="py-2 flex flex-col items-center justify-center gap-3">
         <div id="googleGsiButtonContainer" class="flex justify-center min-h-[44px]"></div>
         <p id="oauthSetupNotice" class="hidden text-[11px] text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3 text-left">
-          <strong>⚙️ Google OAuth Client ID Required:</strong> Paste your Google Cloud Web Client ID into <code>GOOGLE_OAUTH_CLIENT_ID</code> inside <code>index.html</code> to render the Google Sign-In button.
+          <strong>⚙️ Google OAuth Client ID Required:</strong> Paste your Google Cloud Web Client ID into <code>GOOGLE_OAUTH_CLIENT_ID</code> inside <code>index.html</code>.
         </p>
       </div>
 
@@ -45,7 +44,7 @@
   </div>
 
   <!-- =========================================================================
-       MODAL: VISUAL "WHERE TO FIND TILE BATCH / SHADE NO" HELPER
+       MODAL 1: VISUAL "WHERE TO FIND TILE BATCH / SHADE NO" HELPER
        ========================================================================= -->
   <div id="batchHelperModal" class="hidden fixed inset-0 z-50 bg-slate-900/70 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
@@ -63,12 +62,40 @@
           <div>MFG DATE: 12/2025 | QTY: 2 PCS (1.44 SQM)</div>
         </div>
         <p class="text-slate-600 leading-relaxed">
-          Look at the <strong>printed white sticker or ink stamp on the narrow side edge of the cardboard tile box</strong>. Enter the code next to <strong>Batch No / Shade / Tonality</strong> and upload a clear photo of that sticker in Slot 1.
+          Look at the <strong>printed white sticker or ink stamp on the narrow side edge of the cardboard tile box</strong>. Enter the code next to <strong>Batch No / Shade</strong> and upload a clear photo of that sticker in Slot 1.
         </p>
       </div>
       <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="w-full py-2.5 bg-indigo-600 text-white text-xs font-bold rounded-xl">
         Got It
       </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL 2: CDT READY-TO-SEND WHATSAPP MESSAGE COPY & LAUNCH POPUP
+       ========================================================================= -->
+  <div id="whatsappCopyModal" class="hidden fixed inset-0 z-50 bg-slate-900/75 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Customer Portal Updated + WhatsApp Ready</span>
+          <h3 class="text-base font-extrabold text-slate-900 mt-1" id="waModalTitle">Send WhatsApp Message to Customer</h3>
+        </div>
+        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 text-sm font-bold">✕</button>
+      </div>
+      <p class="text-xs text-slate-600">This message has been <strong>automatically copied to your clipboard</strong> and the Customer Portal tracker has been updated:</p>
+      <textarea id="waModalTextarea" rows="5" class="w-full p-3 text-xs bg-emerald-50/60 border border-emerald-300 rounded-xl font-medium text-slate-800"></textarea>
+      <div class="flex flex-wrap items-center justify-end gap-2 pt-2">
+        <button type="button" onclick="copyWaModalText()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold">
+          📋 Copy Text Again
+        </button>
+        <a id="waModalDirectLink" href="#" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">
+          📲 Open WhatsApp Chat with Cx ↗
+        </a>
+        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">
+          Done
+        </button>
+      </div>
     </div>
   </div>
 
@@ -356,11 +383,11 @@
           </div>
         </div>
 
-        <!-- UNIFIED SKU SELECTION & LINE ITEM TABLES -->
+        <!-- UNIFIED SKU SELECTION & LINE ITEM TABLES (With Unit & Per-SKU Issue Selector) -->
         <div id="skuSelectorCard" class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
           <div class="px-5 py-3.5 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-2">
             <div>
-              <h3 class="text-sm font-bold">Order SKU Breakdown — Affected Boxes/Pcs, Batch No &amp; Cost Calculator</h3>
+              <h3 class="text-sm font-bold">Order SKU Breakdown — Affected Qty, Unit (Boxes/Pcs), Batch No, Per-SKU Issue &amp; Cost Calculator</h3>
               <p class="text-[11px] text-slate-300">Extracted from <code>po_line_items</code> &amp; <code>metaescline</code> (metaescline includes +18% GST)</p>
             </div>
             <div class="text-right">
@@ -401,6 +428,8 @@
 
           <!-- LEFT 7 COLS -->
           <div class="lg:col-span-7 space-y-5">
+
+            <!-- Panel A: Classification & Resolution -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
               <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 class="text-sm font-bold text-slate-900">1. Escalation Classification, Resolution &amp; Bucket</h3>
@@ -445,6 +474,7 @@
                     <option value="Refund - Order Cancellation">Refund - Order Cancellation</option>
                     <option value="Partial Refund (Partial Order Cancellation)">Partial Refund (Partial Order Cancellation)</option>
                     <option value="Refund - Others">Refund - Others (Specify Edge Case Below)</option>
+                    <option value="Mutual / No-Action Closure (Customer Agreed)">Mutual / No-Action Closure (Customer Agreed)</option>
                   </select>
                 </div>
 
@@ -454,6 +484,7 @@
                     <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
                     <option value="Absorbed by Florzy">Absorbed by Florzy</option>
                     <option value="Customer Paid / Commercial Split">Customer Paid / Commercial Split</option>
+                    <option value="Zero Cost Impact (Mutual Closure)">Zero Cost Impact (Mutual Closure)</option>
                   </select>
                 </div>
               </div>
@@ -486,7 +517,52 @@
               </div>
             </div>
 
-            <!-- Panel B: Customer Media Proofs & Voice Note Player (Zero-Token Playback + On-Demand Transcribe) -->
+            <!-- NEW PANEL A2: CDT CUSTOMER OUTREACH (RNR / BUSY / NC) & OPEN-ENDED MUTUAL FAST-CLOSE -->
+            <div class="bg-white border-2 border-indigo-100 rounded-xl p-5 shadow-sm space-y-4">
+              <h3 class="text-sm font-extrabold text-slate-900">⚡ CDT Customer Outreach &amp; Mutual Fast-Close Actions</h3>
+
+              <!-- Block 1: Mark Tried Reaching Cx (RNR / Busy / NC / Did Not Answer) -->
+              <div class="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-extrabold text-amber-950">📵 1. Customer Unreachable? Mark Attempt &amp; Generate WhatsApp Message</span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-200 text-amber-900">Shows on Cx Portal</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <select id="cxUnreachableReasonSelect" class="px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded-lg font-semibold">
+                    <option value="Ringing No Response (RNR)">Ringing No Response (RNR)</option>
+                    <option value="Line Busy">Line Busy</option>
+                    <option value="Switched Off / Not Reachable (NC)">Switched Off / Not Reachable (NC)</option>
+                    <option value="Did Not Answer Call">Did Not Answer Call</option>
+                  </select>
+                  <input id="cxUnreachableExtraNote" type="text" placeholder="Optional note (e.g. Called twice)..." class="px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded-lg" />
+                  <button type="button" onclick="markCustomerUnreachableAndCopyWa()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg shadow-sm">
+                    📵 Mark Unreachable &amp; Get WhatsApp
+                  </button>
+                </div>
+              </div>
+
+              <!-- Block 2: Open-Ended Mutual / No-Action Closure (Customer Convinced / Agreed) -->
+              <div class="p-3.5 rounded-xl bg-emerald-50/80 border border-emerald-200 space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-extrabold text-emerald-950">🤝 2. Customer Convinced / Mutual Closure (Close Without Replacement/Refund)</span>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900">Closes Ticket + Unlocks Cx Rating</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <select id="mutualClosePresetSelect" onchange="onMutualPresetChange()" class="px-2.5 py-1.5 text-xs bg-white border border-emerald-300 rounded-lg font-semibold">
+                    <option value="Minimal damage (<2%) — Customer agreed to utilize affected tiles for cutting / skirting work">Preset: Minimal damage (&lt;2%) — Agreed to use for cutting/skirting</option>
+                    <option value="Shade / laying pattern guidance explained on call — Customer satisfied to proceed">Preset: Shade / laying guidance shared — Cx satisfied to proceed</option>
+                    <option value="Commercial / site resolution mutually agreed on call — No replacement required">Preset: Mutual commercial / site resolution agreed on call</option>
+                    <option value="CUSTOM">✍️ Type Custom Resolution / Agreement Scenario Below...</option>
+                  </select>
+                  <input id="mutualCloseCustomInput" type="text" placeholder="Type exact agreement with customer (open for any scenario)..." class="px-2.5 py-1.5 text-xs bg-white border border-emerald-300 rounded-lg" />
+                </div>
+                <button type="button" onclick="closeTicketByMutualAgreement()" class="w-full py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-lg shadow-sm">
+                  ✅ Close Ticket by Mutual Agreement, Update Cx Portal &amp; Copy WhatsApp Confirmation
+                </button>
+              </div>
+            </div>
+
+            <!-- Panel B: Customer Media Proofs & Voice Note Player -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
               <div class="flex items-center justify-between">
                 <div>
@@ -533,7 +609,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-100">
                 <input id="customStageHeadlineInput" type="text" placeholder="Custom Status..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
                 <input id="customPendingDeptInput" type="text" placeholder="Pending Dept" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
-                <input id="customWhatToTellCxInput" type="text" placeholder="What Sales should tell Customer..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
+                <input id="customWhatToTellCxInput" type="text" placeholder="What Sales/Portal should tell Customer..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg" />
                 <button type="button" onclick="saveCustomStatusOverride()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg">
                   Update Live Status
                 </button>
@@ -656,7 +732,9 @@
          ===================================================================== -->
     <section id="customerSelfServiceView" class="hidden max-w-3xl mx-auto py-6 space-y-6">
       <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+
+        <!-- Header + Direct CDT Verification Helpline Numbers -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-4 gap-3">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-lg">F</div>
             <div>
@@ -664,9 +742,21 @@
               <h2 class="text-xl font-extrabold text-slate-900 mt-0.5">Report an Order Issue or Track Claim</h2>
             </div>
           </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">📞 CDT Central Verification Line:</span>
+            <a href="tel:+919187011149" class="font-extrabold text-indigo-700 hover:underline">+91 9187011149</a>
+          </div>
         </div>
 
-        <p class="text-xs text-slate-600">Enter your 10-digit registered Phone Number or Order ID to report damaged/incorrect items, record a voice note, upload site photos/videos, or check live resolution status.</p>
+        <!-- Direct Escalation Specialists Contact Strip -->
+        <div class="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-100 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <span class="font-bold text-indigo-950">Need to speak with our Escalation Team directly?</span>
+          <div class="flex flex-wrap items-center gap-2">
+            <a href="tel:+919187011149" class="px-2.5 py-1 rounded-lg bg-white border border-indigo-200 font-bold text-indigo-700 hover:bg-indigo-100">📞 Central: 9187011149</a>
+            <a href="tel:+919187238959" class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 font-semibold text-slate-700 hover:bg-slate-100">👤 Jai: 9187238959</a>
+            <a href="tel:+918904967956" class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 font-semibold text-slate-700 hover:bg-slate-100">👤 Satyam: 8904967956</a>
+          </div>
+        </div>
 
         <form id="cxPortalLookupForm" class="flex gap-2">
           <input id="cxLookupInput" type="text" required placeholder="Enter 10-Digit Phone Number or Order ID (e.g. ORD-K4NJDW)..." class="flex-1 px-4 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl" />
@@ -677,14 +767,27 @@
 
         <div id="cxOrderChoiceList" class="hidden space-y-2 pt-2"></div>
 
-        <!-- SANITIZED CUSTOMER LIVE STATUS TRACKER (With 4-Step Progress Bar) -->
+        <!-- SANITIZED CUSTOMER LIVE STATUS TRACKER -->
         <div id="cxSanitizedTrackerCard" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-wrap items-center justify-between gap-2">
             <div>
               <span class="text-xs font-bold text-indigo-700" id="cxTrkTicketId">Claim #ESC-XXXX</span>
               <h3 class="text-base font-extrabold text-slate-900" id="cxTrkStageTitle">Under Verification</h3>
             </div>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Live Status</span>
+            <div class="text-right">
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Live Status</span>
+              <p class="text-[11px] font-bold text-slate-600 mt-1" id="cxTrkAssignedSpecialist">Assigned Specialist: CDT Team</p>
+            </div>
+          </div>
+
+          <!-- Highlighted Banner When CDT Tried Calling Cx (RNR / Busy / NC) -->
+          <div id="cxUnreachableAlertBanner" class="hidden p-3.5 rounded-xl bg-amber-100 border-2 border-amber-400 text-amber-950 text-xs space-y-1">
+            <div class="font-extrabold">📵 We Tried Reaching You on Phone!</div>
+            <p id="cxUnreachableAlertText" class="font-medium"></p>
+            <div class="pt-1 flex flex-wrap gap-2">
+              <a id="cxCallAssignedBtn" href="tel:+919187011149" class="px-3 py-1 rounded-lg bg-amber-900 text-white font-bold">📞 Call Assigned Specialist</a>
+              <a href="tel:+919187011149" class="px-3 py-1 rounded-lg bg-white border border-amber-400 text-amber-950 font-bold">📞 Call Central Line: 9187011149</a>
+            </div>
           </div>
 
           <!-- 4-Step Sanitized Progress Bar -->
@@ -693,6 +796,30 @@
           <div class="bg-white p-3.5 rounded-lg border border-slate-200">
             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Latest Update on Your Claim:</span>
             <p class="text-xs text-slate-800 font-semibold mt-0.5" id="cxTrkPublicNote"></p>
+          </div>
+
+          <!-- POST-COMPLETION CUSTOMER RATING & FEEDBACK CARD (Visible when Completed) -->
+          <div id="cxFeedbackRatingCard" class="hidden p-4 rounded-xl bg-indigo-50 border border-indigo-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-xs font-extrabold text-indigo-950">⭐ Rate Your Resolution Experience</h4>
+                <p class="text-[11px] text-indigo-700">Your escalation is marked resolved. Please rate our support &amp; share your feedback:</p>
+              </div>
+              <span id="cxFeedbackSavedBadge" class="hidden text-xs font-bold px-2.5 py-1 rounded bg-emerald-600 text-white">✅ Thank You!</span>
+            </div>
+            <div class="flex items-center gap-2" id="cxStarButtonsRow">
+              <button type="button" onclick="selectCxRatingStars(1)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold">1 ⭐</button>
+              <button type="button" onclick="selectCxRatingStars(2)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold">2 ⭐</button>
+              <button type="button" onclick="selectCxRatingStars(3)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold">3 ⭐</button>
+              <button type="button" onclick="selectCxRatingStars(4)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold">4 ⭐</button>
+              <button type="button" onclick="selectCxRatingStars(5)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white border border-indigo-600 text-xs font-bold">5 ⭐</button>
+            </div>
+            <div class="flex gap-2">
+              <input id="cxFeedbackCommentInput" type="text" placeholder="Share any feedback about your resolution experience..." class="flex-1 px-3 py-2 text-xs bg-white border border-indigo-200 rounded-lg" />
+              <button type="button" onclick="submitCustomerCsatFeedback()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg shrink-0">
+                Submit Review
+              </button>
+            </div>
           </div>
 
           <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
@@ -706,60 +833,30 @@
           </div>
         </div>
 
-        <!-- GUIDED 4-STEP CUSTOMER INTAKE FORM -->
+        <!-- GUIDED CUSTOMER INTAKE FORM -->
         <div id="cxGuidedClaimForm" class="hidden space-y-6 pt-3 border-t border-slate-200">
           <div id="cxResumeBanner" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-900">
             🔄 Welcome back! We automatically restored your unfinished submission so you can continue right where you left off.
           </div>
 
-          <!-- STEP 1: SKUs + Batch Helper -->
+          <!-- STEP 1: Tick SKU -> Expand Per-SKU Damaged Qty, Unit (Box/Pcs), Batch No, and Specific Issue -->
           <div>
             <div class="flex items-center justify-between mb-2">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Step 1: Select Item(s) &amp; Enter Affected Boxes / Batch No</h4>
-              <button type="button" onclick="document.getElementById('batchHelperModal').classList.remove('hidden')" class="text-xs font-bold text-indigo-600 hover:underline">
-                ℹ️ Where is the Batch No on the box?
+              <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Step 1: Select Affected Item(s), Damaged Qty, Unit (Boxes/Pcs) &amp; Issue Type</h4>
+                <p class="text-[11px] text-slate-500">Tick each item that has an issue—you can select a different issue and unit (Boxes or Pcs) for each item.</p>
+              </div>
+              <button type="button" onclick="document.getElementById('batchHelperModal').classList.remove('hidden')" class="text-xs font-bold text-indigo-600 hover:underline shrink-0">
+                ℹ️ Where is Batch No?
               </button>
             </div>
-            <div id="cxSkuListContainer" class="space-y-2"></div>
+            <div id="cxSkuListContainer" class="space-y-2.5"></div>
           </div>
 
-          <!-- STEP 2: Interactive Visual Issue Cards -->
-          <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Step 2: What Happened? (Tap One)</h4>
-            <input type="hidden" id="cxIssueCategorySelect" value="Broken / Cracked Tiles on Arrival" />
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" id="cxVisualIssueCards">
-              <button type="button" onclick="selectCxIssueCard(this, 'Broken / Cracked Tiles on Arrival')" class="cx-issue-card text-left p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 transition">
-                <span class="text-base">📦</span>
-                <span class="block text-xs font-extrabold text-slate-900 mt-1">Broken / Cracked on Arrival</span>
-                <span class="block text-[10px] text-slate-500">Damaged during transit/unloading</span>
-              </button>
-              <button type="button" onclick="selectCxIssueCard(this, 'Chipped Corners / Factory Defect inside Box')" class="cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition">
-                <span class="text-base">🔍</span>
-                <span class="block text-xs font-extrabold text-slate-900 mt-1">Chipped / Surface Defect</span>
-                <span class="block text-[10px] text-slate-500">Bend, pinhole, or print defect</span>
-              </button>
-              <button type="button" onclick="selectCxIssueCard(this, 'Batch / Shade / Color Variation')" class="cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition">
-                <span class="text-base">🎨</span>
-                <span class="block text-xs font-extrabold text-slate-900 mt-1">Batch / Shade Mismatch</span>
-                <span class="block text-[10px] text-slate-500">Different color/shade across boxes</span>
-              </button>
-              <button type="button" onclick="selectCxIssueCard(this, 'Wrong Item or Short Quantity Delivered')" class="cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition">
-                <span class="text-base">🚚</span>
-                <span class="block text-xs font-extrabold text-slate-900 mt-1">Wrong Item / Short Qty</span>
-                <span class="block text-[10px] text-slate-500">Missing boxes or wrong SKU</span>
-              </button>
-              <button type="button" onclick="selectCxIssueCard(this, 'Return Unused Boxes / Other Order Issue')" class="cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition">
-                <span class="text-base">↩️</span>
-                <span class="block text-xs font-extrabold text-slate-900 mt-1">Return / Other Issue</span>
-                <span class="block text-[10px] text-slate-500">Leftover boxes or general support</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- STEP 3: Text Description OR Live Voice Note Recorder (Zero-Token Upload) -->
+          <!-- STEP 2: Text Description OR Live Voice Note Recorder (Zero-Token Upload) -->
           <div class="space-y-2.5">
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Step 3: Describe the Issue (Type OR Record Voice Note in Any Language)</label>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500">Step 2: Describe the Issue (Type OR Record Voice Note in Any Language)</label>
               <div class="flex items-center gap-2">
                 <button type="button" id="cxVoiceRecordBtn" onclick="toggleCustomerVoiceRecorder()" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
                   <span>🎤 Record Voice Note</span>
@@ -768,9 +865,8 @@
               </div>
             </div>
 
-            <textarea id="cxStorylineTextarea" rows="3" oninput="autoSaveCustomerDraft()" placeholder="Tell us briefly what happened (or tap 'Record Voice Note' above if you or your site supervisor prefer speaking in English, Hindi, Kannada, etc.)..." class="w-full p-3 text-xs bg-slate-50 border border-slate-300 rounded-xl"></textarea>
+            <textarea id="cxStorylineTextarea" rows="3" oninput="autoSaveCustomerDraft()" placeholder="Tell us briefly what happened (or tap 'Record Voice Note' above to speak in English, Hindi, Kannada, etc.)..." class="w-full p-3 text-xs bg-slate-50 border border-slate-300 rounded-xl"></textarea>
 
-            <!-- Playback Preview of Recorded Voice Note -->
             <div id="cxRecordedAudioPreviewBox" class="hidden p-3 rounded-xl bg-indigo-50 border border-indigo-200 flex flex-wrap items-center justify-between gap-3">
               <div class="flex items-center gap-2">
                 <span class="text-xs font-bold text-indigo-900">🔊 Recorded Voice Note Attached:</span>
@@ -780,24 +876,27 @@
             </div>
           </div>
 
-          <!-- STEP 4: 3 Guided Proof Upload Slots -->
+          <!-- STEP 3: Mandatory Proof Upload Slots (Minimum 1 Photo AND 1 Video Required) -->
           <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Step 4: Upload Guided Proofs (Camera or Gallery)</h4>
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Step 3: Upload Guided Proofs <span class="text-rose-600">(Mandatory: At Least 1 Photo AND 1 Video)</span></h4>
+              <span id="cxProofValidationBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">0 Photo, 0 Video Uploaded</span>
+            </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-slate-50 transition">
-                <span class="block text-xs font-extrabold text-slate-800">📸 1. Box Batch Sticker</span>
+                <span class="block text-xs font-extrabold text-slate-800">📸 1. Box Batch Sticker (Photo)</span>
                 <span class="block text-[10px] text-slate-500 mt-0.5">Side label showing Batch/Shade</span>
                 <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Batch_Sticker')" />
               </label>
               <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-slate-50 transition">
-                <span class="block text-xs font-extrabold text-slate-800">📸 2. Damaged Tiles</span>
+                <span class="block text-xs font-extrabold text-slate-800">📸 2. Damaged Tiles (Photo)</span>
                 <span class="block text-[10px] text-slate-500 mt-0.5">Full count clearly visible</span>
                 <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Damaged_Tiles')" />
               </label>
-              <label class="cursor-pointer border-2 border-dashed border-slate-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-slate-50 transition">
-                <span class="block text-xs font-extrabold text-slate-800">🎥 3. Site / Unloading Video</span>
-                <span class="block text-[10px] text-slate-500 mt-0.5">Upload site video proof</span>
-                <input type="file" accept="video/*,image/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Site_Video')" />
+              <label class="cursor-pointer border-2 border-dashed border-rose-300 hover:border-indigo-500 rounded-xl p-3.5 text-center bg-rose-50/40 transition">
+                <span class="block text-xs font-extrabold text-slate-800">🎥 3. Site / Unloading Video <span class="text-rose-600">*</span></span>
+                <span class="block text-[10px] text-slate-500 mt-0.5">Mandatory video showing site/boxes</span>
+                <input type="file" accept="video/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Site_Video')" />
               </label>
             </div>
             <div id="cxUploadedFilesList" class="flex flex-wrap gap-2 mt-3"></div>
@@ -805,7 +904,7 @@
 
           <div class="flex items-center justify-between pt-3 border-t border-slate-100">
             <span id="cxDraftSavedIndicator" class="text-[11px] text-slate-400">Progress auto-saved</span>
-            <button type="button" onclick="submitCustomerPortalClaim(true)" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl shadow">
+            <button type="button" id="cxFinalSubmitBtn" onclick="submitCustomerPortalClaim(true)" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-400 text-white text-sm font-bold rounded-xl shadow transition">
               🚀 Submit Claim &amp; Get Ticket ID
             </button>
           </div>
@@ -895,6 +994,21 @@
     // =========================================================================
     const GOOGLE_OAUTH_CLIENT_ID = "1067858090113-au55s5rehqkeho5maicj7h8os99fs0ks.apps.googleusercontent.com";
 
+    const CDT_CENTRAL_PHONE = "9187011149";
+    const AGENT_PHONE_DIRECTORY = {
+      "jai.prakash@florzy.com": { name: "Jai Prakash", phone: "9187238959" },
+      "satyam.samani@florzy.com": { name: "Satyam Samani", phone: "8904967956" }
+    };
+
+    const PER_SKU_ISSUE_OPTIONS = [
+      "Broken / Cracked Tiles on Arrival",
+      "Chipped Corners / Surface Defect inside Box",
+      "Batch / Shade / Color Variation",
+      "Wrong Item Delivered",
+      "Short Quantity / Missing Boxes",
+      "Return Unused Boxes / Other Issue"
+    ];
+
     const ALL_BUCKETS = [
       "Incoming Cx Claims",
       "Open (Mid-Stage Draft)",
@@ -916,6 +1030,9 @@
     let cxUploadedFiles = [];
     let cxDraftEscId = '';
     let cxParentSubTicketId = '';
+    let cxSelectedRatingStars = 5;
+    let isSubmittingClaim = false;
+    let activeDraftSavePromise = null;
     let lastPollTimestamp = Date.now();
 
     // Customer Voice Recorder State
@@ -1389,9 +1506,11 @@
         const saved = savedSkusMap[item.rowKey];
         const isChecked = Boolean(saved);
         const repeatCount = (d.skuWarnings && d.skuWarnings[(item.skuName || '').trim().toUpperCase()]) || 0;
+        const defaultUnit = saved ? (saved.selectedUnit || item.orderedUnit || 'Boxes') : (item.orderedUnit || 'Boxes');
+        const defaultIssue = saved ? (saved.skuIssue || 'Broken / Cracked Tiles on Arrival') : 'Broken / Cracked Tiles on Arrival';
 
         const row = document.createElement('div');
-        row.className = 'p-3.5 hover:bg-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs';
+        row.className = 'p-3.5 hover:bg-slate-50 flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs';
         row.innerHTML = `
           <label class="flex items-start gap-2.5 cursor-pointer flex-1">
             <input type="checkbox" class="sku-check mt-1 w-4 h-4 text-indigo-600 rounded"
@@ -1401,6 +1520,7 @@
               data-unitprice="${item.unitPriceInclGst || 0}"
               data-orderedqty="${escapeHtml(item.orderedQty)}"
               data-unit="${escapeHtml(item.orderedUnit)}"
+              data-pcsperbox="${escapeHtml(item.pcsPerBox || '1')}"
               data-size="${escapeHtml(item.size)}"
               data-finish="${escapeHtml(item.finish)}"
               data-ponumber="${escapeHtml(item.poNumber || 'NA')}"
@@ -1415,28 +1535,42 @@
                 ${repeatCount > 1 ? `<span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold">⚠️ ${repeatCount} Past Defect Logs on this SKU</span>` : ''}
               </div>
               <p class="text-[11px] text-slate-500 mt-0.5">
-                Ordered: <strong>${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}</strong> |
+                Ordered: <strong>${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}</strong> (Pcs/Box: ${escapeHtml(item.pcsPerBox)}) |
                 Size: ${escapeHtml(item.size)} | Finish: ${escapeHtml(item.finish)} |
-                PO: ${escapeHtml(item.poNumber || 'NA')} | Unit Price (incl. GST): ₹${item.unitPriceInclGst || 0}
+                PO: ${escapeHtml(item.poNumber || 'NA')} | Price (incl. GST): ₹${item.unitPriceInclGst || 0}/${escapeHtml(item.orderedUnit)}
               </p>
             </div>
           </label>
-          <div class="flex items-center gap-2 shrink-0">
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
             <div>
-              <span class="block text-[10px] font-semibold text-slate-500">Affected Boxes/Pcs</span>
+              <span class="block text-[10px] font-semibold text-slate-500">Damaged Qty</span>
               <input type="number" min="0" step="any" value="${saved ? escapeHtml(saved.affectedQty) : '1'}"
                 id="qty_${item.rowKey}"
                 ${isReadOnlySales ? 'disabled' : ''}
                 oninput="recalculateSelectedSkusAndPreview()"
-                class="w-24 px-2.5 py-1 text-xs bg-white border border-slate-300 rounded font-bold" />
+                class="w-20 px-2 py-1 text-xs bg-white border border-slate-300 rounded font-bold" />
             </div>
             <div>
-              <span class="block text-[10px] font-semibold text-slate-500">Tile Batch No</span>
+              <span class="block text-[10px] font-semibold text-slate-500">Unit</span>
+              <select id="unit_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview()" class="px-2 py-1 text-xs bg-white border border-slate-300 rounded font-semibold">
+                <option value="Boxes" ${defaultUnit.toLowerCase().includes('box') ? 'selected' : ''}>Boxes</option>
+                <option value="Pcs" ${defaultUnit.toLowerCase().includes('pc') ? 'selected' : ''}>Pcs</option>
+                <option value="Bags/Units" ${defaultUnit.toLowerCase().includes('bag') ? 'selected' : ''}>Bags/Units</option>
+              </select>
+            </div>
+            <div>
+              <span class="block text-[10px] font-semibold text-slate-500">Batch No</span>
               <input type="text" placeholder="e.g. B-4092" value="${saved ? escapeHtml(saved.batchNo || '') : ''}"
                 id="batch_${item.rowKey}"
                 ${isReadOnlySales ? 'disabled' : ''}
                 oninput="recalculateSelectedSkusAndPreview()"
-                class="w-32 px-2.5 py-1 text-xs bg-white border border-slate-300 rounded font-mono" />
+                class="w-24 px-2 py-1 text-xs bg-white border border-slate-300 rounded font-mono" />
+            </div>
+            <div>
+              <span class="block text-[10px] font-semibold text-slate-500">SKU Specific Issue</span>
+              <select id="skuissue_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview()" class="px-2 py-1 text-xs bg-white border border-slate-300 rounded font-semibold max-w-[190px]">
+                ${PER_SKU_ISSUE_OPTIONS.map(opt => `<option value="${escapeHtml(opt)}" ${defaultIssue === opt ? 'selected' : ''}>${escapeHtml(opt)}</option>`).join('')}
+              </select>
             </div>
           </div>
         `;
@@ -1452,9 +1586,18 @@
       document.querySelectorAll('.sku-check:checked').forEach(chk => {
         const rk = chk.dataset.rowkey;
         const qtyVal = parseFloat(document.getElementById(`qty_${rk}`).value) || 0;
+        const selectedUnit = document.getElementById(`unit_${rk}`).value || 'Boxes';
         const batchVal = (document.getElementById(`batch_${rk}`).value || '').trim();
-        const unitPrice = parseFloat(chk.dataset.unitprice) || 0;
-        const lineImpact = Math.round(qtyVal * unitPrice);
+        const skuIssue = document.getElementById(`skuissue_${rk}`).value || '';
+        const unitPricePerOrderedUnit = parseFloat(chk.dataset.unitprice) || 0;
+        const pcsPerBox = parseFloat(chk.dataset.pcsperbox) || 1;
+
+        // If ordered in Boxes but customer/agent selected Pcs, pro-rate unit price by pcsPerBox
+        let effectiveUnitPrice = unitPricePerOrderedUnit;
+        if (selectedUnit === 'Pcs' && (chk.dataset.unit || '').toLowerCase().includes('box') && pcsPerBox > 1) {
+          effectiveUnitPrice = unitPricePerOrderedUnit / pcsPerBox;
+        }
+        const lineImpact = Math.round(qtyVal * effectiveUnitPrice);
         totalCost += lineImpact;
 
         list.push({
@@ -1463,12 +1606,14 @@
           sourceTab: chk.dataset.source,
           orderedQty: chk.dataset.orderedqty,
           orderedUnit: chk.dataset.unit,
+          selectedUnit: selectedUnit,
+          skuIssue: skuIssue,
           size: chk.dataset.size,
           finish: chk.dataset.finish,
           poNumber: chk.dataset.ponumber,
           affectedQty: qtyVal,
           batchNo: batchVal || 'NA',
-          unitPriceInclGst: unitPrice,
+          unitPriceInclGst: Math.round(effectiveUnitPrice),
           lineImpactInr: lineImpact
         });
       });
@@ -1540,7 +1685,8 @@
             <thead>
               <tr style="background:#f1f5f9;text-align:left;">
                 <th style="padding:6px;border:1px solid #cbd5e1;">SKU / Product Name</th>
-                <th style="padding:6px;border:1px solid #cbd5e1;">Affected Boxes/Pcs</th>
+                <th style="padding:6px;border:1px solid #cbd5e1;">Damaged Qty &amp; Unit</th>
+                <th style="padding:6px;border:1px solid #cbd5e1;">Specific SKU Issue</th>
                 <th style="padding:6px;border:1px solid #cbd5e1;">Batch / Shade No</th>
                 <th style="padding:6px;border:1px solid #cbd5e1;">PO Number</th>
               </tr>
@@ -1549,7 +1695,8 @@
               ${list.map(s => `
                 <tr>
                   <td style="padding:6px;border:1px solid #cbd5e1;font-weight:bold;">${escapeHtml(s.skuName)} (${escapeHtml(s.size)})</td>
-                  <td style="padding:6px;border:1px solid #cbd5e1;color:#dc2626;font-weight:bold;">${escapeHtml(s.affectedQty)} ${escapeHtml(s.orderedUnit)}</td>
+                  <td style="padding:6px;border:1px solid #cbd5e1;color:#dc2626;font-weight:bold;">${escapeHtml(s.affectedQty)} ${escapeHtml(s.selectedUnit || s.orderedUnit)}</td>
+                  <td style="padding:6px;border:1px solid #cbd5e1;">${escapeHtml(s.skuIssue || subIssue)}</td>
                   <td style="padding:6px;border:1px solid #cbd5e1;font-family:monospace;">${escapeHtml(s.batchNo)}</td>
                   <td style="padding:6px;border:1px solid #cbd5e1;">${escapeHtml(s.poNumber)}</td>
                 </tr>
@@ -1657,6 +1804,141 @@
       renderAuditTimeline(timeline || []);
     }
 
+    /* =========================================================================
+     * CDT FAST ACTIONS: 1. CX UNREACHABLE (RNR/BUSY/NC) & 2. MUTUAL FAST-CLOSE
+     * ========================================================================= */
+    function getAgentPhoneInfo(emailOrName) {
+      const key = (emailOrName || '').toLowerCase();
+      if (AGENT_PHONE_DIRECTORY[key]) return AGENT_PHONE_DIRECTORY[key];
+      if (key.includes('jai')) return { name: 'Jai Prakash', phone: '9187238959' };
+      if (key.includes('satyam')) return { name: 'Satyam Samani', phone: '8904967956' };
+      return { name: sysConfig.currentUser?.name || 'CDT Specialist', phone: CDT_CENTRAL_PHONE };
+    }
+
+    function openWhatsappModal(title, messageText, cxPhone) {
+      document.getElementById('waModalTitle').textContent = title;
+      document.getElementById('waModalTextarea').value = messageText;
+      navigator.clipboard.writeText(messageText);
+
+      const cleanDigits = String(cxPhone || '').replace(/\D/g, '').slice(-10);
+      const waLink = cleanDigits
+        ? `https://wa.me/91${cleanDigits}?text=${encodeURIComponent(messageText)}`
+        : `https://wa.me/?text=${encodeURIComponent(messageText)}`;
+      document.getElementById('waModalDirectLink').href = waLink;
+      document.getElementById('whatsappCopyModal').classList.remove('hidden');
+    }
+
+    function copyWaModalText() {
+      const txt = document.getElementById('waModalTextarea').value;
+      navigator.clipboard.writeText(txt);
+      showToastAlert('Copied to Clipboard', 'WhatsApp message copied!');
+    }
+
+    async function markCustomerUnreachableAndCopyWa() {
+      if (!activeDossier) return;
+      if (!activeTicket || !activeTicket.escId) {
+        await saveOrSendTicket(false);
+      }
+      if (!activeTicket) return;
+
+      const reason = document.getElementById('cxUnreachableReasonSelect').value;
+      const extraNote = document.getElementById('cxUnreachableExtraNote').value.trim();
+      const agentInfo = getAgentPhoneInfo(activeTicket.assignedAgentEmail || authenticatedEmail);
+      const timeNow = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+      const portalAlertScript = `[UNREACHABLE_ALERT] We tried calling you at ${timeNow} regarding Claim #${activeTicket.escId}, but could not connect (${reason}). ${extraNote ? extraNote + '. ' : ''}Please call your assigned specialist ${agentInfo.name} at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}.`;
+
+      const waMessage = `Hi ${activeDossier.cxName}, this is ${agentInfo.name} from the Florzy Customer Resolution Team. We tried calling you regarding your Order #${activeDossier.orderId} (Claim #${activeTicket.escId}), but could not connect as your number was ${reason}${extraNote ? ' (' + extraNote + ')' : ''}.\n\nPlease call me back at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}, or reply to this message so we can proceed with your resolution.`;
+
+      setLoading(true, 'Marking customer unreachable & updating Customer Portal...');
+      const res = await apiPost({
+        action: 'logCallOrStage',
+        escId: activeTicket.escId,
+        orderId: activeDossier.orderId,
+        bucket: 'Awaiting Cx Update/Response',
+        liveStage: `Tried Calling Cx — ${reason} (Awaiting Callback)`,
+        pendingWithDept: 'Customer Callback',
+        whatToTellCx: portalAlertScript,
+        actorName: agentInfo.name,
+        actorEmail: authenticatedEmail,
+        eventType: 'CALL_LOG',
+        partySpokenTo: 'Customer',
+        contactPerson: activeDossier.phoneNo,
+        callOutcome: reason,
+        headline: `📵 Tried Reaching Customer — ${reason}`,
+        details: `${portalAlertScript}`
+      });
+      setLoading(false);
+
+      if (res.status === 'success') {
+        activeTicket = res.ticket;
+        populateWorkbenchFromTicket(res.ticket, res.timeline || []);
+        openWhatsappModal(`📵 Customer Unreachable (${reason}) — Send on WhatsApp`, waMessage, activeDossier.phoneNo);
+      }
+    }
+
+    function onMutualPresetChange() {
+      const val = document.getElementById('mutualClosePresetSelect').value;
+      const customBox = document.getElementById('mutualCloseCustomInput');
+      if (val === 'CUSTOM') {
+        customBox.focus();
+      } else {
+        customBox.value = val;
+      }
+    }
+
+    async function closeTicketByMutualAgreement() {
+      if (!activeDossier) return;
+      if (!activeTicket || !activeTicket.escId) {
+        await saveOrSendTicket(false);
+      }
+      if (!activeTicket) return;
+
+      const presetVal = document.getElementById('mutualClosePresetSelect').value;
+      const customVal = document.getElementById('mutualCloseCustomInput').value.trim();
+      const finalAgreementText = customVal || (presetVal !== 'CUSTOM' ? presetVal : 'Mutually resolved on call with customer.');
+
+      const agentInfo = getAgentPhoneInfo(activeTicket.assignedAgentEmail || authenticatedEmail);
+      const cxPortalLink = `${window.location.origin}${window.location.pathname}?portal=customer`;
+
+      const portalCloseScript = `Resolved by Mutual Agreement: ${finalAgreementText}. Your ticket #${activeTicket.escId} is now closed. Please rate your support experience below!`;
+
+      const waCloseMessage = `Hi ${activeDossier.cxName}, thank you for speaking with us regarding your Florzy Order #${activeDossier.orderId} (Claim #${activeTicket.escId}).\n\nAs mutually discussed and agreed on call (${finalAgreementText}), we are marking this ticket as resolved. If you need any further assistance, please reach out to me (${agentInfo.name}) at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}.\n\nWe would love your feedback! Please rate your experience here: ${cxPortalLink}`;
+
+      // Update UI selectors to reflect mutual closure
+      document.getElementById('escBucketSelect').value = 'Completed';
+      document.getElementById('escResolutionSelect').value = 'Mutual / No-Action Closure (Customer Agreed)';
+      document.getElementById('escCostLiabilitySelect').value = 'Zero Cost Impact (Mutual Closure)';
+      document.getElementById('escResolutionNotesInput').value = finalAgreementText;
+
+      setLoading(true, 'Closing ticket by mutual agreement & updating Customer Portal...');
+      const res = await apiPost({
+        action: 'logCallOrStage',
+        escId: activeTicket.escId,
+        orderId: activeDossier.orderId,
+        bucket: 'Completed',
+        liveStage: 'Completed — Mutual / No-Action Resolution Agreed with Cx',
+        customStatusText: `Closed: ${finalAgreementText}`,
+        pendingWithDept: 'Closed',
+        whatToTellCx: portalCloseScript,
+        actorName: agentInfo.name,
+        actorEmail: authenticatedEmail,
+        eventType: 'MUTUAL_CLOSE',
+        partySpokenTo: 'Customer',
+        contactPerson: activeDossier.phoneNo,
+        callOutcome: 'Mutually Resolved & Closed',
+        headline: `🤝 Ticket Closed by Mutual Agreement [${activeTicket.escId}]`,
+        details: finalAgreementText
+      });
+      setLoading(false);
+
+      if (res.status === 'success') {
+        activeTicket = res.ticket;
+        populateWorkbenchFromTicket(res.ticket, res.timeline || []);
+        openWhatsappModal('✅ Ticket Closed — Send Confirmation & Feedback Link on WhatsApp', waCloseMessage, activeDossier.phoneNo);
+      }
+    }
+
     async function uploadProofFromInput(inputEl, slotLabel) {
       const file = inputEl.files && inputEl.files[0];
       if (!file || !activeDossier) return;
@@ -1691,10 +1973,6 @@
       reader.readAsDataURL(file);
     }
 
-    /**
-     * Renders proofs in CDT Workbench.
-     * If a file is a Voice Note / Audio file, renders an inline Audio Player + On-Demand "Transcribe & Translate" button!
-     */
     function renderProofGallery() {
       const gal = document.getElementById('uploadedProofsGallery');
       gal.innerHTML = '';
@@ -2018,17 +2296,8 @@
     }
 
     /* =========================================================================
-     * ISOLATED CUSTOMER PORTAL FUNCTIONS + ZERO-TOKEN VOICE RECORDER
+     * ISOLATED CUSTOMER PORTAL FUNCTIONS (PER-SKU ISSUE, MANDATORY PROOFS, CSAT)
      * ========================================================================= */
-    function selectCxIssueCard(btnEl, issueValue) {
-      document.getElementById('cxIssueCategorySelect').value = issueValue;
-      document.querySelectorAll('.cx-issue-card').forEach(card => {
-        card.className = 'cx-issue-card text-left p-3 rounded-xl border border-slate-200 bg-slate-50 hover:border-indigo-400 transition';
-      });
-      btnEl.className = 'cx-issue-card text-left p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 transition';
-      autoSaveCustomerDraft();
-    }
-
     async function toggleCustomerVoiceRecorder() {
       const btn = document.getElementById('cxVoiceRecordBtn');
       const timerBadge = document.getElementById('cxVoiceTimerBadge');
@@ -2050,7 +2319,6 @@
             document.getElementById('cxRecordedAudioPlayer').src = audioUrl;
             document.getElementById('cxRecordedAudioPreviewBox').classList.remove('hidden');
 
-            // Upload raw voice note directly to Google Drive Vault (Zero AI Tokens Used!)
             setLoading(true, 'Saving your voice recording to your claim...');
             const reader = new FileReader();
             reader.onload = async () => {
@@ -2150,14 +2418,30 @@
       }
 
       if (latest && latest.bucket !== 'Cx_Draft_In_Progress') {
+        cxDraftEscId = latest.escId;
         document.getElementById('cxGuidedClaimForm').classList.add('hidden');
         const trk = document.getElementById('cxSanitizedTrackerCard');
         trk.classList.remove('hidden');
+
+        const agentInfo = getAgentPhoneInfo(latest.assignedAgentEmail || latest.assignedAgentName);
         document.getElementById('cxTrkTicketId').textContent = `Claim #${latest.escId} • Order ${d.orderId}`;
         document.getElementById('cxTrkStageTitle').textContent =
-          latest.bucket === 'Completed' ? 'Resolution Completed' : 'Active — Under Verification & Processing';
-        document.getElementById('cxTrkPublicNote').textContent =
-          latest.whatToTellCx || 'Your claim and media proofs have been received and are being verified by our team.';
+          latest.bucket === 'Completed' ? '✅ Resolution Completed' : 'Active — Under Verification & Processing';
+        document.getElementById('cxTrkAssignedSpecialist').innerHTML =
+          `Assigned Specialist: <strong>${escapeHtml(agentInfo.name)} (+91 ${escapeHtml(agentInfo.phone)})</strong> | Central: <strong>+91 ${CDT_CENTRAL_PHONE}</strong>`;
+
+        const rawTellCx = latest.whatToTellCx || 'Your claim and media proofs have been received and are being verified by our team.';
+        const unreachableBanner = document.getElementById('cxUnreachableAlertBanner');
+        if (rawTellCx.includes('[UNREACHABLE_ALERT]') || latest.bucket === 'Awaiting Cx Update/Response') {
+          unreachableBanner.classList.remove('hidden');
+          document.getElementById('cxUnreachableAlertText').textContent = rawTellCx.replace('[UNREACHABLE_ALERT]', '').trim();
+          document.getElementById('cxCallAssignedBtn').href = `tel:+91${agentInfo.phone}`;
+          document.getElementById('cxCallAssignedBtn').textContent = `📞 Call ${agentInfo.name}: ${agentInfo.phone}`;
+        } else {
+          unreachableBanner.classList.add('hidden');
+        }
+
+        document.getElementById('cxTrkPublicNote').textContent = rawTellCx.replace('[UNREACHABLE_ALERT]', '').trim();
 
         const cxSteps = [
           { label: '1. Claim Logged', done: true },
@@ -2170,6 +2454,17 @@
             ${s.done ? '✔ ' : '○ '}${s.label}
           </div>
         `).join('');
+
+        // Show Post-Completion CSAT Rating & Feedback Card if Completed
+        const feedbackCard = document.getElementById('cxFeedbackRatingCard');
+        if (latest.bucket === 'Completed') {
+          feedbackCard.classList.remove('hidden');
+          if ((latest.resolutionNotes || '').includes('[CSAT:')) {
+            document.getElementById('cxFeedbackSavedBadge').classList.remove('hidden');
+          }
+        } else {
+          feedbackCard.classList.add('hidden');
+        }
         return;
       }
 
@@ -2181,6 +2476,36 @@
       document.getElementById('cxGuidedClaimForm').classList.remove('hidden');
       renderCustomerPortalSkus(d, []);
       renderCustomerUploadedFiles();
+    }
+
+    function selectCxRatingStars(stars) {
+      cxSelectedRatingStars = stars;
+      document.querySelectorAll('.cx-star-btn').forEach((btn, idx) => {
+        if (idx + 1 <= stars) {
+          btn.className = 'cx-star-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white border border-indigo-600 text-xs font-bold';
+        } else {
+          btn.className = 'cx-star-btn px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-bold';
+        }
+      });
+    }
+
+    async function submitCustomerCsatFeedback() {
+      if (!cxDraftEscId || !activeDossier) return;
+      const comment = document.getElementById('cxFeedbackCommentInput').value.trim();
+      setLoading(true, 'Submitting your rating & feedback...');
+      const res = await apiPost({
+        action: 'submitCustomerFeedback',
+        escId: cxDraftEscId,
+        orderId: activeDossier.orderId,
+        cxName: activeDossier.cxName,
+        ratingStars: cxSelectedRatingStars,
+        feedbackComment: comment
+      });
+      setLoading(false);
+      if (res.status === 'success') {
+        document.getElementById('cxFeedbackSavedBadge').classList.remove('hidden');
+        showToastAlert('Thank You!', 'Your rating and feedback have been shared with our leadership team.');
+      }
     }
 
     function startCustomerFollowUpSubTicket() {
@@ -2208,31 +2533,84 @@
 
       container.innerHTML = allSkus.map(item => {
         const sv = savedMap[item.rowKey];
+        const isChecked = Boolean(sv);
+        const selUnit = sv ? (sv.selectedUnit || item.orderedUnit || 'Boxes') : (item.orderedUnit || 'Boxes');
+        const selIssue = sv ? (sv.skuIssue || 'Broken / Cracked Tiles on Arrival') : 'Broken / Cracked Tiles on Arrival';
+
         return `
-          <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-            <label class="flex items-center gap-2.5 font-bold text-slate-800 cursor-pointer">
-              <input type="checkbox" class="cx-sku-check w-4 h-4 text-indigo-600 rounded"
-                data-rowkey="${escapeHtml(item.rowKey)}"
-                data-skuname="${escapeHtml(item.skuName)}"
-                ${sv ? 'checked' : ''}
-                onchange="autoSaveCustomerDraft()" />
-              <span>${escapeHtml(item.skuName)} (Ordered: ${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)})</span>
+          <div class="p-4 rounded-xl border-2 ${isChecked ? 'border-indigo-600 bg-indigo-50/30' : 'border-slate-200 bg-slate-50'} transition space-y-3 text-xs" id="cxcard_${item.rowKey}">
+            <label class="flex items-center justify-between gap-2 font-extrabold text-slate-900 cursor-pointer">
+              <div class="flex items-center gap-2.5">
+                <input type="checkbox" class="cx-sku-check w-4 h-4 text-indigo-600 rounded"
+                  data-rowkey="${escapeHtml(item.rowKey)}"
+                  data-skuname="${escapeHtml(item.skuName)}"
+                  data-orderedunit="${escapeHtml(item.orderedUnit)}"
+                  ${isChecked ? 'checked' : ''}
+                  onchange="onCxSkuCheckboxToggle('${escapeHtml(item.rowKey)}')" />
+                <span>${escapeHtml(item.skuName)}</span>
+              </div>
+              <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded bg-white border border-slate-200 text-slate-600">
+                Ordered: ${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}
+              </span>
             </label>
-            <div class="flex items-center gap-2">
-              <input type="number" placeholder="Boxes/Pcs" id="cxqty_${item.rowKey}" value="${sv ? escapeHtml(sv.affectedQty) : '1'}"
-                oninput="autoSaveCustomerDraft()" class="w-24 px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-bold" />
-              <input type="text" placeholder="Batch No (on box)" id="cxbatch_${item.rowKey}" value="${sv ? escapeHtml(sv.batchNo) : ''}"
-                oninput="autoSaveCustomerDraft()" class="w-32 px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-mono" />
+
+            <!-- Per-SKU Issue, Damaged Qty, Unit (Boxes/Pcs), and Batch No Sub-Panel -->
+            <div id="cxsub_${item.rowKey}" class="${isChecked ? '' : 'hidden'} pt-2 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-4 gap-2.5">
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Damaged Qty *</label>
+                <input type="number" min="1" step="any" value="${sv ? escapeHtml(sv.affectedQty) : '1'}"
+                  id="cxqty_${item.rowKey}"
+                  oninput="autoSaveCustomerDraft()"
+                  class="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-bold" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Select Unit *</label>
+                <select id="cxunit_${item.rowKey}" onchange="autoSaveCustomerDraft()" class="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-bold">
+                  <option value="Boxes" ${selUnit.toLowerCase().includes('box') ? 'selected' : ''}>Boxes</option>
+                  <option value="Pcs" ${selUnit.toLowerCase().includes('pc') ? 'selected' : ''}>Pieces (Pcs)</option>
+                  <option value="Bags/Units" ${selUnit.toLowerCase().includes('bag') ? 'selected' : ''}>Bags / Units</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Batch No (on Box)</label>
+                <input type="text" placeholder="e.g. B-4092" value="${sv ? escapeHtml(sv.batchNo) : ''}"
+                  id="cxbatch_${item.rowKey}"
+                  oninput="autoSaveCustomerDraft()"
+                  class="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg font-mono" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Issue with this SKU *</label>
+                <select id="cxskuissue_${item.rowKey}" onchange="autoSaveCustomerDraft()" class="w-full px-2.5 py-1.5 bg-white border border-indigo-300 rounded-lg font-bold text-indigo-950">
+                  ${PER_SKU_ISSUE_OPTIONS.map(opt => `<option value="${escapeHtml(opt)}" ${selIssue === opt ? 'selected' : ''}>${escapeHtml(opt)}</option>`).join('')}
+                </select>
+              </div>
             </div>
           </div>
         `;
       }).join('');
     }
 
+    function onCxSkuCheckboxToggle(rowKey) {
+      const chk = document.querySelector(`.cx-sku-check[data-rowkey="${rowKey}"]`);
+      const card = document.getElementById(`cxcard_${rowKey}`);
+      const sub = document.getElementById(`cxsub_${rowKey}`);
+      if (chk && chk.checked) {
+        sub.classList.remove('hidden');
+        card.className = 'p-4 rounded-xl border-2 border-indigo-600 bg-indigo-50/30 transition space-y-3 text-xs';
+      } else if (sub && card) {
+        sub.classList.add('hidden');
+        card.className = 'p-4 rounded-xl border-2 border-slate-200 bg-slate-50 transition space-y-3 text-xs';
+      }
+      autoSaveCustomerDraft();
+    }
+
     let cxDraftTimeout = null;
     function autoSaveCustomerDraft() {
+      if (isSubmittingClaim) return;
       clearTimeout(cxDraftTimeout);
-      cxDraftTimeout = setTimeout(() => submitCustomerPortalClaim(false), 1200);
+      cxDraftTimeout = setTimeout(() => {
+        activeDraftSavePromise = submitCustomerPortalClaim(false);
+      }, 1200);
     }
 
     async function uploadCustomerPortalProof(inputEl, slotLabel) {
@@ -2256,13 +2634,37 @@
           cxDraftEscId = res.escId;
           cxUploadedFiles.push(res.fileRecord);
           renderCustomerUploadedFiles();
-          submitCustomerPortalClaim(false);
+          activeDraftSavePromise = submitCustomerPortalClaim(false);
         }
       };
       reader.readAsDataURL(file);
     }
 
+    function countCustomerPhotoAndVideoProofs() {
+      let photoCount = 0;
+      let videoCount = 0;
+      cxUploadedFiles.forEach(f => {
+        const mt = (f.mimeType || '').toLowerCase();
+        const sl = (f.slotLabel || '').toLowerCase();
+        const nm = (f.name || '').toLowerCase();
+        if (mt.startsWith('video/') || sl.includes('video') || /\.(mp4|mov|webm|avi|mkv)$/i.test(nm)) {
+          if (!sl.includes('voice')) videoCount++;
+        } else if (mt.startsWith('image/') || sl.includes('sticker') || sl.includes('damaged') || /\.(jpg|jpeg|png|webp|heic)$/i.test(nm)) {
+          photoCount++;
+        }
+      });
+      return { photoCount, videoCount };
+    }
+
     function renderCustomerUploadedFiles() {
+      const { photoCount, videoCount } = countCustomerPhotoAndVideoProofs();
+      const badge = document.getElementById('cxProofValidationBadge');
+      if (badge) {
+        const bothMet = photoCount >= 1 && videoCount >= 1;
+        badge.className = `text-[11px] font-bold px-2.5 py-0.5 rounded ${bothMet ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
+        badge.textContent = `${bothMet ? '✅ ' : '⚠️ '}${photoCount} Photo(s), ${videoCount} Video(s) Uploaded`;
+      }
+
       document.getElementById('cxUploadedFilesList').innerHTML = cxUploadedFiles.map(f =>
         `<span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">✅ ${escapeHtml(f.slotLabel)}: ${escapeHtml(f.name)}</span>`
       ).join('');
@@ -2270,40 +2672,109 @@
 
     async function submitCustomerPortalClaim(isFinalSubmit) {
       if (!activeDossier) return;
+
+      // ANTI-DOUBLE-CLICK GUARD: Block concurrent final submissions immediately
+      if (isFinalSubmit) {
+        if (isSubmittingClaim) return;
+
+        // 1. Validate at least 1 SKU is checked
+        const checkedBoxes = document.querySelectorAll('.cx-sku-check:checked');
+        if (checkedBoxes.length === 0) {
+          showBannerError('Select Affected Item(s)', 'Please tick at least 1 affected SKU in Step 1 before submitting.');
+          return;
+        }
+
+        // 2. MANDATORY PROOF GATE: Require at least 1 Photo AND 1 Video on Customer Portal
+        const { photoCount, videoCount } = countCustomerPhotoAndVideoProofs();
+        if (photoCount < 1 || videoCount < 1) {
+          showBannerError(
+            'Mandatory Proofs Required (1 Photo + 1 Video)',
+            `You have uploaded ${photoCount} photo(s) and ${videoCount} video(s). Please upload at least 1 Photo (Box Sticker / Damaged Tiles) AND 1 Site/Unloading Video in Step 3 before submitting.`
+          );
+          return;
+        }
+
+        // 3. Lock the Submit button immediately so customer cannot click twice
+        isSubmittingClaim = true;
+        clearTimeout(cxDraftTimeout);
+        const submitBtn = document.getElementById('cxFinalSubmitBtn');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '🔒 Submitting Claim — Please Wait (Do Not Tap Again)...';
+        }
+        setLoading(true, 'Logging your escalation & assigning specialist (Please wait)...');
+
+        // If a background auto-save was in flight, wait for it so we reuse its exact cxDraftEscId
+        if (activeDraftSavePromise) {
+          try { await activeDraftSavePromise; } catch (e) {}
+        }
+      }
+
       const skus = [];
       document.querySelectorAll('.cx-sku-check:checked').forEach(chk => {
         const rk = chk.dataset.rowkey;
         skus.push({
           rowKey: rk,
           skuName: chk.dataset.skuname,
-          affectedQty: document.getElementById(`cxqty_${rk}`).value || '1',
-          batchNo: document.getElementById(`cxbatch_${rk}`).value || 'NA'
+          orderedUnit: chk.dataset.orderedunit || 'Boxes',
+          selectedUnit: document.getElementById(`cxunit_${rk}`)?.value || 'Boxes',
+          affectedQty: document.getElementById(`cxqty_${rk}`)?.value || '1',
+          batchNo: document.getElementById(`cxbatch_${rk}`)?.value || 'NA',
+          skuIssue: document.getElementById(`cxskuissue_${rk}`)?.value || 'Broken / Cracked Tiles on Arrival'
         });
       });
 
-      if (isFinalSubmit) setLoading(true, 'Submitting your claim...');
-      const res = await apiPost({
-        action: 'customerPortalSaveOrSubmit',
-        isFinalSubmit,
-        escId: cxDraftEscId,
-        createSubTicketFrom: cxParentSubTicketId,
-        orderId: activeDossier.orderId,
-        orderNumber: activeDossier.orderNumber,
-        cxName: activeDossier.cxName,
-        cxPhone: activeDossier.phoneNo,
-        sourceSheet: activeDossier.sourceSheet,
-        cxIssueCategory: document.getElementById('cxIssueCategorySelect').value,
-        storylineNotes: document.getElementById('cxStorylineTextarea').value.trim(),
-        affectedSkus: skus,
-        proofFiles: cxUploadedFiles
-      });
-      if (isFinalSubmit) setLoading(false);
+      const combinedIssues = skus.map(s => `${s.skuName} (${s.affectedQty} ${s.selectedUnit}: ${s.skuIssue})`).join('; ');
 
-      if (res.status === 'success') {
-        cxDraftEscId = res.escId;
-        document.getElementById('cxDraftSavedIndicator').textContent = `Saved (${res.escId}) at ${new Date().toLocaleTimeString()}`;
+      try {
+        const res = await apiPost({
+          action: 'customerPortalSaveOrSubmit',
+          isFinalSubmit,
+          escId: cxDraftEscId,
+          createSubTicketFrom: cxParentSubTicketId,
+          orderId: activeDossier.orderId,
+          orderNumber: activeDossier.orderNumber,
+          cxName: activeDossier.cxName,
+          cxPhone: activeDossier.phoneNo,
+          sourceSheet: activeDossier.sourceSheet,
+          cxIssueCategory: combinedIssues || 'Customer Reported Issue',
+          storylineNotes: document.getElementById('cxStorylineTextarea').value.trim(),
+          affectedSkus: skus,
+          proofFiles: cxUploadedFiles
+        });
+
+        if (res.status === 'success') {
+          cxDraftEscId = res.escId;
+          document.getElementById('cxDraftSavedIndicator').textContent = `Saved (${res.escId}) at ${new Date().toLocaleTimeString()}`;
+          if (isFinalSubmit) {
+            setLoading(false);
+            isSubmittingClaim = false;
+            const submitBtn = document.getElementById('cxFinalSubmitBtn');
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '🚀 Submit Claim & Get Ticket ID';
+            }
+            showToastAlert(`Claim Logged: ${res.escId}`, `Assigned to ${res.assignedTo}. Loading your live status tracker...`);
+            runCustomerPortalLookup(activeDossier.orderId);
+          }
+        } else if (isFinalSubmit) {
+          setLoading(false);
+          isSubmittingClaim = false;
+          const submitBtn = document.getElementById('cxFinalSubmitBtn');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '🚀 Submit Claim & Get Ticket ID';
+          }
+        }
+      } catch (err) {
         if (isFinalSubmit) {
-          runCustomerPortalLookup(activeDossier.orderId);
+          setLoading(false);
+          isSubmittingClaim = false;
+          const submitBtn = document.getElementById('cxFinalSubmitBtn');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '🚀 Submit Claim & Get Ticket ID';
+          }
         }
       }
     }
