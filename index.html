@@ -47,7 +47,6 @@
        ========================================================================= -->
   <div id="staffLoginGate" class="hidden min-h-screen bg-slate-950 flex items-center justify-center p-4">
     <div class="bg-surface rounded-2xl shadow-2xl border border-border max-w-md w-full p-8 text-center space-y-6">
-      <!-- Adorzy Brand Logo -->
       <div class="flex items-center justify-center gap-2.5">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"></path>
@@ -137,7 +136,6 @@
   <header id="internalAppHeader" class="hidden bg-slate-950 text-white sticky top-0 z-40 shadow-md">
     <div class="max-w-[1440px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3 cursor-pointer" onclick="returnToRoleHome()">
-        <!-- Adorzy Logomark SVG -->
         <div class="flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"></path>
@@ -251,14 +249,15 @@
             <h2 class="text-lg font-extrabold text-slate-900 mt-0.5" id="cdtQueueHeading">All Active Escalation Tickets</h2>
             <p class="text-xs text-muted">Click any ticket below to open its 360° Order Dossier, or search an Order ID / Phone Number above to log a new escalation.</p>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 flex-wrap">
             <select id="cdtAgentFilterSelect" onchange="renderCdtHomeQueueTable()" class="px-3 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
               <option value="ALL">Show: All Team Tickets</option>
               <option value="MINE">Show: Only My Assigned Tickets</option>
+              <option value="SLA_DUE">⏰ Show: Action Date Due (≤24h) / Overdue</option>
               <option value="DRAFTS">Show: Unfinished Cx Portal Drop-Offs (Drafts)</option>
             </select>
             <button type="button" onclick="triggerManualGmailSync()" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-orange-50 text-primary border border-orange-200 hover:bg-orange-100">
-              🔄 Sync Gmail Thread Replies
+              🔄 Sync Gmail &amp; Check SLA Reminders
             </button>
           </div>
         </div>
@@ -273,7 +272,7 @@
                   <th class="px-4 py-3">Customer</th>
                   <th class="px-4 py-3">Bucket</th>
                   <th class="px-4 py-3">Live Stage / Status</th>
-                  <th class="px-4 py-3">Team &amp; Sub-Issue</th>
+                  <th class="px-4 py-3">Action Date / SLA</th>
                   <th class="px-4 py-3">Assigned Executive</th>
                   <th class="px-4 py-3">Updated</th>
                   <th class="px-4 py-3 text-right">Action</th>
@@ -289,8 +288,8 @@
       <section id="salesLandingDashboard" class="hidden space-y-5">
         <div class="bg-slate-950 text-white rounded-2xl p-6 shadow-md border border-slate-800">
           <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#FF4500]/20 text-[#FF4500]">Sales Team Live Escalation Tracker (View-Only)</span>
-          <h2 class="text-xl font-extrabold mt-2">Track Any Customer Order or Live Escalation in Seconds</h2>
-          <p class="text-xs text-slate-300 mt-1 max-w-2xl">Search by Order ID, Order Number, or Customer's 10-Digit Phone Number to view the real-time Pizza Tracker, see which department owns the next action, and read the exact script to share with the customer.</p>
+          <h2 class="text-xl font-extrabold mt-2">Track Any Customer Order, Call Logs or Live Escalation</h2>
+          <p class="text-xs text-slate-300 mt-1 max-w-2xl">Search by Order ID, Order Number, or Customer's 10-Digit Phone Number to view the real-time Pizza Tracker, inspect all CDT Call Logs, and read the exact script to share with the customer.</p>
           <form onsubmit="event.preventDefault(); runOrderOrPhoneSearch(document.getElementById('salesHeroSearchInput').value.trim(), 'auto');" class="mt-4 flex max-w-xl gap-2">
             <input id="salesHeroSearchInput" type="text" placeholder="Enter Order ID (e.g. ORD-OR5ZPX) or 10-Digit Customer Phone..." class="flex-1 px-4 py-2.5 text-sm bg-white text-slate-900 rounded-lg focus:outline-none" />
             <button type="submit" class="px-5 py-2.5 bg-warning hover:bg-warning/90 text-white text-xs font-bold uppercase tracking-wider rounded-lg">
@@ -301,7 +300,7 @@
 
         <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
           <h3 class="text-sm font-bold text-slate-900">Recent Active Escalations Across Orders</h3>
-          <p class="text-xs text-muted">Click any ticket to view its live progress bar and customer update script</p>
+          <p class="text-xs text-muted">Click any ticket to view its live progress bar, call log table, and customer update script</p>
           <div id="salesRecentTicketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
         </div>
       </section>
@@ -392,19 +391,25 @@
           <iframe id="quotePreviewIframe" class="w-full h-[500px] border-0"></iframe>
         </div>
 
-        <!-- LIVE ESCALATION PIZZA-TRACKER -->
+        <!-- =================================================================
+             LIVE ESCALATION PIZZA-TRACKER + DEDICATED CALL LOG TABLE
+             ================================================================= -->
         <div id="liveTrackerBanner" class="hidden bg-surface border-2 border-orange-200 rounded-xl p-5 shadow-sm space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
             <div>
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-orange-50 text-primary border border-orange-200" id="trkTicketBadge">Ticket #ESC-XXXX</span>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-orange-50 text-primary border border-orange-200" id="trkTicketBadge">Ticket #ESC-XXXX</span>
+                <span id="trkActionDateBadge" class="hidden text-[11px] font-extrabold px-2.5 py-0.5 rounded"></span>
+              </div>
               <h3 class="text-base font-extrabold text-slate-900 mt-1" id="trkHeadlineStage">Live Escalation Status</h3>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
               <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-900" id="trkPendingDept">Pending With: CDT</span>
               <span class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-700" id="trkAssignedOwner">Owner: —</span>
             </div>
           </div>
 
+          <!-- 5-Step Pizza Progress Bar (Properly highlights Step 3 on Batch Confirmed!) -->
           <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs" id="pizzaProgressGrid"></div>
 
           <div class="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200 flex items-start justify-between gap-4">
@@ -417,8 +422,31 @@
             </button>
           </div>
 
+          <!-- DEDICATED CALL & TOUCHPOINT LOG TABLE (Visible to Both Sales & CDT!) -->
+          <div class="pt-3 border-t border-border space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-700">📞 Logged Call &amp; Outreach History (Stored in Escalation_Audit_Timeline)</h4>
+              <span class="text-[11px] font-semibold text-muted" id="callLogsCountBadge">0 calls logged</span>
+            </div>
+            <div class="overflow-x-auto border border-border rounded-lg max-h-48 scroll-thin">
+              <table class="min-w-full divide-y divide-slate-200 text-[11px] text-left">
+                <thead class="bg-bg font-bold text-slate-600 uppercase">
+                  <tr>
+                    <th class="px-3 py-2">Date / Time</th>
+                    <th class="px-3 py-2">Logged By</th>
+                    <th class="px-3 py-2">Spoke To</th>
+                    <th class="px-3 py-2">Contact Person</th>
+                    <th class="px-3 py-2">Call Outcome</th>
+                    <th class="px-3 py-2">Call Summary / Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="sharedCallLogsTableBody" class="divide-y divide-slate-100 bg-surface"></tbody>
+              </table>
+            </div>
+          </div>
+
           <div id="salesReadOnlyTimelineBox" class="hidden pt-3 border-t border-border">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-muted mb-2">Live Email, Call &amp; WhatsApp Activity Timeline</h4>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-muted mb-2">Complete Email, WhatsApp &amp; System Activity Timeline</h4>
             <div id="salesAuditTimelineList" class="space-y-2 max-h-60 overflow-y-auto scroll-thin"></div>
           </div>
         </div>
@@ -469,17 +497,25 @@
           <!-- LEFT 7 COLS -->
           <div class="lg:col-span-7 space-y-5">
 
-            <!-- Panel A: Classification & Resolution -->
+            <!-- Panel A: Classification, Resolution, Optional Action Date & Direct Save Button -->
             <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-4">
-              <div class="flex items-center justify-between border-b border-border pb-3">
-                <h3 class="text-sm font-bold text-slate-900">1. Escalation Classification, Resolution &amp; Bucket</h3>
-                <span id="editingEscIdLabel" class="text-xs font-mono font-bold text-primary">New Ticket</span>
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
+                <div>
+                  <h3 class="text-sm font-bold text-slate-900">1. Escalation Classification, Resolution &amp; Bucket</h3>
+                  <p class="text-[11px] text-muted" id="cdtAutoDraftStatusText">Auto-saving classification in browser (Refresh-safe)</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span id="editingEscIdLabel" class="text-xs font-mono font-bold text-primary">New Ticket</span>
+                  <button type="button" onclick="saveOrSendTicket(false)" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-sm">
+                    💾 Save Classification (Draft Email Later)
+                  </button>
+                </div>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Current Case Bucket</label>
-                  <select id="escBucketSelect" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold">
+                  <select id="escBucketSelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold">
                     <option value="Incoming Cx Claims">Incoming Cx Claims</option>
                     <option value="Open (Mid-Stage Draft)" selected>Open (Mid-Stage Draft)</option>
                     <option value="Awaiting Cx Update/Response">Awaiting Cx Update/Response</option>
@@ -491,23 +527,23 @@
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Site Verification Agent</label>
-                  <input id="escSiteVerifierInput" type="text" placeholder="e.g. Agent Name & Visit Date" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg" />
+                  <label class="block text-xs font-semibold text-slate-700 mb-1">Site Verification Agent (Only if Site Visit)</label>
+                  <input id="escSiteVerifierInput" type="text" oninput="saveCdtLocalDraft()" placeholder="Leave blank unless assigning site verifier..." class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg" />
                 </div>
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Team Responsible</label>
-                  <select id="escTeamSelect" onchange="onTeamResponsibleChange()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold"></select>
+                  <select id="escTeamSelect" onchange="onTeamResponsibleChange(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold"></select>
                 </div>
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Specific Sub-Issue</label>
-                  <select id="escSubIssueSelect" onchange="buildLiveEmailPreview()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold"></select>
+                  <select id="escSubIssueSelect" onchange="buildLiveEmailPreview(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold"></select>
                 </div>
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Resolution Provided</label>
-                  <select id="escResolutionSelect" onchange="onResolutionTypeChange()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold">
+                  <select id="escResolutionSelect" onchange="onResolutionTypeChange(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold">
                     <option value="Replacement">Replacement</option>
                     <option value="Return and Replacement">Return and Replacement</option>
                     <option value="Return">Return</option>
@@ -520,12 +556,24 @@
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Error Cost Liability</label>
-                  <select id="escCostLiabilitySelect" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg">
+                  <select id="escCostLiabilitySelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg">
                     <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
                     <option value="Absorbed by Adorzy">Absorbed by Adorzy</option>
                     <option value="Customer Paid / Commercial Split">Customer Paid / Commercial Split</option>
                     <option value="Zero Cost Impact (Mutual Closure)">Zero Cost Impact (Mutual Closure)</option>
                   </select>
+                </div>
+
+                <!-- Optional Target Action Date Picker (24-Hour Advance Notification & SLA Highlight) -->
+                <div class="sm:col-span-2 p-3 rounded-lg bg-orange-50/50 border border-orange-200 flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <label class="block text-xs font-extrabold text-slate-900">📅 Optional Target Action / Follow-Up Date (24-Hour Advance Alert &amp; SLA Tracker)</label>
+                    <span class="text-[11px] text-muted">Not mandatory. When picked, alerts the assigned agent 24 hours before the action date &amp; highlights SLA breaches.</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <input id="escTargetActionDateInput" type="date" onchange="saveCdtLocalDraft()" class="px-3 py-1.5 text-xs bg-white border border-orange-300 rounded-lg font-bold text-slate-900" />
+                    <button type="button" onclick="document.getElementById('escTargetActionDateInput').value=''; saveCdtLocalDraft();" class="text-xs px-2 py-1.5 rounded bg-white border border-border text-muted hover:text-slate-900">Clear</button>
+                  </div>
                 </div>
               </div>
 
@@ -533,14 +581,14 @@
               <div id="refundOptionsRow" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs font-bold text-amber-900 mb-1">Refund Destination Mode</label>
-                  <select id="escRefundModeSelect" onchange="buildLiveEmailPreview()" class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded font-semibold">
+                  <select id="escRefundModeSelect" onchange="buildLiveEmailPreview(); saveCdtLocalDraft();" class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded font-semibold">
                     <option value="Refund to Bank Account">Refund to Customer Bank Account</option>
                     <option value="Refund to Customer Wallet (Future Purchase)">Refund to Customer Wallet (For Future Purchase)</option>
                   </select>
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-amber-900 mb-1">Refund Edge-Case / Details</label>
-                  <input id="escRefundEdgeNote" type="text" oninput="buildLiveEmailPreview()" placeholder="Describe custom refund reason..." class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded" />
+                  <input id="escRefundEdgeNote" type="text" oninput="buildLiveEmailPreview(); saveCdtLocalDraft();" placeholder="Describe custom refund reason..." class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded" />
                 </div>
               </div>
 
@@ -548,12 +596,20 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Storyline of the Case (What Happened)</label>
-                  <textarea id="escStorylineInput" rows="3" oninput="buildLiveEmailPreview()" placeholder="Enter case storyline..." class="w-full p-2.5 text-xs bg-bg border border-border rounded-lg"></textarea>
+                  <textarea id="escStorylineInput" rows="3" oninput="onRawNotesEdited()" placeholder="Enter case storyline..." class="w-full p-2.5 text-xs bg-bg border border-border rounded-lg"></textarea>
                 </div>
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 mb-1">Resolution Action Details</label>
-                  <textarea id="escResolutionNotesInput" rows="3" oninput="buildLiveEmailPreview()" placeholder="What exact resolution are we providing..." class="w-full p-2.5 text-xs bg-bg border border-border rounded-lg"></textarea>
+                  <textarea id="escResolutionNotesInput" rows="3" oninput="onRawNotesEdited()" placeholder="What exact resolution are we providing..." class="w-full p-2.5 text-xs bg-bg border border-border rounded-lg"></textarea>
                 </div>
+              </div>
+
+              <!-- Bottom Save Bar inside Panel 1 so agents never lose data -->
+              <div class="pt-2 border-t border-border flex items-center justify-between">
+                <span class="text-[11px] text-muted">You can save classification now and generate/send the email later.</span>
+                <button type="button" onclick="saveOrSendTicket(false)" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-sm">
+                  💾 Save Classification &amp; Progress in Bucket
+                </button>
               </div>
             </div>
 
@@ -561,7 +617,7 @@
             <div class="bg-surface border-2 border-orange-200 rounded-xl p-5 shadow-sm space-y-4">
               <h3 class="text-sm font-extrabold text-slate-900">⚡ CDT Customer Outreach &amp; Mutual Fast-Close Actions</h3>
 
-              <!-- Block 1: Mark Tried Reaching Cx (RNR / Busy / NC / Did Not Answer) -->
+              <!-- Block 1: Mark Tried Reaching Cx -->
               <div class="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 space-y-2.5">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-extrabold text-amber-950">📵 1. Customer Unreachable? Mark Attempt &amp; Generate WhatsApp Message</span>
@@ -629,29 +685,29 @@
               <div id="uploadedProofsGallery" class="space-y-2 pt-1"></div>
             </div>
 
-            <!-- Panel C: WhatsApp Milestones -->
+            <!-- Panel C: WhatsApp Milestones & Custom Status + Optional Date Picker -->
             <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-4">
-              <h3 class="text-sm font-bold text-slate-900">3. Pre-Email WhatsApp Milestones &amp; Live Status</h3>
+              <h3 class="text-sm font-bold text-slate-900">3. Pre-Email WhatsApp Milestones &amp; Custom Live Status</h3>
               <div class="flex flex-wrap gap-1.5">
                 <button type="button" onclick="quickToggleMilestone('Checking Same-Batch Availability on WhatsApp', 'Procurement', 'We are verifying with our warehouse if the exact same tile batch is available.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
-                  💬 Checking Batch on WhatsApp
+                  💬 Step 2: Checking Batch on WhatsApp
                 </button>
-                <button type="button" onclick="quickToggleMilestone('Same Batch Confirmed by Procurement on WhatsApp', 'CDT', 'The exact same tile batch has been confirmed in stock.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
-                  ✅ Batch Confirmed
+                <button type="button" onclick="quickToggleMilestone('Same Batch Confirmed by Procurement on WhatsApp', 'CDT', 'Good news: The exact same tile batch has been confirmed in stock and approved for replacement.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-600 text-white font-bold hover:bg-emerald-700 shadow-sm">
+                  ✅ Step 3: Batch Confirmed (Advances Pizza Tracker!)
                 </button>
                 <button type="button" onclick="quickToggleMilestone('Defect Proofs Sent to Vendor on WhatsApp', 'Vendor', 'Your defect proofs have been escalated to the manufacturer.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
-                  🏭 Sent to Vendor
+                  🏭 Step 2: Sent to Vendor
                 </button>
                 <button type="button" onclick="quickToggleMilestone('Site Verification Scheduled', 'Site Verifier', 'Our verification specialist is scheduled to visit your site.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-orange-50 text-primary border border-orange-200 font-semibold hover:bg-orange-100">
-                  📍 Site Verification Scheduled
+                  📍 Step 2: Site Verification Scheduled
                 </button>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-border">
-                <input id="customStageHeadlineInput" type="text" placeholder="Custom Status..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
-                <input id="customPendingDeptInput" type="text" placeholder="Pending Dept" class="px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
+                <input id="customStageHeadlineInput" type="text" placeholder="Custom Status Headline..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
+                <input id="customPendingDeptInput" type="text" placeholder="Pending Dept (e.g. Vendor)" class="px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
                 <input id="customWhatToTellCxInput" type="text" placeholder="What Sales/Portal should tell Customer..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
                 <button type="button" onclick="saveCustomStatusOverride()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg">
-                  Update Live Status
+                  Update Live Status &amp; Action Date
                 </button>
               </div>
             </div>
@@ -680,7 +736,10 @@
 
             <!-- Panel E: Call Logger -->
             <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
-              <h3 class="text-sm font-bold text-slate-900">5. Log Follow-Up Touchpoint</h3>
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-slate-900">5. Log Follow-Up Call (Appears in Shared Call History Table Above)</h3>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-50 text-primary">Visible to CDT &amp; Sales</span>
+              </div>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <select id="callPartySelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
                   <option value="Customer">Spoke to: Customer</option>
@@ -691,7 +750,7 @@
                   <option value="Accounts">Spoke to: Accounts</option>
                   <option value="Site Verifier">Spoke to: Site Verifier</option>
                 </select>
-                <input id="callPersonInput" type="text" placeholder="Person Name" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg" />
+                <input id="callPersonInput" type="text" placeholder="Person Name / Number" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg" />
                 <select id="callOutcomeSelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
                   <option value="Connected - Update Shared">Connected - Update Shared</option>
                   <option value="Connected - Follow-up Needed">Connected - Follow-up Needed</option>
@@ -712,10 +771,13 @@
           <div class="lg:col-span-5 space-y-5">
             <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-2">
-                <h3 class="text-sm font-bold text-slate-900">AI Escalation Email Composer</h3>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-900">AI Escalation Email Composer</h3>
+                  <span id="aiEngineStatusBadge" class="text-[10px] font-semibold text-muted">Default: Instant Structured Template (0 Tokens)</span>
+                </div>
                 <div class="flex items-center gap-1.5">
-                  <input id="aiCustomTweakInput" type="text" placeholder="Optional AI tweak..." class="px-2 py-1 text-[11px] bg-bg border border-border rounded w-40" />
-                  <button type="button" onclick="polishEmailWithAi()" class="text-[11px] font-bold px-2.5 py-1 rounded bg-purple-600 text-white hover:bg-purple-700">
+                  <input id="aiCustomTweakInput" type="text" placeholder="Tone (e.g. Urgent / Vendor)..." class="px-2 py-1 text-[11px] bg-bg border border-border rounded w-36" />
+                  <button type="button" onclick="polishEmailWithAi()" class="text-[11px] font-bold px-2.5 py-1.5 rounded-lg bg-purple-600 text-white hover:bg-purple-700 shadow-sm">
                     ✨ Generate / Regenerate AI
                   </button>
                 </div>
@@ -755,7 +817,7 @@
 
             <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
               <div class="flex items-center justify-between">
-                <h3 class="text-sm font-bold text-slate-900">Chronological Audit Trail</h3>
+                <h3 class="text-sm font-bold text-slate-900">Complete Chronological Audit Trail</h3>
                 <button type="button" onclick="promptAndSendChaser()" class="text-[11px] font-bold px-2.5 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100">
                   ⏰ Send SLA Chaser Email
                 </button>
@@ -769,12 +831,10 @@
 
     <!-- =====================================================================
          ISOLATED ADORZY CUSTOMER SELF-SERVICE PORTAL (?portal=customer)
-         (Matches your exact "Apply for Escalation" surface design & hides phone numbers until submitted!)
          ===================================================================== -->
     <section id="customerSelfServiceView" class="hidden max-w-2xl mx-auto py-4 sm:py-8">
       <div class="bg-surface rounded-xl shadow-xl border border-border w-full overflow-hidden">
 
-        <!-- Sticky Top Bar with Adorzy Logo (Zero Pre-Submission Phone Numbers!) -->
         <div class="flex items-center justify-between p-4 sm:p-5 sticky top-0 bg-surface z-10 border-b border-border">
           <div class="flex items-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -791,7 +851,6 @@
         </div>
 
         <div class="p-4 sm:p-5 space-y-5">
-          <!-- Order / Phone Lookup Bar -->
           <form id="cxPortalLookupForm" class="flex gap-2">
             <input id="cxLookupInput" type="text" required placeholder="Enter 10-Digit Phone Number or Order ID (e.g. ORD-K4NJDW)..." class="flex-1 px-3.5 py-2.5 text-sm bg-bg border border-border rounded-lg focus:outline-none focus:border-primary" />
             <button type="submit" class="px-5 py-2.5 bg-warning hover:bg-warning/90 text-white text-sm font-semibold rounded-lg cursor-pointer transition">
@@ -801,10 +860,7 @@
 
           <div id="cxOrderChoiceList" class="hidden space-y-2"></div>
 
-          <!-- ===============================================================
-               POST-SUBMISSION SANITIZED CUSTOMER LIVE STATUS TRACKER
-               (Shows ONLY Assigned Specialist Phone + Central Number!)
-               =============================================================== -->
+          <!-- POST-SUBMISSION SANITIZED CUSTOMER LIVE STATUS TRACKER -->
           <div id="cxSanitizedTrackerCard" class="hidden bg-bg border border-border rounded-xl p-5 space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
               <div>
@@ -814,7 +870,6 @@
               <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Live Status</span>
             </div>
 
-            <!-- Highlighted Banner When CDT Tried Calling Cx (RNR / Busy / NC) -->
             <div id="cxUnreachableAlertBanner" class="hidden p-3.5 rounded-xl bg-amber-100 border-2 border-amber-400 text-amber-950 text-xs space-y-1">
               <div class="font-extrabold">📵 We Tried Reaching You on Phone!</div>
               <p id="cxUnreachableAlertText" class="font-medium"></p>
@@ -879,16 +934,12 @@
             </div>
           </div>
 
-          <!-- ===============================================================
-               GUIDED "APPLY FOR ESCALATION" INTAKE FORM
-               (Matches your exact HTML snippet layout!)
-               =============================================================== -->
+          <!-- GUIDED "APPLY FOR ESCALATION" INTAKE FORM -->
           <div id="cxGuidedClaimForm" class="hidden space-y-4 pt-2 border-t border-border">
             <div id="cxResumeBanner" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-900">
               🔄 Welcome back! We automatically restored your unfinished submission so you can continue right where you left off.
             </div>
 
-            <!-- Customer & Order Identity Pill (Matching your exact snippet: p-3 bg-bg rounded-lg) -->
             <div class="p-3 bg-bg rounded-lg border border-border flex items-center justify-between">
               <div>
                 <div class="font-semibold text-sm text-slate-900" id="cxHeaderSummaryName">Customer</div>
@@ -897,7 +948,6 @@
               <span class="text-[11px] font-medium text-muted" id="cxDraftSavedIndicator">Auto-save active</span>
             </div>
 
-            <!-- Step 1: Affected Items (Per-SKU Issue, Damaged Qty, Unit Box/Pcs, Batch No) -->
             <div>
               <div class="flex items-center justify-between mb-2">
                 <label class="block text-xs font-medium text-muted">Affected Items — Select SKU(s), Damaged Qty, Unit (Boxes/Pcs) &amp; Issue *</label>
@@ -908,7 +958,6 @@
               <div id="cxSkuListContainer" class="space-y-2 max-h-[320px] overflow-y-auto scroll-thin pr-1"></div>
             </div>
 
-            <!-- Step 2: What happened? + Voice Note Recorder -->
             <div class="space-y-2">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <label class="block text-xs font-medium text-muted">What happened? * (Type below OR record a voice note)</label>
@@ -937,7 +986,6 @@
               </div>
             </div>
 
-            <!-- Step 3: Mandatory Proof Upload Slots (1 Photo + 1 Video Required) -->
             <div>
               <div class="flex items-center justify-between mb-2">
                 <label class="block text-xs font-medium text-muted">Upload Guided Proofs * <span class="text-rose-600 font-semibold">(Min. 1 Photo &amp; 1 Video Required)</span></label>
@@ -963,7 +1011,6 @@
               <div id="cxUploadedFilesList" class="flex flex-wrap gap-2 mt-2.5"></div>
             </div>
 
-            <!-- Submit Button (Matching your exact snippet: w-full py-2.5 bg-warning text-white rounded-lg text-sm font-semibold) -->
             <button
               type="button"
               id="cxFinalSubmitBtn"
@@ -1100,6 +1147,11 @@
     let activeDraftSavePromise = null;
     let lastPollTimestamp = Date.now();
 
+    // AI Polished Narrative State
+    let aiPolishedStoryline = '';
+    let aiPolishedResolution = '';
+    let aiVariationCounter = 0;
+
     // Customer Voice Recorder State
     let mediaRecorder = null;
     let audioChunks = [];
@@ -1112,11 +1164,49 @@
       return e.endsWith('@florzy.com') || e.endsWith('@adorzy.com');
     }
 
+    function cleanSiteVerifierVal(val) {
+      if (!val) return '';
+      const s = String(val).trim();
+      if (/^\+?\d[\d\s-]{7,}$/.test(s)) return '';
+      return s;
+    }
+
+    /**
+     * Evaluates Optional Target Action Date against 24-Hour Advance Window & Overdue Breach
+     */
+    function evaluateActionDateSla(targetDateStr, bucket) {
+      if (!targetDateStr || bucket === 'Completed' || bucket === 'Cx_Draft_In_Progress') {
+        return { state: 'NONE', label: '', badgeClass: '' };
+      }
+      const targetMs = Date.parse(`${targetDateStr}T18:00:00+05:30`);
+      if (isNaN(targetMs)) return { state: 'NONE', label: '', badgeClass: '' };
+
+      const hoursRemaining = (targetMs - Date.now()) / 3600000;
+      if (hoursRemaining < 0) {
+        return {
+          state: 'OVERDUE',
+          label: `🚨 SLA BREACH: Action Date Overdue (${targetDateStr})`,
+          badgeClass: 'bg-rose-600 text-white animate-pulse'
+        };
+      }
+      if (hoursRemaining <= 24) {
+        return {
+          state: 'DUE_24H',
+          label: `⏰ Action Due Within 24h (${targetDateStr})`,
+          badgeClass: 'bg-amber-500 text-white'
+        };
+      }
+      return {
+        state: 'SCHEDULED',
+        label: `📅 Scheduled Action: ${targetDateStr}`,
+        badgeClass: 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+      };
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const isCustomerPortal = urlParams.get('portal') === 'customer';
 
-      // ROUTE 1: Isolated Customer Self-Service Portal (?portal=customer)
       if (isCustomerPortal) {
         document.getElementById('staffLoginGate').classList.add('hidden');
         document.getElementById('internalAppHeader').classList.add('hidden');
@@ -1131,7 +1221,6 @@
           if (q) runCustomerPortalLookup(q);
         });
 
-        // If customer switches tab or closes mobile browser, flush any unsaved draft once
         document.addEventListener('visibilitychange', () => {
           if (document.visibilityState === 'hidden' && activeDossier && !isSubmittingClaim) {
             const checked = document.querySelectorAll('.cx-sku-check:checked');
@@ -1141,7 +1230,6 @@
         return;
       }
 
-      // ROUTE 2: Internal Staff Portal -> Require Cryptographic Google OAuth Sign-In
       document.getElementById('mainSearchForm').addEventListener('submit', e => {
         e.preventDefault();
         const q = document.getElementById('mainSearchInput').value.trim();
@@ -1259,9 +1347,27 @@
           renderRosterAndBucketsBar(data.bucketsSummary || {});
           renderAdminRosterTable();
           lockUserToAssignedRoleView();
+          checkMyDueActionDatesAndNotify();
         }
       } catch (e) {
         setLoading(false);
+      }
+    }
+
+    function checkMyDueActionDatesAndNotify() {
+      const dueList = (allTicketsCache || []).filter(t => {
+        const sla = evaluateActionDateSla(t.targetActionDate, t.bucket);
+        const isMine = (t.assignedAgentEmail || '').toLowerCase() === authenticatedEmail || sysConfig.currentUser?.role === 'ADMIN';
+        return isMine && (sla.state === 'OVERDUE' || sla.state === 'DUE_24H');
+      });
+      if (dueList.length > 0) {
+        const first = dueList[0];
+        const sla = evaluateActionDateSla(first.targetActionDate, first.bucket);
+        playAlertChime();
+        showToastAlert(
+          `${sla.label}`,
+          `Ticket ${first.escId} (Order ${first.orderId} — ${first.cxName}) requires action! (${dueList.length} total due)`
+        );
       }
     }
 
@@ -1382,6 +1488,10 @@
         if (t.bucket === 'Cx_Draft_In_Progress') return false;
         if (selectedBucketFilter && t.bucket !== selectedBucketFilter) return false;
         if (agentFilter === 'MINE' && (t.assignedAgentEmail || '').toLowerCase() !== authenticatedEmail) return false;
+        if (agentFilter === 'SLA_DUE') {
+          const sla = evaluateActionDateSla(t.targetActionDate, t.bucket);
+          return sla.state === 'OVERDUE' || sla.state === 'DUE_24H';
+        }
         return true;
       });
 
@@ -1398,8 +1508,13 @@
 
       tbody.innerHTML = filtered.map(t => {
         const dt = t.updatedAt ? new Date(t.updatedAt).toLocaleString('en-IN') : '';
+        const sla = evaluateActionDateSla(t.targetActionDate, t.bucket);
+        const rowBg = sla.state === 'OVERDUE'
+          ? 'bg-rose-50/70 hover:bg-rose-100/70'
+          : (sla.state === 'DUE_24H' ? 'bg-amber-50/70 hover:bg-amber-100/70' : 'hover:bg-orange-50/40');
+
         return `
-          <tr class="hover:bg-orange-50/40 cursor-pointer transition" onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')">
+          <tr class="${rowBg} cursor-pointer transition" onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')">
             <td class="px-4 py-3 font-extrabold text-primary">${escapeHtml(t.escId)}</td>
             <td class="px-4 py-3 font-bold text-slate-900">${escapeHtml(t.orderId)}</td>
             <td class="px-4 py-3">
@@ -1410,7 +1525,11 @@
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-bg text-slate-800 border border-border">${escapeHtml(t.bucket)}</span>
             </td>
             <td class="px-4 py-3 font-semibold text-slate-700">${escapeHtml(t.customStatusText || t.liveStage)}</td>
-            <td class="px-4 py-3 text-[11px] text-slate-600">${escapeHtml(t.teamResponsible)} ➔ ${escapeHtml(t.subIssue)}</td>
+            <td class="px-4 py-3">
+              ${sla.state !== 'NONE'
+                ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${sla.badgeClass}">${escapeHtml(sla.label)}</span>`
+                : '<span class="text-[11px] text-muted">—</span>'}
+            </td>
             <td class="px-4 py-3 font-semibold text-slate-800">${escapeHtml(t.assignedAgentName || 'Auto')}</td>
             <td class="px-4 py-3 text-[11px] text-muted">${escapeHtml(dt)}</td>
             <td class="px-4 py-3 text-right">
@@ -1428,16 +1547,20 @@
         grid.innerHTML = '<p class="text-xs text-muted col-span-3 py-6 text-center">No active escalations logged yet.</p>';
         return;
       }
-      grid.innerHTML = visible.map(t => `
-        <div onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')" class="p-4 rounded-xl border border-border hover:border-primary bg-bg cursor-pointer transition space-y-1.5">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-extrabold text-primary">${escapeHtml(t.escId)} • Order ${escapeHtml(t.orderId)}</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">With: ${escapeHtml(t.pendingWithDept || 'CDT')}</span>
+      grid.innerHTML = visible.map(t => {
+        const sla = evaluateActionDateSla(t.targetActionDate, t.bucket);
+        return `
+          <div onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')" class="p-4 rounded-xl border ${sla.state === 'OVERDUE' ? 'border-rose-400 bg-rose-50/40' : 'border-border bg-bg'} hover:border-primary cursor-pointer transition space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold text-primary">${escapeHtml(t.escId)} • Order ${escapeHtml(t.orderId)}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">With: ${escapeHtml(t.pendingWithDept || 'CDT')}</span>
+            </div>
+            <p class="text-xs font-bold text-slate-900">${escapeHtml(t.cxName)} (${escapeHtml(t.cxPhone)})</p>
+            ${t.targetActionDate ? `<p class="text-[10px] font-bold text-slate-600">📅 Target Action Date: ${escapeHtml(t.targetActionDate)}</p>` : ''}
+            <p class="text-[11px] text-emerald-800 font-medium bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">${escapeHtml(t.whatToTellCx || t.liveStage)}</p>
           </div>
-          <p class="text-xs font-bold text-slate-900">${escapeHtml(t.cxName)} (${escapeHtml(t.cxPhone)})</p>
-          <p class="text-[11px] text-emerald-800 font-medium bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">${escapeHtml(t.whatToTellCx || t.liveStage)}</p>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     async function loadTicketIntoWorkspace(escId) {
@@ -1502,7 +1625,10 @@
             ? data.dossier.existingTickets[data.dossier.existingTickets.length - 1]
             : null;
           activeTicket = latestTicket;
-          renderOrderDossier(data.dossier, latestTicket, latestTicket ? (latestTicket.timeline || []) : []);
+          const combinedTimeline = latestTicket
+            ? (latestTicket.timeline || [])
+            : (data.dossier.orderTimeline || []);
+          renderOrderDossier(data.dossier, latestTicket, combinedTimeline);
         }
       } catch (e) {
         setLoading(false);
@@ -1510,6 +1636,8 @@
     }
 
     function renderOrderDossier(d, ticket, timeline) {
+      aiPolishedStoryline = '';
+      aiPolishedResolution = '';
       document.getElementById('orderDossierSection').classList.remove('hidden');
       document.getElementById('dosSourceBadge').textContent = `Source: ${d.sourceSheet}`;
       document.getElementById('dosOrderId').textContent = d.orderId;
@@ -1555,13 +1683,17 @@
         qBtns.innerHTML = '<span class="text-xs text-muted">NA</span>';
       }
 
-      renderInteractiveSkuList(d, ticket);
+      // Check if CDT agent has an unsaved local browser draft for this order (Refresh protection!)
+      const localCdtDraft = getCdtLocalDraft(d.orderId);
+      const effectiveTicketForSkus = ticket || localCdtDraft;
+
+      renderInteractiveSkuList(d, effectiveTicketForSkus);
       renderRawSubTable(d.poLineItems, 'poRawTableContainer', 'poRawCountBadge');
       renderRawSubTable(d.metaEscLineItems, 'metaRawTableContainer', 'metaRawCountBadge');
-      populateWorkbenchFromTicket(ticket, timeline);
+      populateWorkbenchFromTicket(ticket, timeline, localCdtDraft);
     }
 
-    function renderInteractiveSkuList(d, ticket) {
+    function renderInteractiveSkuList(d, ticketOrDraft) {
       const container = document.getElementById('interactiveSkuSelectionList');
       container.innerHTML = '';
       const allSkus = []
@@ -1574,8 +1706,8 @@
       }
 
       const savedSkusMap = {};
-      if (ticket && Array.isArray(ticket.affectedSkus)) {
-        ticket.affectedSkus.forEach(s => { savedSkusMap[s.rowKey] = s; });
+      if (ticketOrDraft && Array.isArray(ticketOrDraft.affectedSkus)) {
+        ticketOrDraft.affectedSkus.forEach(s => { savedSkusMap[s.rowKey] = s; });
       }
 
       const isReadOnlySales = (currentViewMode === 'sales');
@@ -1604,7 +1736,7 @@
               data-ponumber="${escapeHtml(item.poNumber || 'NA')}"
               ${isChecked ? 'checked' : ''}
               ${isReadOnlySales ? 'disabled' : ''}
-              onchange="recalculateSelectedSkusAndPreview()"
+              onchange="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();"
             />
             <div>
               <div class="flex items-center gap-2 flex-wrap">
@@ -1625,12 +1757,12 @@
               <input type="number" min="0" step="any" value="${saved ? escapeHtml(saved.affectedQty) : '1'}"
                 id="qty_${item.rowKey}"
                 ${isReadOnlySales ? 'disabled' : ''}
-                oninput="recalculateSelectedSkusAndPreview()"
+                oninput="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();"
                 class="w-20 px-2 py-1 text-xs bg-white border border-border rounded font-bold" />
             </div>
             <div>
               <span class="block text-[10px] font-semibold text-muted">Unit</span>
-              <select id="unit_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview()" class="px-2 py-1 text-xs bg-white border border-border rounded font-semibold">
+              <select id="unit_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();" class="px-2 py-1 text-xs bg-white border border-border rounded font-semibold">
                 <option value="Boxes" ${defaultUnit.toLowerCase().includes('box') ? 'selected' : ''}>Boxes</option>
                 <option value="Pcs" ${defaultUnit.toLowerCase().includes('pc') ? 'selected' : ''}>Pcs</option>
                 <option value="Bags/Units" ${defaultUnit.toLowerCase().includes('bag') ? 'selected' : ''}>Bags/Units</option>
@@ -1641,12 +1773,12 @@
               <input type="text" placeholder="e.g. B-4092" value="${saved ? escapeHtml(saved.batchNo || '') : ''}"
                 id="batch_${item.rowKey}"
                 ${isReadOnlySales ? 'disabled' : ''}
-                oninput="recalculateSelectedSkusAndPreview()"
+                oninput="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();"
                 class="w-24 px-2 py-1 text-xs bg-white border border-border rounded font-mono" />
             </div>
             <div>
               <span class="block text-[10px] font-semibold text-muted">SKU Specific Issue</span>
-              <select id="skuissue_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview()" class="px-2 py-1 text-xs bg-white border border-border rounded font-semibold max-w-[190px]">
+              <select id="skuissue_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();" class="px-2 py-1 text-xs bg-white border border-border rounded font-semibold max-w-[190px]">
                 ${PER_SKU_ISSUE_OPTIONS.map(opt => `<option value="${escapeHtml(opt)}" ${defaultIssue === opt ? 'selected' : ''}>${escapeHtml(opt)}</option>`).join('')}
               </select>
             </div>
@@ -1740,6 +1872,52 @@
       buildLiveEmailPreview();
     }
 
+    function onRawNotesEdited() {
+      // Reset AI override when agent types new raw notes so default preview reflects latest typing
+      aiPolishedStoryline = '';
+      aiPolishedResolution = '';
+      document.getElementById('aiEngineStatusBadge').textContent = 'Default: Instant Structured Template (Click ✨ Generate AI to polish)';
+      buildLiveEmailPreview();
+      saveCdtLocalDraft();
+    }
+
+    /**
+     * Saves CDT Agent's unsaved classification in localStorage so refreshing the page never loses work!
+     */
+    function saveCdtLocalDraft() {
+      if (!activeDossier || !activeDossier.orderId) return;
+      const { list } = getSelectedSkusArray();
+      const draftObj = {
+        bucket: document.getElementById('escBucketSelect')?.value || 'Open (Mid-Stage Draft)',
+        siteVerifierAgent: cleanSiteVerifierVal(document.getElementById('escSiteVerifierInput')?.value),
+        teamResponsible: document.getElementById('escTeamSelect')?.value || '',
+        subIssue: document.getElementById('escSubIssueSelect')?.value || '',
+        resolutionType: document.getElementById('escResolutionSelect')?.value || '',
+        costLiability: document.getElementById('escCostLiabilitySelect')?.value || '',
+        targetActionDate: document.getElementById('escTargetActionDateInput')?.value || '',
+        refundMode: document.getElementById('escRefundModeSelect')?.value || '',
+        refundEdgeCaseNote: document.getElementById('escRefundEdgeNote')?.value || '',
+        storylineNotes: document.getElementById('escStorylineInput')?.value || '',
+        resolutionNotes: document.getElementById('escResolutionNotesInput')?.value || '',
+        affectedSkus: list,
+        savedAt: Date.now()
+      };
+      try {
+        localStorage.setItem(`adorzy_cdt_draft_${activeDossier.orderId}`, JSON.stringify(draftObj));
+        const el = document.getElementById('cdtAutoDraftStatusText');
+        if (el) el.textContent = `Browser draft auto-saved at ${new Date().toLocaleTimeString()} (Refresh-safe)`;
+      } catch (e) {}
+    }
+
+    function getCdtLocalDraft(orderId) {
+      try {
+        const raw = localStorage.getItem(`adorzy_cdt_draft_${orderId}`);
+        return raw ? JSON.parse(raw) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
     function buildLiveEmailPreview() {
       if (!activeDossier) return;
       const escId = (activeTicket && activeTicket.escId) ? activeTicket.escId : 'ESC-NEW';
@@ -1748,8 +1926,13 @@
       const resType = document.getElementById('escResolutionSelect').value || 'Replacement';
       const refundMode = document.getElementById('escRefundModeSelect').value || '';
       const refundEdge = document.getElementById('escRefundEdgeNote').value || '';
-      const storyline = document.getElementById('escStorylineInput').value || '';
-      const resNotes = document.getElementById('escResolutionNotesInput').value || '';
+      const rawStoryline = document.getElementById('escStorylineInput').value || '';
+      const rawResNotes = document.getElementById('escResolutionNotesInput').value || '';
+
+      const effectiveStoryline = aiPolishedStoryline || rawStoryline;
+      const effectiveResNotes = aiPolishedResolution || rawResNotes;
+      const isAiPolished = Boolean(aiPolishedStoryline);
+
       const { list, totalCost } = getSelectedSkusArray();
 
       const subject = `[${escId}] ${team} - ${subIssue} | ${activeDossier.cxName} | ${activeDossier.phoneNo} | Order ${activeDossier.orderId}`;
@@ -1787,6 +1970,10 @@
         ? `<p><strong>Refund Mode:</strong> ${escapeHtml(refundMode)} ${refundEdge ? `<br/><strong>Refund Specifics:</strong> ${escapeHtml(refundEdge)}` : ''}</p>`
         : '';
 
+      const narrativeBoxStyle = isAiPolished
+        ? 'background:#faf5ff;border-left:4px solid #9333ea;padding:10px 12px;border-radius:6px;margin:10px 0;'
+        : 'margin:10px 0;';
+
       const html = `
         <p>Hi Team,</p>
         <p>An escalation <strong>${escapeHtml(escId)}</strong> has been logged against Adorzy Order <strong>${escapeHtml(activeDossier.orderId)}</strong>.</p>
@@ -1800,37 +1987,76 @@
         ${refundBlock}
         <p><strong>Affected SKU Breakdown:</strong></p>
         ${skuRowsHtml || '<p><em>Whole Order / General Escalation</em></p>'}
-        <p><strong>Case Storyline:</strong><br/>${escapeHtml(storyline || 'See details above.')}</p>
-        <p><strong>Resolution Action Plan:</strong><br/>${escapeHtml(resNotes || resType)}</p>
+        <div style="${narrativeBoxStyle}">
+          <p style="margin:0 0 6px 0;"><strong>Case Storyline &amp; Findings:</strong><br/>${escapeHtml(effectiveStoryline || 'See details above.')}</p>
+          <p style="margin:0;"><strong>Resolution Action Plan:</strong><br/>${escapeHtml(effectiveResNotes || resType)}</p>
+        </div>
         <p>Please reply directly on this email thread when PO is raised, dispatched, or refunded so the live tracker updates automatically.</p>
       `;
       document.getElementById('emailBodyPreview').innerHTML = html;
     }
 
-    function populateWorkbenchFromTicket(ticket, timeline) {
+    /**
+     * Populates the CDT Workbench & Live Pizza-Tracker (Including Batch Confirmed & Call Log Table)
+     */
+    function populateWorkbenchFromTicket(ticket, timeline, localCdtDraft) {
       const banner = document.getElementById('liveTrackerBanner');
+
+      // Always render the Shared Call Logs Table & Audit Timeline (even if only order-level calls exist!)
+      renderAuditTimelineAndCallTable(timeline || []);
+
       if (!ticket) {
-        if (currentViewMode === 'sales') {
-          banner.classList.remove('hidden');
-          document.getElementById('trkTicketBadge').textContent = 'No Active Escalation';
-          document.getElementById('trkHeadlineStage').textContent = 'No Escalation Logged for This Order Yet';
-          document.getElementById('trkPendingDept').textContent = 'Status: Normal Order';
-          document.getElementById('trkAssignedOwner').textContent = 'Owner: —';
-          document.getElementById('trkWhatToTellCx').textContent = 'There is no active escalation ticket on this order.';
-          document.getElementById('pizzaProgressGrid').innerHTML = '';
-        } else {
-          banner.classList.add('hidden');
-        }
+        banner.classList.remove('hidden');
+        document.getElementById('trkTicketBadge').textContent = 'Order Investigation View';
+        document.getElementById('trkActionDateBadge').classList.add('hidden');
+        document.getElementById('trkHeadlineStage').textContent = 'No Formal Escalation Ticket Saved Yet (Draft Mode)';
+        document.getElementById('trkPendingDept').textContent = 'Status: Pre-Escalation / Draft';
+        document.getElementById('trkAssignedOwner').textContent = 'Owner: —';
+        document.getElementById('trkWhatToTellCx').textContent = 'No escalation ticket has been saved for this order yet.';
+        document.getElementById('pizzaProgressGrid').innerHTML = '';
         document.getElementById('editingEscIdLabel').textContent = 'New Escalation Ticket';
+
+        // Restore from localCdtDraft if agent refreshed page before clicking Save!
+        const src = localCdtDraft || {};
+        document.getElementById('escBucketSelect').value = src.bucket || 'Open (Mid-Stage Draft)';
+        document.getElementById('escSiteVerifierInput').value = cleanSiteVerifierVal(src.siteVerifierAgent);
+        if (src.teamResponsible && sysConfig.taxonomy[src.teamResponsible]) {
+          document.getElementById('escTeamSelect').value = src.teamResponsible;
+          onTeamResponsibleChange();
+        }
+        if (src.subIssue) document.getElementById('escSubIssueSelect').value = src.subIssue;
+        if (src.resolutionType) {
+          document.getElementById('escResolutionSelect').value = src.resolutionType;
+          onResolutionTypeChange();
+        }
+        document.getElementById('escCostLiabilitySelect').value = src.costLiability || 'Recoverable from Vendor / Transporter';
+        document.getElementById('escTargetActionDateInput').value = src.targetActionDate || '';
+        document.getElementById('escRefundModeSelect').value = src.refundMode || 'Refund to Bank Account';
+        document.getElementById('escRefundEdgeNote').value = src.refundEdgeCaseNote || '';
+        document.getElementById('escStorylineInput').value = src.storylineNotes || '';
+        document.getElementById('escResolutionNotesInput').value = src.resolutionNotes || '';
+
         uploadedProofFiles = [];
         renderProofGallery();
-        renderAuditTimeline([]);
+        buildLiveEmailPreview();
         return;
       }
 
       banner.classList.remove('hidden');
       document.getElementById('editingEscIdLabel').textContent = `Editing ${ticket.escId} (${ticket.bucket})`;
       document.getElementById('trkTicketBadge').textContent = `${ticket.escId} • Bucket: ${ticket.bucket}`;
+
+      // Evaluate Optional Target Action Date SLA Badge
+      const sla = evaluateActionDateSla(ticket.targetActionDate, ticket.bucket);
+      const actionBadge = document.getElementById('trkActionDateBadge');
+      if (sla.state !== 'NONE') {
+        actionBadge.textContent = sla.label;
+        actionBadge.className = `text-[11px] font-extrabold px-2.5 py-0.5 rounded ${sla.badgeClass}`;
+        actionBadge.classList.remove('hidden');
+      } else {
+        actionBadge.classList.add('hidden');
+      }
+
       document.getElementById('trkHeadlineStage').textContent = ticket.customStatusText
         ? `⚠️ Custom Status: ${ticket.customStatusText}`
         : (ticket.liveStage || 'Under Investigation');
@@ -1838,11 +2064,24 @@
       document.getElementById('trkAssignedOwner').textContent = `Owner: ${ticket.assignedAgentName || 'Auto'}`;
       document.getElementById('trkWhatToTellCx').textContent = ticket.whatToTellCx || 'Our team is actively working on your resolution.';
 
+      // CORRECTED 5-STEP PIZZA TRACKER MAPPING (Properly advances on Batch Confirmed!)
+      const stageStr = `${ticket.liveStage || ''} ${ticket.customStatusText || ''}`.toLowerCase();
+      const isBatchConfirmedOrRaised =
+        stageStr.includes('batch confirmed') ||
+        ['Raised to Team', 'Completed'].includes(ticket.bucket) ||
+        stageStr.includes('po raised') ||
+        stageStr.includes('dispatched');
+
+      const isPoOrDispatched =
+        stageStr.includes('po raised') ||
+        stageStr.includes('dispatched') ||
+        ticket.bucket === 'Completed';
+
       const steps = [
         { label: '1. Logged / Proofs In', done: true },
-        { label: '2. WhatsApp / Site Check', done: ticket.bucket !== 'Incoming Cx Claims' },
-        { label: '3. Raised to Team', done: ['Raised to Team', 'Completed'].includes(ticket.bucket) || (ticket.liveStage || '').includes('PO') },
-        { label: '4. PO / Action Approved', done: (ticket.liveStage || '').includes('PO Raised') || (ticket.liveStage || '').includes('Dispatched') || ticket.bucket === 'Completed' },
+        { label: '2. WhatsApp / Site Check', done: ticket.bucket !== 'Incoming Cx Claims' || stageStr.includes('checking') || stageStr.includes('vendor') || isBatchConfirmedOrRaised },
+        { label: '3. Batch Confirmed / Raised to Team', done: isBatchConfirmedOrRaised },
+        { label: '4. PO Raised / Dispatched', done: isPoOrDispatched },
         { label: '5. Completed', done: ticket.bucket === 'Completed' }
       ];
       document.getElementById('pizzaProgressGrid').innerHTML = steps.map(s => `
@@ -1852,7 +2091,9 @@
       `).join('');
 
       document.getElementById('escBucketSelect').value = ticket.bucket || 'Open (Mid-Stage Draft)';
-      document.getElementById('escSiteVerifierInput').value = ticket.siteVerifierAgent || '';
+      // Strictly sanitized so phone numbers never show in Site Verification Agent box!
+      document.getElementById('escSiteVerifierInput').value = cleanSiteVerifierVal(ticket.siteVerifierAgent);
+
       if (ticket.teamResponsible && sysConfig.taxonomy[ticket.teamResponsible]) {
         document.getElementById('escTeamSelect').value = ticket.teamResponsible;
         onTeamResponsibleChange();
@@ -1865,6 +2106,7 @@
       document.getElementById('escRefundModeSelect').value = ticket.refundMode || 'Refund to Bank Account';
       document.getElementById('escRefundEdgeNote').value = ticket.refundEdgeCaseNote || '';
       document.getElementById('escCostLiabilitySelect').value = ticket.costLiability || 'Recoverable from Vendor / Transporter';
+      document.getElementById('escTargetActionDateInput').value = ticket.targetActionDate || '';
       document.getElementById('escStorylineInput').value = ticket.storylineNotes || '';
       document.getElementById('escResolutionNotesInput').value = ticket.resolutionNotes || '';
 
@@ -1878,12 +2120,8 @@
       }
 
       buildLiveEmailPreview();
-      renderAuditTimeline(timeline || []);
     }
 
-    /* =========================================================================
-     * CDT FAST ACTIONS: 1. CX UNREACHABLE (RNR/BUSY/NC) & 2. MUTUAL FAST-CLOSE
-     * ========================================================================= */
     function getAgentPhoneInfo(emailOrName) {
       const key = (emailOrName || '').toLowerCase();
       if (AGENT_PHONE_DIRECTORY[key]) return AGENT_PHONE_DIRECTORY[key];
@@ -2091,7 +2329,7 @@
         if (res.status === 'success' && res.transcript) {
           const box = document.getElementById('escStorylineInput');
           box.value = (box.value ? box.value + '\n\n' : '') + `[Voice Note Transcript]: ${res.transcript}`;
-          buildLiveEmailPreview();
+          onRawNotesEdited();
           showToastAlert('Voice Note Transcribed', 'Transcript added to the Storyline box!');
         } else {
           showBannerError('Transcription Notice', res.message || 'Could not transcribe audio.');
@@ -2106,7 +2344,7 @@
       const { list, totalCost } = getSelectedSkusArray();
       const u = sysConfig.currentUser || {};
 
-      setLoading(true, sendEmailNow ? 'Logging ticket & sending email...' : 'Saving ticket state...');
+      setLoading(true, sendEmailNow ? 'Logging ticket & sending email...' : 'Saving classification & ticket state in bucket...');
       try {
         const res = await apiPost({
           action: 'saveOrSendEscalation',
@@ -2118,7 +2356,8 @@
           salesRep: activeDossier.salesRep,
           sourceSheet: activeDossier.sourceSheet,
           bucket: document.getElementById('escBucketSelect').value,
-          siteVerifierAgent: document.getElementById('escSiteVerifierInput').value.trim(),
+          siteVerifierAgent: cleanSiteVerifierVal(document.getElementById('escSiteVerifierInput').value),
+          targetActionDate: document.getElementById('escTargetActionDateInput').value.trim(),
           teamResponsible: document.getElementById('escTeamSelect').value,
           subIssue: document.getElementById('escSubIssueSelect').value,
           resolutionType: document.getElementById('escResolutionSelect').value,
@@ -2141,8 +2380,9 @@
         setLoading(false);
         if (res.status === 'success') {
           activeTicket = res.ticket;
+          try { localStorage.removeItem(`adorzy_cdt_draft_${activeDossier.orderId}`); } catch (e) {}
           populateWorkbenchFromTicket(res.ticket, res.timeline || []);
-          showToastAlert('Ticket Updated', `${res.escId} saved in "${res.bucket}"`);
+          showToastAlert('Saved Successfully', `${res.escId} saved in "${res.bucket}"`);
         }
       } catch (e) {
         setLoading(false);
@@ -2167,29 +2407,41 @@
       }
     }
 
+    /**
+     * Guaranteed AI Email Polisher (Calls Gemini API or Multi-Tone Executive Rewriter)
+     * Updates the Email Preview box with polished narrative without destroying raw notes!
+     */
     async function polishEmailWithAi() {
+      if (!activeDossier) return;
       const storylineNotes = document.getElementById('escStorylineInput').value.trim();
       const resolutionNotes = document.getElementById('escResolutionNotesInput').value.trim();
       const customPrompt = (document.getElementById('aiCustomTweakInput')?.value || '').trim();
-      if (!storylineNotes) {
-        showBannerError("Enter Storyline First", "Write a quick rough note in the Storyline box before clicking Generate AI.");
-        return;
-      }
-      setLoading(true, 'Generating AI-polished email preview...');
+      const teamResponsible = document.getElementById('escTeamSelect').value;
+      const subIssue = document.getElementById('escSubIssueSelect').value;
+      const resolutionType = document.getElementById('escResolutionSelect').value;
+      const { list } = getSelectedSkusArray();
+      const skuSummary = list.map(s => `${s.affectedQty} ${s.selectedUnit} of ${s.skuName} (Batch ${s.batchNo})`).join(', ');
+
+      setLoading(true, 'Generating AI-polished executive email narrative...');
       const res = await apiPost({
         action: 'generateAiEmailDraft',
         storylineNotes,
         resolutionNotes,
-        customPrompt
+        customPrompt,
+        teamResponsible,
+        subIssue,
+        resolutionType,
+        skuSummary,
+        variationIndex: aiVariationCounter++
       });
       setLoading(false);
-      if (res.status === 'success' && res.polishedText) {
-        document.getElementById('escStorylineInput').value = res.polishedText;
+
+      if (res.status === 'success' && res.polishedStoryline) {
+        aiPolishedStoryline = res.polishedStoryline;
+        aiPolishedResolution = res.polishedResolution || resolutionNotes;
+        document.getElementById('aiEngineStatusBadge').textContent = `✨ Polished via ${res.engineUsed || 'AI'} (Click again to regenerate variation)`;
         buildLiveEmailPreview();
-        showToastAlert('AI Draft Ready', 'Review or edit the email preview before sending.');
-      } else {
-        buildLiveEmailPreview();
-        showToastAlert('Structured Template Ready', res.message || 'Built using zero-token template.');
+        showToastAlert('AI Email Generated', 'Email preview updated! Click Generate again for another variation or edit directly.');
       }
     }
 
@@ -2210,6 +2462,7 @@
         liveStage: stageLabel,
         pendingWithDept: pendingDept,
         whatToTellCx: publicScript,
+        targetActionDate: document.getElementById('escTargetActionDateInput').value.trim(),
         actorName: u.name,
         actorEmail: u.email,
         eventType: 'WHATSAPP_STAGE',
@@ -2234,27 +2487,30 @@
       const customText = document.getElementById('customStageHeadlineInput').value.trim();
       const pendingDept = document.getElementById('customPendingDeptInput').value.trim() || 'CDT';
       const tellCx = document.getElementById('customWhatToTellCxInput').value.trim();
+      const actionDate = document.getElementById('escTargetActionDateInput').value.trim();
 
-      setLoading(true, 'Updating custom live status...');
+      setLoading(true, 'Updating custom live status & target action date...');
       const res = await apiPost({
         action: 'logCallOrStage',
         escId: activeTicket.escId,
         orderId: activeDossier.orderId,
-        customStatusText: customText,
+        customStatusText: customText || activeTicket.customStatusText,
         pendingWithDept: pendingDept,
-        whatToTellCx: tellCx,
+        whatToTellCx: tellCx || activeTicket.whatToTellCx,
+        targetActionDate: actionDate,
         actorName: u.name,
         actorEmail: u.email,
         eventType: 'CUSTOM_STATUS',
         partySpokenTo: pendingDept,
-        callOutcome: 'Custom Override',
-        headline: `⚙️ Custom Status Set: ${customText}`,
-        details: `What to tell Cx: ${tellCx}`
+        callOutcome: actionDate ? `Action Date: ${actionDate}` : 'Custom Override',
+        headline: `⚙️ Custom Update: ${customText || 'Action Date Updated'}${actionDate ? ' (Target Date: ' + actionDate + ')' : ''}`,
+        details: `What to tell Cx: ${tellCx || activeTicket.whatToTellCx}`
       });
       setLoading(false);
       if (res.status === 'success') {
         activeTicket = res.ticket;
         populateWorkbenchFromTicket(res.ticket, res.timeline || []);
+        showToastAlert('Live Status Updated', actionDate ? `Scheduled Action Date set to ${actionDate} (24h reminder armed)` : 'Live status updated!');
       }
     }
 
@@ -2283,21 +2539,24 @@
     }
 
     async function submitCallLog() {
+      if (!activeDossier) return;
       if (!activeTicket || !activeTicket.escId) {
         await saveOrSendTicket(false);
       }
-      if (!activeTicket) return;
       const u = sysConfig.currentUser || {};
       const party = document.getElementById('callPartySelect').value;
-      const person = document.getElementById('callPersonInput').value.trim();
+      const person = document.getElementById('callPersonInput').value.trim() || activeDossier.phoneNo;
       const outcome = document.getElementById('callOutcomeSelect').value;
       const summary = document.getElementById('callSummaryInput').value.trim();
-      if (!summary) return;
+      if (!summary) {
+        showBannerError('Enter Call Summary', 'Please enter a brief summary of the call before clicking Log Call.');
+        return;
+      }
 
-      setLoading(true, 'Logging call...');
+      setLoading(true, 'Logging call to shared Call History Table...');
       const res = await apiPost({
         action: 'logCallOrStage',
-        escId: activeTicket.escId,
+        escId: activeTicket ? activeTicket.escId : '',
         orderId: activeDossier.orderId,
         actorName: u.name,
         actorEmail: u.email,
@@ -2305,17 +2564,49 @@
         partySpokenTo: party,
         contactPerson: person,
         callOutcome: outcome,
-        headline: `📞 Call Logged with ${party} (${person || 'Contact'}) — ${outcome}`,
+        headline: `📞 Call Logged with ${party} (${person}) — ${outcome}`,
         details: summary
       });
       setLoading(false);
       document.getElementById('callSummaryInput').value = '';
       if (res.status === 'success') {
-        populateWorkbenchFromTicket(res.ticket, res.timeline || []);
+        if (res.ticket) activeTicket = res.ticket;
+        populateWorkbenchFromTicket(activeTicket, res.timeline || []);
+        showToastAlert('Call Logged', 'Added to the Shared Call History Table for CDT & Sales.');
       }
     }
 
-    function renderAuditTimeline(events) {
+    /**
+     * Renders BOTH:
+     * 1. The Dedicated Call & Follow-Up History Table (visible to Sales & CDT inside the Live Tracker Banner)
+     * 2. The Full Chronological Audit Trail
+     */
+    function renderAuditTimelineAndCallTable(events) {
+      const callTbody = document.getElementById('sharedCallLogsTableBody');
+      const callBadge = document.getElementById('callLogsCountBadge');
+      const callEvents = (events || []).filter(ev => ev.eventType === 'CALL_LOG' || ev.eventType === 'MUTUAL_CLOSE');
+
+      if (callBadge) callBadge.textContent = `${callEvents.length} call(s) logged`;
+      if (callTbody) {
+        if (!callEvents.length) {
+          callTbody.innerHTML = '<tr><td colspan="6" class="px-3 py-4 text-center text-muted">No calls logged yet for this order. Use Panel 5 (Log Follow-Up Touchpoint) or Mark Unreachable to log calls.</td></tr>';
+        } else {
+          callTbody.innerHTML = callEvents.map(c => {
+            const dt = c.timestamp ? new Date(c.timestamp).toLocaleString('en-IN') : '';
+            return `
+              <tr class="hover:bg-orange-50/30">
+                <td class="px-3 py-2 whitespace-nowrap text-muted">${escapeHtml(dt)}</td>
+                <td class="px-3 py-2 font-bold text-slate-800">${escapeHtml(c.actorName)}</td>
+                <td class="px-3 py-2 font-semibold text-primary">${escapeHtml(c.partySpokenTo || 'Customer')}</td>
+                <td class="px-3 py-2 font-mono">${escapeHtml(c.contactPerson || '—')}</td>
+                <td class="px-3 py-2"><span class="px-2 py-0.5 rounded bg-amber-50 border border-amber-200 font-bold text-amber-900">${escapeHtml(c.callOutcome || 'Logged')}</span></td>
+                <td class="px-3 py-2 text-slate-700">${escapeHtml(c.details)}</td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+
       const container = document.getElementById('auditTimelineList');
       const salesContainer = document.getElementById('salesAuditTimelineList');
       const html = (!events || !events.length)
@@ -2372,7 +2663,7 @@
     }
 
     /* =========================================================================
-     * ISOLATED CUSTOMER PORTAL FUNCTIONS + DUAL-LAYER DRAFT SYNC
+     * ISOLATED CUSTOMER PORTAL FUNCTIONS + CORRECTED 4-STEP TRACKER
      * ========================================================================= */
     function saveLocalCustomerDraft() {
       if (!activeDossier || !activeDossier.orderId) return;
@@ -2523,7 +2814,6 @@
       const latest = tickets.length ? tickets[tickets.length - 1] : null;
       const localDraft = getLocalCustomerDraft(d.orderId);
 
-      // Case 1: Submitted claim exists -> Show Sanitized Live Tracker (with Assigned Specialist + Central Phone)
       if (latest && latest.bucket !== 'Cx_Draft_In_Progress') {
         cxDraftEscId = latest.escId;
         document.getElementById('cxGuidedClaimForm').classList.add('hidden');
@@ -2532,8 +2822,20 @@
 
         const agentInfo = getAgentPhoneInfo(latest.assignedAgentEmail || latest.assignedAgentName);
         document.getElementById('cxTrkTicketId').textContent = `Claim #${latest.escId} • Order ${d.orderId}`;
+
+        // Properly reflect Batch Confirmed / Resolution Approved in Customer Portal Title & 4-Step Bar!
+        const stageLower = `${latest.liveStage || ''} ${latest.customStatusText || ''}`.toLowerCase();
+        const isResolutionApproved =
+          stageLower.includes('batch confirmed') ||
+          stageLower.includes('po raised') ||
+          stageLower.includes('dispatched') ||
+          ['Raised to Team', 'Completed'].includes(latest.bucket);
+
         document.getElementById('cxTrkStageTitle').textContent =
-          latest.bucket === 'Completed' ? '✅ Resolution Completed' : 'Active — Under Verification & Processing';
+          latest.bucket === 'Completed'
+            ? '✅ Resolution Completed'
+            : (isResolutionApproved ? '✅ Resolution Approved & Processing' : 'Active — Under Verification');
+
         document.getElementById('cxTrkAssignedSpecialist').textContent =
           `${agentInfo.name} (+91 ${agentInfo.phone})`;
 
@@ -2555,7 +2857,7 @@
         const cxSteps = [
           { label: '1. Claim Logged', done: true },
           { label: '2. Under Verification', done: true },
-          { label: '3. Resolution Approved', done: ['Raised to Team', 'Completed'].includes(latest.bucket) },
+          { label: '3. Resolution Approved', done: isResolutionApproved },
           { label: '4. Completed', done: latest.bucket === 'Completed' }
         ];
         document.getElementById('cxSanitizedStepsGrid').innerHTML = cxSteps.map(s => `
@@ -2576,7 +2878,6 @@
         return;
       }
 
-      // Case 2: Resume Unfinished Cloud Draft OR Local Browser Draft
       if ((latest && latest.bucket === 'Cx_Draft_In_Progress') || localDraft) {
         const sourceDraft = latest || localDraft;
         cxDraftEscId = (latest && latest.escId) || (localDraft && localDraft.escId) || '';
@@ -2590,7 +2891,6 @@
         return;
       }
 
-      // Case 3: Fresh Claim Form
       cxDraftEscId = '';
       cxParentSubTicketId = '';
       cxUploadedFiles = [];
@@ -2677,7 +2977,6 @@
               </span>
             </label>
 
-            <!-- Per-SKU Issue, Damaged Qty, Unit (Boxes/Pcs), and Batch No Sub-Panel -->
             <div id="cxsub_${item.rowKey}" class="${isChecked ? '' : 'hidden'} pt-2.5 border-t border-border grid grid-cols-1 sm:grid-cols-4 gap-2">
               <div>
                 <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Damaged Qty *</label>
@@ -2727,7 +3026,6 @@
       autoSaveCustomerDraft();
     }
 
-    // DUAL-LAYER AUTO-SAVE: 0ms localStorage + 6-second idle cloud sync for drop-off tracking
     let cxDraftTimeout = null;
     function autoSaveCustomerDraft() {
       if (isSubmittingClaim) return;
@@ -2971,7 +3269,7 @@
     }
 
     async function triggerManualGmailSync() {
-      setLoading(true, 'Scanning Gmail threads...');
+      setLoading(true, 'Scanning Gmail threads & checking 24h Action Date reminders...');
       await apiGet({ action: 'syncEmails' });
       await initWorkspace();
       setLoading(false);
@@ -2991,7 +3289,7 @@
         actorEmail: u.email
       });
       setLoading(false);
-      if (res.status === 'success') renderAuditTimeline(res.timeline || []);
+      if (res.status === 'success') renderAuditTimelineAndCallTable(res.timeline || []);
     }
 
     function copyCustomerWhatsappUpdate() {
@@ -3008,7 +3306,9 @@
         if (data.status === 'success') {
           lastPollTimestamp = Date.now();
           if (data.bucketsSummary) renderRosterAndBucketsBar(data.bucketsSummary);
-          const newEvents = (data.events || []).filter(ev => ev.eventType === 'CX_PORTAL' || ev.eventType === 'EMAIL_SYNC');
+          const newEvents = (data.events || []).filter(ev =>
+            ev.eventType === 'CX_PORTAL' || ev.eventType === 'EMAIL_SYNC' || ev.eventType === 'SLA_ALERT'
+          );
           if (newEvents.length > 0) {
             playAlertChime();
             showToastAlert(newEvents[0].headline, newEvents[0].details);
