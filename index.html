@@ -3,12 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adorzy Escalation & Order Intelligence</title>
+  <title>Adorzy — Escalation & Order Intelligence</title>
+  <!-- ADORZY OFFICIAL SVG FAVICON (Fixes Browser Tab Icon in Image 2!) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z' fill='%23FF4500'/%3E%3Cpath d='M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z' fill='%23FF4500'/%3E%3Cpath d='M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 0 10.868 0H5.10773C4.90554 0 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378V10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z' fill='%23FF4500'/%3E%3Cpath d='M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781V10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z' fill='%23FF4500'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
           colors: {
             surface: 'var(--color-surface)',
             bg: 'var(--color-bg)',
@@ -32,71 +41,94 @@
       --color-muted: #64748b;
     }
     body {
-      background-color: var(--color-bg);
+      background-color: #f8fafc;
       color: #0f172a;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-    .scroll-thin::-webkit-scrollbar { height: 6px; width: 6px; }
+    .scroll-thin::-webkit-scrollbar { height: 5px; width: 5px; }
     .scroll-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+    /* Custom Animated Adorzy 4-Petal SVG Loader */
+    @keyframes adorzyPetalPulse {
+      0%, 100% { opacity: 0.2; transform: scale(0.94); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+    .adorzy-petal-1 { animation: adorzyPetalPulse 1.2s infinite ease-in-out 0s; transform-origin: center; }
+    .adorzy-petal-2 { animation: adorzyPetalPulse 1.2s infinite ease-in-out 0.3s; transform-origin: center; }
+    .adorzy-petal-3 { animation: adorzyPetalPulse 1.2s infinite ease-in-out 0.6s; transform-origin: center; }
+    .adorzy-petal-4 { animation: adorzyPetalPulse 1.2s infinite ease-in-out 0.9s; transform-origin: center; }
+
+    /* Linear-style table row hover */
+    .linear-row {
+      transition: background-color 0.12s ease;
+    }
+    .linear-row:hover .row-chevron {
+      transform: translateX(3px);
+      color: #FF4500;
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-[#F8FAFC]">
 
   <!-- =========================================================================
-       SCREEN A: STRICT GOOGLE OAUTH SIGN-IN GATE (Adorzy Branded)
+       SCREEN A: STRICT GOOGLE OAUTH SIGN-IN GATE (Clean Daylight SaaS Card)
        ========================================================================= -->
-  <div id="staffLoginGate" class="hidden min-h-screen bg-slate-950 flex items-center justify-center p-4">
-    <div class="bg-surface rounded-2xl shadow-2xl border border-border max-w-md w-full p-8 text-center space-y-6">
+  <div id="staffLoginGate" class="hidden min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-200/90 max-w-md w-full p-8 text-center space-y-6">
+      <!-- Adorzy Brand Mark -->
       <div class="flex items-center justify-center gap-2.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"></path>
-          <path d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"></path>
-          <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 -7.62939e-06 10.868 -7.62939e-06H5.10773C4.90554 -7.62939e-06 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378C0 6.96371 0 9.41089 0 10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"></path>
-          <path d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781C23.9997 6.96372 23.9997 9.4109 23.9997 10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"></path>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+          <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 0 10.868 0H5.10773C4.90554 0 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378V10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"/>
+          <path d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781V10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"/>
+          <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"/>
+          <path d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"/>
         </svg>
-        <span class="text-2xl font-black tracking-wider text-[#FF4500]">ADORZY</span>
+        <span class="text-2xl font-extrabold tracking-tight text-slate-900">ADORZY</span>
       </div>
 
-      <div>
-        <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-orange-50 text-[#FF4500] border border-orange-200">Internal Workspace</span>
-        <h1 class="text-xl font-extrabold text-slate-900 mt-2">Adorzy Escalation &amp; Order Intelligence</h1>
-        <p class="text-xs text-muted mt-1">Sign in using your official Workspace account. Your role view (CDT, Sales, or Admin) loads automatically via Google OAuth.</p>
+      <div class="space-y-1.5">
+        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-orange-50 text-[#FF4500] border border-orange-200/80">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#FF4500]"></span> Internal Operations Portal
+        </span>
+        <h1 class="text-xl font-bold text-slate-900 tracking-tight">Escalation &amp; Order Intelligence</h1>
+        <p class="text-xs text-slate-500 leading-relaxed">Sign in with your Google Workspace account. Your role workspace (CDT, Sales, or Admin) is provisioned automatically.</p>
       </div>
 
       <div class="py-2 flex flex-col items-center justify-center gap-3">
         <div id="googleGsiButtonContainer" class="flex justify-center min-h-[44px]"></div>
         <p id="oauthSetupNotice" class="hidden text-[11px] text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3 text-left">
-          <strong>⚙️ Google OAuth Client ID Required:</strong> Paste your Google Cloud Web Client ID into <code>GOOGLE_OAUTH_CLIENT_ID</code> inside <code>index.html</code>.
+          <strong>Google OAuth Client ID Required:</strong> Paste your Google Cloud Web Client ID into <code>GOOGLE_OAUTH_CLIENT_ID</code> inside <code>index.html</code>.
         </p>
       </div>
 
-      <p id="loginErrorMsg" class="hidden text-xs font-semibold text-rose-600 bg-rose-50 border border-rose-200 rounded-lg p-2.5"></p>
+      <p id="loginErrorMsg" class="hidden text-xs font-medium text-rose-600 bg-rose-50 border border-rose-200 rounded-lg p-2.5"></p>
     </div>
   </div>
 
   <!-- =========================================================================
        MODAL 1: VISUAL "WHERE TO FIND TILE BATCH / SHADE NO" HELPER
        ========================================================================= -->
-  <div id="batchHelperModal" class="hidden fixed inset-0 z-50 bg-slate-900/70 flex items-center justify-center p-4">
-    <div class="bg-surface rounded-xl max-w-md w-full p-5 shadow-xl space-y-4 border border-border">
-      <div class="flex items-center justify-between border-b border-border pb-3">
-        <h3 class="text-sm font-semibold text-slate-900">📦 Where to Find the Batch / Shade Number</h3>
-        <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="text-muted hover:text-primary text-lg font-bold">✕</button>
+  <div id="batchHelperModal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl max-w-md w-full p-5 shadow-2xl space-y-4 border border-slate-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-sm font-semibold text-slate-900">Where to Find the Batch / Shade Number</h3>
+        <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 text-lg">✕</button>
       </div>
-      <div class="p-4 rounded-lg bg-bg border border-dashed border-border space-y-2 text-xs">
-        <div class="bg-surface p-3 rounded-lg border border-border font-mono text-[11px] space-y-1">
-          <div class="text-muted uppercase font-sans text-[10px] font-bold">Sample Tile Box Side Sticker:</div>
+      <div class="p-4 rounded-lg bg-slate-50 border border-dashed border-slate-300 space-y-2 text-xs">
+        <div class="bg-white p-3 rounded-lg border border-slate-200 font-mono text-[11px] space-y-1">
+          <div class="text-slate-400 uppercase font-sans text-[10px] font-bold">Sample Tile Box Side Sticker:</div>
           <div>ITEM: <strong>600x1200 GLOSSY TILE</strong></div>
           <div class="p-1.5 bg-orange-50 border border-[#FF4500] rounded text-slate-900 font-bold">
-            👉 BATCH / SHADE NO: B-4092 (or S-12 / CAL-04)
+            BATCH / SHADE NO: B-4092 (or S-12 / CAL-04)
           </div>
           <div>MFG DATE: 12/2025 | QTY: 2 PCS (1.44 SQM)</div>
         </div>
-        <p class="text-muted leading-relaxed">
+        <p class="text-slate-600 leading-relaxed">
           Look at the <strong>printed white sticker or ink stamp on the narrow side edge of the cardboard tile box</strong>. Enter the code next to <strong>Batch No / Shade</strong> and upload a clear photo of that sticker in Slot 1.
         </p>
       </div>
-      <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="w-full py-2.5 bg-warning text-white text-xs font-semibold rounded-lg hover:bg-warning/90">
+      <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="w-full py-2.5 bg-[#FF4500] text-white text-xs font-semibold rounded-lg hover:bg-[#e03d00] transition">
         Got It
       </button>
     </div>
@@ -105,25 +137,25 @@
   <!-- =========================================================================
        MODAL 2: CDT READY-TO-SEND WHATSAPP MESSAGE COPY & LAUNCH POPUP
        ========================================================================= -->
-  <div id="whatsappCopyModal" class="hidden fixed inset-0 z-50 bg-slate-900/75 flex items-center justify-center p-4">
-    <div class="bg-surface rounded-xl max-w-lg w-full p-5 shadow-xl space-y-4 border border-border">
-      <div class="flex items-center justify-between border-b border-border pb-3">
+  <div id="whatsappCopyModal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl max-w-lg w-full p-5 shadow-2xl space-y-4 border border-slate-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
         <div>
-          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Customer Portal Updated + WhatsApp Ready</span>
+          <span class="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Customer Portal Updated + WhatsApp Ready</span>
           <h3 class="text-base font-semibold text-slate-900 mt-1" id="waModalTitle">Send WhatsApp Message to Customer</h3>
         </div>
-        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="text-muted hover:text-primary text-lg font-bold">✕</button>
+        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 text-lg">✕</button>
       </div>
-      <p class="text-xs text-muted">This message has been <strong>automatically copied to your clipboard</strong> and the Customer Portal tracker has been updated:</p>
-      <textarea id="waModalTextarea" rows="5" class="w-full p-3 text-xs bg-bg border border-border rounded-lg font-medium text-slate-800 focus:outline-none focus:border-primary"></textarea>
+      <p class="text-xs text-slate-500">This message has been <strong>automatically copied to your clipboard</strong> and the Customer Portal tracker has been updated:</p>
+      <textarea id="waModalTextarea" rows="5" class="w-full p-3 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium text-slate-800 focus:outline-none focus:border-[#FF4500]"></textarea>
       <div class="flex flex-wrap items-center justify-end gap-2 pt-2">
-        <button type="button" onclick="copyWaModalText()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold">
-          📋 Copy Text Again
+        <button type="button" onclick="copyWaModalText()" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium">
+          Copy Text Again
         </button>
-        <a id="waModalDirectLink" href="#" target="_blank" class="px-4 py-2 rounded-lg bg-warning hover:bg-warning/90 text-white text-xs font-semibold">
-          📲 Open WhatsApp Chat with Cx ↗
+        <a id="waModalDirectLink" href="#" target="_blank" class="px-3.5 py-2 rounded-lg bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold">
+          Open WhatsApp Chat ↗
         </a>
-        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="px-3 py-2 rounded-lg bg-bg hover:bg-slate-200 text-slate-700 text-xs font-semibold">
+        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium">
           Done
         </button>
       </div>
@@ -131,104 +163,123 @@
   </div>
 
   <!-- =========================================================================
-       SCREEN B: INTERNAL STAFF HEADER (Adorzy Branded)
+       SCREEN B: CRISP LINEAR / STRIPE DAYLIGHT TOP NAVIGATION BAR
+       (Replaces the heavy pitch-black double-decker header from Image 1!)
        ========================================================================= -->
-  <header id="internalAppHeader" class="hidden bg-slate-950 text-white sticky top-0 z-40 shadow-md">
-    <div class="max-w-[1440px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-3 cursor-pointer" onclick="returnToRoleHome()">
+  <header id="internalAppHeader" class="hidden bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+
+      <!-- Left: Adorzy Geometric SVG Logo + Workspace Title -->
+      <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="returnToRoleHome()">
         <div class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"></path>
-            <path d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"></path>
-            <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 -7.62939e-06 10.868 -7.62939e-06H5.10773C4.90554 -7.62939e-06 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378C0 6.96371 0 9.41089 0 10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"></path>
-            <path d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781C23.9997 6.96372 23.9997 9.4109 23.9997 10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"></path>
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 0 10.868 0H5.10773C4.90554 0 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378V10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"/>
+            <path d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781V10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"/>
+            <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"/>
+            <path d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"/>
           </svg>
-          <span class="text-lg font-black tracking-wider text-[#FF4500]">ADORZY</span>
+          <span class="text-base font-extrabold tracking-tight text-slate-900">ADORZY</span>
         </div>
-        <div class="border-l border-slate-800 pl-3">
-          <div class="flex items-center gap-2">
-            <h1 class="text-sm font-bold tracking-tight text-white">Escalation &amp; Order Intelligence</h1>
-            <span id="headerRoleBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-[#FF4500]/20 text-[#FF4500] border border-[#FF4500]/40"></span>
-          </div>
-          <p class="text-[11px] text-slate-400" id="activeRoleSubtitle"></p>
+        <span class="text-slate-300">/</span>
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="text-xs font-semibold text-slate-700">Escalations</span>
+          <span id="headerRoleBadge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md bg-orange-50 text-[#FF4500] border border-orange-200/80"></span>
         </div>
       </div>
 
-      <!-- Global Order / Phone Search Bar -->
-      <form id="mainSearchForm" class="flex-1 max-w-xl flex items-center gap-2">
-        <input
-          id="mainSearchInput"
-          type="text"
-          placeholder="Search Order ID (e.g. ORD-OR5ZPX), Order No, or 10-Digit Phone..."
-          class="w-full px-3.5 py-2 text-sm bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-primary"
-        />
-        <button type="submit" class="px-4 py-2 bg-warning hover:bg-warning/90 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition shrink-0">
+      <!-- Center: Linear / Command-Style Search Bar -->
+      <form id="mainSearchForm" class="flex-1 max-w-lg flex items-center gap-1.5">
+        <div class="relative flex-1">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input
+            id="mainSearchInput"
+            type="text"
+            placeholder="Search Order ID (ORD-...), Order No, or 10-digit Phone..."
+            class="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-100/80 hover:bg-slate-100 focus:bg-white border border-slate-200/90 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]/20 focus:border-[#FF4500] transition"
+          />
+        </div>
+        <button type="submit" class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg transition shrink-0">
           Search
-        </button>
-        <button type="button" onclick="returnToRoleHome()" class="px-3 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold rounded-lg shrink-0">
-          🏠 Queue Home
         </button>
       </form>
 
-      <!-- Right Side: Admin-Only View Switcher + Copy Cx Portal Link + Sign Out -->
-      <div class="flex items-center gap-2 flex-wrap">
+      <!-- Right: Clean Navigation Actions & User Profile -->
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          type="button"
+          onclick="returnToRoleHome()"
+          class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-xs font-medium transition flex items-center gap-1.5"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          <span class="hidden md:inline">Queue</span>
+        </button>
+
         <button
           type="button"
           onclick="copyCustomerPortalLink()"
-          class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold"
+          class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 text-xs font-medium transition flex items-center gap-1.5"
+          title="Copy isolated Customer Self-Service Portal link"
         >
-          🔗 Copy Cx Portal Link
+          <svg class="w-3.5 h-3.5 text-[#FF4500]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <span class="hidden md:inline">Cx Portal Link</span>
         </button>
 
-        <div id="adminViewSwitcherGroup" class="hidden inline-flex rounded-lg bg-slate-900 p-0.5 border border-slate-700 text-xs">
-          <button type="button" data-view="cdt" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-warning text-white">CDT View</button>
-          <button type="button" data-view="sales" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold text-slate-300 hover:text-white">Sales View</button>
-          <button type="button" data-view="admin" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold text-amber-300 hover:text-white">⚙️ Admin &amp; Roster</button>
+        <!-- Admin-Only Segmented Switcher -->
+        <div id="adminViewSwitcherGroup" class="hidden inline-flex rounded-lg bg-slate-100 p-0.5 border border-slate-200 text-xs">
+          <button type="button" data-view="cdt" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-white text-slate-900 shadow-xs">CDT</button>
+          <button type="button" data-view="sales" class="admin-switch-btn px-2.5 py-1 rounded-md font-medium text-slate-600 hover:text-slate-900">Sales</button>
+          <button type="button" data-view="admin" class="admin-switch-btn px-2.5 py-1 rounded-md font-medium text-slate-600 hover:text-slate-900">Roster</button>
         </div>
+
+        <div class="h-4 w-[1px] bg-slate-200 hidden sm:block"></div>
+        <span class="text-[11px] font-medium text-slate-500 hidden xl:inline" id="activeRoleSubtitle"></span>
 
         <button
           type="button"
           onclick="signOutStaff()"
-          class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-rose-900/60 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold"
+          class="px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 text-xs font-medium transition"
         >
           Sign Out
         </button>
       </div>
     </div>
-
-    <!-- CDT LIVE CAPACITY BAR & 7-BUCKET QUEUE STRIP -->
-    <div id="cdtTopBar" class="hidden bg-slate-900 border-t border-slate-800 px-4 py-2">
-      <div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
-        <div class="flex items-center gap-2 flex-wrap" id="rosterCapacityBar">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Executive Load:</span>
-        </div>
-        <div class="flex items-center gap-1.5 overflow-x-auto scroll-thin py-0.5" id="bucketTabsBar"></div>
-      </div>
-    </div>
   </header>
 
   <!-- NOTIFICATION TOAST BANNER -->
-  <div id="toastBanner" class="hidden fixed bottom-5 right-5 z-50 max-w-md bg-slate-950 text-white border border-primary rounded-xl shadow-2xl p-4">
+  <div id="toastBanner" class="hidden fixed bottom-5 right-5 z-50 max-w-md bg-slate-900 text-white border border-slate-700 rounded-xl shadow-2xl p-4">
     <div class="flex items-start justify-between gap-3">
-      <div>
-        <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-warning text-white">Adorzy Notification</span>
-        <h4 class="text-sm font-bold mt-1" id="toastTitle">Alert</h4>
-        <p class="text-xs text-slate-300 mt-0.5" id="toastBody"></p>
+      <div class="flex items-start gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-[#FF4500] mt-1.5 shrink-0"></span>
+        <div>
+          <h4 class="text-xs font-bold" id="toastTitle">Alert</h4>
+          <p class="text-xs text-slate-300 mt-0.5 leading-relaxed" id="toastBody"></p>
+        </div>
       </div>
       <button type="button" onclick="document.getElementById('toastBanner').classList.add('hidden')" class="text-slate-400 hover:text-white text-xs">✕</button>
     </div>
   </div>
 
   <!-- MAIN WORKSPACE CONTAINER -->
-  <main id="mainAppContainer" class="hidden flex-1 max-w-[1440px] w-full mx-auto px-4 py-5 space-y-6">
+  <main id="mainAppContainer" class="hidden flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
 
-    <!-- LOADING & ERROR BANNERS -->
-    <div id="loadingIndicator" class="hidden bg-surface border border-border rounded-xl p-6 text-center shadow-sm">
-      <div class="inline-block w-6 h-6 border-4 border-[#FF4500] border-t-transparent rounded-full animate-spin mb-2"></div>
-      <p class="text-xs font-semibold text-muted" id="loadingMessage">Loading...</p>
+    <!-- =====================================================================
+         CUSTOM PERSONALISED ADORZY 4-PETAL SVG LOADING INDICATOR
+         ===================================================================== -->
+    <div id="loadingIndicator" class="hidden bg-white border border-slate-200/90 rounded-2xl p-8 text-center shadow-xs">
+      <div class="inline-flex items-center justify-center p-3 rounded-2xl bg-orange-50/70 border border-orange-100 mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none">
+          <path class="adorzy-petal-1" d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 0 10.868 0H5.10773C4.90554 0 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378V10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"/>
+          <path class="adorzy-petal-2" d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781V10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"/>
+          <path class="adorzy-petal-3" d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"/>
+          <path class="adorzy-petal-4" d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"/>
+        </svg>
+      </div>
+      <p class="text-xs font-semibold text-slate-700" id="loadingMessage">Syncing with Adorzy Intelligence...</p>
     </div>
 
-    <div id="errorBanner" class="hidden bg-rose-50 border border-rose-200 text-rose-900 rounded-xl p-4 shadow-sm flex items-center justify-between">
+    <div id="errorBanner" class="hidden bg-rose-50 border border-rose-200 text-rose-900 rounded-xl p-4 shadow-xs flex items-center justify-between">
       <div>
         <h3 class="text-sm font-bold" id="errorTitle">Notice</h3>
         <p class="text-xs text-rose-700 mt-0.5" id="errorText"></p>
@@ -239,46 +290,56 @@
     <!-- =====================================================================
          INTERNAL WORKSPACE (CDT WORKBENCH & SALES LIVE TRACKER)
          ===================================================================== -->
-    <div id="internalWorkspaceView" class="space-y-6">
+    <div id="internalWorkspaceView" class="space-y-5">
 
-      <!-- 1. CDT DEFAULT LANDING DASHBOARD -->
-      <section id="cdtLandingDashboard" class="hidden space-y-4">
-        <div class="bg-surface border border-border rounded-xl p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+      <!-- 1. CDT DEFAULT LANDING DASHBOARD (Linear/Stripe Style — Zero Horizontal Bucket Scrolling!) -->
+      <section id="cdtLandingDashboard" class="hidden space-y-5">
+
+        <!-- Top Control Row: Title + Compact Executive Load Pills + Filters -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <span class="text-[11px] font-bold uppercase tracking-wider text-primary">Adorzy CDT Operations Control Center</span>
-            <h2 class="text-lg font-extrabold text-slate-900 mt-0.5" id="cdtQueueHeading">All Active Escalation Tickets</h2>
-            <p class="text-xs text-muted">Click any ticket below to open its 360° Order Dossier, or search an Order ID / Phone Number above to log a new escalation.</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <h2 class="text-lg font-bold text-slate-900 tracking-tight" id="cdtQueueHeading">Escalation Pipeline</h2>
+              <div class="flex items-center gap-1.5 flex-wrap" id="rosterCapacityBar"></div>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">Select any pipeline stage card below to filter, or click any row to open the 360° Order Dossier.</p>
           </div>
+
           <div class="flex items-center gap-2 flex-wrap">
-            <select id="cdtAgentFilterSelect" onchange="renderCdtHomeQueueTable()" class="px-3 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
-              <option value="ALL">Show: All Team Tickets</option>
-              <option value="MINE">Show: Only My Assigned Tickets</option>
-              <option value="SLA_DUE">⏰ Show: Action Date Due (≤24h) / Overdue</option>
-              <option value="DRAFTS">Show: Unfinished Cx Portal Drop-Offs (Drafts)</option>
+            <select id="cdtAgentFilterSelect" onchange="renderCdtHomeQueueTable()" class="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg font-medium text-slate-700 shadow-2xs focus:outline-none focus:border-[#FF4500]">
+              <option value="ALL">All Team Tickets</option>
+              <option value="MINE">Assigned to Me</option>
+              <option value="SLA_DUE">Action Date Due (≤24h) / Overdue</option>
+              <option value="DRAFTS">Unfinished Cx Portal Drafts</option>
             </select>
-            <button type="button" onclick="triggerManualGmailSync()" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-orange-50 text-primary border border-orange-200 hover:bg-orange-100">
-              🔄 Sync Gmail &amp; Check SLA Reminders
+            <button type="button" onclick="triggerManualGmailSync()" class="text-xs font-medium px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs flex items-center gap-1.5 transition">
+              <svg class="w-3.5 h-3.5 text-[#FF4500]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+              <span>Sync Threads &amp; SLA</span>
             </button>
           </div>
         </div>
 
-        <div class="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
+        <!-- 8-COLUMN PIPELINE STAGE METRIC GRID (Fits 100% on screen with ZERO horizontal scrolling!) -->
+        <div id="bucketTabsBar" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5"></div>
+
+        <!-- LINEAR / ATTIO HIGH-DENSITY TICKETS TABLE (No ugly orange Open buttons!) -->
+        <div class="bg-white border border-slate-200/90 rounded-xl shadow-2xs overflow-hidden">
           <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-slate-200 text-xs text-left">
-              <thead class="bg-bg font-bold text-slate-600 uppercase">
+            <table class="min-w-full divide-y divide-slate-200/80 text-xs text-left">
+              <thead class="bg-slate-50/80 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
                 <tr>
-                  <th class="px-4 py-3">Ticket ID</th>
-                  <th class="px-4 py-3">Order ID</th>
+                  <th class="px-4 py-3 whitespace-nowrap">Ticket</th>
+                  <th class="px-4 py-3 whitespace-nowrap">Order ID</th>
                   <th class="px-4 py-3">Customer</th>
-                  <th class="px-4 py-3">Bucket</th>
-                  <th class="px-4 py-3">Live Stage / Status</th>
-                  <th class="px-4 py-3">Action Date / SLA</th>
-                  <th class="px-4 py-3">Assigned Executive</th>
-                  <th class="px-4 py-3">Updated</th>
-                  <th class="px-4 py-3 text-right">Action</th>
+                  <th class="px-4 py-3 whitespace-nowrap">Stage Bucket</th>
+                  <th class="px-4 py-3">Live Status / Milestone</th>
+                  <th class="px-4 py-3 whitespace-nowrap">Action Date</th>
+                  <th class="px-4 py-3 whitespace-nowrap">Owner</th>
+                  <th class="px-4 py-3 whitespace-nowrap text-right">Updated</th>
+                  <th class="w-8 pr-3"></th>
                 </tr>
               </thead>
-              <tbody id="cdtHomeQueueTableBody" class="divide-y divide-slate-100"></tbody>
+              <tbody id="cdtHomeQueueTableBody" class="divide-y divide-slate-100 bg-white"></tbody>
             </table>
           </div>
         </div>
@@ -286,29 +347,35 @@
 
       <!-- 2. SALES DEFAULT LANDING DASHBOARD -->
       <section id="salesLandingDashboard" class="hidden space-y-5">
-        <div class="bg-slate-950 text-white rounded-2xl p-6 shadow-md border border-slate-800">
-          <span class="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded bg-[#FF4500]/20 text-[#FF4500]">Sales Team Live Escalation Tracker (View-Only)</span>
-          <h2 class="text-xl font-extrabold mt-2">Track Any Customer Order, Call Logs or Live Escalation</h2>
-          <p class="text-xs text-slate-300 mt-1 max-w-2xl">Search by Order ID, Order Number, or Customer's 10-Digit Phone Number to view the real-time Pizza Tracker, inspect all CDT Call Logs, and read the exact script to share with the customer.</p>
-          <form onsubmit="event.preventDefault(); runOrderOrPhoneSearch(document.getElementById('salesHeroSearchInput').value.trim(), 'auto');" class="mt-4 flex max-w-xl gap-2">
-            <input id="salesHeroSearchInput" type="text" placeholder="Enter Order ID (e.g. ORD-OR5ZPX) or 10-Digit Customer Phone..." class="flex-1 px-4 py-2.5 text-sm bg-white text-slate-900 rounded-lg focus:outline-none" />
-            <button type="submit" class="px-5 py-2.5 bg-warning hover:bg-warning/90 text-white text-xs font-bold uppercase tracking-wider rounded-lg">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-1.5 max-w-xl">
+            <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-orange-50 text-[#FF4500] border border-orange-200">
+              Sales Live Escalation Tracker
+            </span>
+            <h2 class="text-xl font-bold text-slate-900 tracking-tight">Track Any Customer Order, Call Logs or Live Escalation</h2>
+            <p class="text-xs text-slate-500 leading-relaxed">Enter an Order ID, Order Number, or 10-digit Customer Phone Number to view the real-time progress bar, inspect CDT Call Logs, and copy the exact customer update script.</p>
+          </div>
+          <form onsubmit="event.preventDefault(); runOrderOrPhoneSearch(document.getElementById('salesHeroSearchInput').value.trim(), 'auto');" class="flex w-full md:w-96 gap-2">
+            <input id="salesHeroSearchInput" type="text" placeholder="Order ID (ORD-...) or 10-Digit Phone..." class="flex-1 px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:border-[#FF4500]" />
+            <button type="submit" class="px-4 py-2 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg shrink-0 transition">
               Track Order
             </button>
           </form>
         </div>
 
-        <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
-          <h3 class="text-sm font-bold text-slate-900">Recent Active Escalations Across Orders</h3>
-          <p class="text-xs text-muted">Click any ticket to view its live progress bar, call log table, and customer update script</p>
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-slate-900">Recent Active Escalations</h3>
+            <span class="text-xs text-slate-400">Click any card to open live tracker</span>
+          </div>
           <div id="salesRecentTicketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
         </div>
       </section>
 
       <!-- PHONE NUMBER MULTI-ORDER RESULTS -->
-      <section id="phoneResultsSection" class="hidden bg-surface border border-border rounded-xl p-5 shadow-sm">
+      <section id="phoneResultsSection" class="hidden bg-white border border-slate-200 rounded-xl p-5 shadow-2xs">
         <h2 class="text-sm font-bold text-slate-900 mb-1">Orders Linked to Phone Number</h2>
-        <p class="text-xs text-muted mb-3" id="phoneResultsSub"></p>
+        <p class="text-xs text-slate-500 mb-3" id="phoneResultsSub"></p>
         <div id="phoneCardsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
       </section>
 
@@ -316,176 +383,177 @@
       <section id="orderDossierSection" class="hidden space-y-6">
 
         <!-- Order Header -->
-        <div class="bg-surface border border-border rounded-xl p-5 shadow-sm">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-4 border-b border-border">
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-4 border-b border-slate-100">
             <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span id="dosSourceBadge" class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-orange-50 text-primary border border-orange-200"></span>
-                <h2 id="dosOrderId" class="text-2xl font-extrabold text-slate-900"></h2>
-                <span class="text-sm font-semibold text-slate-600" id="dosCxName"></span>
+              <div class="flex items-center gap-2.5 flex-wrap">
+                <button type="button" onclick="returnToRoleHome()" class="text-xs font-medium text-slate-500 hover:text-slate-900 flex items-center gap-1 pr-2 border-r border-slate-200">
+                  ← Back
+                </button>
+                <span id="dosSourceBadge" class="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700"></span>
+                <h2 id="dosOrderId" class="text-xl font-bold font-mono text-slate-900"></h2>
+                <span class="text-sm font-medium text-slate-600" id="dosCxName"></span>
               </div>
-              <p class="text-xs text-muted mt-1">
-                Order Number: <strong id="dosOrderNumber" class="text-slate-800"></strong> |
-                Raw Sheet ID: <code id="dosRawId" class="text-slate-600"></code>
+              <p class="text-xs text-slate-400 mt-1">
+                Order Number: <strong id="dosOrderNumber" class="text-slate-700 font-mono"></strong> ·
+                Sheet Key: <code id="dosRawId" class="text-slate-600 font-mono"></code>
               </p>
             </div>
 
-            <div class="flex items-center gap-2.5 flex-wrap">
-              <div class="bg-bg border border-border rounded-lg px-3 py-1.5 text-right">
-                <span class="block text-[10px] uppercase font-bold text-muted">Booking Date</span>
-                <span id="dosBookingDate" class="text-xs font-bold text-slate-800"></span>
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-1.5 text-right">
+                <span class="block text-[10px] uppercase font-semibold text-slate-400">Booking Date</span>
+                <span id="dosBookingDate" class="text-xs font-semibold text-slate-800"></span>
               </div>
-              <div class="bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 text-right">
-                <span class="block text-[10px] uppercase font-bold text-amber-700">Delivery Date</span>
-                <span id="dosDeliveryDate" class="text-xs font-bold text-amber-900"></span>
+              <div class="bg-orange-50/60 border border-orange-200/80 rounded-lg px-3 py-1.5 text-right">
+                <span class="block text-[10px] uppercase font-semibold text-[#FF4500]">Delivery Date</span>
+                <span id="dosDeliveryDate" class="text-xs font-semibold text-slate-900"></span>
               </div>
             </div>
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
-            <div class="p-3 rounded-lg bg-bg border border-border">
-              <span class="text-[11px] text-muted font-medium">Order Value</span>
-              <p id="dosOrderValue" class="text-base font-bold text-slate-900 mt-0.5"></p>
+            <div class="p-3 rounded-lg bg-slate-50/70 border border-slate-200/70">
+              <span class="text-[11px] text-slate-500 font-medium">Order Value</span>
+              <p id="dosOrderValue" class="text-sm font-bold text-slate-900 mt-0.5 font-mono"></p>
             </div>
-            <div class="p-3 rounded-lg bg-emerald-50/60 border border-emerald-200/80">
+            <div class="p-3 rounded-lg bg-emerald-50/50 border border-emerald-200/70">
               <span class="text-[11px] text-emerald-700 font-medium">Total Amount Paid</span>
-              <p id="dosAmountPaid" class="text-base font-bold text-emerald-900 mt-0.5"></p>
+              <p id="dosAmountPaid" class="text-sm font-bold text-emerald-900 mt-0.5 font-mono"></p>
             </div>
-            <div class="p-3 rounded-lg bg-bg border border-border">
-              <span class="text-[11px] text-muted font-medium">Discount Provided</span>
-              <p id="dosDiscount" class="text-base font-bold text-slate-900 mt-0.5"></p>
+            <div class="p-3 rounded-lg bg-slate-50/70 border border-slate-200/70">
+              <span class="text-[11px] text-slate-500 font-medium">Discount Provided</span>
+              <p id="dosDiscount" class="text-sm font-bold text-slate-900 mt-0.5 font-mono"></p>
             </div>
-            <div class="p-3 rounded-lg bg-bg border border-border">
-              <span class="text-[11px] text-muted font-medium">Customer Phone</span>
-              <p id="dosPhone" class="text-base font-bold text-primary mt-0.5 cursor-pointer hover:underline"></p>
+            <div class="p-3 rounded-lg bg-slate-50/70 border border-slate-200/70">
+              <span class="text-[11px] text-slate-500 font-medium">Customer Phone</span>
+              <p id="dosPhone" class="text-sm font-bold text-[#FF4500] mt-0.5 font-mono cursor-pointer hover:underline"></p>
             </div>
-            <div class="p-3 rounded-lg bg-bg border border-border">
-              <span class="text-[11px] text-muted font-medium">Sales Representative</span>
-              <p id="dosSalesRep" class="text-xs font-bold text-slate-900 mt-1"></p>
+            <div class="p-3 rounded-lg bg-slate-50/70 border border-slate-200/70">
+              <span class="text-[11px] text-slate-500 font-medium">Sales Representative</span>
+              <p id="dosSalesRep" class="text-xs font-semibold text-slate-900 mt-1"></p>
             </div>
-            <div class="p-3 rounded-lg bg-bg border border-border">
-              <span class="text-[11px] text-muted font-medium">Delivery Type</span>
-              <p id="dosDeliveryType" class="text-xs font-bold text-slate-900 mt-1"></p>
+            <div class="p-3 rounded-lg bg-slate-50/70 border border-slate-200/70">
+              <span class="text-[11px] text-slate-500 font-medium">Delivery Type</span>
+              <p id="dosDeliveryType" class="text-xs font-semibold text-slate-900 mt-1"></p>
             </div>
-            <div class="p-3 rounded-lg bg-bg border border-border">
-              <span class="text-[11px] text-muted font-medium">Quote Number</span>
-              <p id="dosQuoteNo" class="text-xs font-bold text-slate-900 mt-1"></p>
+            <div class="p-3 rounded-lg bg-slate-50/70 border border-slate-200/70">
+              <span class="text-[11px] text-slate-500 font-medium">Quote Number</span>
+              <p id="dosQuoteNo" class="text-xs font-semibold font-mono text-slate-900 mt-1"></p>
             </div>
-            <div class="p-3 rounded-lg bg-bg border border-border">
-              <span class="text-[11px] text-muted font-medium">Quote Drive Preview</span>
+            <div class="p-3 rounded-lg bg-slate-50/70 border border-slate-200/70">
+              <span class="text-[11px] text-slate-500 font-medium">Quote Document</span>
               <div id="dosQuoteBtns" class="mt-1 flex items-center gap-1.5"></div>
             </div>
-            <div class="col-span-2 sm:col-span-4 p-3 rounded-lg bg-bg border border-border">
-              <span class="text-[11px] text-muted font-medium">Delivery Location</span>
-              <p id="dosLocation" class="text-xs font-semibold text-slate-800 mt-0.5"></p>
+            <div class="col-span-2 sm:col-span-4 p-3 rounded-lg bg-slate-50/70 border border-slate-200/70">
+              <span class="text-[11px] text-slate-500 font-medium">Delivery Address</span>
+              <p id="dosLocation" class="text-xs font-medium text-slate-800 mt-0.5"></p>
             </div>
           </div>
         </div>
 
         <!-- Embedded Quote PDF Drawer -->
-        <div id="quotePreviewBox" class="hidden bg-surface border border-border rounded-xl overflow-hidden shadow-sm">
-          <div class="px-4 py-2.5 bg-slate-900 text-white flex items-center justify-between text-xs font-semibold">
-            <span>Quote Drive Document Preview</span>
+        <div id="quotePreviewBox" class="hidden bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+          <div class="px-4 py-2.5 bg-slate-900 text-white flex items-center justify-between text-xs font-medium">
+            <span>Quote Document Preview</span>
             <button type="button" onclick="document.getElementById('quotePreviewBox').classList.add('hidden')" class="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600">Close</button>
           </div>
           <iframe id="quotePreviewIframe" class="w-full h-[500px] border-0"></iframe>
         </div>
 
-        <!-- =================================================================
-             LIVE ESCALATION PIZZA-TRACKER + DEDICATED CALL LOG TABLE
-             ================================================================= -->
-        <div id="liveTrackerBanner" class="hidden bg-surface border-2 border-orange-200 rounded-xl p-5 shadow-sm space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
+        <!-- LIVE ESCALATION PIZZA-TRACKER + DEDICATED CALL LOG TABLE -->
+        <div id="liveTrackerBanner" class="hidden bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
               <div class="flex items-center gap-2 flex-wrap">
-                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-orange-50 text-primary border border-orange-200" id="trkTicketBadge">Ticket #ESC-XXXX</span>
-                <span id="trkActionDateBadge" class="hidden text-[11px] font-extrabold px-2.5 py-0.5 rounded"></span>
+                <span class="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-orange-50 text-[#FF4500] border border-orange-200" id="trkTicketBadge">ESC-XXXX</span>
+                <span id="trkActionDateBadge" class="hidden text-[11px] font-semibold px-2.5 py-0.5 rounded-md"></span>
               </div>
-              <h3 class="text-base font-extrabold text-slate-900 mt-1" id="trkHeadlineStage">Live Escalation Status</h3>
+              <h3 class="text-base font-bold text-slate-900 mt-1" id="trkHeadlineStage">Live Escalation Status</h3>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
-              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-900" id="trkPendingDept">Pending With: CDT</span>
-              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-700" id="trkAssignedOwner">Owner: —</span>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-amber-50 text-amber-900 border border-amber-200" id="trkPendingDept">Pending With: CDT</span>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 text-slate-700" id="trkAssignedOwner">Owner: —</span>
             </div>
           </div>
 
-          <!-- 5-Step Pizza Progress Bar (Properly highlights Step 3 on Batch Confirmed!) -->
+          <!-- 5-Step Progress Bar -->
           <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs" id="pizzaProgressGrid"></div>
 
-          <div class="p-3.5 rounded-lg bg-emerald-50 border border-emerald-200 flex items-start justify-between gap-4">
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 flex items-start justify-between gap-4">
             <div>
-              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-800">💬 What Sales / CDT Should Tell Customer Right Now:</span>
-              <p class="text-xs font-semibold text-emerald-950 mt-1" id="trkWhatToTellCx">Investigation in progress.</p>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800">What Sales / CDT Should Tell Customer Right Now</span>
+              <p class="text-xs font-semibold text-emerald-950 mt-0.5" id="trkWhatToTellCx">Investigation in progress.</p>
             </div>
-            <button type="button" onclick="copyCustomerWhatsappUpdate()" class="shrink-0 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold">
-              📲 Copy WhatsApp Update for Cx
+            <button type="button" onclick="copyCustomerWhatsappUpdate()" class="shrink-0 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-medium transition">
+              Copy WhatsApp Script
             </button>
           </div>
 
-          <!-- DEDICATED CALL & TOUCHPOINT LOG TABLE (Visible to Both Sales & CDT!) -->
-          <div class="pt-3 border-t border-border space-y-2">
+          <!-- DEDICATED CALL & TOUCHPOINT LOG TABLE -->
+          <div class="pt-3 border-t border-slate-100 space-y-2">
             <div class="flex items-center justify-between">
-              <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-700">📞 Logged Call &amp; Outreach History (Stored in Escalation_Audit_Timeline)</h4>
-              <span class="text-[11px] font-semibold text-muted" id="callLogsCountBadge">0 calls logged</span>
+              <h4 class="text-xs font-semibold text-slate-800">Call &amp; Follow-Up History</h4>
+              <span class="text-[11px] font-medium text-slate-400" id="callLogsCountBadge">0 calls logged</span>
             </div>
-            <div class="overflow-x-auto border border-border rounded-lg max-h-48 scroll-thin">
-              <table class="min-w-full divide-y divide-slate-200 text-[11px] text-left">
-                <thead class="bg-bg font-bold text-slate-600 uppercase">
+            <div class="overflow-x-auto border border-slate-200/80 rounded-lg max-h-48 scroll-thin">
+              <table class="min-w-full divide-y divide-slate-200/80 text-[11px] text-left">
+                <thead class="bg-slate-50 font-semibold text-slate-500 uppercase">
                   <tr>
-                    <th class="px-3 py-2">Date / Time</th>
-                    <th class="px-3 py-2">Logged By</th>
-                    <th class="px-3 py-2">Spoke To</th>
-                    <th class="px-3 py-2">Contact Person</th>
-                    <th class="px-3 py-2">Call Outcome</th>
-                    <th class="px-3 py-2">Call Summary / Notes</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Date / Time</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Agent</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Spoke To</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Contact</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Outcome</th>
+                    <th class="px-3 py-2">Summary Notes</th>
                   </tr>
                 </thead>
-                <tbody id="sharedCallLogsTableBody" class="divide-y divide-slate-100 bg-surface"></tbody>
+                <tbody id="sharedCallLogsTableBody" class="divide-y divide-slate-100 bg-white"></tbody>
               </table>
             </div>
           </div>
 
-          <div id="salesReadOnlyTimelineBox" class="hidden pt-3 border-t border-border">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-muted mb-2">Complete Email, WhatsApp &amp; System Activity Timeline</h4>
+          <div id="salesReadOnlyTimelineBox" class="hidden pt-3 border-t border-slate-100">
+            <h4 class="text-xs font-semibold text-slate-500 mb-2">Complete Activity Timeline</h4>
             <div id="salesAuditTimelineList" class="space-y-2 max-h-60 overflow-y-auto scroll-thin"></div>
           </div>
         </div>
 
         <!-- UNIFIED SKU SELECTION & LINE ITEM TABLES -->
-        <div id="skuSelectorCard" class="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
-          <div class="px-5 py-3.5 bg-slate-950 text-white flex flex-wrap items-center justify-between gap-2">
+        <div id="skuSelectorCard" class="bg-white border border-slate-200 rounded-xl shadow-2xs overflow-hidden">
+          <div class="px-5 py-3.5 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-2">
             <div>
-              <h3 class="text-sm font-bold">Order SKU Breakdown — Affected Qty, Unit (Boxes/Pcs), Batch No, Per-SKU Issue &amp; Cost Calculator</h3>
-              <p class="text-[11px] text-slate-300">Extracted from <code>po_line_items</code> &amp; <code>metaescline</code> (metaescline includes +18% GST)</p>
+              <h3 class="text-sm font-semibold">Order SKU Breakdown — Affected Qty, Unit (Boxes/Pcs), Batch No &amp; Cost Calculator</h3>
+              <p class="text-[11px] text-slate-400">Extracted from <code>po_line_items</code> &amp; <code>metaescline</code> (metaescline includes +18% GST)</p>
             </div>
             <div class="text-right">
-              <span class="text-[11px] text-slate-300 block">Calculated Financial Error Impact:</span>
-              <span id="liveErrorCostBadge" class="text-sm font-extrabold text-[#FF4500]">₹ 0</span>
+              <span class="text-[10px] uppercase tracking-wider text-slate-400 block">Calculated Error Cost</span>
+              <span id="liveErrorCostBadge" class="text-base font-bold font-mono text-[#FF4500]">₹ 0</span>
             </div>
           </div>
-          <div id="interactiveSkuSelectionList" class="divide-y divide-slate-200"></div>
+          <div id="interactiveSkuSelectionList" class="divide-y divide-slate-100"></div>
         </div>
 
         <!-- Raw Sub-Tables -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div class="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
-            <div class="px-4 py-3 border-b border-border flex items-center justify-between">
+          <div class="bg-white border border-slate-200 rounded-xl shadow-2xs overflow-hidden">
+            <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
               <div>
-                <h4 class="text-xs font-bold text-slate-900">Purchase Order Line Items (po_line_items)</h4>
-                <p class="text-[11px] text-muted">Itemized breakdown extracted by matching Order ID</p>
+                <h4 class="text-xs font-semibold text-slate-900">Purchase Order Line Items (po_line_items)</h4>
+                <p class="text-[11px] text-slate-400">Matched by Order ID</p>
               </div>
-              <span id="poRawCountBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100">0 rows</span>
+              <span id="poRawCountBadge" class="text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">0 rows</span>
             </div>
             <div id="poRawTableContainer" class="overflow-x-auto scroll-thin max-h-64"></div>
           </div>
 
-          <div class="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
-            <div class="px-4 py-3 border-b border-border flex items-center justify-between">
+          <div class="bg-white border border-slate-200 rounded-xl shadow-2xs overflow-hidden">
+            <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
               <div>
-                <h4 class="text-xs font-bold text-slate-900">Purchase Order Line Items (metaescline)</h4>
-                <p class="text-[11px] text-muted">Itemized breakdown extracted by matching Order ID</p>
+                <h4 class="text-xs font-semibold text-slate-900">Purchase Order Line Items (metaescline)</h4>
+                <p class="text-[11px] text-slate-400">Matched by Order ID</p>
               </div>
-              <span id="metaRawCountBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100">0 rows</span>
+              <span id="metaRawCountBadge" class="text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">0 rows</span>
             </div>
             <div id="metaRawTableContainer" class="overflow-x-auto scroll-thin max-h-64"></div>
           </div>
@@ -498,24 +566,24 @@
           <div class="lg:col-span-7 space-y-5">
 
             <!-- Panel A: Classification, Resolution, Optional Action Date & Direct Save Button -->
-            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-4">
-              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                 <div>
-                  <h3 class="text-sm font-bold text-slate-900">1. Escalation Classification, Resolution &amp; Bucket</h3>
-                  <p class="text-[11px] text-muted" id="cdtAutoDraftStatusText">Auto-saving classification in browser (Refresh-safe)</p>
+                  <h3 class="text-sm font-semibold text-slate-900">1. Escalation Classification, Resolution &amp; Bucket</h3>
+                  <p class="text-[11px] text-slate-400" id="cdtAutoDraftStatusText">Auto-saving classification in browser (Refresh-safe)</p>
                 </div>
                 <div class="flex items-center gap-2">
-                  <span id="editingEscIdLabel" class="text-xs font-mono font-bold text-primary">New Ticket</span>
-                  <button type="button" onclick="saveOrSendTicket(false)" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-sm">
-                    💾 Save Classification (Draft Email Later)
+                  <span id="editingEscIdLabel" class="text-xs font-mono font-semibold text-[#FF4500]">New Ticket</span>
+                  <button type="button" onclick="saveOrSendTicket(false)" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">
+                    Save Classification
                   </button>
                 </div>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Current Case Bucket</label>
-                  <select id="escBucketSelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold">
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Current Case Bucket</label>
+                  <select id="escBucketSelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
                     <option value="Incoming Cx Claims">Incoming Cx Claims</option>
                     <option value="Open (Mid-Stage Draft)" selected>Open (Mid-Stage Draft)</option>
                     <option value="Awaiting Cx Update/Response">Awaiting Cx Update/Response</option>
@@ -527,23 +595,23 @@
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Site Verification Agent (Only if Site Visit)</label>
-                  <input id="escSiteVerifierInput" type="text" oninput="saveCdtLocalDraft()" placeholder="Leave blank unless assigning site verifier..." class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg" />
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Site Verification Agent (Optional)</label>
+                  <input id="escSiteVerifierInput" type="text" oninput="saveCdtLocalDraft()" placeholder="Leave blank unless assigning site verifier..." class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Team Responsible</label>
-                  <select id="escTeamSelect" onchange="onTeamResponsibleChange(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold"></select>
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Team Responsible</label>
+                  <select id="escTeamSelect" onchange="onTeamResponsibleChange(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium"></select>
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Specific Sub-Issue</label>
-                  <select id="escSubIssueSelect" onchange="buildLiveEmailPreview(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold"></select>
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Specific Sub-Issue</label>
+                  <select id="escSubIssueSelect" onchange="buildLiveEmailPreview(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium"></select>
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Resolution Provided</label>
-                  <select id="escResolutionSelect" onchange="onResolutionTypeChange(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg font-semibold">
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Resolution Provided</label>
+                  <select id="escResolutionSelect" onchange="onResolutionTypeChange(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
                     <option value="Replacement">Replacement</option>
                     <option value="Return and Replacement">Return and Replacement</option>
                     <option value="Return">Return</option>
@@ -555,8 +623,8 @@
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Error Cost Liability</label>
-                  <select id="escCostLiabilitySelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-bg border border-border rounded-lg">
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Error Cost Liability</label>
+                  <select id="escCostLiabilitySelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg">
                     <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
                     <option value="Absorbed by Adorzy">Absorbed by Adorzy</option>
                     <option value="Customer Paid / Commercial Split">Customer Paid / Commercial Split</option>
@@ -564,184 +632,183 @@
                   </select>
                 </div>
 
-                <!-- Optional Target Action Date Picker (24-Hour Advance Notification & SLA Highlight) -->
-                <div class="sm:col-span-2 p-3 rounded-lg bg-orange-50/50 border border-orange-200 flex flex-wrap items-center justify-between gap-2">
+                <!-- Optional Target Action Date Picker -->
+                <div class="sm:col-span-2 p-3 rounded-lg bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <label class="block text-xs font-extrabold text-slate-900">📅 Optional Target Action / Follow-Up Date (24-Hour Advance Alert &amp; SLA Tracker)</label>
-                    <span class="text-[11px] text-muted">Not mandatory. When picked, alerts the assigned agent 24 hours before the action date &amp; highlights SLA breaches.</span>
+                    <label class="block text-xs font-semibold text-slate-800">Optional Target Action Date (24-Hour Advance Reminder)</label>
+                    <span class="text-[11px] text-slate-500">Alerts assigned executive 24 hours before target date &amp; flags overdue SLA.</span>
                   </div>
                   <div class="flex items-center gap-2">
-                    <input id="escTargetActionDateInput" type="date" onchange="saveCdtLocalDraft()" class="px-3 py-1.5 text-xs bg-white border border-orange-300 rounded-lg font-bold text-slate-900" />
-                    <button type="button" onclick="document.getElementById('escTargetActionDateInput').value=''; saveCdtLocalDraft();" class="text-xs px-2 py-1.5 rounded bg-white border border-border text-muted hover:text-slate-900">Clear</button>
+                    <input id="escTargetActionDateInput" type="date" onchange="saveCdtLocalDraft()" class="px-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg font-mono font-semibold text-slate-900" />
+                    <button type="button" onclick="document.getElementById('escTargetActionDateInput').value=''; saveCdtLocalDraft();" class="text-xs px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-slate-900">Clear</button>
                   </div>
                 </div>
               </div>
 
               <!-- Refund Options -->
-              <div id="refundOptionsRow" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div id="refundOptionsRow" class="hidden p-3 rounded-lg bg-amber-50/70 border border-amber-200 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-xs font-bold text-amber-900 mb-1">Refund Destination Mode</label>
-                  <select id="escRefundModeSelect" onchange="buildLiveEmailPreview(); saveCdtLocalDraft();" class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded font-semibold">
+                  <label class="block text-xs font-semibold text-amber-900 mb-1">Refund Destination Mode</label>
+                  <select id="escRefundModeSelect" onchange="buildLiveEmailPreview(); saveCdtLocalDraft();" class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded-lg font-medium">
                     <option value="Refund to Bank Account">Refund to Customer Bank Account</option>
                     <option value="Refund to Customer Wallet (Future Purchase)">Refund to Customer Wallet (For Future Purchase)</option>
                   </select>
                 </div>
                 <div>
-                  <label class="block text-xs font-bold text-amber-900 mb-1">Refund Edge-Case / Details</label>
-                  <input id="escRefundEdgeNote" type="text" oninput="buildLiveEmailPreview(); saveCdtLocalDraft();" placeholder="Describe custom refund reason..." class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded" />
+                  <label class="block text-xs font-semibold text-amber-900 mb-1">Refund Edge-Case / Details</label>
+                  <input id="escRefundEdgeNote" type="text" oninput="buildLiveEmailPreview(); saveCdtLocalDraft();" placeholder="Describe custom refund reason..." class="w-full px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded-lg" />
                 </div>
               </div>
 
               <!-- Storyline & Resolution Notes -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Storyline of the Case (What Happened)</label>
-                  <textarea id="escStorylineInput" rows="3" oninput="onRawNotesEdited()" placeholder="Enter case storyline..." class="w-full p-2.5 text-xs bg-bg border border-border rounded-lg"></textarea>
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Storyline of the Case (What Happened)</label>
+                  <textarea id="escStorylineInput" rows="3" oninput="onRawNotesEdited()" placeholder="Enter case storyline..." class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none focus:border-[#FF4500]"></textarea>
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Resolution Action Details</label>
-                  <textarea id="escResolutionNotesInput" rows="3" oninput="onRawNotesEdited()" placeholder="What exact resolution are we providing..." class="w-full p-2.5 text-xs bg-bg border border-border rounded-lg"></textarea>
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Resolution Action Details</label>
+                  <textarea id="escResolutionNotesInput" rows="3" oninput="onRawNotesEdited()" placeholder="What exact resolution are we providing..." class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none focus:border-[#FF4500]"></textarea>
                 </div>
               </div>
 
-              <!-- Bottom Save Bar inside Panel 1 so agents never lose data -->
-              <div class="pt-2 border-t border-border flex items-center justify-between">
-                <span class="text-[11px] text-muted">You can save classification now and generate/send the email later.</span>
-                <button type="button" onclick="saveOrSendTicket(false)" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-sm">
-                  💾 Save Classification &amp; Progress in Bucket
+              <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-[11px] text-slate-400">Save classification now to draft or send email later.</span>
+                <button type="button" onclick="saveOrSendTicket(false)" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">
+                  Save Classification &amp; Progress
                 </button>
               </div>
             </div>
 
             <!-- PANEL A2: CDT CUSTOMER OUTREACH (RNR / BUSY / NC) & OPEN-ENDED MUTUAL FAST-CLOSE -->
-            <div class="bg-surface border-2 border-orange-200 rounded-xl p-5 shadow-sm space-y-4">
-              <h3 class="text-sm font-extrabold text-slate-900">⚡ CDT Customer Outreach &amp; Mutual Fast-Close Actions</h3>
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
+              <h3 class="text-sm font-semibold text-slate-900">Customer Outreach &amp; Mutual Fast-Close Actions</h3>
 
               <!-- Block 1: Mark Tried Reaching Cx -->
-              <div class="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 space-y-2.5">
+              <div class="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2.5">
                 <div class="flex items-center justify-between">
-                  <span class="text-xs font-extrabold text-amber-950">📵 1. Customer Unreachable? Mark Attempt &amp; Generate WhatsApp Message</span>
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-200 text-amber-900">Shows on Cx Portal</span>
+                  <span class="text-xs font-semibold text-amber-950">1. Customer Unreachable (RNR / Busy / NC)</span>
+                  <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800">Alerts Cx Portal + Copies WhatsApp</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <select id="cxUnreachableReasonSelect" class="px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded-lg font-semibold">
+                  <select id="cxUnreachableReasonSelect" class="px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded-lg font-medium">
                     <option value="Ringing No Response (RNR)">Ringing No Response (RNR)</option>
                     <option value="Line Busy">Line Busy</option>
                     <option value="Switched Off / Not Reachable (NC)">Switched Off / Not Reachable (NC)</option>
                     <option value="Did Not Answer Call">Did Not Answer Call</option>
                   </select>
                   <input id="cxUnreachableExtraNote" type="text" placeholder="Optional note (e.g. Called twice)..." class="px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded-lg" />
-                  <button type="button" onclick="markCustomerUnreachableAndCopyWa()" class="px-3 py-1.5 bg-warning hover:bg-warning/90 text-white text-xs font-bold rounded-lg shadow-sm">
-                    📵 Mark Unreachable &amp; Get WhatsApp
+                  <button type="button" onclick="markCustomerUnreachableAndCopyWa()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg transition">
+                    Mark Unreachable &amp; Get WhatsApp
                   </button>
                 </div>
               </div>
 
               <!-- Block 2: Open-Ended Mutual / No-Action Closure -->
-              <div class="p-3.5 rounded-xl bg-emerald-50/80 border border-emerald-200 space-y-2.5">
+              <div class="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200/80 space-y-2.5">
                 <div class="flex items-center justify-between">
-                  <span class="text-xs font-extrabold text-emerald-950">🤝 2. Customer Convinced / Mutual Closure (Close Without Replacement/Refund)</span>
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900">Closes Ticket + Unlocks Cx Rating</span>
+                  <span class="text-xs font-semibold text-emerald-950">2. Mutual / No-Action Closure (Close Without Replacement/Refund)</span>
+                  <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Closes Ticket + Unlocks CSAT</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <select id="mutualClosePresetSelect" onchange="onMutualPresetChange()" class="px-2.5 py-1.5 text-xs bg-white border border-emerald-300 rounded-lg font-semibold">
+                  <select id="mutualClosePresetSelect" onchange="onMutualPresetChange()" class="px-2.5 py-1.5 text-xs bg-white border border-emerald-300 rounded-lg font-medium">
                     <option value="Minimal damage (<2%) — Customer agreed to utilize affected tiles for cutting / skirting work">Preset: Minimal damage (&lt;2%) — Agreed to use for cutting/skirting</option>
                     <option value="Shade / laying pattern guidance explained on call — Customer satisfied to proceed">Preset: Shade / laying guidance shared — Cx satisfied to proceed</option>
                     <option value="Commercial / site resolution mutually agreed on call — No replacement required">Preset: Mutual commercial / site resolution agreed on call</option>
-                    <option value="CUSTOM">✍️ Type Custom Resolution / Agreement Scenario Below...</option>
+                    <option value="CUSTOM">Type Custom Resolution / Agreement Scenario Below...</option>
                   </select>
                   <input id="mutualCloseCustomInput" type="text" placeholder="Type exact agreement with customer (open for any scenario)..." class="px-2.5 py-1.5 text-xs bg-white border border-emerald-300 rounded-lg" />
                 </div>
-                <button type="button" onclick="closeTicketByMutualAgreement()" class="w-full py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-lg shadow-sm">
-                  ✅ Close Ticket by Mutual Agreement, Update Cx Portal &amp; Copy WhatsApp Confirmation
+                <button type="button" onclick="closeTicketByMutualAgreement()" class="w-full py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-lg transition">
+                  Close Ticket by Mutual Agreement &amp; Copy WhatsApp Confirmation
                 </button>
               </div>
             </div>
 
             <!-- Panel B: Customer Media Proofs & Voice Note Player -->
-            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <div class="flex items-center justify-between">
                 <div>
-                  <h3 class="text-sm font-bold text-slate-900">2. Customer Proof Images, Videos &amp; Voice Notes (Google Drive)</h3>
-                  <p class="text-[11px] text-muted">Play customer voice recordings directly below; click "Transcribe" only if you cannot understand the audio.</p>
+                  <h3 class="text-sm font-semibold text-slate-900">2. Customer Proof Images, Videos &amp; Voice Notes</h3>
+                  <p class="text-[11px] text-slate-400">Play customer voice recordings below; click "Transcribe" only when needed.</p>
                 </div>
-                <a id="openTicketDriveFolderLink" href="#" target="_blank" class="hidden text-xs font-bold text-primary hover:underline">📁 Open Drive Folder ↗</a>
+                <a id="openTicketDriveFolderLink" href="#" target="_blank" class="hidden text-xs font-semibold text-[#FF4500] hover:underline">Open Drive Vault ↗</a>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                <label class="cursor-pointer border-2 border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg">
-                  <span class="block text-xs font-bold text-slate-700">📸 1. Box Batch Sticker</span>
+                <label class="cursor-pointer border border-dashed border-slate-300 hover:border-[#FF4500] rounded-lg p-3 text-center bg-slate-50 transition">
+                  <span class="block text-xs font-semibold text-slate-700">1. Box Batch Sticker</span>
                   <input type="file" accept="image/*" class="hidden" onchange="uploadProofFromInput(this, 'Batch_Sticker')" />
                 </label>
-                <label class="cursor-pointer border-2 border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg">
-                  <span class="block text-xs font-bold text-slate-700">📸 2. Damaged Tiles</span>
+                <label class="cursor-pointer border border-dashed border-slate-300 hover:border-[#FF4500] rounded-lg p-3 text-center bg-slate-50 transition">
+                  <span class="block text-xs font-semibold text-slate-700">2. Damaged Tiles</span>
                   <input type="file" accept="image/*" class="hidden" onchange="uploadProofFromInput(this, 'Damaged_Tiles')" />
                 </label>
-                <label class="cursor-pointer border-2 border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg">
-                  <span class="block text-xs font-bold text-slate-700">🎥 3. Site Video / Audio</span>
+                <label class="cursor-pointer border border-dashed border-slate-300 hover:border-[#FF4500] rounded-lg p-3 text-center bg-slate-50 transition">
+                  <span class="block text-xs font-semibold text-slate-700">3. Site Video / Audio</span>
                   <input type="file" accept="video/*,audio/*,image/*" class="hidden" onchange="uploadProofFromInput(this, 'Site_Video')" />
                 </label>
               </div>
               <div id="uploadedProofsGallery" class="space-y-2 pt-1"></div>
             </div>
 
-            <!-- Panel C: WhatsApp Milestones & Custom Status + Optional Date Picker -->
-            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-4">
-              <h3 class="text-sm font-bold text-slate-900">3. Pre-Email WhatsApp Milestones &amp; Custom Live Status</h3>
+            <!-- Panel C: WhatsApp Milestones & Custom Status -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
+              <h3 class="text-sm font-semibold text-slate-900">3. Quick Milestones &amp; Custom Status</h3>
               <div class="flex flex-wrap gap-1.5">
-                <button type="button" onclick="quickToggleMilestone('Checking Same-Batch Availability on WhatsApp', 'Procurement', 'We are verifying with our warehouse if the exact same tile batch is available.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
-                  💬 Step 2: Checking Batch on WhatsApp
+                <button type="button" onclick="quickToggleMilestone('Checking Same-Batch Availability on WhatsApp', 'Procurement', 'We are verifying with our warehouse if the exact same tile batch is available.')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition">
+                  Step 2: Checking Batch
                 </button>
-                <button type="button" onclick="quickToggleMilestone('Same Batch Confirmed by Procurement on WhatsApp', 'CDT', 'Good news: The exact same tile batch has been confirmed in stock and approved for replacement.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-600 text-white font-bold hover:bg-emerald-700 shadow-sm">
-                  ✅ Step 3: Batch Confirmed (Advances Pizza Tracker!)
+                <button type="button" onclick="quickToggleMilestone('Same Batch Confirmed by Procurement on WhatsApp', 'CDT', 'Good news: The exact same tile batch has been confirmed in stock and approved for replacement.')" class="text-xs px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition">
+                  Step 3: Batch Confirmed
                 </button>
-                <button type="button" onclick="quickToggleMilestone('Defect Proofs Sent to Vendor on WhatsApp', 'Vendor', 'Your defect proofs have been escalated to the manufacturer.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100">
-                  🏭 Step 2: Sent to Vendor
+                <button type="button" onclick="quickToggleMilestone('Defect Proofs Sent to Vendor on WhatsApp', 'Vendor', 'Your defect proofs have been escalated to the manufacturer.')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition">
+                  Step 2: Sent to Vendor
                 </button>
-                <button type="button" onclick="quickToggleMilestone('Site Verification Scheduled', 'Site Verifier', 'Our verification specialist is scheduled to visit your site.')" class="text-xs px-2.5 py-1.5 rounded-lg bg-orange-50 text-primary border border-orange-200 font-semibold hover:bg-orange-100">
-                  📍 Step 2: Site Verification Scheduled
+                <button type="button" onclick="quickToggleMilestone('Site Verification Scheduled', 'Site Verifier', 'Our verification specialist is scheduled to visit your site.')" class="text-xs px-3 py-1.5 rounded-lg bg-orange-50 text-[#FF4500] border border-orange-200 font-medium hover:bg-orange-100 transition">
+                  Step 2: Site Visit Scheduled
                 </button>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-border">
-                <input id="customStageHeadlineInput" type="text" placeholder="Custom Status Headline..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
-                <input id="customPendingDeptInput" type="text" placeholder="Pending Dept (e.g. Vendor)" class="px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
-                <input id="customWhatToTellCxInput" type="text" placeholder="What Sales/Portal should tell Customer..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
-                <button type="button" onclick="saveCustomStatusOverride()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg">
-                  Update Live Status &amp; Action Date
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-100">
+                <input id="customStageHeadlineInput" type="text" placeholder="Custom Status Headline..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
+                <input id="customPendingDeptInput" type="text" placeholder="Pending Dept (e.g. Vendor)" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
+                <input id="customWhatToTellCxInput" type="text" placeholder="What Sales/Portal should tell Customer..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
+                <button type="button" onclick="saveCustomStatusOverride()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium rounded-lg">
+                  Update Live Status
                 </button>
               </div>
             </div>
 
             <!-- Panel D: Return Tracker -->
-            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
-              <h3 class="text-sm font-bold text-slate-900">4. Return Material Logger (CDT Discretion)</h3>
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
+              <h3 class="text-sm font-semibold text-slate-900">4. Return Material Logger</h3>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <select id="retDecisionSelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
+                <select id="retDecisionSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
                   <option value="Pickup Required from Cx Site">Pickup Required from Cx Site</option>
                   <option value="Waived / Scrapped at Site (Fully Broken)">Waived / Scrapped at Site</option>
                   <option value="No Return Applicable">No Return Applicable</option>
                 </select>
-                <select id="retStatusSelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
+                <select id="retStatusSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
                   <option value="Decision Logged">Decision Logged</option>
                   <option value="Pickup Scheduled">Pickup Scheduled</option>
                   <option value="Picked Up from Cx Site">Picked Up from Cx Site</option>
                   <option value="Received at Warehouse">Received at Warehouse</option>
                 </select>
-                <input id="retNotesInput" type="text" placeholder="Return note..." class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg" />
+                <input id="retNotesInput" type="text" placeholder="Return note..." class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
               </div>
-              <button type="button" onclick="logReturnMaterialStatus()" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg">
-                📦 Log Return Timestamp
+              <button type="button" onclick="logReturnMaterialStatus()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-medium rounded-lg">
+                Log Return Timestamp
               </button>
             </div>
 
             <!-- Panel E: Call Logger -->
-            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <div class="flex items-center justify-between">
-                <h3 class="text-sm font-bold text-slate-900">5. Log Follow-Up Call (Appears in Shared Call History Table Above)</h3>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-50 text-primary">Visible to CDT &amp; Sales</span>
+                <h3 class="text-sm font-semibold text-slate-900">5. Log Follow-Up Call</h3>
+                <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">Syncs to Call History Table</span>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <select id="callPartySelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
+                <select id="callPartySelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
                   <option value="Customer">Spoke to: Customer</option>
                   <option value="Procurement">Spoke to: Procurement</option>
                   <option value="Logistics">Spoke to: Logistics</option>
@@ -750,8 +817,8 @@
                   <option value="Accounts">Spoke to: Accounts</option>
                   <option value="Site Verifier">Spoke to: Site Verifier</option>
                 </select>
-                <input id="callPersonInput" type="text" placeholder="Person Name / Number" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg" />
-                <select id="callOutcomeSelect" class="px-2.5 py-1.5 text-xs bg-bg border border-border rounded-lg font-semibold">
+                <input id="callPersonInput" type="text" placeholder="Person Name / Number" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
+                <select id="callOutcomeSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
                   <option value="Connected - Update Shared">Connected - Update Shared</option>
                   <option value="Connected - Follow-up Needed">Connected - Follow-up Needed</option>
                   <option value="Did Not Pick Up (DNP)">Did Not Pick Up (DNP)</option>
@@ -759,9 +826,9 @@
                 </select>
               </div>
               <div class="flex gap-2">
-                <input id="callSummaryInput" type="text" placeholder="Enter call summary..." class="flex-1 px-3 py-1.5 text-xs bg-bg border border-border rounded-lg" />
-                <button type="button" onclick="submitCallLog()" class="px-4 py-1.5 bg-warning hover:bg-warning/90 text-white text-xs font-semibold rounded-lg shrink-0">
-                  📞 Log Call
+                <input id="callSummaryInput" type="text" placeholder="Enter call summary..." class="flex-1 px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
+                <button type="button" onclick="submitCallLog()" class="px-4 py-1.5 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg shrink-0">
+                  Log Call
                 </button>
               </div>
             </div>
@@ -769,57 +836,57 @@
 
           <!-- RIGHT 5 COLS: LIVE AI EMAIL COMPOSER + AUDIT TIMELINE -->
           <div class="lg:col-span-5 space-y-5">
-            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
-              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-2">
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
                 <div>
-                  <h3 class="text-sm font-bold text-slate-900">AI Escalation Email Composer</h3>
-                  <span id="aiEngineStatusBadge" class="text-[10px] font-semibold text-muted">Default: Instant Structured Template (0 Tokens)</span>
+                  <h3 class="text-sm font-semibold text-slate-900">Escalation Email Composer</h3>
+                  <span id="aiEngineStatusBadge" class="text-[10px] font-medium text-slate-400">Default: Structured Template (0 Tokens)</span>
                 </div>
                 <div class="flex items-center gap-1.5">
-                  <input id="aiCustomTweakInput" type="text" placeholder="Tone (e.g. Urgent / Vendor)..." class="px-2 py-1 text-[11px] bg-bg border border-border rounded w-36" />
-                  <button type="button" onclick="polishEmailWithAi()" class="text-[11px] font-bold px-2.5 py-1.5 rounded-lg bg-purple-600 text-white hover:bg-purple-700 shadow-sm">
-                    ✨ Generate / Regenerate AI
+                  <input id="aiCustomTweakInput" type="text" placeholder="Tone (e.g. Urgent)..." class="px-2.5 py-1 text-[11px] bg-slate-50 border border-slate-200 rounded-lg w-32" />
+                  <button type="button" onclick="polishEmailWithAi()" class="text-[11px] font-semibold px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition">
+                    Generate / Polish AI
                   </button>
                 </div>
               </div>
 
               <div class="space-y-2 text-xs">
                 <div>
-                  <label class="font-semibold text-slate-600">To:</label>
-                  <input id="emailToInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-bg border border-border rounded font-mono text-xs" />
+                  <label class="font-medium text-slate-500">To</label>
+                  <input id="emailToInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs" />
                 </div>
                 <div>
-                  <label class="font-semibold text-slate-600">CC:</label>
-                  <input id="emailCcInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-bg border border-border rounded font-mono text-xs" />
+                  <label class="font-medium text-slate-500">CC</label>
+                  <input id="emailCcInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs" />
                 </div>
                 <div>
-                  <label class="font-semibold text-slate-600">Subject:</label>
-                  <input id="emailSubjectInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-bg border border-border rounded font-semibold text-xs" />
+                  <label class="font-medium text-slate-500">Subject</label>
+                  <input id="emailSubjectInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg font-medium text-xs" />
                 </div>
                 <div>
-                  <label class="font-semibold text-slate-600">Formatted Email Preview (Editable):</label>
-                  <div id="emailBodyPreview" contenteditable="true" class="mt-1 p-3 bg-bg border border-border rounded-lg max-h-80 overflow-y-auto text-xs leading-relaxed"></div>
+                  <label class="font-medium text-slate-500">Email Body Preview (Editable)</label>
+                  <div id="emailBodyPreview" contenteditable="true" class="mt-1 p-3 bg-slate-50 border border-slate-200 rounded-lg max-h-80 overflow-y-auto text-xs leading-relaxed"></div>
                 </div>
               </div>
 
               <div class="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <button type="button" onclick="saveOrSendTicket(false)" class="py-2 px-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold text-center">
-                  💾 Save in Bucket
+                <button type="button" onclick="saveOrSendTicket(false)" class="py-2 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold text-center transition">
+                  Save in Bucket
                 </button>
-                <button type="button" onclick="throwToGmailDrafts()" class="py-2 px-2 rounded-lg bg-slate-600 hover:bg-slate-700 text-white text-xs font-bold text-center">
-                  📥 Throw to Drafts
+                <button type="button" onclick="throwToGmailDrafts()" class="py-2 px-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold text-center transition">
+                  Save to Gmail Drafts
                 </button>
-                <button type="button" onclick="saveOrSendTicket(true)" class="py-2 px-2 rounded-lg bg-warning hover:bg-warning/90 text-white text-xs font-bold shadow text-center">
-                  🚀 Log &amp; Send
+                <button type="button" onclick="saveOrSendTicket(true)" class="py-2 px-2 rounded-lg bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold shadow-xs text-center transition">
+                  Log &amp; Send Email
                 </button>
               </div>
             </div>
 
-            <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <div class="flex items-center justify-between">
-                <h3 class="text-sm font-bold text-slate-900">Complete Chronological Audit Trail</h3>
-                <button type="button" onclick="promptAndSendChaser()" class="text-[11px] font-bold px-2.5 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100">
-                  ⏰ Send SLA Chaser Email
+                <h3 class="text-sm font-semibold text-slate-900">Audit Timeline</h3>
+                <button type="button" onclick="promptAndSendChaser()" class="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100">
+                  Send SLA Chaser
                 </button>
               </div>
               <div id="auditTimelineList" class="space-y-2.5 max-h-[420px] overflow-y-auto scroll-thin pr-1"></div>
@@ -837,14 +904,14 @@
 
         <div class="flex items-center justify-between p-4 sm:p-5 sticky top-0 bg-surface z-10 border-b border-border">
           <div class="flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"></path>
-              <path d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"></path>
-              <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 -7.62939e-06 10.868 -7.62939e-06H5.10773C4.90554 -7.62939e-06 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378C0 6.96371 0 9.41089 0 10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"></path>
-              <path d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781C23.9997 6.96372 23.9997 9.4109 23.9997 10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"></path>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 0 10.868 0H5.10773C4.90554 0 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378V10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"/>
+              <path d="M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781V10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z" fill="#FF4500"/>
+              <path d="M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z" fill="#FF4500"/>
+              <path d="M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z" fill="#FF4500"/>
             </svg>
             <div>
-              <span class="text-[11px] font-black uppercase tracking-widest text-[#FF4500] block">ADORZY SUPPORT</span>
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#FF4500] block">ADORZY SUPPORT</span>
               <h3 class="text-base sm:text-lg font-semibold text-slate-900">Apply for Escalation / Track Claim</h3>
             </div>
           </div>
@@ -864,37 +931,35 @@
           <div id="cxSanitizedTrackerCard" class="hidden bg-bg border border-border rounded-xl p-5 space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
               <div>
-                <span class="text-xs font-bold text-primary" id="cxTrkTicketId">Claim #ESC-XXXX</span>
-                <h3 class="text-base font-extrabold text-slate-900" id="cxTrkStageTitle">Under Verification</h3>
+                <span class="text-xs font-mono font-bold text-primary" id="cxTrkTicketId">Claim #ESC-XXXX</span>
+                <h3 class="text-base font-bold text-slate-900" id="cxTrkStageTitle">Under Verification</h3>
               </div>
               <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Live Status</span>
             </div>
 
-            <div id="cxUnreachableAlertBanner" class="hidden p-3.5 rounded-xl bg-amber-100 border-2 border-amber-400 text-amber-950 text-xs space-y-1">
-              <div class="font-extrabold">📵 We Tried Reaching You on Phone!</div>
+            <div id="cxUnreachableAlertBanner" class="hidden p-3.5 rounded-xl bg-amber-100 border border-amber-400 text-amber-950 text-xs space-y-1">
+              <div class="font-bold">We Tried Reaching You on Phone</div>
               <p id="cxUnreachableAlertText" class="font-medium"></p>
             </div>
 
-            <!-- 4-Step Sanitized Progress Bar -->
             <div id="cxSanitizedStepsGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]"></div>
 
             <div class="bg-surface p-3.5 rounded-lg border border-border">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-muted block">Latest Update on Your Claim:</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-muted block">Latest Update on Your Claim</span>
               <p class="text-xs text-slate-800 font-semibold mt-0.5" id="cxTrkPublicNote"></p>
             </div>
 
-            <!-- ONLY SHOWN POST-SUBMISSION: Assigned Specialist + Central Helpline -->
             <div class="p-3.5 rounded-lg bg-surface border border-border flex flex-wrap items-center justify-between gap-2 text-xs">
               <div>
-                <span class="text-[10px] uppercase font-bold text-muted block">Your Assigned Resolution Specialist:</span>
+                <span class="text-[10px] uppercase font-bold text-muted block">Assigned Resolution Specialist</span>
                 <span class="font-bold text-slate-900" id="cxTrkAssignedSpecialist">CDT Specialist</span>
               </div>
               <div class="flex flex-wrap gap-2">
                 <a id="cxCallAssignedBtn" href="tel:+919187011149" class="px-3 py-1.5 rounded-lg bg-warning text-white font-semibold hover:bg-warning/90">
-                  📞 Call Assigned Specialist
+                  Call Specialist
                 </a>
                 <a href="tel:+919187011149" class="px-3 py-1.5 rounded-lg bg-bg border border-border text-slate-800 font-semibold hover:bg-slate-200">
-                  📞 Central Line: 9187011149
+                  Central Line: 9187011149
                 </a>
               </div>
             </div>
@@ -903,17 +968,17 @@
             <div id="cxFeedbackRatingCard" class="hidden p-4 rounded-xl bg-orange-50/70 border border-orange-200 space-y-3">
               <div class="flex items-center justify-between">
                 <div>
-                  <h4 class="text-xs font-extrabold text-slate-900">⭐ Rate Your Resolution Experience</h4>
-                  <p class="text-[11px] text-muted">Your escalation is marked resolved. Please rate our support &amp; share your feedback:</p>
+                  <h4 class="text-xs font-bold text-slate-900">Rate Your Resolution Experience</h4>
+                  <p class="text-[11px] text-muted">Your escalation is marked resolved. Please rate our support:</p>
                 </div>
-                <span id="cxFeedbackSavedBadge" class="hidden text-xs font-bold px-2.5 py-1 rounded bg-emerald-600 text-white">✅ Thank You!</span>
+                <span id="cxFeedbackSavedBadge" class="hidden text-xs font-bold px-2.5 py-1 rounded bg-emerald-600 text-white">Thank You!</span>
               </div>
               <div class="flex items-center gap-2" id="cxStarButtonsRow">
-                <button type="button" onclick="selectCxRatingStars(1)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">1 ⭐</button>
-                <button type="button" onclick="selectCxRatingStars(2)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">2 ⭐</button>
-                <button type="button" onclick="selectCxRatingStars(3)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">3 ⭐</button>
-                <button type="button" onclick="selectCxRatingStars(4)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">4 ⭐</button>
-                <button type="button" onclick="selectCxRatingStars(5)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-warning text-white border border-warning text-xs font-bold">5 ⭐</button>
+                <button type="button" onclick="selectCxRatingStars(1)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">1 ★</button>
+                <button type="button" onclick="selectCxRatingStars(2)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">2 ★</button>
+                <button type="button" onclick="selectCxRatingStars(3)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">3 ★</button>
+                <button type="button" onclick="selectCxRatingStars(4)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold">4 ★</button>
+                <button type="button" onclick="selectCxRatingStars(5)" class="cx-star-btn px-3 py-1.5 rounded-lg bg-warning text-white border border-warning text-xs font-bold">5 ★</button>
               </div>
               <div class="flex gap-2">
                 <input id="cxFeedbackCommentInput" type="text" placeholder="Share any feedback about your resolution experience..." class="flex-1 px-3 py-2 text-xs bg-surface border border-border rounded-lg" />
@@ -925,10 +990,10 @@
 
             <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border">
               <button type="button" onclick="startCustomerFollowUpSubTicket()" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold">
-                ➕ Report Issue with More Boxes / Another Item
+                + Report Issue with More Boxes
               </button>
               <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-surface border border-border hover:border-primary text-slate-700 text-xs font-semibold">
-                📸 Upload Additional Photo / Video Proof
+                Upload Additional Proof
                 <input type="file" accept="image/*,video/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Additional_Proof')" />
               </label>
             </div>
@@ -937,22 +1002,22 @@
           <!-- GUIDED "APPLY FOR ESCALATION" INTAKE FORM -->
           <div id="cxGuidedClaimForm" class="hidden space-y-4 pt-2 border-t border-border">
             <div id="cxResumeBanner" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-900">
-              🔄 Welcome back! We automatically restored your unfinished submission so you can continue right where you left off.
+              Welcome back! We restored your unfinished submission so you can continue where you left off.
             </div>
 
             <div class="p-3 bg-bg rounded-lg border border-border flex items-center justify-between">
               <div>
                 <div class="font-semibold text-sm text-slate-900" id="cxHeaderSummaryName">Customer</div>
-                <div class="text-xs text-muted" id="cxHeaderSummaryOrder">ORD-XXXX · Phone</div>
+                <div class="text-xs font-mono text-muted" id="cxHeaderSummaryOrder">ORD-XXXX · Phone</div>
               </div>
               <span class="text-[11px] font-medium text-muted" id="cxDraftSavedIndicator">Auto-save active</span>
             </div>
 
             <div>
               <div class="flex items-center justify-between mb-2">
-                <label class="block text-xs font-medium text-muted">Affected Items — Select SKU(s), Damaged Qty, Unit (Boxes/Pcs) &amp; Issue *</label>
+                <label class="block text-xs font-medium text-muted">Affected Items — Select SKU(s), Damaged Qty, Unit &amp; Issue *</label>
                 <button type="button" onclick="document.getElementById('batchHelperModal').classList.remove('hidden')" class="text-xs font-semibold text-primary hover:underline">
-                  ℹ️ Where is Batch No?
+                  Where is Batch No?
                 </button>
               </div>
               <div id="cxSkuListContainer" class="space-y-2 max-h-[320px] overflow-y-auto scroll-thin pr-1"></div>
@@ -963,7 +1028,7 @@
                 <label class="block text-xs font-medium text-muted">What happened? * (Type below OR record a voice note)</label>
                 <div class="flex items-center gap-2">
                   <button type="button" id="cxVoiceRecordBtn" onclick="toggleCustomerVoiceRecorder()" class="px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5">
-                    <span>🎤 Record Voice Note</span>
+                    <span>Record Voice Note</span>
                   </button>
                   <span id="cxVoiceTimerBadge" class="hidden text-xs font-mono font-bold text-rose-600 animate-pulse">● 00:00</span>
                 </div>
@@ -973,37 +1038,37 @@
                 id="cxStorylineTextarea"
                 rows="4"
                 oninput="autoSaveCustomerDraft()"
-                placeholder="Describe the issue in detail (or tap 'Record Voice Note' above to speak in any language)..."
+                placeholder="Describe the customer's complaint in detail (or tap 'Record Voice Note' above)..."
                 class="w-full px-3 py-2 border border-border rounded-lg text-sm resize-none focus:outline-none focus:border-primary bg-bg"
               ></textarea>
 
               <div id="cxRecordedAudioPreviewBox" class="hidden p-3 rounded-lg bg-orange-50 border border-orange-200 flex flex-wrap items-center justify-between gap-3">
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-slate-900">🔊 Voice Note Attached:</span>
+                  <span class="text-xs font-bold text-slate-900">Voice Note Attached:</span>
                   <audio id="cxRecordedAudioPlayer" controls class="h-8"></audio>
                 </div>
-                <span class="text-[11px] font-semibold text-emerald-700">✅ Saved</span>
+                <span class="text-[11px] font-semibold text-emerald-700">Saved</span>
               </div>
             </div>
 
             <div>
               <div class="flex items-center justify-between mb-2">
                 <label class="block text-xs font-medium text-muted">Upload Guided Proofs * <span class="text-rose-600 font-semibold">(Min. 1 Photo &amp; 1 Video Required)</span></label>
-                <span id="cxProofValidationBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">0 Photo, 0 Video</span>
+                <span id="cxProofValidationBadge" class="text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800">0 Photo, 0 Video</span>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 <label class="cursor-pointer border border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg transition">
-                  <span class="block text-xs font-semibold text-slate-800">📸 1. Box Batch Sticker</span>
+                  <span class="block text-xs font-semibold text-slate-800">1. Box Batch Sticker</span>
                   <span class="block text-[10px] text-muted mt-0.5">Side label photo</span>
                   <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Batch_Sticker')" />
                 </label>
                 <label class="cursor-pointer border border-dashed border-border hover:border-primary rounded-lg p-3 text-center bg-bg transition">
-                  <span class="block text-xs font-semibold text-slate-800">📸 2. Damaged Tiles</span>
+                  <span class="block text-xs font-semibold text-slate-800">2. Damaged Tiles</span>
                   <span class="block text-[10px] text-muted mt-0.5">Full count photo</span>
                   <input type="file" accept="image/*" capture="environment" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Damaged_Tiles')" />
                 </label>
                 <label class="cursor-pointer border border-dashed border-rose-300 hover:border-primary rounded-lg p-3 text-center bg-rose-50/30 transition">
-                  <span class="block text-xs font-semibold text-slate-800">🎥 3. Site Video *</span>
+                  <span class="block text-xs font-semibold text-slate-800">3. Site Video *</span>
                   <span class="block text-[10px] text-muted mt-0.5">Mandatory site video</span>
                   <input type="file" accept="video/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Site_Video')" />
                 </label>
@@ -1015,7 +1080,7 @@
               type="button"
               id="cxFinalSubmitBtn"
               onclick="submitCustomerPortalClaim(true)"
-              class="w-full py-2.5 bg-warning text-white rounded-lg text-sm font-semibold cursor-pointer hover:bg-warning/90 disabled:opacity-50 transition shadow-sm"
+              class="w-full py-2.5 bg-warning text-white rounded-lg text-sm font-semibold cursor-pointer hover:bg-warning/90 disabled:opacity-50 transition shadow-xs"
             >
               Submit Application to CDT
             </button>
@@ -1028,17 +1093,17 @@
          ADMIN ROSTER, ROLES & WEBHOOK CONFIGURATION PANEL (Admin Only)
          ===================================================================== -->
     <section id="adminConfigView" class="hidden space-y-6">
-      <div class="bg-surface border border-border rounded-xl p-6 shadow-sm space-y-4">
-        <div class="flex items-center justify-between border-b border-border pb-3">
+      <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <div>
-            <h2 class="text-base font-extrabold text-slate-900">Admin Roster, Roles &amp; Capacity Manager</h2>
-            <p class="text-xs text-muted">Add or edit CDT Executives, Leads, Site Verifiers, or Admins. All other accounts automatically open the Read-Only Sales Tracker.</p>
+            <h2 class="text-base font-bold text-slate-900">Admin Roster, Roles &amp; Capacity Manager</h2>
+            <p class="text-xs text-slate-500">Manage CDT Executives, Leads, Site Verifiers, or Admins.</p>
           </div>
         </div>
 
         <div class="overflow-x-auto">
           <table class="min-w-full text-xs text-left divide-y divide-slate-200">
-            <thead class="bg-bg font-bold text-slate-600 uppercase">
+            <thead class="bg-slate-50 font-semibold text-slate-500 uppercase">
               <tr>
                 <th class="px-3 py-2">Name</th>
                 <th class="px-3 py-2">Email</th>
@@ -1054,18 +1119,18 @@
           </table>
         </div>
 
-        <div class="p-4 rounded-xl bg-bg border border-border grid grid-cols-1 sm:grid-cols-6 gap-2.5 items-end">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-1 sm:grid-cols-6 gap-2.5 items-end">
           <div>
-            <label class="block text-[11px] font-bold text-slate-600">Full Name</label>
-            <input id="admNameInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-border rounded" />
+            <label class="block text-[11px] font-semibold text-slate-600">Full Name</label>
+            <input id="admNameInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg" />
           </div>
           <div>
-            <label class="block text-[11px] font-bold text-slate-600">Workspace Email</label>
-            <input id="admEmailInput" type="email" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-border rounded" />
+            <label class="block text-[11px] font-semibold text-slate-600">Workspace Email</label>
+            <input id="admEmailInput" type="email" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg" />
           </div>
           <div>
-            <label class="block text-[11px] font-bold text-slate-600">Role</label>
-            <select id="admRoleSelect" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-border rounded font-semibold">
+            <label class="block text-[11px] font-semibold text-slate-600">Role</label>
+            <select id="admRoleSelect" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg font-medium">
               <option value="CDT_EXEC">CDT Executive</option>
               <option value="CDT_LEAD">CDT Lead</option>
               <option value="SITE_VERIFIER">Site Verifier</option>
@@ -1073,21 +1138,21 @@
             </select>
           </div>
           <div>
-            <label class="block text-[11px] font-bold text-slate-600">WhatsApp No</label>
-            <input id="admPhoneInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-border rounded" />
+            <label class="block text-[11px] font-semibold text-slate-600">WhatsApp No</label>
+            <input id="admPhoneInput" type="text" class="w-full mt-0.5 px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg" />
           </div>
           <div>
-            <label class="block text-[11px] font-bold text-slate-600">Max Cap &amp; Status</label>
+            <label class="block text-[11px] font-semibold text-slate-600">Max Cap &amp; Status</label>
             <div class="flex gap-1 mt-0.5">
-              <input id="admCapInput" type="number" value="10" class="w-16 px-2 py-1.5 text-xs bg-white border border-border rounded" />
-              <select id="admAvailSelect" class="flex-1 px-2 py-1.5 text-xs bg-white border border-border rounded">
+              <input id="admCapInput" type="number" value="10" class="w-16 px-2 py-1.5 text-xs bg-white border border-slate-200 rounded-lg" />
+              <select id="admAvailSelect" class="flex-1 px-2 py-1.5 text-xs bg-white border border-slate-200 rounded-lg">
                 <option value="AVAILABLE">AVAILABLE</option>
                 <option value="OFFLINE">OFFLINE / LEAVE</option>
               </select>
             </div>
           </div>
-          <button type="button" onclick="adminSaveRosterMember()" class="px-4 py-2 bg-warning hover:bg-warning/90 text-white text-xs font-bold rounded-lg">
-            + Save
+          <button type="button" onclick="adminSaveRosterMember()" class="px-4 py-2 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg">
+            + Save Member
           </button>
         </div>
       </div>
@@ -1099,12 +1164,12 @@
     // =========================================================================
     // 1. PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL BELOW:
     // =========================================================================
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmX_KeXly4K_KVeXw4JWJetNLnL94rgFZ6VsQHavaH_wB2MnUJO5fYDC0X_UFdpQmOzw/exec";
+    const APPS_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
     // =========================================================================
     // 2. PASTE YOUR GOOGLE CLOUD OAUTH WEB CLIENT ID BELOW:
     // =========================================================================
-    const GOOGLE_OAUTH_CLIENT_ID = "1067858090113-au55s5rehqkeho5maicj7h8os99fs0ks.apps.googleusercontent.com";
+    const GOOGLE_OAUTH_CLIENT_ID = "PASTE_YOUR_GOOGLE_OAUTH_CLIENT_ID_HERE";
 
     const CDT_CENTRAL_PHONE = "9187011149";
     const AGENT_PHONE_DIRECTORY = {
@@ -1131,6 +1196,16 @@
       "Completed"
     ];
 
+    const BUCKET_META = {
+      "Incoming Cx Claims": { shortLabel: "Incoming Claims", dot: "bg-indigo-500", pill: "bg-indigo-50 text-indigo-700 border-indigo-200/80" },
+      "Open (Mid-Stage Draft)": { shortLabel: "Mid-Stage Draft", dot: "bg-slate-500", pill: "bg-slate-100 text-slate-700 border-slate-200/80" },
+      "Awaiting Cx Update/Response": { shortLabel: "Awaiting Cx", dot: "bg-amber-500", pill: "bg-amber-50 text-amber-800 border-amber-200/80" },
+      "Site Verification": { shortLabel: "Site Visit", dot: "bg-purple-500", pill: "bg-purple-50 text-purple-700 border-purple-200/80" },
+      "Raised to Team": { shortLabel: "Raised to Team", dot: "bg-[#FF4500]", pill: "bg-orange-50 text-[#FF4500] border-orange-200/80" },
+      "On-Hold": { shortLabel: "On-Hold", dot: "bg-rose-500", pill: "bg-rose-50 text-rose-700 border-rose-200/80" },
+      "Completed": { shortLabel: "Completed", dot: "bg-emerald-500", pill: "bg-emerald-50 text-emerald-700 border-emerald-200/80" }
+    };
+
     let authenticatedEmail = '';
     let sysConfig = { currentUser: {}, roster: [], taxonomy: {}, teamEmails: {} };
     let allTicketsCache = [];
@@ -1147,12 +1222,10 @@
     let activeDraftSavePromise = null;
     let lastPollTimestamp = Date.now();
 
-    // AI Polished Narrative State
     let aiPolishedStoryline = '';
     let aiPolishedResolution = '';
     let aiVariationCounter = 0;
 
-    // Customer Voice Recorder State
     let mediaRecorder = null;
     let audioChunks = [];
     let isRecordingVoice = false;
@@ -1172,8 +1245,22 @@
     }
 
     /**
-     * Evaluates Optional Target Action Date against 24-Hour Advance Window & Overdue Breach
+     * Deduplicates tickets array by escId (keeping the first/newest item)
+     * Fixes duplicate ESC-1005 rows seen in Image 1!
      */
+    function deduplicateTicketsById(tickets) {
+      const seen = new Set();
+      const out = [];
+      (tickets || []).forEach(t => {
+        const key = String(t.escId || '').trim().toUpperCase();
+        if (key && !seen.has(key)) {
+          seen.add(key);
+          out.push(t);
+        }
+      });
+      return out;
+    }
+
     function evaluateActionDateSla(targetDateStr, bucket) {
       if (!targetDateStr || bucket === 'Completed' || bucket === 'Cx_Draft_In_Progress') {
         return { state: 'NONE', label: '', badgeClass: '' };
@@ -1185,21 +1272,21 @@
       if (hoursRemaining < 0) {
         return {
           state: 'OVERDUE',
-          label: `🚨 SLA BREACH: Action Date Overdue (${targetDateStr})`,
-          badgeClass: 'bg-rose-600 text-white animate-pulse'
+          label: `Overdue (${targetDateStr})`,
+          badgeClass: 'bg-rose-600 text-white'
         };
       }
       if (hoursRemaining <= 24) {
         return {
           state: 'DUE_24H',
-          label: `⏰ Action Due Within 24h (${targetDateStr})`,
+          label: `Due ≤24h (${targetDateStr})`,
           badgeClass: 'bg-amber-500 text-white'
         };
       }
       return {
         state: 'SCHEDULED',
-        label: `📅 Scheduled Action: ${targetDateStr}`,
-        badgeClass: 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+        label: targetDateStr,
+        badgeClass: 'bg-slate-100 text-slate-700 border border-slate-200'
       };
     }
 
@@ -1336,13 +1423,13 @@
     }
 
     async function initWorkspace() {
-      setLoading(true, 'Loading Adorzy escalation workspace...');
+      setLoading(true, 'Syncing Adorzy Escalation Workspace...');
       try {
         const data = await apiGet({ action: 'init', userEmail: authenticatedEmail });
         setLoading(false);
         if (data.status === 'success') {
           sysConfig = data.config;
-          allTicketsCache = data.tickets || [];
+          allTicketsCache = deduplicateTicketsById(data.tickets || []);
           populateTaxonomyDropdowns();
           renderRosterAndBucketsBar(data.bucketsSummary || {});
           renderAdminRosterTable();
@@ -1365,15 +1452,15 @@
         const sla = evaluateActionDateSla(first.targetActionDate, first.bucket);
         playAlertChime();
         showToastAlert(
-          `${sla.label}`,
-          `Ticket ${first.escId} (Order ${first.orderId} — ${first.cxName}) requires action! (${dueList.length} total due)`
+          `Action Date Alert: ${sla.label}`,
+          `Ticket ${first.escId} (Order ${first.orderId} — ${first.cxName}) requires attention.`
         );
       }
     }
 
     function lockUserToAssignedRoleView() {
       const u = sysConfig.currentUser || { role: 'SALES', name: 'Team Member', email: authenticatedEmail };
-      document.getElementById('activeRoleSubtitle').textContent = `${u.name} (${u.email})`;
+      document.getElementById('activeRoleSubtitle').textContent = `${u.name}`;
       document.getElementById('headerRoleBadge').textContent = u.role.replace('_', ' ');
 
       const adminSwitcher = document.getElementById('adminViewSwitcherGroup');
@@ -1393,17 +1480,15 @@
       currentViewMode = mode;
       document.querySelectorAll('.admin-switch-btn').forEach(btn => {
         if (btn.dataset.view === mode) {
-          btn.className = 'admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-warning text-white';
+          btn.className = 'admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-white text-slate-900 shadow-xs';
         } else {
-          btn.className = 'admin-switch-btn px-2.5 py-1 rounded-md font-semibold text-slate-300 hover:text-white';
+          btn.className = 'admin-switch-btn px-2.5 py-1 rounded-md font-medium text-slate-600 hover:text-slate-900';
         }
       });
 
-      const isCdt = (mode === 'cdt');
       const isSales = (mode === 'sales');
       const isAdminPanel = (mode === 'admin');
 
-      document.getElementById('cdtTopBar').classList.toggle('hidden', !isCdt);
       document.getElementById('internalWorkspaceView').classList.toggle('hidden', isAdminPanel);
       document.getElementById('adminConfigView').classList.toggle('hidden', !isAdminPanel);
       document.getElementById('cdtEditorPanels').classList.toggle('hidden', isSales);
@@ -1427,61 +1512,92 @@
       }
     }
 
+    /**
+     * Renders:
+     * 1. Sleek Executive Capacity Chips (No neon green two-line wrapping)
+     * 2. 8-Column Linear/Stripe Pipeline Stage Metric Cards (ZERO horizontal scrolling!)
+     */
     function renderRosterAndBucketsBar(bucketsSummary) {
       const rosterEl = document.getElementById('rosterCapacityBar');
-      rosterEl.innerHTML = '<span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">CDT Executive Load:</span>';
+      rosterEl.innerHTML = '';
 
       (sysConfig.roster || [])
         .filter(r => ['CDT_EXEC', 'CDT_LEAD', 'SITE_VERIFIER'].includes(r.role))
         .forEach(r => {
           const isFull = r.activeCount >= r.capacityCap;
-          const badgeColor = r.availability !== 'AVAILABLE'
-            ? 'bg-slate-800 text-slate-400'
-            : (isFull ? 'bg-rose-900/80 text-rose-200 border border-rose-600' : 'bg-emerald-900/70 text-emerald-200 border border-emerald-600');
+          const dotColor = r.availability !== 'AVAILABLE'
+            ? 'bg-slate-400'
+            : (isFull ? 'bg-rose-500' : 'bg-emerald-500');
           const pill = document.createElement('span');
-          pill.className = `text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${badgeColor}`;
-          pill.textContent = `${r.name}: ${r.activeCount}/${r.capacityCap} ${r.availability === 'AVAILABLE' ? '' : '[OFFLINE]'}`;
+          pill.className = 'inline-flex items-center gap-1.5 text-[11px] px-2.5 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 font-medium shadow-2xs';
+          pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span><span>${escapeHtml(r.name)}</span><span class="font-mono font-bold text-slate-900">${r.activeCount}/${r.capacityCap}</span>`;
           rosterEl.appendChild(pill);
         });
+
+      // Compute clean counts from deduplicated cache
+      const activeTotal = (allTicketsCache || []).filter(t => t.bucket !== 'Cx_Draft_In_Progress').length;
 
       const bucketsEl = document.getElementById('bucketTabsBar');
       bucketsEl.innerHTML = '';
 
-      const allBtn = document.createElement('button');
-      allBtn.type = 'button';
-      allBtn.className = `text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap transition ${selectedBucketFilter === '' ? 'bg-warning text-white' : 'bg-slate-800 text-slate-200 hover:bg-slate-700'}`;
-      allBtn.textContent = 'All Buckets';
-      allBtn.onclick = () => {
+      // Card 0: All Active
+      const allActive = selectedBucketFilter === '';
+      const allCard = document.createElement('button');
+      allCard.type = 'button';
+      allCard.className = `text-left p-3 rounded-xl border transition relative overflow-hidden ${allActive ? 'bg-white border-[#FF4500] ring-1 ring-[#FF4500]/30 shadow-xs' : 'bg-white/80 hover:bg-white border-slate-200/90'}`;
+      allCard.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-medium text-slate-500 truncate">All Tickets</span>
+          <span class="w-2 h-2 rounded-full bg-[#FF4500]"></span>
+        </div>
+        <div class="text-lg font-bold font-mono text-slate-900 mt-1">${activeTotal}</div>
+      `;
+      allCard.onclick = () => {
         selectedBucketFilter = '';
         returnToRoleHome();
         renderRosterAndBucketsBar(bucketsSummary);
       };
-      bucketsEl.appendChild(allBtn);
+      bucketsEl.appendChild(allCard);
 
+      // Cards 1..7: Individual Buckets
       ALL_BUCKETS.forEach(bName => {
-        const count = bucketsSummary[bName] || 0;
+        const count = (allTicketsCache || []).filter(t => t.bucket === bName).length;
         const active = selectedBucketFilter === bName;
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = `text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap transition flex items-center gap-1.5 ${active ? 'bg-warning text-white' : 'bg-slate-800 hover:bg-slate-700 text-slate-100'}`;
-        btn.innerHTML = `<span>${bName}</span><span class="px-1.5 py-0.2 rounded-full bg-slate-950 text-[#FF4500] text-[10px]">${count}</span>`;
-        btn.onclick = () => {
+        const meta = BUCKET_META[bName] || { shortLabel: bName, dot: 'bg-slate-400' };
+
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = `text-left p-3 rounded-xl border transition relative overflow-hidden ${active ? 'bg-white border-[#FF4500] ring-1 ring-[#FF4500]/30 shadow-xs' : 'bg-white/80 hover:bg-white border-slate-200/90'}`;
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-1">
+            <span class="text-[11px] font-medium text-slate-500 truncate" title="${escapeHtml(bName)}">${escapeHtml(meta.shortLabel)}</span>
+            <span class="w-2 h-2 rounded-full shrink-0 ${meta.dot}"></span>
+          </div>
+          <div class="text-lg font-bold font-mono text-slate-900 mt-1">${count}</div>
+        `;
+        card.onclick = () => {
           selectedBucketFilter = bName;
           returnToRoleHome();
           renderRosterAndBucketsBar(bucketsSummary);
         };
-        bucketsEl.appendChild(btn);
+        bucketsEl.appendChild(card);
       });
     }
 
+    /**
+     * Renders High-Density Linear-Style Queue Table
+     * - No wrapping on Ticket ID or Order ID
+     * - Semantic dot badges for Buckets
+     * - Clean hover chevron instead of squashed orange "Open" buttons
+     */
     function renderCdtHomeQueueTable() {
       const tbody = document.getElementById('cdtHomeQueueTableBody');
       const heading = document.getElementById('cdtQueueHeading');
       const agentFilter = document.getElementById('cdtAgentFilterSelect').value;
 
       heading.textContent = selectedBucketFilter
-        ? `Tickets in Bucket: ${selectedBucketFilter}`
-        : (agentFilter === 'DRAFTS' ? 'Unfinished Customer Portal Drafts (Drop-Offs)' : 'All Active & Logged Escalation Tickets');
+        ? `${selectedBucketFilter}`
+        : (agentFilter === 'DRAFTS' ? 'Unfinished Customer Portal Drafts' : 'Escalation Pipeline');
 
       const filtered = (allTicketsCache || []).filter(t => {
         if (agentFilter === 'DRAFTS') return t.bucket === 'Cx_Draft_In_Progress';
@@ -1498,8 +1614,8 @@
       if (!filtered.length) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="9" class="px-4 py-10 text-center text-muted text-xs">
-              No escalation tickets currently in this view. Use the top search bar to look up any Order ID or Customer Phone Number.
+            <td colspan="9" class="px-4 py-12 text-center text-slate-400 text-xs">
+              No escalation tickets in this stage. Use the top search bar to look up any Order ID or Customer Phone Number.
             </td>
           </tr>
         `;
@@ -1507,33 +1623,51 @@
       }
 
       tbody.innerHTML = filtered.map(t => {
-        const dt = t.updatedAt ? new Date(t.updatedAt).toLocaleString('en-IN') : '';
+        const dt = t.updatedAt ? new Date(t.updatedAt).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
         const sla = evaluateActionDateSla(t.targetActionDate, t.bucket);
+        const bMeta = BUCKET_META[t.bucket] || { shortLabel: t.bucket, dot: 'bg-slate-400', pill: 'bg-slate-100 text-slate-700 border-slate-200' };
+
         const rowBg = sla.state === 'OVERDUE'
-          ? 'bg-rose-50/70 hover:bg-rose-100/70'
-          : (sla.state === 'DUE_24H' ? 'bg-amber-50/70 hover:bg-amber-100/70' : 'hover:bg-orange-50/40');
+          ? 'bg-rose-50/40 hover:bg-rose-50/80'
+          : (sla.state === 'DUE_24H' ? 'bg-amber-50/40 hover:bg-amber-50/80' : 'hover:bg-slate-50/90');
 
         return `
-          <tr class="${rowBg} cursor-pointer transition" onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')">
-            <td class="px-4 py-3 font-extrabold text-primary">${escapeHtml(t.escId)}</td>
-            <td class="px-4 py-3 font-bold text-slate-900">${escapeHtml(t.orderId)}</td>
-            <td class="px-4 py-3">
-              <div class="font-bold text-slate-800">${escapeHtml(t.cxName)}</div>
-              <div class="text-[11px] text-muted">${escapeHtml(t.cxPhone)}</div>
+          <tr class="linear-row ${rowBg} cursor-pointer group" onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')">
+            <td class="px-4 py-3.5 whitespace-nowrap">
+              <span class="font-mono font-bold text-xs text-[#FF4500] group-hover:underline">${escapeHtml(t.escId)}</span>
             </td>
-            <td class="px-4 py-3">
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-bg text-slate-800 border border-border">${escapeHtml(t.bucket)}</span>
+            <td class="px-4 py-3.5 whitespace-nowrap">
+              <span class="font-mono font-semibold text-xs text-slate-900 bg-slate-100/80 px-2 py-0.5 rounded">${escapeHtml(t.orderId)}</span>
             </td>
-            <td class="px-4 py-3 font-semibold text-slate-700">${escapeHtml(t.customStatusText || t.liveStage)}</td>
-            <td class="px-4 py-3">
+            <td class="px-4 py-3.5">
+              <div class="font-semibold text-slate-900 leading-tight">${escapeHtml(t.cxName)}</div>
+              <div class="text-[11px] font-mono text-slate-400 mt-0.5">${escapeHtml(t.cxPhone)}</div>
+            </td>
+            <td class="px-4 py-3.5 whitespace-nowrap">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium border ${bMeta.pill}">
+                <span class="w-1.5 h-1.5 rounded-full ${bMeta.dot}"></span>
+                ${escapeHtml(bMeta.shortLabel)}
+              </span>
+            </td>
+            <td class="px-4 py-3.5 max-w-xs">
+              <div class="font-medium text-slate-800 truncate">${escapeHtml(t.customStatusText || t.liveStage)}</div>
+              <div class="text-[11px] text-slate-400 truncate mt-0.5">${escapeHtml(t.teamResponsible)} · ${escapeHtml(t.subIssue)}</div>
+            </td>
+            <td class="px-4 py-3.5 whitespace-nowrap">
               ${sla.state !== 'NONE'
-                ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold ${sla.badgeClass}">${escapeHtml(sla.label)}</span>`
-                : '<span class="text-[11px] text-muted">—</span>'}
+                ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${sla.badgeClass}">${escapeHtml(sla.label)}</span>`
+                : '<span class="text-slate-300">—</span>'}
             </td>
-            <td class="px-4 py-3 font-semibold text-slate-800">${escapeHtml(t.assignedAgentName || 'Auto')}</td>
-            <td class="px-4 py-3 text-[11px] text-muted">${escapeHtml(dt)}</td>
-            <td class="px-4 py-3 text-right">
-              <span class="px-3 py-1 rounded-lg bg-warning text-white text-[11px] font-bold">Open →</span>
+            <td class="px-4 py-3.5 whitespace-nowrap">
+              <span class="font-medium text-slate-700">${escapeHtml(t.assignedAgentName || 'Auto')}</span>
+            </td>
+            <td class="px-4 py-3.5 whitespace-nowrap text-right text-[11px] text-slate-400 font-mono">
+              ${escapeHtml(dt)}
+            </td>
+            <td class="pr-4 py-3.5 text-right">
+              <svg class="w-4 h-4 text-slate-300 row-chevron transition-transform inline-block" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
             </td>
           </tr>
         `;
@@ -1544,20 +1678,20 @@
       const grid = document.getElementById('salesRecentTicketsGrid');
       const visible = (allTicketsCache || []).filter(t => t.bucket !== 'Cx_Draft_In_Progress').slice(0, 12);
       if (!visible.length) {
-        grid.innerHTML = '<p class="text-xs text-muted col-span-3 py-6 text-center">No active escalations logged yet.</p>';
+        grid.innerHTML = '<p class="text-xs text-slate-400 col-span-3 py-6 text-center">No active escalations logged yet.</p>';
         return;
       }
       grid.innerHTML = visible.map(t => {
         const sla = evaluateActionDateSla(t.targetActionDate, t.bucket);
         return `
-          <div onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')" class="p-4 rounded-xl border ${sla.state === 'OVERDUE' ? 'border-rose-400 bg-rose-50/40' : 'border-border bg-bg'} hover:border-primary cursor-pointer transition space-y-1.5">
+          <div onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')" class="p-4 rounded-xl border ${sla.state === 'OVERDUE' ? 'border-rose-300 bg-rose-50/30' : 'border-slate-200/90 bg-slate-50/50'} hover:bg-white hover:border-[#FF4500] hover:shadow-xs cursor-pointer transition space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-extrabold text-primary">${escapeHtml(t.escId)} • Order ${escapeHtml(t.orderId)}</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">With: ${escapeHtml(t.pendingWithDept || 'CDT')}</span>
+              <span class="text-xs font-mono font-bold text-[#FF4500]">${escapeHtml(t.escId)} · ${escapeHtml(t.orderId)}</span>
+              <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200">With: ${escapeHtml(t.pendingWithDept || 'CDT')}</span>
             </div>
-            <p class="text-xs font-bold text-slate-900">${escapeHtml(t.cxName)} (${escapeHtml(t.cxPhone)})</p>
-            ${t.targetActionDate ? `<p class="text-[10px] font-bold text-slate-600">📅 Target Action Date: ${escapeHtml(t.targetActionDate)}</p>` : ''}
-            <p class="text-[11px] text-emerald-800 font-medium bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">${escapeHtml(t.whatToTellCx || t.liveStage)}</p>
+            <p class="text-xs font-semibold text-slate-900">${escapeHtml(t.cxName)} <span class="font-mono text-slate-400 font-normal">(${escapeHtml(t.cxPhone)})</span></p>
+            ${t.targetActionDate ? `<p class="text-[10px] font-mono font-semibold text-slate-500">Target Action: ${escapeHtml(t.targetActionDate)}</p>` : ''}
+            <p class="text-[11px] text-emerald-900 font-medium bg-emerald-50/70 px-2.5 py-1.5 rounded-lg border border-emerald-200/80">${escapeHtml(t.whatToTellCx || t.liveStage)}</p>
           </div>
         `;
       }).join('');
@@ -1607,14 +1741,14 @@
           (data.results || []).forEach(r => {
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'text-left p-4 rounded-xl border border-border hover:border-primary bg-bg transition space-y-1';
+            btn.className = 'text-left p-4 rounded-xl border border-slate-200 hover:border-[#FF4500] bg-slate-50/60 hover:bg-white transition space-y-1';
             btn.innerHTML = `
               <div class="flex items-center justify-between">
-                <span class="text-sm font-extrabold text-primary">${escapeHtml(r.orderId)}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 font-semibold">${escapeHtml(r.sourceSheet)}</span>
+                <span class="text-sm font-mono font-bold text-[#FF4500]">${escapeHtml(r.orderId)}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 font-medium">${escapeHtml(r.sourceSheet)}</span>
               </div>
-              <p class="text-xs font-bold text-slate-800">${escapeHtml(r.cxName)}</p>
-              <p class="text-[11px] text-muted">Booking: ${escapeHtml(r.bookingDate)} | Value: ${escapeHtml(r.orderValue)}</p>
+              <p class="text-xs font-semibold text-slate-800">${escapeHtml(r.cxName)}</p>
+              <p class="text-[11px] text-slate-500">Booking: ${escapeHtml(r.bookingDate)} · Value: ${escapeHtml(r.orderValue)}</p>
             `;
             btn.onclick = () => runOrderOrPhoneSearch(r.rawOrderId || r.orderId, 'order');
             grid.appendChild(btn);
@@ -1639,9 +1773,9 @@
       aiPolishedStoryline = '';
       aiPolishedResolution = '';
       document.getElementById('orderDossierSection').classList.remove('hidden');
-      document.getElementById('dosSourceBadge').textContent = `Source: ${d.sourceSheet}`;
+      document.getElementById('dosSourceBadge').textContent = d.sourceSheet;
       document.getElementById('dosOrderId').textContent = d.orderId;
-      document.getElementById('dosCxName').textContent = `• Customer: ${d.cxName || 'NA'}`;
+      document.getElementById('dosCxName').textContent = `· ${d.cxName || 'NA'}`;
       document.getElementById('dosOrderNumber').textContent = d.orderNumber || 'NA';
       document.getElementById('dosRawId').textContent = d.rawOrderId || d.orderId;
       document.getElementById('dosBookingDate').textContent = d.bookingDate || 'NA';
@@ -1666,7 +1800,7 @@
       if (d.quoteDriveUrl) {
         const prevBtn = document.createElement('button');
         prevBtn.type = 'button';
-        prevBtn.className = 'text-[11px] font-bold px-2.5 py-1 rounded bg-warning text-white hover:bg-warning/90';
+        prevBtn.className = 'text-[11px] font-semibold px-2.5 py-1 rounded bg-[#FF4500] text-white hover:bg-[#e03d00]';
         prevBtn.textContent = 'Preview PDF';
         prevBtn.onclick = () => {
           document.getElementById('quotePreviewIframe').src = d.quotePreviewUrl || d.quoteDriveUrl;
@@ -1675,15 +1809,14 @@
         const extLink = document.createElement('a');
         extLink.href = d.quoteDriveUrl;
         extLink.target = '_blank';
-        extLink.className = 'text-[11px] font-bold px-2.5 py-1 rounded bg-slate-200 text-slate-800 hover:bg-slate-300';
+        extLink.className = 'text-[11px] font-medium px-2.5 py-1 rounded bg-slate-200 text-slate-800 hover:bg-slate-300';
         extLink.textContent = 'Open Drive';
         qBtns.appendChild(prevBtn);
         qBtns.appendChild(extLink);
       } else {
-        qBtns.innerHTML = '<span class="text-xs text-muted">NA</span>';
+        qBtns.innerHTML = '<span class="text-xs text-slate-400">NA</span>';
       }
 
-      // Check if CDT agent has an unsaved local browser draft for this order (Refresh protection!)
       const localCdtDraft = getCdtLocalDraft(d.orderId);
       const effectiveTicketForSkus = ticket || localCdtDraft;
 
@@ -1701,7 +1834,7 @@
         .concat((d.metaEscLineItems && d.metaEscLineItems.structuredItems) || []);
 
       if (!allSkus.length) {
-        container.innerHTML = '<p class="p-6 text-xs text-muted text-center">No line items found in po_line_items or metaescline.</p>';
+        container.innerHTML = '<p class="p-6 text-xs text-slate-400 text-center">No line items found in po_line_items or metaescline.</p>';
         return;
       }
 
@@ -1720,7 +1853,7 @@
         const defaultIssue = saved ? (saved.skuIssue || 'Broken / Cracked Tiles on Arrival') : 'Broken / Cracked Tiles on Arrival';
 
         const row = document.createElement('div');
-        row.className = 'p-3.5 hover:bg-bg flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs';
+        row.className = 'p-3.5 hover:bg-slate-50/80 flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs';
         row.innerHTML = `
           <label class="flex items-start gap-2.5 cursor-pointer flex-1">
             <input type="checkbox" class="sku-check mt-1 w-4 h-4 accent-[#FF4500] rounded"
@@ -1740,45 +1873,45 @@
             />
             <div>
               <div class="flex items-center gap-2 flex-wrap">
-                <span class="font-bold text-slate-900">${escapeHtml(item.skuName)}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-semibold">${escapeHtml(item.sourceTab)}</span>
-                ${repeatCount > 1 ? `<span class="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold">⚠️ ${repeatCount} Past Defect Logs on this SKU</span>` : ''}
+                <span class="font-semibold text-slate-900">${escapeHtml(item.skuName)}</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600">${escapeHtml(item.sourceTab)}</span>
+                ${repeatCount > 1 ? `<span class="text-[10px] px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 font-semibold">${repeatCount} Past Defect Logs</span>` : ''}
               </div>
-              <p class="text-[11px] text-muted mt-0.5">
-                Ordered: <strong>${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}</strong> (Pcs/Box: ${escapeHtml(item.pcsPerBox)}) |
-                Size: ${escapeHtml(item.size)} | Finish: ${escapeHtml(item.finish)} |
-                PO: ${escapeHtml(item.poNumber || 'NA')} | Price (incl. GST): ₹${item.unitPriceInclGst || 0}/${escapeHtml(item.orderedUnit)}
+              <p class="text-[11px] text-slate-500 mt-0.5">
+                Ordered: <strong>${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}</strong> (Pcs/Box: ${escapeHtml(item.pcsPerBox)}) ·
+                Size: ${escapeHtml(item.size)} · Finish: ${escapeHtml(item.finish)} ·
+                PO: <span class="font-mono">${escapeHtml(item.poNumber || 'NA')}</span> · ₹${item.unitPriceInclGst || 0}/${escapeHtml(item.orderedUnit)}
               </p>
             </div>
           </label>
           <div class="flex flex-wrap items-center gap-2 shrink-0">
             <div>
-              <span class="block text-[10px] font-semibold text-muted">Damaged Qty</span>
+              <span class="block text-[10px] font-medium text-slate-400">Damaged Qty</span>
               <input type="number" min="0" step="any" value="${saved ? escapeHtml(saved.affectedQty) : '1'}"
                 id="qty_${item.rowKey}"
                 ${isReadOnlySales ? 'disabled' : ''}
                 oninput="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();"
-                class="w-20 px-2 py-1 text-xs bg-white border border-border rounded font-bold" />
+                class="w-20 px-2 py-1 text-xs bg-white border border-slate-200 rounded font-mono font-bold" />
             </div>
             <div>
-              <span class="block text-[10px] font-semibold text-muted">Unit</span>
-              <select id="unit_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();" class="px-2 py-1 text-xs bg-white border border-border rounded font-semibold">
+              <span class="block text-[10px] font-medium text-slate-400">Unit</span>
+              <select id="unit_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();" class="px-2 py-1 text-xs bg-white border border-slate-200 rounded font-medium">
                 <option value="Boxes" ${defaultUnit.toLowerCase().includes('box') ? 'selected' : ''}>Boxes</option>
                 <option value="Pcs" ${defaultUnit.toLowerCase().includes('pc') ? 'selected' : ''}>Pcs</option>
                 <option value="Bags/Units" ${defaultUnit.toLowerCase().includes('bag') ? 'selected' : ''}>Bags/Units</option>
               </select>
             </div>
             <div>
-              <span class="block text-[10px] font-semibold text-muted">Batch No</span>
+              <span class="block text-[10px] font-medium text-slate-400">Batch No</span>
               <input type="text" placeholder="e.g. B-4092" value="${saved ? escapeHtml(saved.batchNo || '') : ''}"
                 id="batch_${item.rowKey}"
                 ${isReadOnlySales ? 'disabled' : ''}
                 oninput="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();"
-                class="w-24 px-2 py-1 text-xs bg-white border border-border rounded font-mono" />
+                class="w-24 px-2 py-1 text-xs bg-white border border-slate-200 rounded font-mono" />
             </div>
             <div>
-              <span class="block text-[10px] font-semibold text-muted">SKU Specific Issue</span>
-              <select id="skuissue_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();" class="px-2 py-1 text-xs bg-white border border-border rounded font-semibold max-w-[190px]">
+              <span class="block text-[10px] font-medium text-slate-400">SKU Issue</span>
+              <select id="skuissue_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} onchange="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();" class="px-2 py-1 text-xs bg-white border border-slate-200 rounded font-medium max-w-[190px]">
                 ${PER_SKU_ISSUE_OPTIONS.map(opt => `<option value="${escapeHtml(opt)}" ${defaultIssue === opt ? 'selected' : ''}>${escapeHtml(opt)}</option>`).join('')}
               </select>
             </div>
@@ -1873,17 +2006,13 @@
     }
 
     function onRawNotesEdited() {
-      // Reset AI override when agent types new raw notes so default preview reflects latest typing
       aiPolishedStoryline = '';
       aiPolishedResolution = '';
-      document.getElementById('aiEngineStatusBadge').textContent = 'Default: Instant Structured Template (Click ✨ Generate AI to polish)';
+      document.getElementById('aiEngineStatusBadge').textContent = 'Default: Structured Template (Click Generate AI to polish)';
       buildLiveEmailPreview();
       saveCdtLocalDraft();
     }
 
-    /**
-     * Saves CDT Agent's unsaved classification in localStorage so refreshing the page never loses work!
-     */
     function saveCdtLocalDraft() {
       if (!activeDossier || !activeDossier.orderId) return;
       const { list } = getSelectedSkusArray();
@@ -1905,7 +2034,7 @@
       try {
         localStorage.setItem(`adorzy_cdt_draft_${activeDossier.orderId}`, JSON.stringify(draftObj));
         const el = document.getElementById('cdtAutoDraftStatusText');
-        if (el) el.textContent = `Browser draft auto-saved at ${new Date().toLocaleTimeString()} (Refresh-safe)`;
+        if (el) el.textContent = `Draft auto-saved locally at ${new Date().toLocaleTimeString()}`;
       } catch (e) {}
     }
 
@@ -1971,7 +2100,7 @@
         : '';
 
       const narrativeBoxStyle = isAiPolished
-        ? 'background:#faf5ff;border-left:4px solid #9333ea;padding:10px 12px;border-radius:6px;margin:10px 0;'
+        ? 'background:#fff7ed;border-left:4px solid #FF4500;padding:10px 12px;border-radius:6px;margin:10px 0;'
         : 'margin:10px 0;';
 
       const html = `
@@ -1996,27 +2125,21 @@
       document.getElementById('emailBodyPreview').innerHTML = html;
     }
 
-    /**
-     * Populates the CDT Workbench & Live Pizza-Tracker (Including Batch Confirmed & Call Log Table)
-     */
     function populateWorkbenchFromTicket(ticket, timeline, localCdtDraft) {
       const banner = document.getElementById('liveTrackerBanner');
-
-      // Always render the Shared Call Logs Table & Audit Timeline (even if only order-level calls exist!)
       renderAuditTimelineAndCallTable(timeline || []);
 
       if (!ticket) {
         banner.classList.remove('hidden');
-        document.getElementById('trkTicketBadge').textContent = 'Order Investigation View';
+        document.getElementById('trkTicketBadge').textContent = 'DRAFT MODE';
         document.getElementById('trkActionDateBadge').classList.add('hidden');
-        document.getElementById('trkHeadlineStage').textContent = 'No Formal Escalation Ticket Saved Yet (Draft Mode)';
-        document.getElementById('trkPendingDept').textContent = 'Status: Pre-Escalation / Draft';
+        document.getElementById('trkHeadlineStage').textContent = 'No Formal Escalation Ticket Saved Yet';
+        document.getElementById('trkPendingDept').textContent = 'Status: Pre-Escalation';
         document.getElementById('trkAssignedOwner').textContent = 'Owner: —';
         document.getElementById('trkWhatToTellCx').textContent = 'No escalation ticket has been saved for this order yet.';
         document.getElementById('pizzaProgressGrid').innerHTML = '';
-        document.getElementById('editingEscIdLabel').textContent = 'New Escalation Ticket';
+        document.getElementById('editingEscIdLabel').textContent = 'New Ticket';
 
-        // Restore from localCdtDraft if agent refreshed page before clicking Save!
         const src = localCdtDraft || {};
         document.getElementById('escBucketSelect').value = src.bucket || 'Open (Mid-Stage Draft)';
         document.getElementById('escSiteVerifierInput').value = cleanSiteVerifierVal(src.siteVerifierAgent);
@@ -2043,28 +2166,26 @@
       }
 
       banner.classList.remove('hidden');
-      document.getElementById('editingEscIdLabel').textContent = `Editing ${ticket.escId} (${ticket.bucket})`;
-      document.getElementById('trkTicketBadge').textContent = `${ticket.escId} • Bucket: ${ticket.bucket}`;
+      document.getElementById('editingEscIdLabel').textContent = `${ticket.escId} · ${ticket.bucket}`;
+      document.getElementById('trkTicketBadge').textContent = `${ticket.escId} · ${ticket.bucket}`;
 
-      // Evaluate Optional Target Action Date SLA Badge
       const sla = evaluateActionDateSla(ticket.targetActionDate, ticket.bucket);
       const actionBadge = document.getElementById('trkActionDateBadge');
       if (sla.state !== 'NONE') {
         actionBadge.textContent = sla.label;
-        actionBadge.className = `text-[11px] font-extrabold px-2.5 py-0.5 rounded ${sla.badgeClass}`;
+        actionBadge.className = `text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-md ${sla.badgeClass}`;
         actionBadge.classList.remove('hidden');
       } else {
         actionBadge.classList.add('hidden');
       }
 
       document.getElementById('trkHeadlineStage').textContent = ticket.customStatusText
-        ? `⚠️ Custom Status: ${ticket.customStatusText}`
+        ? `Custom Status: ${ticket.customStatusText}`
         : (ticket.liveStage || 'Under Investigation');
-      document.getElementById('trkPendingDept').textContent = `Currently With: ${ticket.pendingWithDept || 'CDT'}`;
+      document.getElementById('trkPendingDept').textContent = `With: ${ticket.pendingWithDept || 'CDT'}`;
       document.getElementById('trkAssignedOwner').textContent = `Owner: ${ticket.assignedAgentName || 'Auto'}`;
       document.getElementById('trkWhatToTellCx').textContent = ticket.whatToTellCx || 'Our team is actively working on your resolution.';
 
-      // CORRECTED 5-STEP PIZZA TRACKER MAPPING (Properly advances on Batch Confirmed!)
       const stageStr = `${ticket.liveStage || ''} ${ticket.customStatusText || ''}`.toLowerCase();
       const isBatchConfirmedOrRaised =
         stageStr.includes('batch confirmed') ||
@@ -2080,18 +2201,17 @@
       const steps = [
         { label: '1. Logged / Proofs In', done: true },
         { label: '2. WhatsApp / Site Check', done: ticket.bucket !== 'Incoming Cx Claims' || stageStr.includes('checking') || stageStr.includes('vendor') || isBatchConfirmedOrRaised },
-        { label: '3. Batch Confirmed / Raised to Team', done: isBatchConfirmedOrRaised },
+        { label: '3. Batch Confirmed / Raised', done: isBatchConfirmedOrRaised },
         { label: '4. PO Raised / Dispatched', done: isPoOrDispatched },
         { label: '5. Completed', done: ticket.bucket === 'Completed' }
       ];
       document.getElementById('pizzaProgressGrid').innerHTML = steps.map(s => `
-        <div class="p-2.5 rounded-lg border text-center font-bold ${s.done ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-bg border-border text-muted'}">
-          ${s.done ? '✔ ' : '○ '}${s.label}
+        <div class="p-2.5 rounded-lg border text-center font-semibold ${s.done ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-slate-50 border-slate-200/80 text-slate-400'}">
+          ${s.done ? '● ' : '○ '}${s.label}
         </div>
       `).join('');
 
       document.getElementById('escBucketSelect').value = ticket.bucket || 'Open (Mid-Stage Draft)';
-      // Strictly sanitized so phone numbers never show in Site Verification Agent box!
       document.getElementById('escSiteVerifierInput').value = cleanSiteVerifierVal(ticket.siteVerifierAgent);
 
       if (ticket.teamResponsible && sysConfig.taxonomy[ticket.teamResponsible]) {
@@ -2180,7 +2300,7 @@
         partySpokenTo: 'Customer',
         contactPerson: activeDossier.phoneNo,
         callOutcome: reason,
-        headline: `📵 Tried Reaching Customer — ${reason}`,
+        headline: `Tried Reaching Customer — ${reason}`,
         details: `${portalAlertScript}`
       });
       setLoading(false);
@@ -2188,7 +2308,7 @@
       if (res.status === 'success') {
         activeTicket = res.ticket;
         populateWorkbenchFromTicket(res.ticket, res.timeline || []);
-        openWhatsappModal(`📵 Customer Unreachable (${reason}) — Send on WhatsApp`, waMessage, activeDossier.phoneNo);
+        openWhatsappModal(`Customer Unreachable (${reason}) — Send on WhatsApp`, waMessage, activeDossier.phoneNo);
       }
     }
 
@@ -2241,7 +2361,7 @@
         partySpokenTo: 'Customer',
         contactPerson: activeDossier.phoneNo,
         callOutcome: 'Mutually Resolved & Closed',
-        headline: `🤝 Ticket Closed by Mutual Agreement [${activeTicket.escId}]`,
+        headline: `Ticket Closed by Mutual Agreement [${activeTicket.escId}]`,
         details: finalAgreementText
       });
       setLoading(false);
@@ -2249,7 +2369,7 @@
       if (res.status === 'success') {
         activeTicket = res.ticket;
         populateWorkbenchFromTicket(res.ticket, res.timeline || []);
-        openWhatsappModal('✅ Ticket Closed — Send Confirmation & Feedback Link on WhatsApp', waCloseMessage, activeDossier.phoneNo);
+        openWhatsappModal('Ticket Closed — Send Confirmation & Feedback Link on WhatsApp', waCloseMessage, activeDossier.phoneNo);
       }
     }
 
@@ -2297,15 +2417,15 @@
             ? `https://drive.google.com/uc?export=download&id=${encodeURIComponent(f.fileId)}`
             : f.url;
           const wrap = document.createElement('div');
-          wrap.className = 'p-3 rounded-xl bg-purple-50 border border-purple-200 flex flex-wrap items-center justify-between gap-2 text-xs';
+          wrap.className = 'p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs';
           wrap.innerHTML = `
             <div class="flex items-center gap-2 flex-wrap">
-              <span class="font-bold text-purple-900">🎤 Customer Voice Note (${escapeHtml(f.name)}):</span>
+              <span class="font-semibold text-slate-800">Customer Voice Note (${escapeHtml(f.name)}):</span>
               <audio controls src="${audioStreamUrl}" class="h-8"></audio>
-              <a href="${escapeHtml(f.url)}" target="_blank" class="text-primary underline font-semibold">Open in Drive ↗</a>
+              <a href="${escapeHtml(f.url)}" target="_blank" class="text-[#FF4500] underline font-medium">Open in Drive ↗</a>
             </div>
-            <button type="button" onclick="transcribeVoiceNoteOnDemand('${escapeHtml(f.fileId)}')" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-[11px]">
-              ✨ Transcribe &amp; Translate (Only if needed)
+            <button type="button" onclick="transcribeVoiceNoteOnDemand('${escapeHtml(f.fileId)}')" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-[11px]">
+              Transcribe &amp; Translate
             </button>
           `;
           gal.appendChild(wrap);
@@ -2313,8 +2433,8 @@
           const a = document.createElement('a');
           a.href = f.url;
           a.target = '_blank';
-          a.className = 'inline-block mr-2 mb-1 text-xs px-2.5 py-1 rounded-lg bg-orange-50 text-primary border border-orange-200 font-semibold hover:bg-orange-100';
-          a.textContent = `📎 ${f.slotLabel || 'Proof'}: ${f.name}`;
+          a.className = 'inline-block mr-2 mb-1 text-xs px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 font-medium hover:bg-slate-200';
+          a.textContent = `${f.slotLabel || 'Proof'}: ${f.name} ↗`;
           gal.appendChild(a);
         }
       });
@@ -2407,10 +2527,6 @@
       }
     }
 
-    /**
-     * Guaranteed AI Email Polisher (Calls Gemini API or Multi-Tone Executive Rewriter)
-     * Updates the Email Preview box with polished narrative without destroying raw notes!
-     */
     async function polishEmailWithAi() {
       if (!activeDossier) return;
       const storylineNotes = document.getElementById('escStorylineInput').value.trim();
@@ -2422,7 +2538,7 @@
       const { list } = getSelectedSkusArray();
       const skuSummary = list.map(s => `${s.affectedQty} ${s.selectedUnit} of ${s.skuName} (Batch ${s.batchNo})`).join(', ');
 
-      setLoading(true, 'Generating AI-polished executive email narrative...');
+      setLoading(true, 'Polishing executive email narrative...');
       const res = await apiPost({
         action: 'generateAiEmailDraft',
         storylineNotes,
@@ -2439,9 +2555,9 @@
       if (res.status === 'success' && res.polishedStoryline) {
         aiPolishedStoryline = res.polishedStoryline;
         aiPolishedResolution = res.polishedResolution || resolutionNotes;
-        document.getElementById('aiEngineStatusBadge').textContent = `✨ Polished via ${res.engineUsed || 'AI'} (Click again to regenerate variation)`;
+        document.getElementById('aiEngineStatusBadge').textContent = `Polished via ${res.engineUsed || 'AI'} (Click again for variation)`;
         buildLiveEmailPreview();
-        showToastAlert('AI Email Generated', 'Email preview updated! Click Generate again for another variation or edit directly.');
+        showToastAlert('Email Narrative Polished', 'Preview updated! Click Generate again for another variation or edit directly.');
       }
     }
 
@@ -2468,7 +2584,7 @@
         eventType: 'WHATSAPP_STAGE',
         partySpokenTo: pendingDept,
         callOutcome: 'Milestone Updated',
-        headline: `💬 Milestone: ${stageLabel}`,
+        headline: `Milestone: ${stageLabel}`,
         details: publicScript
       });
       setLoading(false);
@@ -2503,7 +2619,7 @@
         eventType: 'CUSTOM_STATUS',
         partySpokenTo: pendingDept,
         callOutcome: actionDate ? `Action Date: ${actionDate}` : 'Custom Override',
-        headline: `⚙️ Custom Update: ${customText || 'Action Date Updated'}${actionDate ? ' (Target Date: ' + actionDate + ')' : ''}`,
+        headline: `Custom Update: ${customText || 'Action Date Updated'}${actionDate ? ' (Target Date: ' + actionDate + ')' : ''}`,
         details: `What to tell Cx: ${tellCx || activeTicket.whatToTellCx}`
       });
       setLoading(false);
@@ -2564,7 +2680,7 @@
         partySpokenTo: party,
         contactPerson: person,
         callOutcome: outcome,
-        headline: `📞 Call Logged with ${party} (${person}) — ${outcome}`,
+        headline: `Call Logged with ${party} (${person}) — ${outcome}`,
         details: summary
       });
       setLoading(false);
@@ -2576,11 +2692,6 @@
       }
     }
 
-    /**
-     * Renders BOTH:
-     * 1. The Dedicated Call & Follow-Up History Table (visible to Sales & CDT inside the Live Tracker Banner)
-     * 2. The Full Chronological Audit Trail
-     */
     function renderAuditTimelineAndCallTable(events) {
       const callTbody = document.getElementById('sharedCallLogsTableBody');
       const callBadge = document.getElementById('callLogsCountBadge');
@@ -2589,17 +2700,17 @@
       if (callBadge) callBadge.textContent = `${callEvents.length} call(s) logged`;
       if (callTbody) {
         if (!callEvents.length) {
-          callTbody.innerHTML = '<tr><td colspan="6" class="px-3 py-4 text-center text-muted">No calls logged yet for this order. Use Panel 5 (Log Follow-Up Touchpoint) or Mark Unreachable to log calls.</td></tr>';
+          callTbody.innerHTML = '<tr><td colspan="6" class="px-3 py-4 text-center text-slate-400">No calls logged yet for this order.</td></tr>';
         } else {
           callTbody.innerHTML = callEvents.map(c => {
             const dt = c.timestamp ? new Date(c.timestamp).toLocaleString('en-IN') : '';
             return `
-              <tr class="hover:bg-orange-50/30">
-                <td class="px-3 py-2 whitespace-nowrap text-muted">${escapeHtml(dt)}</td>
-                <td class="px-3 py-2 font-bold text-slate-800">${escapeHtml(c.actorName)}</td>
-                <td class="px-3 py-2 font-semibold text-primary">${escapeHtml(c.partySpokenTo || 'Customer')}</td>
+              <tr class="hover:bg-slate-50">
+                <td class="px-3 py-2 whitespace-nowrap font-mono text-slate-400">${escapeHtml(dt)}</td>
+                <td class="px-3 py-2 font-semibold text-slate-800">${escapeHtml(c.actorName)}</td>
+                <td class="px-3 py-2 font-medium text-[#FF4500]">${escapeHtml(c.partySpokenTo || 'Customer')}</td>
                 <td class="px-3 py-2 font-mono">${escapeHtml(c.contactPerson || '—')}</td>
-                <td class="px-3 py-2"><span class="px-2 py-0.5 rounded bg-amber-50 border border-amber-200 font-bold text-amber-900">${escapeHtml(c.callOutcome || 'Logged')}</span></td>
+                <td class="px-3 py-2"><span class="px-2 py-0.5 rounded bg-amber-50 border border-amber-200 font-semibold text-amber-900">${escapeHtml(c.callOutcome || 'Logged')}</span></td>
                 <td class="px-3 py-2 text-slate-700">${escapeHtml(c.details)}</td>
               </tr>
             `;
@@ -2610,16 +2721,16 @@
       const container = document.getElementById('auditTimelineList');
       const salesContainer = document.getElementById('salesAuditTimelineList');
       const html = (!events || !events.length)
-        ? '<p class="text-xs text-muted text-center py-6">No calls, WhatsApp updates, or email replies logged yet.</p>'
+        ? '<p class="text-xs text-slate-400 text-center py-6">No activity logged yet.</p>'
         : events.map(ev => {
             const dt = ev.timestamp ? new Date(ev.timestamp).toLocaleString('en-IN') : '';
             return `
-              <div class="p-3 rounded-lg bg-bg border border-border text-xs space-y-1">
-                <div class="flex items-center justify-between text-[11px] text-muted">
-                  <span class="font-bold text-primary">${escapeHtml(ev.eventType)} • ${escapeHtml(ev.actorName)}</span>
-                  <span>${escapeHtml(dt)}</span>
+              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 text-xs space-y-1">
+                <div class="flex items-center justify-between text-[11px] text-slate-400">
+                  <span class="font-mono font-semibold text-[#FF4500]">${escapeHtml(ev.eventType)} · ${escapeHtml(ev.actorName)}</span>
+                  <span class="font-mono">${escapeHtml(dt)}</span>
                 </div>
-                <p class="font-bold text-slate-900">${escapeHtml(ev.headline)}</p>
+                <p class="font-semibold text-slate-900">${escapeHtml(ev.headline)}</p>
                 <p class="text-slate-600 whitespace-pre-line">${escapeHtml(ev.details)}</p>
               </div>
             `;
@@ -2637,7 +2748,7 @@
       badge.textContent = `${rows.length} rows`;
 
       if (!rows.length) {
-        container.innerHTML = '<p class="p-4 text-xs text-muted text-center">No matching rows.</p>';
+        container.innerHTML = '<p class="p-4 text-xs text-slate-400 text-center">No matching rows.</p>';
         return;
       }
 
@@ -2646,9 +2757,9 @@
         if (rows.some(r => r[c] && String(r[c]).trim() !== '')) activeCols.push(c);
       }
 
-      let html = '<table class="min-w-full divide-y divide-slate-200 text-[11px] text-left"><thead class="bg-bg"><tr>';
+      let html = '<table class="min-w-full divide-y divide-slate-200 text-[11px] text-left"><thead class="bg-slate-50"><tr>';
       activeCols.forEach(c => {
-        html += `<th class="px-3 py-2 font-bold text-slate-600 uppercase whitespace-nowrap">${escapeHtml(headers[c])}</th>`;
+        html += `<th class="px-3 py-2 font-semibold text-slate-500 uppercase whitespace-nowrap">${escapeHtml(headers[c])}</th>`;
       });
       html += '</tr></thead><tbody class="divide-y divide-slate-100">';
       rows.forEach(r => {
@@ -2662,9 +2773,7 @@
       container.innerHTML = html;
     }
 
-    /* =========================================================================
-     * ISOLATED CUSTOMER PORTAL FUNCTIONS + CORRECTED 4-STEP TRACKER
-     * ========================================================================= */
+    /* ISOLATED CUSTOMER PORTAL FUNCTIONS */
     function saveLocalCustomerDraft() {
       if (!activeDossier || !activeDossier.orderId) return;
       const skus = [];
@@ -2751,7 +2860,7 @@
           mediaRecorder.start();
           isRecordingVoice = true;
           voiceSeconds = 0;
-          btn.innerHTML = '<span>⏹️ Stop &amp; Attach Voice Note</span>';
+          btn.innerHTML = '<span>Stop &amp; Attach Voice Note</span>';
           btn.className = 'px-3 py-1 rounded-lg bg-slate-900 text-white text-xs font-semibold flex items-center gap-1.5';
           timerBadge.classList.remove('hidden');
           voiceTimerInterval = setInterval(() => {
@@ -2767,7 +2876,7 @@
         clearInterval(voiceTimerInterval);
         isRecordingVoice = false;
         timerBadge.classList.add('hidden');
-        btn.innerHTML = '<span>🎤 Record Voice Note</span>';
+        btn.innerHTML = '<span>Record Voice Note</span>';
         btn.className = 'px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5';
         if (mediaRecorder && mediaRecorder.state !== 'inactive') {
           mediaRecorder.stop();
@@ -2792,7 +2901,7 @@
             (data.results || []).map(r => `
               <button type="button" onclick="runCustomerPortalLookup('${escapeHtml(r.rawOrderId || r.orderId)}')"
                 class="w-full text-left p-3 rounded-lg border border-border hover:border-primary bg-bg flex items-center justify-between text-xs">
-                <span><strong>Order ${escapeHtml(r.orderId)}</strong> • Booked: ${escapeHtml(r.bookingDate)}</span>
+                <span><strong>Order ${escapeHtml(r.orderId)}</strong> · Booked: ${escapeHtml(r.bookingDate)}</span>
                 <span class="text-primary font-bold">Select →</span>
               </button>
             `).join('');
@@ -2821,9 +2930,8 @@
         trk.classList.remove('hidden');
 
         const agentInfo = getAgentPhoneInfo(latest.assignedAgentEmail || latest.assignedAgentName);
-        document.getElementById('cxTrkTicketId').textContent = `Claim #${latest.escId} • Order ${d.orderId}`;
+        document.getElementById('cxTrkTicketId').textContent = `Claim #${latest.escId} · Order ${d.orderId}`;
 
-        // Properly reflect Batch Confirmed / Resolution Approved in Customer Portal Title & 4-Step Bar!
         const stageLower = `${latest.liveStage || ''} ${latest.customStatusText || ''}`.toLowerCase();
         const isResolutionApproved =
           stageLower.includes('batch confirmed') ||
@@ -2833,15 +2941,15 @@
 
         document.getElementById('cxTrkStageTitle').textContent =
           latest.bucket === 'Completed'
-            ? '✅ Resolution Completed'
-            : (isResolutionApproved ? '✅ Resolution Approved & Processing' : 'Active — Under Verification');
+            ? 'Resolution Completed'
+            : (isResolutionApproved ? 'Resolution Approved & Processing' : 'Active — Under Verification');
 
         document.getElementById('cxTrkAssignedSpecialist').textContent =
           `${agentInfo.name} (+91 ${agentInfo.phone})`;
 
         const callBtn = document.getElementById('cxCallAssignedBtn');
         callBtn.href = `tel:+91${agentInfo.phone}`;
-        callBtn.textContent = `📞 Call ${agentInfo.name}: ${agentInfo.phone}`;
+        callBtn.textContent = `Call ${agentInfo.name}: ${agentInfo.phone}`;
 
         const rawTellCx = latest.whatToTellCx || 'Your claim and media proofs have been received and are being verified by our team.';
         const unreachableBanner = document.getElementById('cxUnreachableAlertBanner');
@@ -2856,13 +2964,13 @@
 
         const cxSteps = [
           { label: '1. Claim Logged', done: true },
-          { label: '2. Under Verification', done: true },
-          { label: '3. Resolution Approved', done: isResolutionApproved },
+          { label: '2. Verification', done: true },
+          { label: '3. Approved', done: isResolutionApproved },
           { label: '4. Completed', done: latest.bucket === 'Completed' }
         ];
         document.getElementById('cxSanitizedStepsGrid').innerHTML = cxSteps.map(s => `
-          <div class="p-2 rounded-lg border text-center font-bold ${s.done ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-surface border-border text-muted'}">
-            ${s.done ? '✔ ' : '○ '}${s.label}
+          <div class="p-2 rounded-lg border text-center font-semibold ${s.done ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-surface border-border text-muted'}">
+            ${s.done ? '● ' : '○ '}${s.label}
           </div>
         `).join('');
 
@@ -2972,7 +3080,7 @@
                   onchange="onCxSkuCheckboxToggle('${escapeHtml(item.rowKey)}')" />
                 <span>${escapeHtml(item.skuName)}</span>
               </div>
-              <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted">
+              <span class="text-[11px] font-mono font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted">
                 Ordered: ${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}
               </span>
             </label>
@@ -2983,7 +3091,7 @@
                 <input type="number" min="1" step="any" value="${sv ? escapeHtml(sv.affectedQty) : '1'}"
                   id="cxqty_${item.rowKey}"
                   oninput="autoSaveCustomerDraft()"
-                  class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-bold focus:outline-none focus:border-primary" />
+                  class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-mono font-bold focus:outline-none focus:border-primary" />
               </div>
               <div>
                 <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Select Unit *</label>
@@ -3087,12 +3195,12 @@
       const badge = document.getElementById('cxProofValidationBadge');
       if (badge) {
         const bothMet = photoCount >= 1 && videoCount >= 1;
-        badge.className = `text-[11px] font-bold px-2.5 py-0.5 rounded ${bothMet ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
-        badge.textContent = `${bothMet ? '✅ ' : '⚠️ '}${photoCount} Photo(s), ${videoCount} Video(s)`;
+        badge.className = `text-[11px] font-semibold px-2.5 py-0.5 rounded ${bothMet ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
+        badge.textContent = `${photoCount} Photo(s), ${videoCount} Video(s)`;
       }
 
       document.getElementById('cxUploadedFilesList').innerHTML = cxUploadedFiles.map(f =>
-        `<span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">✅ ${escapeHtml(f.slotLabel)}: ${escapeHtml(f.name)}</span>`
+        `<span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium">${escapeHtml(f.slotLabel)}: ${escapeHtml(f.name)}</span>`
       ).join('');
     }
 
@@ -3122,7 +3230,7 @@
         const submitBtn = document.getElementById('cxFinalSubmitBtn');
         if (submitBtn) {
           submitBtn.disabled = true;
-          submitBtn.innerHTML = '🔒 Submitting Application — Please Wait...';
+          submitBtn.innerHTML = 'Submitting Application — Please Wait...';
         }
         setLoading(true, 'Logging your escalation & assigning specialist...');
 
@@ -3208,16 +3316,16 @@
       if (!tbody) return;
       tbody.innerHTML = (sysConfig.roster || []).map(r => `
         <tr>
-          <td class="px-3 py-2 font-bold">${escapeHtml(r.name)}</td>
-          <td class="px-3 py-2 font-mono">${escapeHtml(r.email)}</td>
-          <td class="px-3 py-2"><span class="px-2 py-0.5 rounded bg-orange-50 text-primary font-semibold">${escapeHtml(r.role)}</span></td>
-          <td class="px-3 py-2">${escapeHtml(r.whatsapp || '—')}</td>
-          <td class="px-3 py-2 font-bold">${r.capacityCap}</td>
-          <td class="px-3 py-2">${r.activeCount} active</td>
-          <td class="px-3 py-2 font-bold ${r.availability === 'AVAILABLE' ? 'text-emerald-700' : 'text-rose-600'}">${escapeHtml(r.availability)}</td>
-          <td class="px-3 py-2 flex gap-1.5">
-            <button type="button" onclick="adminQuickFill('${escapeHtml(r.name)}','${escapeHtml(r.email)}','${escapeHtml(r.role)}','${escapeHtml(r.whatsapp)}',${r.capacityCap},'${escapeHtml(r.availability)}')" class="text-primary hover:underline font-semibold">Edit</button>
-            <button type="button" onclick="adminDeleteMember('${escapeHtml(r.email)}')" class="text-rose-600 hover:underline font-semibold">Remove</button>
+          <td class="px-3 py-2.5 font-semibold text-slate-900">${escapeHtml(r.name)}</td>
+          <td class="px-3 py-2.5 font-mono text-slate-600">${escapeHtml(r.email)}</td>
+          <td class="px-3 py-2.5"><span class="px-2 py-0.5 rounded bg-orange-50 text-[#FF4500] font-semibold">${escapeHtml(r.role)}</span></td>
+          <td class="px-3 py-2.5 font-mono">${escapeHtml(r.whatsapp || '—')}</td>
+          <td class="px-3 py-2.5 font-mono font-bold">${r.capacityCap}</td>
+          <td class="px-3 py-2.5 font-mono">${r.activeCount} active</td>
+          <td class="px-3 py-2.5 font-semibold ${r.availability === 'AVAILABLE' ? 'text-emerald-700' : 'text-rose-600'}">${escapeHtml(r.availability)}</td>
+          <td class="px-3 py-2.5 flex gap-2">
+            <button type="button" onclick="adminQuickFill('${escapeHtml(r.name)}','${escapeHtml(r.email)}','${escapeHtml(r.role)}','${escapeHtml(r.whatsapp)}',${r.capacityCap},'${escapeHtml(r.availability)}')" class="text-[#FF4500] hover:underline font-medium">Edit</button>
+            <button type="button" onclick="adminDeleteMember('${escapeHtml(r.email)}')" class="text-rose-600 hover:underline font-medium">Remove</button>
           </td>
         </tr>
       `).join('');
