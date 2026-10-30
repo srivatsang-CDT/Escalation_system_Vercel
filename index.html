@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adorzy — Escalation & Order Intelligence</title>
-  <!-- ADORZY OFFICIAL SVG FAVICON (Fixes Browser Tab Icon in Image 2!) -->
+  <!-- ADORZY OFFICIAL SVG FAVICON -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z' fill='%23FF4500'/%3E%3Cpath d='M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z' fill='%23FF4500'/%3E%3Cpath d='M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 0 10.868 0H5.10773C4.90554 0 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378V10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z' fill='%23FF4500'/%3E%3Cpath d='M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781V10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z' fill='%23FF4500'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -164,7 +164,6 @@
 
   <!-- =========================================================================
        SCREEN B: CRISP LINEAR / STRIPE DAYLIGHT TOP NAVIGATION BAR
-       (Replaces the heavy pitch-black double-decker header from Image 1!)
        ========================================================================= -->
   <header id="internalAppHeader" class="hidden bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
@@ -292,7 +291,7 @@
          ===================================================================== -->
     <div id="internalWorkspaceView" class="space-y-5">
 
-      <!-- 1. CDT DEFAULT LANDING DASHBOARD (Linear/Stripe Style — Zero Horizontal Bucket Scrolling!) -->
+      <!-- 1. CDT DEFAULT LANDING DASHBOARD -->
       <section id="cdtLandingDashboard" class="hidden space-y-5">
 
         <!-- Top Control Row: Title + Compact Executive Load Pills + Filters -->
@@ -319,10 +318,10 @@
           </div>
         </div>
 
-        <!-- 8-COLUMN PIPELINE STAGE METRIC GRID (Fits 100% on screen with ZERO horizontal scrolling!) -->
+        <!-- 8-COLUMN PIPELINE STAGE METRIC GRID -->
         <div id="bucketTabsBar" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5"></div>
 
-        <!-- LINEAR / ATTIO HIGH-DENSITY TICKETS TABLE (No ugly orange Open buttons!) -->
+        <!-- LINEAR / ATTIO HIGH-DENSITY TICKETS TABLE -->
         <div class="bg-white border border-slate-200/90 rounded-xl shadow-2xs overflow-hidden">
           <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-slate-200/80 text-xs text-left">
@@ -461,7 +460,7 @@
           <iframe id="quotePreviewIframe" class="w-full h-[500px] border-0"></iframe>
         </div>
 
-        <!-- LIVE ESCALATION PIZZA-TRACKER + DEDICATED CALL LOG TABLE -->
+        <!-- LIVE ESCALATION PIZZA-TRACKER + INLINE CALL LOGGER & CALL HISTORY TABLE -->
         <div id="liveTrackerBanner" class="hidden bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
@@ -490,12 +489,41 @@
             </button>
           </div>
 
-          <!-- DEDICATED CALL & TOUCHPOINT LOG TABLE -->
-          <div class="pt-3 border-t border-slate-100 space-y-2">
+          <!-- DEDICATED CALL & TOUCHPOINT LOG TABLE + INLINE CALL LOGGER -->
+          <div class="pt-3 border-t border-slate-100 space-y-3">
             <div class="flex items-center justify-between">
-              <h4 class="text-xs font-semibold text-slate-800">Call &amp; Follow-Up History</h4>
+              <h4 class="text-xs font-semibold text-slate-800">📞 Call &amp; Follow-Up History</h4>
               <span class="text-[11px] font-medium text-slate-400" id="callLogsCountBadge">0 calls logged</span>
             </div>
+
+            <!-- Inline Call Logger (Visible to CDT & Admin right above the Call History Table; hidden for Sales) -->
+            <div id="inlineCdtCallLoggerBar" class="p-3 rounded-xl bg-orange-50/50 border border-orange-200/80 space-y-2">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <select id="callPartySelect" class="px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg font-medium">
+                  <option value="Customer">Spoke to: Customer</option>
+                  <option value="Procurement">Spoke to: Procurement</option>
+                  <option value="Logistics">Spoke to: Logistics</option>
+                  <option value="Vendor">Spoke to: Vendor</option>
+                  <option value="Sales">Spoke to: Sales Rep</option>
+                  <option value="Accounts">Spoke to: Accounts</option>
+                  <option value="Site Verifier">Spoke to: Site Verifier</option>
+                </select>
+                <input id="callPersonInput" type="text" placeholder="Person Name / Number" class="px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg" />
+                <select id="callOutcomeSelect" class="px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg font-medium">
+                  <option value="Connected - Update Shared">Connected - Update Shared</option>
+                  <option value="Connected - Follow-up Needed">Connected - Follow-up Needed</option>
+                  <option value="Did Not Pick Up (DNP)">Did Not Pick Up (DNP)</option>
+                  <option value="Busy / Switched Off">Busy / Switched Off</option>
+                </select>
+              </div>
+              <div class="flex gap-2">
+                <input id="callSummaryInput" type="text" placeholder="Enter call summary notes..." class="flex-1 px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg" />
+                <button type="button" onclick="submitCallLog()" class="px-4 py-1.5 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg shrink-0 shadow-xs">
+                  + Log Call
+                </button>
+              </div>
+            </div>
+
             <div class="overflow-x-auto border border-slate-200/80 rounded-lg max-h-48 scroll-thin">
               <table class="min-w-full divide-y divide-slate-200/80 text-[11px] text-left">
                 <thead class="bg-slate-50 font-semibold text-slate-500 uppercase">
@@ -559,10 +587,14 @@
           </div>
         </div>
 
-        <!-- CDT ESCALATION LOGGING, MEDIA PROOFS & AI EMAIL WORKBENCH -->
-      <div id="cdtEditorPanels" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-  <!-- LEFT 7 COLS -->
-  <div class="md:col-span-7 space-y-5">
+        <!-- =================================================================
+             CDT ESCALATION LOGGING, MEDIA PROOFS & AI EMAIL WORKBENCH
+             (Clean 12-Col Split: Left 7 Cols Panels + Right 5 Cols Sticky Email/Audit)
+             ================================================================= -->
+        <div id="cdtEditorPanels" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+
+          <!-- LEFT 7 COLS -->
+          <div class="md:col-span-7 space-y-5">
 
             <!-- Panel A: Classification, Resolution, Optional Action Date & Direct Save Button -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
@@ -623,7 +655,6 @@
 
                 <div>
                   <label class="block text-xs font-medium text-slate-600 mb-1">Error Cost Liability</label>
-                 
                   <select id="escCostLiabilitySelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg">
                     <option value="" selected>— Leave Blank (Decide at Closure) —</option>
                     <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
@@ -780,10 +811,8 @@
               </div>
             </div>
 
-            <!-- Panel D: Return Tracker -->
-            <!-- Panel D: Return Tracker (Temporarily hidden; preserved for future Logistics workflow) -->
-<div id="returnMaterialPanel" class="hidden bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
+            <!-- Panel D: Return Tracker (Temporarily hidden; single clean container) -->
+            <div id="returnMaterialPanel" class="hidden bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <h3 class="text-sm font-semibold text-slate-900">4. Return Material Logger</h3>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <select id="retDecisionSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
@@ -804,40 +833,9 @@
               </button>
             </div>
 
-            <!-- Panel E: Call Logger -->
-            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
-              <div class="flex items-center justify-between">
-                <h3 class="text-sm font-semibold text-slate-900">5. Log Follow-Up Call</h3>
-                <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">Syncs to Call History Table</span>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <select id="callPartySelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
-                  <option value="Customer">Spoke to: Customer</option>
-                  <option value="Procurement">Spoke to: Procurement</option>
-                  <option value="Logistics">Spoke to: Logistics</option>
-                  <option value="Vendor">Spoke to: Vendor</option>
-                  <option value="Sales">Spoke to: Sales Rep</option>
-                  <option value="Accounts">Spoke to: Accounts</option>
-                  <option value="Site Verifier">Spoke to: Site Verifier</option>
-                </select>
-                <input id="callPersonInput" type="text" placeholder="Person Name / Number" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
-                <select id="callOutcomeSelect" class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
-                  <option value="Connected - Update Shared">Connected - Update Shared</option>
-                  <option value="Connected - Follow-up Needed">Connected - Follow-up Needed</option>
-                  <option value="Did Not Pick Up (DNP)">Did Not Pick Up (DNP)</option>
-                  <option value="Busy / Switched Off">Busy / Switched Off</option>
-                </select>
-              </div>
-              <div class="flex gap-2">
-                <input id="callSummaryInput" type="text" placeholder="Enter call summary..." class="flex-1 px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
-                <button type="button" onclick="submitCallLog()" class="px-4 py-1.5 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg shrink-0">
-                  Log Call
-                </button>
-              </div>
-            </div>
           </div>
 
-          <!-- RIGHT 5 COLS: LIVE AI EMAIL COMPOSER + AUDIT TIMELINE -->
+          <!-- RIGHT 5 COLS: LIVE AI EMAIL COMPOSER + AUDIT TIMELINE (Pinned on Right Side) -->
           <div class="md:col-span-5 space-y-5 md:sticky md:top-20 self-start">
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
@@ -895,6 +893,7 @@
               <div id="auditTimelineList" class="space-y-2.5 max-h-[420px] overflow-y-auto scroll-thin pr-1"></div>
             </div>
           </div>
+
         </div>
       </section>
     </div>
@@ -1165,12 +1164,12 @@
 
   <script>
     // =========================================================================
-    // 1. PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL BELOW:
+    // 1. DEPLOYED GOOGLE APPS SCRIPT WEB APP URL:
     // =========================================================================
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmX_KeXly4K_KVeXw4JWJetNLnL94rgFZ6VsQHavaH_wB2MnUJO5fYDC0X_UFdpQmOzw/exec";
 
     // =========================================================================
-    // 2. PASTE YOUR GOOGLE CLOUD OAUTH WEB CLIENT ID BELOW:
+    // 2. GOOGLE CLOUD OAUTH WEB CLIENT ID:
     // =========================================================================
     const GOOGLE_OAUTH_CLIENT_ID = "1067858090113-au55s5rehqkeho5maicj7h8os99fs0ks.apps.googleusercontent.com";
 
@@ -1247,10 +1246,6 @@
       return s;
     }
 
-    /**
-     * Deduplicates tickets array by escId (keeping the first/newest item)
-     * Fixes duplicate ESC-1005 rows seen in Image 1!
-     */
     function deduplicateTicketsById(tickets) {
       const seen = new Set();
       const out = [];
@@ -1495,6 +1490,7 @@
       document.getElementById('internalWorkspaceView').classList.toggle('hidden', isAdminPanel);
       document.getElementById('adminConfigView').classList.toggle('hidden', !isAdminPanel);
       document.getElementById('cdtEditorPanels').classList.toggle('hidden', isSales);
+      document.getElementById('inlineCdtCallLoggerBar')?.classList.toggle('hidden', isSales);
       document.getElementById('salesReadOnlyTimelineBox').classList.toggle('hidden', !isSales);
 
       returnToRoleHome();
@@ -1515,11 +1511,6 @@
       }
     }
 
-    /**
-     * Renders:
-     * 1. Sleek Executive Capacity Chips (No neon green two-line wrapping)
-     * 2. 8-Column Linear/Stripe Pipeline Stage Metric Cards (ZERO horizontal scrolling!)
-     */
     function renderRosterAndBucketsBar(bucketsSummary) {
       const rosterEl = document.getElementById('rosterCapacityBar');
       rosterEl.innerHTML = '';
@@ -1537,13 +1528,11 @@
           rosterEl.appendChild(pill);
         });
 
-      // Compute clean counts from deduplicated cache
       const activeTotal = (allTicketsCache || []).filter(t => t.bucket !== 'Cx_Draft_In_Progress').length;
 
       const bucketsEl = document.getElementById('bucketTabsBar');
       bucketsEl.innerHTML = '';
 
-      // Card 0: All Active
       const allActive = selectedBucketFilter === '';
       const allCard = document.createElement('button');
       allCard.type = 'button';
@@ -1562,7 +1551,6 @@
       };
       bucketsEl.appendChild(allCard);
 
-      // Cards 1..7: Individual Buckets
       ALL_BUCKETS.forEach(bName => {
         const count = (allTicketsCache || []).filter(t => t.bucket === bName).length;
         const active = selectedBucketFilter === bName;
@@ -1587,12 +1575,6 @@
       });
     }
 
-    /**
-     * Renders High-Density Linear-Style Queue Table
-     * - No wrapping on Ticket ID or Order ID
-     * - Semantic dot badges for Buckets
-     * - Clean hover chevron instead of squashed orange "Open" buttons
-     */
     function renderCdtHomeQueueTable() {
       const tbody = document.getElementById('cdtHomeQueueTableBody');
       const heading = document.getElementById('cdtQueueHeading');
@@ -2132,13 +2114,16 @@
       const banner = document.getElementById('liveTrackerBanner');
       renderAuditTimelineAndCallTable(timeline || []);
 
+      const isSales = (currentViewMode === 'sales');
+      document.getElementById('inlineCdtCallLoggerBar')?.classList.toggle('hidden', isSales);
+
       if (!ticket) {
         banner.classList.remove('hidden');
         document.getElementById('trkTicketBadge').textContent = 'DRAFT MODE';
         document.getElementById('trkActionDateBadge').classList.add('hidden');
         document.getElementById('trkHeadlineStage').textContent = 'No Formal Escalation Ticket Saved Yet';
         document.getElementById('trkPendingDept').textContent = 'Status: Pre-Escalation';
-        document.getElementById('trkAssignedOwner').textContent = 'Owner: —';
+        document.getElementById('trkAssignedOwner').textContent = `Owner: ${sysConfig.currentUser?.name || 'You'}`;
         document.getElementById('trkWhatToTellCx').textContent = 'No escalation ticket has been saved for this order yet.';
         document.getElementById('pizzaProgressGrid').innerHTML = '';
         document.getElementById('editingEscIdLabel').textContent = 'New Ticket';
@@ -2462,10 +2447,21 @@
       }
     }
 
+    /**
+     * FIXED: Passes assignedAgentEmail & assignedAgentName of the logged-in agent
+     * when manually raising a ticket so it is never assigned to another agent!
+     */
     async function saveOrSendTicket(sendEmailNow) {
       if (!activeDossier) return;
       const { list, totalCost } = getSelectedSkusArray();
       const u = sysConfig.currentUser || {};
+
+      const ownerEmail = (activeTicket && activeTicket.assignedAgentEmail)
+        ? activeTicket.assignedAgentEmail
+        : (u.email || authenticatedEmail);
+      const ownerName = (activeTicket && activeTicket.assignedAgentName)
+        ? activeTicket.assignedAgentName
+        : (u.name || (ownerEmail ? ownerEmail.split('@')[0] : 'CDT Specialist'));
 
       setLoading(true, sendEmailNow ? 'Logging ticket & sending email...' : 'Saving classification & ticket state in bucket...');
       try {
@@ -2478,6 +2474,8 @@
           cxPhone: activeDossier.phoneNo,
           salesRep: activeDossier.salesRep,
           sourceSheet: activeDossier.sourceSheet,
+          assignedAgentEmail: ownerEmail,
+          assignedAgentName: ownerName,
           bucket: document.getElementById('escBucketSelect').value,
           siteVerifierAgent: cleanSiteVerifierVal(document.getElementById('escSiteVerifierInput').value),
           targetActionDate: document.getElementById('escTargetActionDateInput').value.trim(),
@@ -2496,8 +2494,8 @@
           emailCc: document.getElementById('emailCcInput').value.trim(),
           emailSubject: document.getElementById('emailSubjectInput').value.trim(),
           emailBodyHtml: document.getElementById('emailBodyPreview').innerHTML,
-          actorName: u.name,
-          actorEmail: u.email,
+          actorName: u.name || ownerName,
+          actorEmail: u.email || ownerEmail,
           sendEmailNow
         });
         setLoading(false);
@@ -2505,7 +2503,7 @@
           activeTicket = res.ticket;
           try { localStorage.removeItem(`adorzy_cdt_draft_${activeDossier.orderId}`); } catch (e) {}
           populateWorkbenchFromTicket(res.ticket, res.timeline || []);
-          showToastAlert('Saved Successfully', `${res.escId} saved in "${res.bucket}"`);
+          showToastAlert('Saved Successfully', `${res.escId} saved in "${res.bucket}" (Owner: ${ownerName})`);
         }
       } catch (e) {
         setLoading(false);
@@ -2668,7 +2666,7 @@
       const outcome = document.getElementById('callOutcomeSelect').value;
       const summary = document.getElementById('callSummaryInput').value.trim();
       if (!summary) {
-        showBannerError('Enter Call Summary', 'Please enter a brief summary of the call before clicking Log Call.');
+        showBannerError('Enter Call Summary', 'Please enter a brief summary of the call before clicking + Log Call.');
         return;
       }
 
@@ -3233,7 +3231,7 @@
         const submitBtn = document.getElementById('cxFinalSubmitBtn');
         if (submitBtn) {
           submitBtn.disabled = true;
-          submitBtn.innerHTML = 'Submitting Application — Please Wait...';
+          submitBtn.innerHTML = 'Submitting — Please Wait...';
         }
         setLoading(true, 'Logging your escalation & assigning specialist...');
 
