@@ -625,6 +625,13 @@
                 <div>
                   <label class="block text-xs font-medium text-slate-600 mb-1">Error Cost Liability</label>
                   <select id="escCostLiabilitySelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg">
+  <option value="" selected>— Leave Blank (Decide at Closure) —</option>
+  <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
+  <option value="Absorbed by Adorzy">Absorbed by Adorzy</option>
+  <option value="Customer Paid / Commercial Split">Customer Paid / Commercial Split</option>
+  <option value="Zero Cost Impact (Mutual Closure)">Zero Cost Impact (Mutual Closure)</option>
+</select>
+                  <select id="escCostLiabilitySelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg">
                     <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
                     <option value="Absorbed by Adorzy">Absorbed by Adorzy</option>
                     <option value="Customer Paid / Commercial Split">Customer Paid / Commercial Split</option>
@@ -780,6 +787,8 @@
             </div>
 
             <!-- Panel D: Return Tracker -->
+            <!-- Panel D: Return Tracker (Temporarily hidden; preserved for future Logistics workflow) -->
+<div id="returnMaterialPanel" class="hidden bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <h3 class="text-sm font-semibold text-slate-900">4. Return Material Logger</h3>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
