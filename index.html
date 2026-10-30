@@ -1082,7 +1082,7 @@
               onclick="submitCustomerPortalClaim(true)"
               class="w-full py-2.5 bg-warning text-white rounded-lg text-sm font-semibold cursor-pointer hover:bg-warning/90 disabled:opacity-50 transition shadow-xs"
             >
-              Submit Application to CDT
+              Submit
             </button>
           </div>
         </div>
@@ -3283,7 +3283,7 @@
             const submitBtn = document.getElementById('cxFinalSubmitBtn');
             if (submitBtn) {
               submitBtn.disabled = false;
-              submitBtn.innerHTML = 'Submit Application to CDT';
+              submitBtn.innerHTML = 'Submit';
             }
             showToastAlert(`Claim Logged: ${res.escId}`, `Assigned to ${res.assignedTo}. Loading your live status tracker...`);
             runCustomerPortalLookup(activeDossier.orderId);
@@ -3294,7 +3294,7 @@
           const submitBtn = document.getElementById('cxFinalSubmitBtn');
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Submit Application to CDT';
+            submitBtn.innerHTML = 'Submit';
           }
         }
       } catch (err) {
@@ -3304,7 +3304,7 @@
           const submitBtn = document.getElementById('cxFinalSubmitBtn');
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Submit Application to CDT';
+            submitBtn.innerHTML = 'Submit';
           }
         }
       }
