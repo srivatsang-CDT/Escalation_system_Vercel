@@ -624,14 +624,9 @@
 
                 <div>
                   <label class="block text-xs font-medium text-slate-600 mb-1">Error Cost Liability</label>
+                 
                   <select id="escCostLiabilitySelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg">
-  <option value="" selected>— Leave Blank (Decide at Closure) —</option>
-  <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
-  <option value="Absorbed by Adorzy">Absorbed by Adorzy</option>
-  <option value="Customer Paid / Commercial Split">Customer Paid / Commercial Split</option>
-  <option value="Zero Cost Impact (Mutual Closure)">Zero Cost Impact (Mutual Closure)</option>
-</select>
-                  <select id="escCostLiabilitySelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg">
+                    <option value="" selected>— Leave Blank (Decide at Closure) —</option>
                     <option value="Recoverable from Vendor / Transporter">Recoverable from Vendor / Transporter</option>
                     <option value="Absorbed by Adorzy">Absorbed by Adorzy</option>
                     <option value="Customer Paid / Commercial Split">Customer Paid / Commercial Split</option>
@@ -2161,7 +2156,7 @@
           document.getElementById('escResolutionSelect').value = src.resolutionType;
           onResolutionTypeChange();
         }
-        document.getElementById('escCostLiabilitySelect').value = src.costLiability || 'Recoverable from Vendor / Transporter';
+        document.getElementById('escCostLiabilitySelect').value = src.costLiability || '';
         document.getElementById('escTargetActionDateInput').value = src.targetActionDate || '';
         document.getElementById('escRefundModeSelect').value = src.refundMode || 'Refund to Bank Account';
         document.getElementById('escRefundEdgeNote').value = src.refundEdgeCaseNote || '';
@@ -2234,7 +2229,7 @@
       }
       document.getElementById('escRefundModeSelect').value = ticket.refundMode || 'Refund to Bank Account';
       document.getElementById('escRefundEdgeNote').value = ticket.refundEdgeCaseNote || '';
-      document.getElementById('escCostLiabilitySelect').value = ticket.costLiability || 'Recoverable from Vendor / Transporter';
+      document.getElementById('escCostLiabilitySelect').value = (ticket.costLiability && ticket.costLiability !== 'Pending Assessment') ? ticket.costLiability : '';
       document.getElementById('escTargetActionDateInput').value = ticket.targetActionDate || '';
       document.getElementById('escStorylineInput').value = ticket.storylineNotes || '';
       document.getElementById('escResolutionNotesInput').value = ticket.resolutionNotes || '';
