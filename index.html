@@ -2240,10 +2240,120 @@
       }
     }
 
+    // =========================================================================
+    // APPROACH 1: DIRECT AGENT GMAIL REST API DISPATCH (Sends from Agent's Inbox)
+    // =========================================================================
+    let gmailAccessToken = sessionStorage.getItem('adorzy_gmail_access_token') || '';
+    let gmailTokenClient = null;
+
+    function requestAgentGmailAccessToken() {
+      return new Promise((resolve, reject) => {
+        if (gmailAccessToken) return resolve(gmailAccessToken);
+        if (!window.google || !google.accounts || !google.accounts.oauth2) {
+          return reject(new Error('Google OAuth2 client not loaded yet. Please refresh and try again.'));
+        }
+        gmailTokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: GOOGLE_OAUTH_CLIENT_ID,
+          scope: 'https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.compose',
+          hint: authenticatedEmail,
+          prompt: '',
+          callback: (tokenResponse) => {
+            if (tokenResponse && tokenResponse.access_token) {
+              gmailAccessToken = tokenResponse.access_token;
+              sessionStorage.setItem('adorzy_gmail_access_token', gmailAccessToken);
+              resolve(gmailAccessToken);
+            } else {
+              reject(new Error('Gmail send authorization was declined.'));
+            }
+          }
+        });
+        gmailTokenClient.requestAccessToken();
+      });
+    }
+
+    function buildRfc2822Base64Url({ fromEmail, fromName, to, cc, subject, htmlBody }) {
+      const encodedSubject = `=?UTF-8?B?${btoa(unescape(encodeURIComponent(subject)))}?=`;
+      const headers = [
+        `From: "${fromName}" <${fromEmail}>`,
+        `To: ${to}`,
+        cc ? `Cc: ${cc}` : '',
+        `Subject: ${encodedSubject}`,
+        'MIME-Version: 1.0',
+        'Content-Type: text/html; charset="UTF-8"'
+      ].filter(Boolean).join('\r\n');
+
+      const rawMime = `${headers}\r\n\r\n${htmlBody}`;
+      return btoa(unescape(encodeURIComponent(rawMime)))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+    }
+
+    async function sendOrDraftViaAgentGmailApi({ isDraftOnly, to, cc, subject, htmlBody, driveFolderUrl, escId }) {
+      const token = await requestAgentGmailAccessToken();
+      const u = sysConfig.currentUser || {};
+      const fromEmail = authenticatedEmail || u.email;
+      const fromName = `${u.name || fromEmail.split('@')[0]} (Adorzy CDT)`;
+
+      const driveVaultBanner = driveFolderUrl
+        ? `<div style="margin-top:16px;padding:12px 16px;background:#fff7ed;border-left:4px solid #FF4500;border-radius:6px;">
+             <strong>📁 Customer Proof Images &amp; Site Videos Vault:</strong><br/>
+             <a href="${driveFolderUrl}" target="_blank" style="color:#FF4500;font-weight:bold;">
+               Click Here to Open Google Drive Proof Folder (${escId})
+             </a>
+           </div>`
+        : '';
+
+      const fullHtml = `<div style="font-family:Arial,sans-serif;font-size:14px;color:#0f172a;line-height:1.6;">${htmlBody}${driveVaultBanner}</div>`;
+      const raw = buildRfc2822Base64Url({
+        fromEmail,
+        fromName,
+        to: (!to || to.toUpperCase() === 'NA') ? 'cdt@florzy.com' : to,
+        cc,
+        subject,
+        htmlBody: fullHtml
+      });
+
+      const endpoint = isDraftOnly
+        ? 'https://gmail.googleapis.com/gmail/v1/users/me/drafts'
+        : 'https://gmail.googleapis.com/gmail/v1/users/me/messages/send';
+
+      const payload = isDraftOnly ? { message: { raw } } : { raw };
+
+      let res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.status === 401) {
+        gmailAccessToken = '';
+        sessionStorage.removeItem('adorzy_gmail_access_token');
+        const freshToken = await requestAgentGmailAccessToken();
+        res = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${freshToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+      }
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error((data.error && data.error.message) || 'Gmail API error');
+      }
+      return data;
+    }
+
     /**
-     * APPROACH 1 INTEGRATED:
+     * FIXED:
      * 1. Assigns manually created tickets to the logged-in agent
-     * 2. Dispatches email directly via the logged-in agent's Gmail REST API session
+     * 2. Sends the email directly via the logged-in agent's Gmail REST API session
      */
     async function saveOrSendTicket(sendEmailNow) {
       if (!activeDossier) return;
@@ -2350,7 +2460,6 @@
         showBannerError('Gmail Draft Notice', e.message || 'Could not create Gmail draft.');
       }
     }
-
     async function polishEmailWithAi() {
       if (!activeDossier) return;
       const storylineNotes = document.getElementById('escStorylineInput').value.trim();
