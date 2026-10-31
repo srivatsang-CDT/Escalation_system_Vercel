@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adorzy — Escalation & Order Intelligence</title>
-  <!-- ADORZY OFFICIAL SVG FAVICON -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M17.4492 12.2244H23.3041C23.6854 12.2244 23.995 12.5398 23.995 12.9281L23.9913 18.673C23.9911 18.9441 23.8809 19.2035 23.686 19.3917L19.2112 23.7133C19.0248 23.8933 18.7757 23.9939 18.5166 23.9939H13.1297C12.7484 23.9939 12.4387 23.6785 12.4387 23.2902V17.2413C12.4387 16.853 12.7484 16.5377 13.1297 16.5377H16.0699C16.4512 16.5377 16.7608 16.2223 16.7608 15.834V12.9255C16.7608 12.5372 17.0705 12.2218 17.4518 12.2218L17.4492 12.2244Z' fill='%23FF4500'/%3E%3Cpath d='M6.55023 12.2305H0.695293C0.314044 12.2305 0.00439453 12.5459 0.00439453 12.9342L0.00809478 18.6791C0.00829478 18.9502 0.118445 19.2095 0.313444 19.3978L4.78818 23.7193C4.97463 23.8994 5.22368 24 5.48288 24H10.8698C11.2511 24 11.5607 23.6846 11.5607 23.2963V17.2474C11.5607 16.8591 11.2511 16.5437 10.8698 16.5437H7.92952C7.54822 16.5437 7.23857 16.2284 7.23857 15.8401V12.9316C7.23857 12.5433 6.92898 12.2279 6.54768 12.2279L6.55023 12.2305Z' fill='%23FF4500'/%3E%3Cpath d='M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 0 10.868 0H5.10773C4.90554 0 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378V10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z' fill='%23FF4500'/%3E%3Cpath d='M12.4409 5.00905V0.703658C12.4409 0.315354 12.7505 0 13.1318 0H18.892C19.0942 0 19.2861 0.0886008 19.4166 0.245002C20.9341 2.04587 23.1885 4.639 23.8257 5.3713C23.9383 5.49901 23.9997 5.66581 23.9997 5.83781V10.6202C23.9997 11.0085 23.6901 11.3238 23.3088 11.3238H17.9555C17.7559 11.3238 17.5665 11.2352 17.436 11.0841L12.6252 5.48601C12.5074 5.3557 12.4435 5.1863 12.4435 5.00905H12.4409Z' fill='%23FF4500'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,8 +47,6 @@
     }
     .scroll-thin::-webkit-scrollbar { height: 5px; width: 5px; }
     .scroll-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-
-    /* Custom Animated Adorzy 4-Petal SVG Loader */
     @keyframes adorzyPetalPulse {
       0%, 100% { opacity: 0.2; transform: scale(0.94); }
       50% { opacity: 1; transform: scale(1.04); }
@@ -58,25 +55,15 @@
     .adorzy-petal-2 { animation: adorzyPetalPulse 1.2s infinite ease-in-out 0.3s; transform-origin: center; }
     .adorzy-petal-3 { animation: adorzyPetalPulse 1.2s infinite ease-in-out 0.6s; transform-origin: center; }
     .adorzy-petal-4 { animation: adorzyPetalPulse 1.2s infinite ease-in-out 0.9s; transform-origin: center; }
-
-    /* Linear-style table row hover */
-    .linear-row {
-      transition: background-color 0.12s ease;
-    }
-    .linear-row:hover .row-chevron {
-      transform: translateX(3px);
-      color: #FF4500;
-    }
+    .linear-row { transition: background-color 0.12s ease; }
+    .linear-row:hover .row-chevron { transform: translateX(3px); color: #FF4500; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-[#F8FAFC]">
 
-  <!-- =========================================================================
-       SCREEN A: STRICT GOOGLE OAUTH SIGN-IN GATE (Clean Daylight SaaS Card)
-       ========================================================================= -->
+  <!-- SCREEN A: STRICT GOOGLE OAUTH SIGN-IN GATE -->
   <div id="staffLoginGate" class="hidden min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-200/90 max-w-md w-full p-8 text-center space-y-6">
-      <!-- Adorzy Brand Mark -->
       <div class="flex items-center justify-center gap-2.5">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
           <path d="M11.5589 5.00904V0.70365C11.5589 0.315346 11.2492 0 10.868 0H5.10773C4.90554 0 4.71364 0.0885932 4.58314 0.244995C3.06564 2.04586 0.811198 4.63899 0.17405 5.3713C0.0614501 5.499 0 5.6658 0 5.8378V10.6202C0 11.0085 0.309649 11.3238 0.690948 11.3238H6.04428C6.24388 11.3238 6.43328 11.2352 6.56378 11.0841L11.3746 5.486C11.4923 5.3557 11.5563 5.1863 11.5563 5.00904H11.5589Z" fill="#FF4500"/>
@@ -86,7 +73,6 @@
         </svg>
         <span class="text-2xl font-extrabold tracking-tight text-slate-900">ADORZY</span>
       </div>
-
       <div class="space-y-1.5">
         <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-orange-50 text-[#FF4500] border border-orange-200/80">
           <span class="w-1.5 h-1.5 rounded-full bg-[#FF4500]"></span> Internal Operations Portal
@@ -94,21 +80,17 @@
         <h1 class="text-xl font-bold text-slate-900 tracking-tight">Escalation &amp; Order Intelligence</h1>
         <p class="text-xs text-slate-500 leading-relaxed">Sign in with your Google Workspace account. Your role workspace (CDT, Sales, or Admin) is provisioned automatically.</p>
       </div>
-
       <div class="py-2 flex flex-col items-center justify-center gap-3">
         <div id="googleGsiButtonContainer" class="flex justify-center min-h-[44px]"></div>
         <p id="oauthSetupNotice" class="hidden text-[11px] text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3 text-left">
           <strong>Google OAuth Client ID Required:</strong> Paste your Google Cloud Web Client ID into <code>GOOGLE_OAUTH_CLIENT_ID</code> inside <code>index.html</code>.
         </p>
       </div>
-
       <p id="loginErrorMsg" class="hidden text-xs font-medium text-rose-600 bg-rose-50 border border-rose-200 rounded-lg p-2.5"></p>
     </div>
   </div>
 
-  <!-- =========================================================================
-       MODAL 1: VISUAL "WHERE TO FIND TILE BATCH / SHADE NO" HELPER
-       ========================================================================= -->
+  <!-- MODAL 1: BATCH HELPER -->
   <div id="batchHelperModal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="bg-white rounded-xl max-w-md w-full p-5 shadow-2xl space-y-4 border border-slate-200">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -128,15 +110,11 @@
           Look at the <strong>printed white sticker or ink stamp on the narrow side edge of the cardboard tile box</strong>. Enter the code next to <strong>Batch No / Shade</strong> and upload a clear photo of that sticker in Slot 1.
         </p>
       </div>
-      <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="w-full py-2.5 bg-[#FF4500] text-white text-xs font-semibold rounded-lg hover:bg-[#e03d00] transition">
-        Got It
-      </button>
+      <button type="button" onclick="document.getElementById('batchHelperModal').classList.add('hidden')" class="w-full py-2.5 bg-[#FF4500] text-white text-xs font-semibold rounded-lg hover:bg-[#e03d00] transition">Got It</button>
     </div>
   </div>
 
-  <!-- =========================================================================
-       MODAL 2: CDT READY-TO-SEND WHATSAPP MESSAGE COPY & LAUNCH POPUP
-       ========================================================================= -->
+  <!-- MODAL 2: WHATSAPP COPY POPUP -->
   <div id="whatsappCopyModal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="bg-white rounded-xl max-w-lg w-full p-5 shadow-2xl space-y-4 border border-slate-200">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -149,26 +127,16 @@
       <p class="text-xs text-slate-500">This message has been <strong>automatically copied to your clipboard</strong> and the Customer Portal tracker has been updated:</p>
       <textarea id="waModalTextarea" rows="5" class="w-full p-3 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium text-slate-800 focus:outline-none focus:border-[#FF4500]"></textarea>
       <div class="flex flex-wrap items-center justify-end gap-2 pt-2">
-        <button type="button" onclick="copyWaModalText()" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium">
-          Copy Text Again
-        </button>
-        <a id="waModalDirectLink" href="#" target="_blank" class="px-3.5 py-2 rounded-lg bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold">
-          Open WhatsApp Chat ↗
-        </a>
-        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium">
-          Done
-        </button>
+        <button type="button" onclick="copyWaModalText()" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium">Copy Text Again</button>
+        <a id="waModalDirectLink" href="#" target="_blank" class="px-3.5 py-2 rounded-lg bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold">Open WhatsApp Chat ↗</a>
+        <button type="button" onclick="document.getElementById('whatsappCopyModal').classList.add('hidden')" class="px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium">Done</button>
       </div>
     </div>
   </div>
 
-  <!-- =========================================================================
-       SCREEN B: CRISP LINEAR / STRIPE DAYLIGHT TOP NAVIGATION BAR
-       ========================================================================= -->
+  <!-- SCREEN B: TOP NAVIGATION BAR -->
   <header id="internalAppHeader" class="hidden bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-
-      <!-- Left: Adorzy Geometric SVG Logo + Workspace Title -->
       <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="returnToRoleHome()">
         <div class="flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none">
@@ -186,62 +154,33 @@
         </div>
       </div>
 
-      <!-- Center: Linear / Command-Style Search Bar -->
       <form id="mainSearchForm" class="flex-1 max-w-lg flex items-center gap-1.5">
         <div class="relative flex-1">
           <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
           </svg>
-          <input
-            id="mainSearchInput"
-            type="text"
-            placeholder="Search Order ID (ORD-...), Order No, or 10-digit Phone..."
-            class="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-100/80 hover:bg-slate-100 focus:bg-white border border-slate-200/90 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]/20 focus:border-[#FF4500] transition"
-          />
+          <input id="mainSearchInput" type="text" placeholder="Search Order ID (ORD-...), Order No, or 10-digit Phone..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-100/80 hover:bg-slate-100 focus:bg-white border border-slate-200/90 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500]/20 focus:border-[#FF4500] transition" />
         </div>
-        <button type="submit" class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg transition shrink-0">
-          Search
-        </button>
+        <button type="submit" class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg transition shrink-0">Search</button>
       </form>
 
-      <!-- Right: Clean Navigation Actions & User Profile -->
       <div class="flex items-center gap-2 shrink-0">
-        <button
-          type="button"
-          onclick="returnToRoleHome()"
-          class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-xs font-medium transition flex items-center gap-1.5"
-        >
+        <button type="button" onclick="returnToRoleHome()" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-xs font-medium transition flex items-center gap-1.5">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
           <span class="hidden md:inline">Queue</span>
         </button>
-
-        <button
-          type="button"
-          onclick="copyCustomerPortalLink()"
-          class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 text-xs font-medium transition flex items-center gap-1.5"
-          title="Copy isolated Customer Self-Service Portal link"
-        >
+        <button type="button" onclick="copyCustomerPortalLink()" class="px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 text-xs font-medium transition flex items-center gap-1.5">
           <svg class="w-3.5 h-3.5 text-[#FF4500]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           <span class="hidden md:inline">Cx Portal Link</span>
         </button>
-
-        <!-- Admin-Only Segmented Switcher -->
         <div id="adminViewSwitcherGroup" class="hidden inline-flex rounded-lg bg-slate-100 p-0.5 border border-slate-200 text-xs">
           <button type="button" data-view="cdt" class="admin-switch-btn px-2.5 py-1 rounded-md font-semibold bg-white text-slate-900 shadow-xs">CDT</button>
           <button type="button" data-view="sales" class="admin-switch-btn px-2.5 py-1 rounded-md font-medium text-slate-600 hover:text-slate-900">Sales</button>
           <button type="button" data-view="admin" class="admin-switch-btn px-2.5 py-1 rounded-md font-medium text-slate-600 hover:text-slate-900">Roster</button>
         </div>
-
         <div class="h-4 w-[1px] bg-slate-200 hidden sm:block"></div>
         <span class="text-[11px] font-medium text-slate-500 hidden xl:inline" id="activeRoleSubtitle"></span>
-
-        <button
-          type="button"
-          onclick="signOutStaff()"
-          class="px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 text-xs font-medium transition"
-        >
-          Sign Out
-        </button>
+        <button type="button" onclick="signOutStaff()" class="px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 text-xs font-medium transition">Sign Out</button>
       </div>
     </div>
   </header>
@@ -263,9 +202,7 @@
   <!-- MAIN WORKSPACE CONTAINER -->
   <main id="mainAppContainer" class="hidden flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
 
-    <!-- =====================================================================
-         CUSTOM PERSONALISED ADORZY 4-PETAL SVG LOADING INDICATOR
-         ===================================================================== -->
+    <!-- CUSTOM ADORZY 4-PETAL SVG LOADING INDICATOR -->
     <div id="loadingIndicator" class="hidden bg-white border border-slate-200/90 rounded-2xl p-8 text-center shadow-xs">
       <div class="inline-flex items-center justify-center p-3 rounded-2xl bg-orange-50/70 border border-orange-100 mb-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none">
@@ -286,15 +223,11 @@
       <button type="button" onclick="document.getElementById('errorBanner').classList.add('hidden')" class="text-xs font-semibold px-2.5 py-1 rounded bg-rose-100 hover:bg-rose-200">Dismiss</button>
     </div>
 
-    <!-- =====================================================================
-         INTERNAL WORKSPACE (CDT WORKBENCH & SALES LIVE TRACKER)
-         ===================================================================== -->
+    <!-- INTERNAL WORKSPACE -->
     <div id="internalWorkspaceView" class="space-y-5">
 
       <!-- 1. CDT DEFAULT LANDING DASHBOARD -->
       <section id="cdtLandingDashboard" class="hidden space-y-5">
-
-        <!-- Top Control Row: Title + Compact Executive Load Pills + Filters -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-3 flex-wrap">
@@ -303,7 +236,6 @@
             </div>
             <p class="text-xs text-slate-500 mt-0.5">Select any pipeline stage card below to filter, or click any row to open the 360° Order Dossier.</p>
           </div>
-
           <div class="flex items-center gap-2 flex-wrap">
             <select id="cdtAgentFilterSelect" onchange="renderCdtHomeQueueTable()" class="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg font-medium text-slate-700 shadow-2xs focus:outline-none focus:border-[#FF4500]">
               <option value="ALL">All Team Tickets</option>
@@ -318,10 +250,8 @@
           </div>
         </div>
 
-        <!-- 8-COLUMN PIPELINE STAGE METRIC GRID -->
         <div id="bucketTabsBar" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5"></div>
 
-        <!-- LINEAR / ATTIO HIGH-DENSITY TICKETS TABLE -->
         <div class="bg-white border border-slate-200/90 rounded-xl shadow-2xs overflow-hidden">
           <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-slate-200/80 text-xs text-left">
@@ -348,20 +278,15 @@
       <section id="salesLandingDashboard" class="hidden space-y-5">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div class="space-y-1.5 max-w-xl">
-            <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-orange-50 text-[#FF4500] border border-orange-200">
-              Sales Live Escalation Tracker
-            </span>
+            <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-orange-50 text-[#FF4500] border border-orange-200">Sales Live Escalation Tracker</span>
             <h2 class="text-xl font-bold text-slate-900 tracking-tight">Track Any Customer Order, Call Logs or Live Escalation</h2>
             <p class="text-xs text-slate-500 leading-relaxed">Enter an Order ID, Order Number, or 10-digit Customer Phone Number to view the real-time progress bar, inspect CDT Call Logs, and copy the exact customer update script.</p>
           </div>
           <form onsubmit="event.preventDefault(); runOrderOrPhoneSearch(document.getElementById('salesHeroSearchInput').value.trim(), 'auto');" class="flex w-full md:w-96 gap-2">
             <input id="salesHeroSearchInput" type="text" placeholder="Order ID (ORD-...) or 10-Digit Phone..." class="flex-1 px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:border-[#FF4500]" />
-            <button type="submit" class="px-4 py-2 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg shrink-0 transition">
-              Track Order
-            </button>
+            <button type="submit" class="px-4 py-2 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg shrink-0 transition">Track Order</button>
           </form>
         </div>
-
         <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-semibold text-slate-900">Recent Active Escalations</h3>
@@ -386,9 +311,7 @@
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pb-4 border-b border-slate-100">
             <div>
               <div class="flex items-center gap-2.5 flex-wrap">
-                <button type="button" onclick="returnToRoleHome()" class="text-xs font-medium text-slate-500 hover:text-slate-900 flex items-center gap-1 pr-2 border-r border-slate-200">
-                  ← Back
-                </button>
+                <button type="button" onclick="returnToRoleHome()" class="text-xs font-medium text-slate-500 hover:text-slate-900 flex items-center gap-1 pr-2 border-r border-slate-200">← Back</button>
                 <span id="dosSourceBadge" class="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700"></span>
                 <h2 id="dosOrderId" class="text-xl font-bold font-mono text-slate-900"></h2>
                 <span class="text-sm font-medium text-slate-600" id="dosCxName"></span>
@@ -398,7 +321,6 @@
                 Sheet Key: <code id="dosRawId" class="text-slate-600 font-mono"></code>
               </p>
             </div>
-
             <div class="flex items-center gap-2 flex-wrap">
               <div class="bg-slate-50 border border-slate-200/80 rounded-lg px-3 py-1.5 text-right">
                 <span class="block text-[10px] uppercase font-semibold text-slate-400">Booking Date</span>
@@ -476,7 +398,6 @@
             </div>
           </div>
 
-          <!-- 5-Step Progress Bar -->
           <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-xs" id="pizzaProgressGrid"></div>
 
           <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 flex items-start justify-between gap-4">
@@ -484,9 +405,7 @@
               <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800">What Sales / CDT Should Tell Customer Right Now</span>
               <p class="text-xs font-semibold text-emerald-950 mt-0.5" id="trkWhatToTellCx">Investigation in progress.</p>
             </div>
-            <button type="button" onclick="copyCustomerWhatsappUpdate()" class="shrink-0 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-medium transition">
-              Copy WhatsApp Script
-            </button>
+            <button type="button" onclick="copyCustomerWhatsappUpdate()" class="shrink-0 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-medium transition">Copy WhatsApp Script</button>
           </div>
 
           <!-- DEDICATED CALL & TOUCHPOINT LOG TABLE + INLINE CALL LOGGER -->
@@ -496,7 +415,6 @@
               <span class="text-[11px] font-medium text-slate-400" id="callLogsCountBadge">0 calls logged</span>
             </div>
 
-            <!-- Inline Call Logger (Visible to CDT & Admin right above the Call History Table; hidden for Sales) -->
             <div id="inlineCdtCallLoggerBar" class="p-3 rounded-xl bg-orange-50/50 border border-orange-200/80 space-y-2">
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <select id="callPartySelect" class="px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg font-medium">
@@ -518,9 +436,7 @@
               </div>
               <div class="flex gap-2">
                 <input id="callSummaryInput" type="text" placeholder="Enter call summary notes..." class="flex-1 px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg" />
-                <button type="button" onclick="submitCallLog()" class="px-4 py-1.5 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg shrink-0 shadow-xs">
-                  + Log Call
-                </button>
+                <button type="button" onclick="submitCallLog()" class="px-4 py-1.5 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg shrink-0 shadow-xs">+ Log Call</button>
               </div>
             </div>
 
@@ -574,7 +490,6 @@
             </div>
             <div id="poRawTableContainer" class="overflow-x-auto scroll-thin max-h-64"></div>
           </div>
-
           <div class="bg-white border border-slate-200 rounded-xl shadow-2xs overflow-hidden">
             <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
               <div>
@@ -587,16 +502,13 @@
           </div>
         </div>
 
-        <!-- =================================================================
-             CDT ESCALATION LOGGING, MEDIA PROOFS & AI EMAIL WORKBENCH
-             (Clean 12-Col Split: Left 7 Cols Panels + Right 5 Cols Sticky Email/Audit)
-             ================================================================= -->
+        <!-- CDT ESCALATION LOGGING, MEDIA PROOFS & AI EMAIL WORKBENCH -->
         <div id="cdtEditorPanels" class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
 
           <!-- LEFT 7 COLS -->
           <div class="md:col-span-7 space-y-5">
 
-            <!-- Panel A: Classification, Resolution, Optional Action Date & Direct Save Button -->
+            <!-- Panel A: Classification -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
               <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                 <div>
@@ -605,9 +517,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                   <span id="editingEscIdLabel" class="text-xs font-mono font-semibold text-[#FF4500]">New Ticket</span>
-                  <button type="button" onclick="saveOrSendTicket(false)" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">
-                    Save Classification
-                  </button>
+                  <button type="button" onclick="saveOrSendTicket(false)" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">Save Classification</button>
                 </div>
               </div>
 
@@ -624,22 +534,18 @@
                     <option value="Completed">Completed</option>
                   </select>
                 </div>
-
                 <div>
                   <label class="block text-xs font-medium text-slate-600 mb-1">Site Verification Agent (Optional)</label>
                   <input id="escSiteVerifierInput" type="text" oninput="saveCdtLocalDraft()" placeholder="Leave blank unless assigning site verifier..." class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
                 </div>
-
                 <div>
                   <label class="block text-xs font-medium text-slate-600 mb-1">Team Responsible</label>
                   <select id="escTeamSelect" onchange="onTeamResponsibleChange(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium"></select>
                 </div>
-
                 <div>
                   <label class="block text-xs font-medium text-slate-600 mb-1">Specific Sub-Issue</label>
                   <select id="escSubIssueSelect" onchange="buildLiveEmailPreview(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium"></select>
                 </div>
-
                 <div>
                   <label class="block text-xs font-medium text-slate-600 mb-1">Resolution Provided</label>
                   <select id="escResolutionSelect" onchange="onResolutionTypeChange(); saveCdtLocalDraft();" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg font-medium">
@@ -652,7 +558,6 @@
                     <option value="Mutual / No-Action Closure (Customer Agreed)">Mutual / No-Action Closure (Customer Agreed)</option>
                   </select>
                 </div>
-
                 <div>
                   <label class="block text-xs font-medium text-slate-600 mb-1">Error Cost Liability</label>
                   <select id="escCostLiabilitySelect" onchange="saveCdtLocalDraft()" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg">
@@ -663,8 +568,6 @@
                     <option value="Zero Cost Impact (Mutual Closure)">Zero Cost Impact (Mutual Closure)</option>
                   </select>
                 </div>
-
-                <!-- Optional Target Action Date Picker -->
                 <div class="sm:col-span-2 p-3 rounded-lg bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-2">
                   <div>
                     <label class="block text-xs font-semibold text-slate-800">Optional Target Action Date (24-Hour Advance Reminder)</label>
@@ -677,7 +580,6 @@
                 </div>
               </div>
 
-              <!-- Refund Options -->
               <div id="refundOptionsRow" class="hidden p-3 rounded-lg bg-amber-50/70 border border-amber-200 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs font-semibold text-amber-900 mb-1">Refund Destination Mode</label>
@@ -692,7 +594,6 @@
                 </div>
               </div>
 
-              <!-- Storyline & Resolution Notes -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs font-medium text-slate-600 mb-1">Storyline of the Case (What Happened)</label>
@@ -706,17 +607,13 @@
 
               <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
                 <span class="text-[11px] text-slate-400">Save classification now to draft or send email later.</span>
-                <button type="button" onclick="saveOrSendTicket(false)" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">
-                  Save Classification &amp; Progress
-                </button>
+                <button type="button" onclick="saveOrSendTicket(false)" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition">Save Classification &amp; Progress</button>
               </div>
             </div>
 
-            <!-- PANEL A2: CDT CUSTOMER OUTREACH (RNR / BUSY / NC) & OPEN-ENDED MUTUAL FAST-CLOSE -->
+            <!-- PANEL A2: OUTREACH & MUTUAL CLOSE -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
               <h3 class="text-sm font-semibold text-slate-900">Customer Outreach &amp; Mutual Fast-Close Actions</h3>
-
-              <!-- Block 1: Mark Tried Reaching Cx -->
               <div class="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2.5">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-semibold text-amber-950">1. Customer Unreachable (RNR / Busy / NC)</span>
@@ -730,13 +627,10 @@
                     <option value="Did Not Answer Call">Did Not Answer Call</option>
                   </select>
                   <input id="cxUnreachableExtraNote" type="text" placeholder="Optional note (e.g. Called twice)..." class="px-2.5 py-1.5 text-xs bg-white border border-amber-300 rounded-lg" />
-                  <button type="button" onclick="markCustomerUnreachableAndCopyWa()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg transition">
-                    Mark Unreachable &amp; Get WhatsApp
-                  </button>
+                  <button type="button" onclick="markCustomerUnreachableAndCopyWa()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg transition">Mark Unreachable &amp; Get WhatsApp</button>
                 </div>
               </div>
 
-              <!-- Block 2: Open-Ended Mutual / No-Action Closure -->
               <div class="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200/80 space-y-2.5">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-semibold text-emerald-950">2. Mutual / No-Action Closure (Close Without Replacement/Refund)</span>
@@ -751,13 +645,11 @@
                   </select>
                   <input id="mutualCloseCustomInput" type="text" placeholder="Type exact agreement with customer (open for any scenario)..." class="px-2.5 py-1.5 text-xs bg-white border border-emerald-300 rounded-lg" />
                 </div>
-                <button type="button" onclick="closeTicketByMutualAgreement()" class="w-full py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-lg transition">
-                  Close Ticket by Mutual Agreement &amp; Copy WhatsApp Confirmation
-                </button>
+                <button type="button" onclick="closeTicketByMutualAgreement()" class="w-full py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-lg transition">Close Ticket by Mutual Agreement &amp; Copy WhatsApp Confirmation</button>
               </div>
             </div>
 
-            <!-- Panel B: Customer Media Proofs & Voice Note Player -->
+            <!-- Panel B: Customer Media Proofs -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <div class="flex items-center justify-between">
                 <div>
@@ -766,7 +658,6 @@
                 </div>
                 <a id="openTicketDriveFolderLink" href="#" target="_blank" class="hidden text-xs font-semibold text-[#FF4500] hover:underline">Open Drive Vault ↗</a>
               </div>
-
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 <label class="cursor-pointer border border-dashed border-slate-300 hover:border-[#FF4500] rounded-lg p-3 text-center bg-slate-50 transition">
                   <span class="block text-xs font-semibold text-slate-700">1. Box Batch Sticker</span>
@@ -784,34 +675,24 @@
               <div id="uploadedProofsGallery" class="space-y-2 pt-1"></div>
             </div>
 
-            <!-- Panel C: WhatsApp Milestones & Custom Status -->
+            <!-- Panel C: Quick Milestones -->
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
               <h3 class="text-sm font-semibold text-slate-900">3. Quick Milestones &amp; Custom Status</h3>
               <div class="flex flex-wrap gap-1.5">
-                <button type="button" onclick="quickToggleMilestone('Checking Same-Batch Availability on WhatsApp', 'Procurement', 'We are verifying with our warehouse if the exact same tile batch is available.')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition">
-                  Step 2: Checking Batch
-                </button>
-                <button type="button" onclick="quickToggleMilestone('Same Batch Confirmed by Procurement on WhatsApp', 'CDT', 'Good news: The exact same tile batch has been confirmed in stock and approved for replacement.')" class="text-xs px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition">
-                  Step 3: Batch Confirmed
-                </button>
-                <button type="button" onclick="quickToggleMilestone('Defect Proofs Sent to Vendor on WhatsApp', 'Vendor', 'Your defect proofs have been escalated to the manufacturer.')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition">
-                  Step 2: Sent to Vendor
-                </button>
-                <button type="button" onclick="quickToggleMilestone('Site Verification Scheduled', 'Site Verifier', 'Our verification specialist is scheduled to visit your site.')" class="text-xs px-3 py-1.5 rounded-lg bg-orange-50 text-[#FF4500] border border-orange-200 font-medium hover:bg-orange-100 transition">
-                  Step 2: Site Visit Scheduled
-                </button>
+                <button type="button" onclick="quickToggleMilestone('Checking Same-Batch Availability on WhatsApp', 'Procurement', 'We are verifying with our warehouse if the exact same tile batch is available.')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition">Step 2: Checking Batch</button>
+                <button type="button" onclick="quickToggleMilestone('Same Batch Confirmed by Procurement on WhatsApp', 'CDT', 'Good news: The exact same tile batch has been confirmed in stock and approved for replacement.')" class="text-xs px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition">Step 3: Batch Confirmed</button>
+                <button type="button" onclick="quickToggleMilestone('Defect Proofs Sent to Vendor on WhatsApp', 'Vendor', 'Your defect proofs have been escalated to the manufacturer.')" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition">Step 2: Sent to Vendor</button>
+                <button type="button" onclick="quickToggleMilestone('Site Verification Scheduled', 'Site Verifier', 'Our verification specialist is scheduled to visit your site.')" class="text-xs px-3 py-1.5 rounded-lg bg-orange-50 text-[#FF4500] border border-orange-200 font-medium hover:bg-orange-100 transition">Step 2: Site Visit Scheduled</button>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-100">
                 <input id="customStageHeadlineInput" type="text" placeholder="Custom Status Headline..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
                 <input id="customPendingDeptInput" type="text" placeholder="Pending Dept (e.g. Vendor)" class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
                 <input id="customWhatToTellCxInput" type="text" placeholder="What Sales/Portal should tell Customer..." class="sm:col-span-2 px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
-                <button type="button" onclick="saveCustomStatusOverride()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium rounded-lg">
-                  Update Live Status
-                </button>
+                <button type="button" onclick="saveCustomStatusOverride()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium rounded-lg">Update Live Status</button>
               </div>
             </div>
 
-            <!-- Panel D: Return Tracker (Temporarily hidden; single clean container) -->
+            <!-- Panel D: Return Tracker (Temporarily hidden) -->
             <div id="returnMaterialPanel" class="hidden bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <h3 class="text-sm font-semibold text-slate-900">4. Return Material Logger</h3>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -828,26 +709,22 @@
                 </select>
                 <input id="retNotesInput" type="text" placeholder="Return note..." class="px-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
               </div>
-              <button type="button" onclick="logReturnMaterialStatus()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-medium rounded-lg">
-                Log Return Timestamp
-              </button>
+              <button type="button" onclick="logReturnMaterialStatus()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-xs font-medium rounded-lg">Log Return Timestamp</button>
             </div>
 
           </div>
 
-          <!-- RIGHT 5 COLS: LIVE AI EMAIL COMPOSER + AUDIT TIMELINE (Pinned on Right Side) -->
+          <!-- RIGHT 5 COLS: LIVE AI EMAIL COMPOSER + AUDIT TIMELINE -->
           <div class="md:col-span-5 space-y-5 md:sticky md:top-20 self-start">
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
                 <div>
                   <h3 class="text-sm font-semibold text-slate-900">Escalation Email Composer</h3>
-                  <span id="aiEngineStatusBadge" class="text-[10px] font-medium text-slate-400">Default: Structured Template (0 Tokens)</span>
+                  <span id="aiEngineStatusBadge" class="text-[10px] font-medium text-slate-400">Default: Structured Template (Sends from your Gmail)</span>
                 </div>
                 <div class="flex items-center gap-1.5">
                   <input id="aiCustomTweakInput" type="text" placeholder="Tone (e.g. Urgent)..." class="px-2.5 py-1 text-[11px] bg-slate-50 border border-slate-200 rounded-lg w-32" />
-                  <button type="button" onclick="polishEmailWithAi()" class="text-[11px] font-semibold px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition">
-                    Generate / Polish AI
-                  </button>
+                  <button type="button" onclick="polishEmailWithAi()" class="text-[11px] font-semibold px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition">Generate / Polish AI</button>
                 </div>
               </div>
 
@@ -871,24 +748,16 @@
               </div>
 
               <div class="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <button type="button" onclick="saveOrSendTicket(false)" class="py-2 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold text-center transition">
-                  Save in Bucket
-                </button>
-                <button type="button" onclick="throwToGmailDrafts()" class="py-2 px-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold text-center transition">
-                  Save to Gmail Drafts
-                </button>
-                <button type="button" onclick="saveOrSendTicket(true)" class="py-2 px-2 rounded-lg bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold shadow-xs text-center transition">
-                  Log &amp; Send Email
-                </button>
+                <button type="button" onclick="saveOrSendTicket(false)" class="py-2 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold text-center transition">Save in Bucket</button>
+                <button type="button" onclick="throwToGmailDrafts()" class="py-2 px-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold text-center transition">Save to Gmail Drafts</button>
+                <button type="button" onclick="saveOrSendTicket(true)" class="py-2 px-2 rounded-lg bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold shadow-xs text-center transition">Log &amp; Send Email</button>
               </div>
             </div>
 
             <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-3">
               <div class="flex items-center justify-between">
                 <h3 class="text-sm font-semibold text-slate-900">Audit Timeline</h3>
-                <button type="button" onclick="promptAndSendChaser()" class="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100">
-                  Send SLA Chaser
-                </button>
+                <button type="button" onclick="promptAndSendChaser()" class="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100">Send SLA Chaser</button>
               </div>
               <div id="auditTimelineList" class="space-y-2.5 max-h-[420px] overflow-y-auto scroll-thin pr-1"></div>
             </div>
@@ -898,12 +767,9 @@
       </section>
     </div>
 
-    <!-- =====================================================================
-         ISOLATED ADORZY CUSTOMER SELF-SERVICE PORTAL (?portal=customer)
-         ===================================================================== -->
+    <!-- ISOLATED ADORZY CUSTOMER SELF-SERVICE PORTAL (?portal=customer) -->
     <section id="customerSelfServiceView" class="hidden max-w-2xl mx-auto py-4 sm:py-8">
       <div class="bg-surface rounded-xl shadow-xl border border-border w-full overflow-hidden">
-
         <div class="flex items-center justify-between p-4 sm:p-5 sticky top-0 bg-surface z-10 border-b border-border">
           <div class="flex items-center gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -922,14 +788,11 @@
         <div class="p-4 sm:p-5 space-y-5">
           <form id="cxPortalLookupForm" class="flex gap-2">
             <input id="cxLookupInput" type="text" required placeholder="Enter 10-Digit Phone Number or Order ID (e.g. ORD-K4NJDW)..." class="flex-1 px-3.5 py-2.5 text-sm bg-bg border border-border rounded-lg focus:outline-none focus:border-primary" />
-            <button type="submit" class="px-5 py-2.5 bg-warning hover:bg-warning/90 text-white text-sm font-semibold rounded-lg cursor-pointer transition">
-              Continue
-            </button>
+            <button type="submit" class="px-5 py-2.5 bg-warning hover:bg-warning/90 text-white text-sm font-semibold rounded-lg cursor-pointer transition">Continue</button>
           </form>
 
           <div id="cxOrderChoiceList" class="hidden space-y-2"></div>
 
-          <!-- POST-SUBMISSION SANITIZED CUSTOMER LIVE STATUS TRACKER -->
           <div id="cxSanitizedTrackerCard" class="hidden bg-bg border border-border rounded-xl p-5 space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
               <div>
@@ -957,16 +820,11 @@
                 <span class="font-bold text-slate-900" id="cxTrkAssignedSpecialist">CDT Specialist</span>
               </div>
               <div class="flex flex-wrap gap-2">
-                <a id="cxCallAssignedBtn" href="tel:+919187011149" class="px-3 py-1.5 rounded-lg bg-warning text-white font-semibold hover:bg-warning/90">
-                  Call Specialist
-                </a>
-                <a href="tel:+919187011149" class="px-3 py-1.5 rounded-lg bg-bg border border-border text-slate-800 font-semibold hover:bg-slate-200">
-                  Central Line: 9187011149
-                </a>
+                <a id="cxCallAssignedBtn" href="tel:+919187011149" class="px-3 py-1.5 rounded-lg bg-warning text-white font-semibold hover:bg-warning/90">Call Specialist</a>
+                <a href="tel:+919187011149" class="px-3 py-1.5 rounded-lg bg-bg border border-border text-slate-800 font-semibold hover:bg-slate-200">Central Line: 9187011149</a>
               </div>
             </div>
 
-            <!-- POST-COMPLETION CUSTOMER RATING & FEEDBACK CARD -->
             <div id="cxFeedbackRatingCard" class="hidden p-4 rounded-xl bg-orange-50/70 border border-orange-200 space-y-3">
               <div class="flex items-center justify-between">
                 <div>
@@ -984,16 +842,12 @@
               </div>
               <div class="flex gap-2">
                 <input id="cxFeedbackCommentInput" type="text" placeholder="Share any feedback about your resolution experience..." class="flex-1 px-3 py-2 text-xs bg-surface border border-border rounded-lg" />
-                <button type="button" onclick="submitCustomerCsatFeedback()" class="px-4 py-2 bg-warning hover:bg-warning/90 text-white text-xs font-semibold rounded-lg shrink-0">
-                  Submit Review
-                </button>
+                <button type="button" onclick="submitCustomerCsatFeedback()" class="px-4 py-2 bg-warning hover:bg-warning/90 text-white text-xs font-semibold rounded-lg shrink-0">Submit Review</button>
               </div>
             </div>
 
             <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border">
-              <button type="button" onclick="startCustomerFollowUpSubTicket()" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold">
-                + Report Issue with More Boxes
-              </button>
+              <button type="button" onclick="startCustomerFollowUpSubTicket()" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold">+ Report Issue with More Boxes</button>
               <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-surface border border-border hover:border-primary text-slate-700 text-xs font-semibold">
                 Upload Additional Proof
                 <input type="file" accept="image/*,video/*" class="hidden" onchange="uploadCustomerPortalProof(this, 'Cx_Additional_Proof')" />
@@ -1001,12 +855,10 @@
             </div>
           </div>
 
-          <!-- GUIDED "APPLY FOR ESCALATION" INTAKE FORM -->
           <div id="cxGuidedClaimForm" class="hidden space-y-4 pt-2 border-t border-border">
             <div id="cxResumeBanner" class="hidden p-3 rounded-lg bg-amber-50 border border-amber-200 text-xs font-semibold text-amber-900">
               Welcome back! We restored your unfinished submission so you can continue where you left off.
             </div>
-
             <div class="p-3 bg-bg rounded-lg border border-border flex items-center justify-between">
               <div>
                 <div class="font-semibold text-sm text-slate-900" id="cxHeaderSummaryName">Customer</div>
@@ -1014,36 +866,22 @@
               </div>
               <span class="text-[11px] font-medium text-muted" id="cxDraftSavedIndicator">Auto-save active</span>
             </div>
-
             <div>
               <div class="flex items-center justify-between mb-2">
                 <label class="block text-xs font-medium text-muted">Affected Items — Select SKU(s), Damaged Qty, Unit &amp; Issue *</label>
-                <button type="button" onclick="document.getElementById('batchHelperModal').classList.remove('hidden')" class="text-xs font-semibold text-primary hover:underline">
-                  Where is Batch No?
-                </button>
+                <button type="button" onclick="document.getElementById('batchHelperModal').classList.remove('hidden')" class="text-xs font-semibold text-primary hover:underline">Where is Batch No?</button>
               </div>
               <div id="cxSkuListContainer" class="space-y-2 max-h-[320px] overflow-y-auto scroll-thin pr-1"></div>
             </div>
-
             <div class="space-y-2">
               <div class="flex flex-wrap items-center justify-between gap-2">
                 <label class="block text-xs font-medium text-muted">What happened? * (Type below OR record a voice note)</label>
                 <div class="flex items-center gap-2">
-                  <button type="button" id="cxVoiceRecordBtn" onclick="toggleCustomerVoiceRecorder()" class="px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5">
-                    <span>Record Voice Note</span>
-                  </button>
+                  <button type="button" id="cxVoiceRecordBtn" onclick="toggleCustomerVoiceRecorder()" class="px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5"><span>Record Voice Note</span></button>
                   <span id="cxVoiceTimerBadge" class="hidden text-xs font-mono font-bold text-rose-600 animate-pulse">● 00:00</span>
                 </div>
               </div>
-
-              <textarea
-                id="cxStorylineTextarea"
-                rows="4"
-                oninput="autoSaveCustomerDraft()"
-                placeholder="Describe the customer's complaint in detail (or tap 'Record Voice Note' above)..."
-                class="w-full px-3 py-2 border border-border rounded-lg text-sm resize-none focus:outline-none focus:border-primary bg-bg"
-              ></textarea>
-
+              <textarea id="cxStorylineTextarea" rows="4" oninput="autoSaveCustomerDraft()" placeholder="Describe the customer's complaint in detail (or tap 'Record Voice Note' above)..." class="w-full px-3 py-2 border border-border rounded-lg text-sm resize-none focus:outline-none focus:border-primary bg-bg"></textarea>
               <div id="cxRecordedAudioPreviewBox" class="hidden p-3 rounded-lg bg-orange-50 border border-orange-200 flex flex-wrap items-center justify-between gap-3">
                 <div class="flex items-center gap-2">
                   <span class="text-xs font-bold text-slate-900">Voice Note Attached:</span>
@@ -1052,7 +890,6 @@
                 <span class="text-[11px] font-semibold text-emerald-700">Saved</span>
               </div>
             </div>
-
             <div>
               <div class="flex items-center justify-between mb-2">
                 <label class="block text-xs font-medium text-muted">Upload Guided Proofs * <span class="text-rose-600 font-semibold">(Min. 1 Photo &amp; 1 Video Required)</span></label>
@@ -1077,23 +914,13 @@
               </div>
               <div id="cxUploadedFilesList" class="flex flex-wrap gap-2 mt-2.5"></div>
             </div>
-
-            <button
-              type="button"
-              id="cxFinalSubmitBtn"
-              onclick="submitCustomerPortalClaim(true)"
-              class="w-full py-2.5 bg-warning text-white rounded-lg text-sm font-semibold cursor-pointer hover:bg-warning/90 disabled:opacity-50 transition shadow-xs"
-            >
-              Submit
-            </button>
+            <button type="button" id="cxFinalSubmitBtn" onclick="submitCustomerPortalClaim(true)" class="w-full py-2.5 bg-warning text-white rounded-lg text-sm font-semibold cursor-pointer hover:bg-warning/90 disabled:opacity-50 transition shadow-xs">Submit</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- =====================================================================
-         ADMIN ROSTER, ROLES & WEBHOOK CONFIGURATION PANEL (Admin Only)
-         ===================================================================== -->
+    <!-- ADMIN ROSTER PANEL -->
     <section id="adminConfigView" class="hidden space-y-6">
       <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs space-y-4">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -1102,7 +929,6 @@
             <p class="text-xs text-slate-500">Manage CDT Executives, Leads, Site Verifiers, or Admins.</p>
           </div>
         </div>
-
         <div class="overflow-x-auto">
           <table class="min-w-full text-xs text-left divide-y divide-slate-200">
             <thead class="bg-slate-50 font-semibold text-slate-500 uppercase">
@@ -1120,7 +946,6 @@
             <tbody id="adminRosterTableBody" class="divide-y divide-slate-100"></tbody>
           </table>
         </div>
-
         <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-1 sm:grid-cols-6 gap-2.5 items-end">
           <div>
             <label class="block text-[11px] font-semibold text-slate-600">Full Name</label>
@@ -1153,9 +978,7 @@
               </select>
             </div>
           </div>
-          <button type="button" onclick="adminSaveRosterMember()" class="px-4 py-2 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg">
-            + Save Member
-          </button>
+          <button type="button" onclick="adminSaveRosterMember()" class="px-4 py-2 bg-[#FF4500] hover:bg-[#e03d00] text-white text-xs font-semibold rounded-lg">+ Save Member</button>
         </div>
       </div>
     </section>
@@ -1163,14 +986,7 @@
   </main>
 
   <script>
-    // =========================================================================
-    // 1. DEPLOYED GOOGLE APPS SCRIPT WEB APP URL:
-    // =========================================================================
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmX_KeXly4K_KVeXw4JWJetNLnL94rgFZ6VsQHavaH_wB2MnUJO5fYDC0X_UFdpQmOzw/exec";
-
-    // =========================================================================
-    // 2. GOOGLE CLOUD OAUTH WEB CLIENT ID:
-    // =========================================================================
     const GOOGLE_OAUTH_CLIENT_ID = "1067858090113-au55s5rehqkeho5maicj7h8os99fs0ks.apps.googleusercontent.com";
 
     const CDT_CENTRAL_PHONE = "9187011149";
@@ -1234,6 +1050,114 @@
     let voiceTimerInterval = null;
     let voiceSeconds = 0;
 
+    // APPROACH 1: DIRECT AGENT GMAIL REST API TOKEN CLIENT
+    let gmailAccessToken = sessionStorage.getItem('adorzy_gmail_access_token') || '';
+    let gmailTokenClient = null;
+
+    function requestAgentGmailAccessToken() {
+      return new Promise((resolve, reject) => {
+        if (gmailAccessToken) return resolve(gmailAccessToken);
+        if (!window.google || !google.accounts || !google.accounts.oauth2) {
+          return reject(new Error('Google OAuth2 client not loaded yet. Please refresh and try again.'));
+        }
+        gmailTokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: GOOGLE_OAUTH_CLIENT_ID,
+          scope: 'https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.compose',
+          hint: authenticatedEmail,
+          prompt: '',
+          callback: (tokenResponse) => {
+            if (tokenResponse && tokenResponse.access_token) {
+              gmailAccessToken = tokenResponse.access_token;
+              sessionStorage.setItem('adorzy_gmail_access_token', gmailAccessToken);
+              resolve(gmailAccessToken);
+            } else {
+              reject(new Error('Gmail send authorization was declined.'));
+            }
+          }
+        });
+        gmailTokenClient.requestAccessToken();
+      });
+    }
+
+    function buildRfc2822Base64Url({ fromEmail, fromName, to, cc, subject, htmlBody }) {
+      const encodedSubject = `=?UTF-8?B?${btoa(unescape(encodeURIComponent(subject)))}?=`;
+      const headers = [
+        `From: "${fromName}" <${fromEmail}>`,
+        `To: ${to}`,
+        cc ? `Cc: ${cc}` : '',
+        `Subject: ${encodedSubject}`,
+        'MIME-Version: 1.0',
+        'Content-Type: text/html; charset="UTF-8"'
+      ].filter(Boolean).join('\r\n');
+
+      const rawMime = `${headers}\r\n\r\n${htmlBody}`;
+      return btoa(unescape(encodeURIComponent(rawMime)))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+    }
+
+    async function sendOrDraftViaAgentGmailApi({ isDraftOnly, to, cc, subject, htmlBody, driveFolderUrl, escId }) {
+      const token = await requestAgentGmailAccessToken();
+      const u = sysConfig.currentUser || {};
+      const fromEmail = authenticatedEmail || u.email;
+      const fromName = `${u.name || fromEmail.split('@')[0]} (Adorzy CDT)`;
+
+      const driveVaultBanner = driveFolderUrl
+        ? `<div style="margin-top:16px;padding:12px 16px;background:#fff7ed;border-left:4px solid #FF4500;border-radius:6px;">
+             <strong>📁 Customer Proof Images &amp; Site Videos Vault:</strong><br/>
+             <a href="${driveFolderUrl}" target="_blank" style="color:#FF4500;font-weight:bold;">
+               Click Here to Open Google Drive Proof Folder (${escId})
+             </a>
+           </div>`
+        : '';
+
+      const fullHtml = `<div style="font-family:Arial,sans-serif;font-size:14px;color:#0f172a;line-height:1.6;">${htmlBody}${driveVaultBanner}</div>`;
+      const raw = buildRfc2822Base64Url({
+        fromEmail,
+        fromName,
+        to: (!to || to.toUpperCase() === 'NA') ? 'cdt@florzy.com' : to,
+        cc,
+        subject,
+        htmlBody: fullHtml
+      });
+
+      const endpoint = isDraftOnly
+        ? 'https://gmail.googleapis.com/gmail/v1/users/me/drafts'
+        : 'https://gmail.googleapis.com/gmail/v1/users/me/messages/send';
+
+      const payload = isDraftOnly ? { message: { raw } } : { raw };
+
+      let res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.status === 401) {
+        gmailAccessToken = '';
+        sessionStorage.removeItem('adorzy_gmail_access_token');
+        const freshToken = await requestAgentGmailAccessToken();
+        res = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${freshToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+      }
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error((data.error && data.error.message) || 'Gmail API error');
+      }
+      return data;
+    }
+
     function isAllowedStaffDomain(email) {
       const e = (email || '').toLowerCase();
       return e.endsWith('@florzy.com') || e.endsWith('@adorzy.com');
@@ -1268,24 +1192,12 @@
 
       const hoursRemaining = (targetMs - Date.now()) / 3600000;
       if (hoursRemaining < 0) {
-        return {
-          state: 'OVERDUE',
-          label: `Overdue (${targetDateStr})`,
-          badgeClass: 'bg-rose-600 text-white'
-        };
+        return { state: 'OVERDUE', label: `Overdue (${targetDateStr})`, badgeClass: 'bg-rose-600 text-white' };
       }
       if (hoursRemaining <= 24) {
-        return {
-          state: 'DUE_24H',
-          label: `Due ≤24h (${targetDateStr})`,
-          badgeClass: 'bg-amber-500 text-white'
-        };
+        return { state: 'DUE_24H', label: `Due ≤24h (${targetDateStr})`, badgeClass: 'bg-amber-500 text-white' };
       }
-      return {
-        state: 'SCHEDULED',
-        label: targetDateStr,
-        badgeClass: 'bg-slate-100 text-slate-700 border border-slate-200'
-      };
+      return { state: 'SCHEDULED', label: targetDateStr, badgeClass: 'bg-slate-100 text-slate-700 border border-slate-200' };
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -1391,7 +1303,9 @@
 
     function signOutStaff() {
       sessionStorage.removeItem('florzy_oauth_email');
+      sessionStorage.removeItem('adorzy_gmail_access_token');
       authenticatedEmail = '';
+      gmailAccessToken = '';
       if (window.google && google.accounts && google.accounts.id) {
         google.accounts.id.disableAutoSelect();
       }
@@ -1449,10 +1363,7 @@
         const first = dueList[0];
         const sla = evaluateActionDateSla(first.targetActionDate, first.bucket);
         playAlertChime();
-        showToastAlert(
-          `Action Date Alert: ${sla.label}`,
-          `Ticket ${first.escId} (Order ${first.orderId} — ${first.cxName}) requires attention.`
-        );
+        showToastAlert(`Action Date Alert: ${sla.label}`, `Ticket ${first.escId} (Order ${first.orderId} — ${first.cxName}) requires attention.`);
       }
     }
 
@@ -1519,9 +1430,7 @@
         .filter(r => ['CDT_EXEC', 'CDT_LEAD', 'SITE_VERIFIER'].includes(r.role))
         .forEach(r => {
           const isFull = r.activeCount >= r.capacityCap;
-          const dotColor = r.availability !== 'AVAILABLE'
-            ? 'bg-slate-400'
-            : (isFull ? 'bg-rose-500' : 'bg-emerald-500');
+          const dotColor = r.availability !== 'AVAILABLE' ? 'bg-slate-400' : (isFull ? 'bg-rose-500' : 'bg-emerald-500');
           const pill = document.createElement('span');
           pill.className = 'inline-flex items-center gap-1.5 text-[11px] px-2.5 py-0.5 rounded-full bg-white border border-slate-200 text-slate-700 font-medium shadow-2xs';
           pill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span><span>${escapeHtml(r.name)}</span><span class="font-mono font-bold text-slate-900">${r.activeCount}/${r.capacityCap}</span>`;
@@ -1529,7 +1438,6 @@
         });
 
       const activeTotal = (allTicketsCache || []).filter(t => t.bucket !== 'Cx_Draft_In_Progress').length;
-
       const bucketsEl = document.getElementById('bucketTabsBar');
       bucketsEl.innerHTML = '';
 
@@ -1537,18 +1445,8 @@
       const allCard = document.createElement('button');
       allCard.type = 'button';
       allCard.className = `text-left p-3 rounded-xl border transition relative overflow-hidden ${allActive ? 'bg-white border-[#FF4500] ring-1 ring-[#FF4500]/30 shadow-xs' : 'bg-white/80 hover:bg-white border-slate-200/90'}`;
-      allCard.innerHTML = `
-        <div class="flex items-center justify-between">
-          <span class="text-[11px] font-medium text-slate-500 truncate">All Tickets</span>
-          <span class="w-2 h-2 rounded-full bg-[#FF4500]"></span>
-        </div>
-        <div class="text-lg font-bold font-mono text-slate-900 mt-1">${activeTotal}</div>
-      `;
-      allCard.onclick = () => {
-        selectedBucketFilter = '';
-        returnToRoleHome();
-        renderRosterAndBucketsBar(bucketsSummary);
-      };
+      allCard.innerHTML = `<div class="flex items-center justify-between"><span class="text-[11px] font-medium text-slate-500 truncate">All Tickets</span><span class="w-2 h-2 rounded-full bg-[#FF4500]"></span></div><div class="text-lg font-bold font-mono text-slate-900 mt-1">${activeTotal}</div>`;
+      allCard.onclick = () => { selectedBucketFilter = ''; returnToRoleHome(); renderRosterAndBucketsBar(bucketsSummary); };
       bucketsEl.appendChild(allCard);
 
       ALL_BUCKETS.forEach(bName => {
@@ -1559,18 +1457,8 @@
         const card = document.createElement('button');
         card.type = 'button';
         card.className = `text-left p-3 rounded-xl border transition relative overflow-hidden ${active ? 'bg-white border-[#FF4500] ring-1 ring-[#FF4500]/30 shadow-xs' : 'bg-white/80 hover:bg-white border-slate-200/90'}`;
-        card.innerHTML = `
-          <div class="flex items-center justify-between gap-1">
-            <span class="text-[11px] font-medium text-slate-500 truncate" title="${escapeHtml(bName)}">${escapeHtml(meta.shortLabel)}</span>
-            <span class="w-2 h-2 rounded-full shrink-0 ${meta.dot}"></span>
-          </div>
-          <div class="text-lg font-bold font-mono text-slate-900 mt-1">${count}</div>
-        `;
-        card.onclick = () => {
-          selectedBucketFilter = bName;
-          returnToRoleHome();
-          renderRosterAndBucketsBar(bucketsSummary);
-        };
+        card.innerHTML = `<div class="flex items-center justify-between gap-1"><span class="text-[11px] font-medium text-slate-500 truncate" title="${escapeHtml(bName)}">${escapeHtml(meta.shortLabel)}</span><span class="w-2 h-2 rounded-full shrink-0 ${meta.dot}"></span></div><div class="text-lg font-bold font-mono text-slate-900 mt-1">${count}</div>`;
+        card.onclick = () => { selectedBucketFilter = bName; returnToRoleHome(); renderRosterAndBucketsBar(bucketsSummary); };
         bucketsEl.appendChild(card);
       });
     }
@@ -1580,9 +1468,7 @@
       const heading = document.getElementById('cdtQueueHeading');
       const agentFilter = document.getElementById('cdtAgentFilterSelect').value;
 
-      heading.textContent = selectedBucketFilter
-        ? `${selectedBucketFilter}`
-        : (agentFilter === 'DRAFTS' ? 'Unfinished Customer Portal Drafts' : 'Escalation Pipeline');
+      heading.textContent = selectedBucketFilter ? `${selectedBucketFilter}` : (agentFilter === 'DRAFTS' ? 'Unfinished Customer Portal Drafts' : 'Escalation Pipeline');
 
       const filtered = (allTicketsCache || []).filter(t => {
         if (agentFilter === 'DRAFTS') return t.bucket === 'Cx_Draft_In_Progress';
@@ -1597,13 +1483,7 @@
       });
 
       if (!filtered.length) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="9" class="px-4 py-12 text-center text-slate-400 text-xs">
-              No escalation tickets in this stage. Use the top search bar to look up any Order ID or Customer Phone Number.
-            </td>
-          </tr>
-        `;
+        tbody.innerHTML = `<tr><td colspan="9" class="px-4 py-12 text-center text-slate-400 text-xs">No escalation tickets in this stage. Use the top search bar to look up any Order ID or Customer Phone Number.</td></tr>`;
         return;
       }
 
@@ -1611,49 +1491,19 @@
         const dt = t.updatedAt ? new Date(t.updatedAt).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
         const sla = evaluateActionDateSla(t.targetActionDate, t.bucket);
         const bMeta = BUCKET_META[t.bucket] || { shortLabel: t.bucket, dot: 'bg-slate-400', pill: 'bg-slate-100 text-slate-700 border-slate-200' };
-
-        const rowBg = sla.state === 'OVERDUE'
-          ? 'bg-rose-50/40 hover:bg-rose-50/80'
-          : (sla.state === 'DUE_24H' ? 'bg-amber-50/40 hover:bg-amber-50/80' : 'hover:bg-slate-50/90');
+        const rowBg = sla.state === 'OVERDUE' ? 'bg-rose-50/40 hover:bg-rose-50/80' : (sla.state === 'DUE_24H' ? 'bg-amber-50/40 hover:bg-amber-50/80' : 'hover:bg-slate-50/90');
 
         return `
           <tr class="linear-row ${rowBg} cursor-pointer group" onclick="loadTicketIntoWorkspace('${escapeHtml(t.escId)}')">
-            <td class="px-4 py-3.5 whitespace-nowrap">
-              <span class="font-mono font-bold text-xs text-[#FF4500] group-hover:underline">${escapeHtml(t.escId)}</span>
-            </td>
-            <td class="px-4 py-3.5 whitespace-nowrap">
-              <span class="font-mono font-semibold text-xs text-slate-900 bg-slate-100/80 px-2 py-0.5 rounded">${escapeHtml(t.orderId)}</span>
-            </td>
-            <td class="px-4 py-3.5">
-              <div class="font-semibold text-slate-900 leading-tight">${escapeHtml(t.cxName)}</div>
-              <div class="text-[11px] font-mono text-slate-400 mt-0.5">${escapeHtml(t.cxPhone)}</div>
-            </td>
-            <td class="px-4 py-3.5 whitespace-nowrap">
-              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium border ${bMeta.pill}">
-                <span class="w-1.5 h-1.5 rounded-full ${bMeta.dot}"></span>
-                ${escapeHtml(bMeta.shortLabel)}
-              </span>
-            </td>
-            <td class="px-4 py-3.5 max-w-xs">
-              <div class="font-medium text-slate-800 truncate">${escapeHtml(t.customStatusText || t.liveStage)}</div>
-              <div class="text-[11px] text-slate-400 truncate mt-0.5">${escapeHtml(t.teamResponsible)} · ${escapeHtml(t.subIssue)}</div>
-            </td>
-            <td class="px-4 py-3.5 whitespace-nowrap">
-              ${sla.state !== 'NONE'
-                ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${sla.badgeClass}">${escapeHtml(sla.label)}</span>`
-                : '<span class="text-slate-300">—</span>'}
-            </td>
-            <td class="px-4 py-3.5 whitespace-nowrap">
-              <span class="font-medium text-slate-700">${escapeHtml(t.assignedAgentName || 'Auto')}</span>
-            </td>
-            <td class="px-4 py-3.5 whitespace-nowrap text-right text-[11px] text-slate-400 font-mono">
-              ${escapeHtml(dt)}
-            </td>
-            <td class="pr-4 py-3.5 text-right">
-              <svg class="w-4 h-4 text-slate-300 row-chevron transition-transform inline-block" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                <path d="m9 18 6-6-6-6"/>
-              </svg>
-            </td>
+            <td class="px-4 py-3.5 whitespace-nowrap"><span class="font-mono font-bold text-xs text-[#FF4500] group-hover:underline">${escapeHtml(t.escId)}</span></td>
+            <td class="px-4 py-3.5 whitespace-nowrap"><span class="font-mono font-semibold text-xs text-slate-900 bg-slate-100/80 px-2 py-0.5 rounded">${escapeHtml(t.orderId)}</span></td>
+            <td class="px-4 py-3.5"><div class="font-semibold text-slate-900 leading-tight">${escapeHtml(t.cxName)}</div><div class="text-[11px] font-mono text-slate-400 mt-0.5">${escapeHtml(t.cxPhone)}</div></td>
+            <td class="px-4 py-3.5 whitespace-nowrap"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium border ${bMeta.pill}"><span class="w-1.5 h-1.5 rounded-full ${bMeta.dot}"></span>${escapeHtml(bMeta.shortLabel)}</span></td>
+            <td class="px-4 py-3.5 max-w-xs"><div class="font-medium text-slate-800 truncate">${escapeHtml(t.customStatusText || t.liveStage)}</div><div class="text-[11px] text-slate-400 truncate mt-0.5">${escapeHtml(t.teamResponsible)} · ${escapeHtml(t.subIssue)}</div></td>
+            <td class="px-4 py-3.5 whitespace-nowrap">${sla.state !== 'NONE' ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${sla.badgeClass}">${escapeHtml(sla.label)}</span>` : '<span class="text-slate-300">—</span>'}</td>
+            <td class="px-4 py-3.5 whitespace-nowrap"><span class="font-medium text-slate-700">${escapeHtml(t.assignedAgentName || 'Auto')}</span></td>
+            <td class="px-4 py-3.5 whitespace-nowrap text-right text-[11px] text-slate-400 font-mono">${escapeHtml(dt)}</td>
+            <td class="pr-4 py-3.5 text-right"><svg class="w-4 h-4 text-slate-300 row-chevron transition-transform inline-block" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></td>
           </tr>
         `;
       }).join('');
@@ -1727,26 +1577,15 @@
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.className = 'text-left p-4 rounded-xl border border-slate-200 hover:border-[#FF4500] bg-slate-50/60 hover:bg-white transition space-y-1';
-            btn.innerHTML = `
-              <div class="flex items-center justify-between">
-                <span class="text-sm font-mono font-bold text-[#FF4500]">${escapeHtml(r.orderId)}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 font-medium">${escapeHtml(r.sourceSheet)}</span>
-              </div>
-              <p class="text-xs font-semibold text-slate-800">${escapeHtml(r.cxName)}</p>
-              <p class="text-[11px] text-slate-500">Booking: ${escapeHtml(r.bookingDate)} · Value: ${escapeHtml(r.orderValue)}</p>
-            `;
+            btn.innerHTML = `<div class="flex items-center justify-between"><span class="text-sm font-mono font-bold text-[#FF4500]">${escapeHtml(r.orderId)}</span><span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 font-medium">${escapeHtml(r.sourceSheet)}</span></div><p class="text-xs font-semibold text-slate-800">${escapeHtml(r.cxName)}</p><p class="text-[11px] text-slate-500">Booking: ${escapeHtml(r.bookingDate)} · Value: ${escapeHtml(r.orderValue)}</p>`;
             btn.onclick = () => runOrderOrPhoneSearch(r.rawOrderId || r.orderId, 'order');
             grid.appendChild(btn);
           });
         } else if (data.dossier) {
           activeDossier = data.dossier;
-          const latestTicket = (data.dossier.existingTickets && data.dossier.existingTickets.length)
-            ? data.dossier.existingTickets[data.dossier.existingTickets.length - 1]
-            : null;
+          const latestTicket = (data.dossier.existingTickets && data.dossier.existingTickets.length) ? data.dossier.existingTickets[data.dossier.existingTickets.length - 1] : null;
           activeTicket = latestTicket;
-          const combinedTimeline = latestTicket
-            ? (latestTicket.timeline || [])
-            : (data.dossier.orderTimeline || []);
+          const combinedTimeline = latestTicket ? (latestTicket.timeline || []) : (data.dossier.orderTimeline || []);
           renderOrderDossier(data.dossier, latestTicket, combinedTimeline);
         }
       } catch (e) {
@@ -1771,9 +1610,7 @@
 
       const phoneEl = document.getElementById('dosPhone');
       phoneEl.textContent = d.phoneNo || 'NA';
-      phoneEl.onclick = () => {
-        if (d.phoneNo && d.phoneNo !== 'NA') runOrderOrPhoneSearch(d.phoneNo, 'phone');
-      };
+      phoneEl.onclick = () => { if (d.phoneNo && d.phoneNo !== 'NA') runOrderOrPhoneSearch(d.phoneNo, 'phone'); };
 
       document.getElementById('dosSalesRep').textContent = d.salesRep || 'NA';
       document.getElementById('dosDeliveryType').textContent = d.deliveryType || 'NA';
@@ -1814,9 +1651,7 @@
     function renderInteractiveSkuList(d, ticketOrDraft) {
       const container = document.getElementById('interactiveSkuSelectionList');
       container.innerHTML = '';
-      const allSkus = []
-        .concat((d.poLineItems && d.poLineItems.structuredItems) || [])
-        .concat((d.metaEscLineItems && d.metaEscLineItems.structuredItems) || []);
+      const allSkus = [].concat((d.poLineItems && d.poLineItems.structuredItems) || []).concat((d.metaEscLineItems && d.metaEscLineItems.structuredItems) || []);
 
       if (!allSkus.length) {
         container.innerHTML = '<p class="p-6 text-xs text-slate-400 text-center">No line items found in po_line_items or metaescline.</p>';
@@ -1872,11 +1707,7 @@
           <div class="flex flex-wrap items-center gap-2 shrink-0">
             <div>
               <span class="block text-[10px] font-medium text-slate-400">Damaged Qty</span>
-              <input type="number" min="0" step="any" value="${saved ? escapeHtml(saved.affectedQty) : '1'}"
-                id="qty_${item.rowKey}"
-                ${isReadOnlySales ? 'disabled' : ''}
-                oninput="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();"
-                class="w-20 px-2 py-1 text-xs bg-white border border-slate-200 rounded font-mono font-bold" />
+              <input type="number" min="0" step="any" value="${saved ? escapeHtml(saved.affectedQty) : '1'}" id="qty_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} oninput="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();" class="w-20 px-2 py-1 text-xs bg-white border border-slate-200 rounded font-mono font-bold" />
             </div>
             <div>
               <span class="block text-[10px] font-medium text-slate-400">Unit</span>
@@ -1888,11 +1719,7 @@
             </div>
             <div>
               <span class="block text-[10px] font-medium text-slate-400">Batch No</span>
-              <input type="text" placeholder="e.g. B-4092" value="${saved ? escapeHtml(saved.batchNo || '') : ''}"
-                id="batch_${item.rowKey}"
-                ${isReadOnlySales ? 'disabled' : ''}
-                oninput="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();"
-                class="w-24 px-2 py-1 text-xs bg-white border border-slate-200 rounded font-mono" />
+              <input type="text" placeholder="e.g. B-4092" value="${saved ? escapeHtml(saved.batchNo || '') : ''}" id="batch_${item.rowKey}" ${isReadOnlySales ? 'disabled' : ''} oninput="recalculateSelectedSkusAndPreview(); saveCdtLocalDraft();" class="w-24 px-2 py-1 text-xs bg-white border border-slate-200 rounded font-mono" />
             </div>
             <div>
               <span class="block text-[10px] font-medium text-slate-400">SKU Issue</span>
@@ -2048,7 +1875,6 @@
       const isAiPolished = Boolean(aiPolishedStoryline);
 
       const { list, totalCost } = getSelectedSkusArray();
-
       const subject = `[${escId}] ${team} - ${subIssue} | ${activeDossier.cxName} | ${activeDossier.phoneNo} | Order ${activeDossier.orderId}`;
       document.getElementById('emailSubjectInput').value = subject;
 
@@ -2167,24 +1993,14 @@
         actionBadge.classList.add('hidden');
       }
 
-      document.getElementById('trkHeadlineStage').textContent = ticket.customStatusText
-        ? `Custom Status: ${ticket.customStatusText}`
-        : (ticket.liveStage || 'Under Investigation');
+      document.getElementById('trkHeadlineStage').textContent = ticket.customStatusText ? `Custom Status: ${ticket.customStatusText}` : (ticket.liveStage || 'Under Investigation');
       document.getElementById('trkPendingDept').textContent = `With: ${ticket.pendingWithDept || 'CDT'}`;
       document.getElementById('trkAssignedOwner').textContent = `Owner: ${ticket.assignedAgentName || 'Auto'}`;
       document.getElementById('trkWhatToTellCx').textContent = ticket.whatToTellCx || 'Our team is actively working on your resolution.';
 
       const stageStr = `${ticket.liveStage || ''} ${ticket.customStatusText || ''}`.toLowerCase();
-      const isBatchConfirmedOrRaised =
-        stageStr.includes('batch confirmed') ||
-        ['Raised to Team', 'Completed'].includes(ticket.bucket) ||
-        stageStr.includes('po raised') ||
-        stageStr.includes('dispatched');
-
-      const isPoOrDispatched =
-        stageStr.includes('po raised') ||
-        stageStr.includes('dispatched') ||
-        ticket.bucket === 'Completed';
+      const isBatchConfirmedOrRaised = stageStr.includes('batch confirmed') || ['Raised to Team', 'Completed'].includes(ticket.bucket) || stageStr.includes('po raised') || stageStr.includes('dispatched');
+      const isPoOrDispatched = stageStr.includes('po raised') || stageStr.includes('dispatched') || ticket.bucket === 'Completed';
 
       const steps = [
         { label: '1. Logged / Proofs In', done: true },
@@ -2244,9 +2060,7 @@
       navigator.clipboard.writeText(messageText);
 
       const cleanDigits = String(cxPhone || '').replace(/\D/g, '').slice(-10);
-      const waLink = cleanDigits
-        ? `https://wa.me/91${cleanDigits}?text=${encodeURIComponent(messageText)}`
-        : `https://wa.me/?text=${encodeURIComponent(messageText)}`;
+      const waLink = cleanDigits ? `https://wa.me/91${cleanDigits}?text=${encodeURIComponent(messageText)}` : `https://wa.me/?text=${encodeURIComponent(messageText)}`;
       document.getElementById('waModalDirectLink').href = waLink;
       document.getElementById('whatsappCopyModal').classList.remove('hidden');
     }
@@ -2259,9 +2073,7 @@
 
     async function markCustomerUnreachableAndCopyWa() {
       if (!activeDossier) return;
-      if (!activeTicket || !activeTicket.escId) {
-        await saveOrSendTicket(false);
-      }
+      if (!activeTicket || !activeTicket.escId) await saveOrSendTicket(false);
       if (!activeTicket) return;
 
       const reason = document.getElementById('cxUnreachableReasonSelect').value;
@@ -2270,7 +2082,6 @@
       const timeNow = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
 
       const portalAlertScript = `[UNREACHABLE_ALERT] We tried calling you at ${timeNow} regarding Claim #${activeTicket.escId}, but could not connect (${reason}). ${extraNote ? extraNote + '. ' : ''}Please call your assigned specialist ${agentInfo.name} at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}.`;
-
       const waMessage = `Hi ${activeDossier.cxName}, this is ${agentInfo.name} from the Adorzy Customer Resolution Team. We tried calling you regarding your Order #${activeDossier.orderId} (Claim #${activeTicket.escId}), but could not connect as your number was ${reason}${extraNote ? ' (' + extraNote + ')' : ''}.\n\nPlease call me back at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}, or reply to this message so we can proceed with your resolution.`;
 
       setLoading(true, 'Marking customer unreachable & updating Customer Portal...');
@@ -2303,18 +2114,13 @@
     function onMutualPresetChange() {
       const val = document.getElementById('mutualClosePresetSelect').value;
       const customBox = document.getElementById('mutualCloseCustomInput');
-      if (val === 'CUSTOM') {
-        customBox.focus();
-      } else {
-        customBox.value = val;
-      }
+      if (val === 'CUSTOM') customBox.focus();
+      else customBox.value = val;
     }
 
     async function closeTicketByMutualAgreement() {
       if (!activeDossier) return;
-      if (!activeTicket || !activeTicket.escId) {
-        await saveOrSendTicket(false);
-      }
+      if (!activeTicket || !activeTicket.escId) await saveOrSendTicket(false);
       if (!activeTicket) return;
 
       const presetVal = document.getElementById('mutualClosePresetSelect').value;
@@ -2323,9 +2129,7 @@
 
       const agentInfo = getAgentPhoneInfo(activeTicket.assignedAgentEmail || authenticatedEmail);
       const cxPortalLink = `${window.location.origin}${window.location.pathname}?portal=customer`;
-
       const portalCloseScript = `Resolved by Mutual Agreement: ${finalAgreementText}. Your ticket #${activeTicket.escId} is now closed. Please rate your support experience below!`;
-
       const waCloseMessage = `Hi ${activeDossier.cxName}, thank you for speaking with us regarding your Adorzy Order #${activeDossier.orderId} (Claim #${activeTicket.escId}).\n\nAs mutually discussed and agreed on call (${finalAgreementText}), we are marking this ticket as resolved. If you need any further assistance, please reach out to me (${agentInfo.name}) at +91 ${agentInfo.phone} or our CDT Central Helpline at +91 ${CDT_CENTRAL_PHONE}.\n\nWe would love your feedback! Please rate your experience here: ${cxPortalLink}`;
 
       document.getElementById('escBucketSelect').value = 'Completed';
@@ -2401,21 +2205,10 @@
       uploadedProofFiles.forEach(f => {
         const isAudio = (f.mimeType && f.mimeType.startsWith('audio/')) || (f.slotLabel && f.slotLabel.includes('Voice'));
         if (isAudio) {
-          const audioStreamUrl = f.fileId
-            ? `https://drive.google.com/uc?export=download&id=${encodeURIComponent(f.fileId)}`
-            : f.url;
+          const audioStreamUrl = f.fileId ? `https://drive.google.com/uc?export=download&id=${encodeURIComponent(f.fileId)}` : f.url;
           const wrap = document.createElement('div');
           wrap.className = 'p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs';
-          wrap.innerHTML = `
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="font-semibold text-slate-800">Customer Voice Note (${escapeHtml(f.name)}):</span>
-              <audio controls src="${audioStreamUrl}" class="h-8"></audio>
-              <a href="${escapeHtml(f.url)}" target="_blank" class="text-[#FF4500] underline font-medium">Open in Drive ↗</a>
-            </div>
-            <button type="button" onclick="transcribeVoiceNoteOnDemand('${escapeHtml(f.fileId)}')" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-[11px]">
-              Transcribe &amp; Translate
-            </button>
-          `;
+          wrap.innerHTML = `<div class="flex items-center gap-2 flex-wrap"><span class="font-semibold text-slate-800">Customer Voice Note (${escapeHtml(f.name)}):</span><audio controls src="${audioStreamUrl}" class="h-8"></audio><a href="${escapeHtml(f.url)}" target="_blank" class="text-[#FF4500] underline font-medium">Open in Drive ↗</a></div><button type="button" onclick="transcribeVoiceNoteOnDemand('${escapeHtml(f.fileId)}')" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-[11px]">Transcribe &amp; Translate</button>`;
           gal.appendChild(wrap);
         } else {
           const a = document.createElement('a');
@@ -2448,8 +2241,9 @@
     }
 
     /**
-     * FIXED: Passes assignedAgentEmail & assignedAgentName of the logged-in agent
-     * when manually raising a ticket so it is never assigned to another agent!
+     * APPROACH 1 INTEGRATED:
+     * 1. Assigns manually created tickets to the logged-in agent
+     * 2. Dispatches email directly via the logged-in agent's Gmail REST API session
      */
     async function saveOrSendTicket(sendEmailNow) {
       if (!activeDossier) return;
@@ -2463,9 +2257,9 @@
         ? activeTicket.assignedAgentName
         : (u.name || (ownerEmail ? ownerEmail.split('@')[0] : 'CDT Specialist'));
 
-      setLoading(true, sendEmailNow ? 'Logging ticket & sending email...' : 'Saving classification & ticket state in bucket...');
+      setLoading(true, sendEmailNow ? `Sending email from ${authenticatedEmail}...` : 'Saving classification & ticket state in bucket...');
       try {
-        const res = await apiPost({
+        const saveRes = await apiPost({
           action: 'saveOrSendEscalation',
           escId: activeTicket ? activeTicket.escId : '',
           orderId: activeDossier.orderId,
@@ -2476,7 +2270,7 @@
           sourceSheet: activeDossier.sourceSheet,
           assignedAgentEmail: ownerEmail,
           assignedAgentName: ownerName,
-          bucket: document.getElementById('escBucketSelect').value,
+          bucket: sendEmailNow ? 'Raised to Team' : document.getElementById('escBucketSelect').value,
           siteVerifierAgent: cleanSiteVerifierVal(document.getElementById('escSiteVerifierInput').value),
           targetActionDate: document.getElementById('escTargetActionDateInput').value.trim(),
           teamResponsible: document.getElementById('escTeamSelect').value,
@@ -2495,36 +2289,65 @@
           emailSubject: document.getElementById('emailSubjectInput').value.trim(),
           emailBodyHtml: document.getElementById('emailBodyPreview').innerHTML,
           actorName: u.name || ownerName,
-          actorEmail: u.email || ownerEmail,
-          sendEmailNow
+          actorEmail: authenticatedEmail || ownerEmail,
+          sendEmailNow: sendEmailNow,
+          sentViaBrowserGmail: sendEmailNow
         });
-        setLoading(false);
-        if (res.status === 'success') {
-          activeTicket = res.ticket;
+
+        if (saveRes.status === 'success') {
+          activeTicket = saveRes.ticket;
+          buildLiveEmailPreview();
+
+          if (sendEmailNow) {
+            const gmailRes = await sendOrDraftViaAgentGmailApi({
+              isDraftOnly: false,
+              to: document.getElementById('emailToInput').value.trim(),
+              cc: document.getElementById('emailCcInput').value.trim(),
+              subject: document.getElementById('emailSubjectInput').value.trim(),
+              htmlBody: document.getElementById('emailBodyPreview').innerHTML,
+              driveFolderUrl: saveRes.driveFolderUrl || '',
+              escId: saveRes.escId
+            });
+            if (gmailRes && gmailRes.threadId) {
+              activeTicket.gmailThreadId = gmailRes.threadId;
+            }
+          }
+
           try { localStorage.removeItem(`adorzy_cdt_draft_${activeDossier.orderId}`); } catch (e) {}
-          populateWorkbenchFromTicket(res.ticket, res.timeline || []);
-          showToastAlert('Saved Successfully', `${res.escId} saved in "${res.bucket}" (Owner: ${ownerName})`);
+          setLoading(false);
+          populateWorkbenchFromTicket(activeTicket, saveRes.timeline || []);
+          showToastAlert(
+            sendEmailNow ? 'Email Sent from Your Inbox' : 'Saved Successfully',
+            sendEmailNow ? `Dispatched directly from ${authenticatedEmail} for ${saveRes.escId}` : `${saveRes.escId} saved in "${saveRes.bucket}" (Owner: ${ownerName})`
+          );
+        } else {
+          setLoading(false);
         }
       } catch (e) {
         setLoading(false);
+        showBannerError('Gmail Dispatch Notice', e.message || 'Could not complete email dispatch.');
       }
     }
 
     async function throwToGmailDrafts() {
       if (!activeDossier) return;
-      setLoading(true, 'Creating draft in Gmail Drafts folder...');
-      const res = await apiPost({
-        action: 'generateAiEmailDraft',
-        createGmailDraftOnly: true,
-        emailTo: document.getElementById('emailToInput').value.trim(),
-        emailCc: document.getElementById('emailCcInput').value.trim(),
-        emailSubject: document.getElementById('emailSubjectInput').value.trim(),
-        emailBodyHtml: document.getElementById('emailBodyPreview').innerHTML
-      });
-      setLoading(false);
-      if (res.status === 'draft_created') {
-        showToastAlert('Saved to Gmail Drafts', 'Email has been placed in your Gmail Drafts folder.');
-        saveOrSendTicket(false);
+      try {
+        await saveOrSendTicket(false);
+        setLoading(true, `Creating draft in ${authenticatedEmail}'s Gmail Drafts...`);
+        await sendOrDraftViaAgentGmailApi({
+          isDraftOnly: true,
+          to: document.getElementById('emailToInput').value.trim(),
+          cc: document.getElementById('emailCcInput').value.trim(),
+          subject: document.getElementById('emailSubjectInput').value.trim(),
+          htmlBody: document.getElementById('emailBodyPreview').innerHTML,
+          driveFolderUrl: (activeTicket && activeTicket.driveFolderUrl) || '',
+          escId: (activeTicket && activeTicket.escId) || 'ESC-DRAFT'
+        });
+        setLoading(false);
+        showToastAlert('Saved to Your Gmail Drafts', `Draft placed directly in ${authenticatedEmail}'s Gmail Drafts folder.`);
+      } catch (e) {
+        setLoading(false);
+        showBannerError('Gmail Draft Notice', e.message || 'Could not create Gmail draft.');
       }
     }
 
@@ -2563,9 +2386,7 @@
     }
 
     async function quickToggleMilestone(stageLabel, pendingDept, publicScript) {
-      if (!activeTicket || !activeTicket.escId) {
-        await saveOrSendTicket(false);
-      }
+      if (!activeTicket || !activeTicket.escId) await saveOrSendTicket(false);
       if (!activeTicket) return;
       const u = sysConfig.currentUser || {};
       const bucket = stageLabel.includes('Site Verification') ? 'Site Verification' : activeTicket.bucket;
@@ -2596,9 +2417,7 @@
     }
 
     async function saveCustomStatusOverride() {
-      if (!activeTicket || !activeTicket.escId) {
-        await saveOrSendTicket(false);
-      }
+      if (!activeTicket || !activeTicket.escId) await saveOrSendTicket(false);
       if (!activeTicket) return;
       const u = sysConfig.currentUser || {};
       const customText = document.getElementById('customStageHeadlineInput').value.trim();
@@ -2632,9 +2451,7 @@
     }
 
     async function logReturnMaterialStatus() {
-      if (!activeTicket || !activeTicket.escId) {
-        await saveOrSendTicket(false);
-      }
+      if (!activeTicket || !activeTicket.escId) await saveOrSendTicket(false);
       if (!activeTicket) return;
       const u = sysConfig.currentUser || {};
       setLoading(true, 'Logging return timestamp...');
@@ -2657,9 +2474,7 @@
 
     async function submitCallLog() {
       if (!activeDossier) return;
-      if (!activeTicket || !activeTicket.escId) {
-        await saveOrSendTicket(false);
-      }
+      if (!activeTicket || !activeTicket.escId) await saveOrSendTicket(false);
       const u = sysConfig.currentUser || {};
       const party = document.getElementById('callPartySelect').value;
       const person = document.getElementById('callPersonInput').value.trim() || activeDossier.phoneNo;
@@ -2705,16 +2520,7 @@
         } else {
           callTbody.innerHTML = callEvents.map(c => {
             const dt = c.timestamp ? new Date(c.timestamp).toLocaleString('en-IN') : '';
-            return `
-              <tr class="hover:bg-slate-50">
-                <td class="px-3 py-2 whitespace-nowrap font-mono text-slate-400">${escapeHtml(dt)}</td>
-                <td class="px-3 py-2 font-semibold text-slate-800">${escapeHtml(c.actorName)}</td>
-                <td class="px-3 py-2 font-medium text-[#FF4500]">${escapeHtml(c.partySpokenTo || 'Customer')}</td>
-                <td class="px-3 py-2 font-mono">${escapeHtml(c.contactPerson || '—')}</td>
-                <td class="px-3 py-2"><span class="px-2 py-0.5 rounded bg-amber-50 border border-amber-200 font-semibold text-amber-900">${escapeHtml(c.callOutcome || 'Logged')}</span></td>
-                <td class="px-3 py-2 text-slate-700">${escapeHtml(c.details)}</td>
-              </tr>
-            `;
+            return `<tr class="hover:bg-slate-50"><td class="px-3 py-2 whitespace-nowrap font-mono text-slate-400">${escapeHtml(dt)}</td><td class="px-3 py-2 font-semibold text-slate-800">${escapeHtml(c.actorName)}</td><td class="px-3 py-2 font-medium text-[#FF4500]">${escapeHtml(c.partySpokenTo || 'Customer')}</td><td class="px-3 py-2 font-mono">${escapeHtml(c.contactPerson || '—')}</td><td class="px-3 py-2"><span class="px-2 py-0.5 rounded bg-amber-50 border border-amber-200 font-semibold text-amber-900">${escapeHtml(c.callOutcome || 'Logged')}</span></td><td class="px-3 py-2 text-slate-700">${escapeHtml(c.details)}</td></tr>`;
           }).join('');
         }
       }
@@ -2725,16 +2531,7 @@
         ? '<p class="text-xs text-slate-400 text-center py-6">No activity logged yet.</p>'
         : events.map(ev => {
             const dt = ev.timestamp ? new Date(ev.timestamp).toLocaleString('en-IN') : '';
-            return `
-              <div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 text-xs space-y-1">
-                <div class="flex items-center justify-between text-[11px] text-slate-400">
-                  <span class="font-mono font-semibold text-[#FF4500]">${escapeHtml(ev.eventType)} · ${escapeHtml(ev.actorName)}</span>
-                  <span class="font-mono">${escapeHtml(dt)}</span>
-                </div>
-                <p class="font-semibold text-slate-900">${escapeHtml(ev.headline)}</p>
-                <p class="text-slate-600 whitespace-pre-line">${escapeHtml(ev.details)}</p>
-              </div>
-            `;
+            return `<div class="p-3 rounded-lg bg-slate-50 border border-slate-200/80 text-xs space-y-1"><div class="flex items-center justify-between text-[11px] text-slate-400"><span class="font-mono font-semibold text-[#FF4500]">${escapeHtml(ev.eventType)} · ${escapeHtml(ev.actorName)}</span><span class="font-mono">${escapeHtml(dt)}</span></div><p class="font-semibold text-slate-900">${escapeHtml(ev.headline)}</p><p class="text-slate-600 whitespace-pre-line">${escapeHtml(ev.details)}</p></div>`;
           }).join('');
 
       if (container) container.innerHTML = html;
@@ -2759,15 +2556,11 @@
       }
 
       let html = '<table class="min-w-full divide-y divide-slate-200 text-[11px] text-left"><thead class="bg-slate-50"><tr>';
-      activeCols.forEach(c => {
-        html += `<th class="px-3 py-2 font-semibold text-slate-500 uppercase whitespace-nowrap">${escapeHtml(headers[c])}</th>`;
-      });
+      activeCols.forEach(c => { html += `<th class="px-3 py-2 font-semibold text-slate-500 uppercase whitespace-nowrap">${escapeHtml(headers[c])}</th>`; });
       html += '</tr></thead><tbody class="divide-y divide-slate-100">';
       rows.forEach(r => {
         html += '<tr>';
-        activeCols.forEach(c => {
-          html += `<td class="px-3 py-2 text-slate-800 whitespace-nowrap">${escapeHtml(r[c] || '—')}</td>`;
-        });
+        activeCols.forEach(c => { html += `<td class="px-3 py-2 text-slate-800 whitespace-nowrap">${escapeHtml(r[c] || '—')}</td>`; });
         html += '</tr>';
       });
       html += '</tbody></table>';
@@ -2821,11 +2614,7 @@
           const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
           audioChunks = [];
           mediaRecorder = new MediaRecorder(stream);
-
-          mediaRecorder.ondataavailable = e => {
-            if (e.data && e.data.size > 0) audioChunks.push(e.data);
-          };
-
+          mediaRecorder.ondataavailable = e => { if (e.data && e.data.size > 0) audioChunks.push(e.data); };
           mediaRecorder.onstop = async () => {
             stream.getTracks().forEach(t => t.stop());
             const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
@@ -2879,9 +2668,7 @@
         timerBadge.classList.add('hidden');
         btn.innerHTML = '<span>Record Voice Note</span>';
         btn.className = 'px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold flex items-center gap-1.5';
-        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-          mediaRecorder.stop();
-        }
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
       }
     }
 
@@ -2899,13 +2686,7 @@
           const listEl = document.getElementById('cxOrderChoiceList');
           listEl.classList.remove('hidden');
           listEl.innerHTML = '<p class="text-xs font-semibold text-muted">Select your Order:</p>' +
-            (data.results || []).map(r => `
-              <button type="button" onclick="runCustomerPortalLookup('${escapeHtml(r.rawOrderId || r.orderId)}')"
-                class="w-full text-left p-3 rounded-lg border border-border hover:border-primary bg-bg flex items-center justify-between text-xs">
-                <span><strong>Order ${escapeHtml(r.orderId)}</strong> · Booked: ${escapeHtml(r.bookingDate)}</span>
-                <span class="text-primary font-bold">Select →</span>
-              </button>
-            `).join('');
+            (data.results || []).map(r => `<button type="button" onclick="runCustomerPortalLookup('${escapeHtml(r.rawOrderId || r.orderId)}')" class="w-full text-left p-3 rounded-lg border border-border hover:border-primary bg-bg flex items-center justify-between text-xs"><span><strong>Order ${escapeHtml(r.orderId)}</strong> · Booked: ${escapeHtml(r.bookingDate)}</span><span class="text-primary font-bold">Select →</span></button>`).join('');
         } else if (data.dossier) {
           document.getElementById('cxOrderChoiceList').classList.add('hidden');
           loadOrderIntoCustomerPortal(data.dossier);
@@ -2934,19 +2715,10 @@
         document.getElementById('cxTrkTicketId').textContent = `Claim #${latest.escId} · Order ${d.orderId}`;
 
         const stageLower = `${latest.liveStage || ''} ${latest.customStatusText || ''}`.toLowerCase();
-        const isResolutionApproved =
-          stageLower.includes('batch confirmed') ||
-          stageLower.includes('po raised') ||
-          stageLower.includes('dispatched') ||
-          ['Raised to Team', 'Completed'].includes(latest.bucket);
+        const isResolutionApproved = stageLower.includes('batch confirmed') || stageLower.includes('po raised') || stageLower.includes('dispatched') || ['Raised to Team', 'Completed'].includes(latest.bucket);
 
-        document.getElementById('cxTrkStageTitle').textContent =
-          latest.bucket === 'Completed'
-            ? 'Resolution Completed'
-            : (isResolutionApproved ? 'Resolution Approved & Processing' : 'Active — Under Verification');
-
-        document.getElementById('cxTrkAssignedSpecialist').textContent =
-          `${agentInfo.name} (+91 ${agentInfo.phone})`;
+        document.getElementById('cxTrkStageTitle').textContent = latest.bucket === 'Completed' ? 'Resolution Completed' : (isResolutionApproved ? 'Resolution Approved & Processing' : 'Active — Under Verification');
+        document.getElementById('cxTrkAssignedSpecialist').textContent = `${agentInfo.name} (+91 ${agentInfo.phone})`;
 
         const callBtn = document.getElementById('cxCallAssignedBtn');
         callBtn.href = `tel:+91${agentInfo.phone}`;
@@ -2969,18 +2741,12 @@
           { label: '3. Approved', done: isResolutionApproved },
           { label: '4. Completed', done: latest.bucket === 'Completed' }
         ];
-        document.getElementById('cxSanitizedStepsGrid').innerHTML = cxSteps.map(s => `
-          <div class="p-2 rounded-lg border text-center font-semibold ${s.done ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-surface border-border text-muted'}">
-            ${s.done ? '● ' : '○ '}${s.label}
-          </div>
-        `).join('');
+        document.getElementById('cxSanitizedStepsGrid').innerHTML = cxSteps.map(s => `<div class="p-2 rounded-lg border text-center font-semibold ${s.done ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-surface border-border text-muted'}">${s.done ? '● ' : '○ '}${s.label}</div>`).join('');
 
         const feedbackCard = document.getElementById('cxFeedbackRatingCard');
         if (latest.bucket === 'Completed') {
           feedbackCard.classList.remove('hidden');
-          if ((latest.resolutionNotes || '').includes('[CSAT:')) {
-            document.getElementById('cxFeedbackSavedBadge').classList.remove('hidden');
-          }
+          if ((latest.resolutionNotes || '').includes('[CSAT:')) document.getElementById('cxFeedbackSavedBadge').classList.remove('hidden');
         } else {
           feedbackCard.classList.add('hidden');
         }
@@ -3013,11 +2779,9 @@
     function selectCxRatingStars(stars) {
       cxSelectedRatingStars = stars;
       document.querySelectorAll('.cx-star-btn').forEach((btn, idx) => {
-        if (idx + 1 <= stars) {
-          btn.className = 'cx-star-btn px-3 py-1.5 rounded-lg bg-warning text-white border border-warning text-xs font-bold';
-        } else {
-          btn.className = 'cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold';
-        }
+        btn.className = (idx + 1 <= stars)
+          ? 'cx-star-btn px-3 py-1.5 rounded-lg bg-warning text-white border border-warning text-xs font-bold'
+          : 'cx-star-btn px-3 py-1.5 rounded-lg bg-surface border border-border text-xs font-bold';
       });
     }
 
@@ -3056,9 +2820,7 @@
 
     function renderCustomerPortalSkus(d, savedSkus) {
       const container = document.getElementById('cxSkuListContainer');
-      const allSkus = []
-        .concat((d.poLineItems && d.poLineItems.structuredItems) || [])
-        .concat((d.metaEscLineItems && d.metaEscLineItems.structuredItems) || []);
+      const allSkus = [].concat((d.poLineItems && d.poLineItems.structuredItems) || []).concat((d.metaEscLineItems && d.metaEscLineItems.structuredItems) || []);
 
       const savedMap = {};
       (savedSkus || []).forEach(s => { savedMap[s.rowKey] = s; });
@@ -3073,26 +2835,15 @@
           <div class="p-3.5 rounded-lg border ${isChecked ? 'border-[#FF4500] bg-orange-50/20' : 'border-border bg-bg'} transition space-y-3 text-xs" id="cxcard_${item.rowKey}">
             <label class="flex items-center justify-between gap-2 font-semibold text-slate-900 cursor-pointer">
               <div class="flex items-center gap-2.5">
-                <input type="checkbox" class="cx-sku-check w-4 h-4 accent-[#FF4500] rounded"
-                  data-rowkey="${escapeHtml(item.rowKey)}"
-                  data-skuname="${escapeHtml(item.skuName)}"
-                  data-orderedunit="${escapeHtml(item.orderedUnit)}"
-                  ${isChecked ? 'checked' : ''}
-                  onchange="onCxSkuCheckboxToggle('${escapeHtml(item.rowKey)}')" />
+                <input type="checkbox" class="cx-sku-check w-4 h-4 accent-[#FF4500] rounded" data-rowkey="${escapeHtml(item.rowKey)}" data-skuname="${escapeHtml(item.skuName)}" data-orderedunit="${escapeHtml(item.orderedUnit)}" ${isChecked ? 'checked' : ''} onchange="onCxSkuCheckboxToggle('${escapeHtml(item.rowKey)}')" />
                 <span>${escapeHtml(item.skuName)}</span>
               </div>
-              <span class="text-[11px] font-mono font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted">
-                Ordered: ${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}
-              </span>
+              <span class="text-[11px] font-mono font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted">Ordered: ${escapeHtml(item.orderedQty)} ${escapeHtml(item.orderedUnit)}</span>
             </label>
-
             <div id="cxsub_${item.rowKey}" class="${isChecked ? '' : 'hidden'} pt-2.5 border-t border-border grid grid-cols-1 sm:grid-cols-4 gap-2">
               <div>
                 <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Damaged Qty *</label>
-                <input type="number" min="1" step="any" value="${sv ? escapeHtml(sv.affectedQty) : '1'}"
-                  id="cxqty_${item.rowKey}"
-                  oninput="autoSaveCustomerDraft()"
-                  class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-mono font-bold focus:outline-none focus:border-primary" />
+                <input type="number" min="1" step="any" value="${sv ? escapeHtml(sv.affectedQty) : '1'}" id="cxqty_${item.rowKey}" oninput="autoSaveCustomerDraft()" class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-mono font-bold focus:outline-none focus:border-primary" />
               </div>
               <div>
                 <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Select Unit *</label>
@@ -3104,10 +2855,7 @@
               </div>
               <div>
                 <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Batch No (on Box)</label>
-                <input type="text" placeholder="e.g. B-4092" value="${sv ? escapeHtml(sv.batchNo) : ''}"
-                  id="cxbatch_${item.rowKey}"
-                  oninput="autoSaveCustomerDraft()"
-                  class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-mono focus:outline-none focus:border-primary" />
+                <input type="text" placeholder="e.g. B-4092" value="${sv ? escapeHtml(sv.batchNo) : ''}" id="cxbatch_${item.rowKey}" oninput="autoSaveCustomerDraft()" class="w-full px-2.5 py-1.5 bg-surface border border-border rounded-lg font-mono focus:outline-none focus:border-primary" />
               </div>
               <div>
                 <label class="block text-[10px] font-semibold uppercase text-muted mb-0.5">Issue with this SKU *</label>
@@ -3141,9 +2889,7 @@
       saveLocalCustomerDraft();
       clearTimeout(cxDraftTimeout);
       cxDraftTimeout = setTimeout(() => {
-        if (!isSubmittingClaim) {
-          activeDraftSavePromise = submitCustomerPortalClaim(false);
-        }
+        if (!isSubmittingClaim) activeDraftSavePromise = submitCustomerPortalClaim(false);
       }, 6000);
     }
 
@@ -3199,10 +2945,7 @@
         badge.className = `text-[11px] font-semibold px-2.5 py-0.5 rounded ${bothMet ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
         badge.textContent = `${photoCount} Photo(s), ${videoCount} Video(s)`;
       }
-
-      document.getElementById('cxUploadedFilesList').innerHTML = cxUploadedFiles.map(f =>
-        `<span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium">${escapeHtml(f.slotLabel)}: ${escapeHtml(f.name)}</span>`
-      ).join('');
+      document.getElementById('cxUploadedFilesList').innerHTML = cxUploadedFiles.map(f => `<span class="text-xs px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium">${escapeHtml(f.slotLabel)}: ${escapeHtml(f.name)}</span>`).join('');
     }
 
     async function submitCustomerPortalClaim(isFinalSubmit) {
@@ -3219,10 +2962,7 @@
 
         const { photoCount, videoCount } = countCustomerPhotoAndVideoProofs();
         if (photoCount < 1 || videoCount < 1) {
-          showBannerError(
-            'Mandatory Proofs Required (1 Photo + 1 Video)',
-            `You have uploaded ${photoCount} photo(s) and ${videoCount} video(s). Please upload at least 1 Photo AND 1 Site Video before submitting.`
-          );
+          showBannerError('Mandatory Proofs Required (1 Photo + 1 Video)', `You have uploaded ${photoCount} photo(s) and ${videoCount} video(s). Please upload at least 1 Photo AND 1 Site Video before submitting.`);
           return;
         }
 
@@ -3311,7 +3051,6 @@
       }
     }
 
-    /* ADMIN & SYSTEM */
     function renderAdminRosterTable() {
       const tbody = document.getElementById('adminRosterTableBody');
       if (!tbody) return;
@@ -3415,9 +3154,7 @@
         if (data.status === 'success') {
           lastPollTimestamp = Date.now();
           if (data.bucketsSummary) renderRosterAndBucketsBar(data.bucketsSummary);
-          const newEvents = (data.events || []).filter(ev =>
-            ev.eventType === 'CX_PORTAL' || ev.eventType === 'EMAIL_SYNC' || ev.eventType === 'SLA_ALERT'
-          );
+          const newEvents = (data.events || []).filter(ev => ev.eventType === 'CX_PORTAL' || ev.eventType === 'EMAIL_SYNC' || ev.eventType === 'SLA_ALERT');
           if (newEvents.length > 0) {
             playAlertChime();
             showToastAlert(newEvents[0].headline, newEvents[0].details);
